@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = 'fb_graph'
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{Facebook Graph API library for Ruby}
+    gem.description = %Q{Facebook Graph API library for Ruby}
     gem.email = 'nov@matake.jp'
     gem.homepage = 'http://github.com/nov/fb_graph'
     gem.authors = ['nov matake']
