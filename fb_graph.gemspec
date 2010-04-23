@@ -23,9 +23,12 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "fb_graph.gemspec",
      "lib/fb_graph.rb",
      "lib/fb_graph/node.rb",
+     "lib/fb_graph/user.rb",
      "spec/fb_graph/node_spec.rb",
+     "spec/fb_graph/user_spec.rb",
      "spec/fb_graph_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
