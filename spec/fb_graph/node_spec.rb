@@ -17,17 +17,3 @@ describe FbGraph::Node, '#initialize' do
   end
 
 end
-
-describe FbGraph::Node, '#picture' do
-
-  it 'should return image url' do
-    FbGraph::Node.new('matake').picture.should == File.join(FbGraph::ROOT_URL, 'matake/picture')
-  end
-
-  it 'should support size option' do
-    [:square, :large].each do |size|
-      FbGraph::Node.new('matake').picture(size).should == File.join(FbGraph::ROOT_URL, "matake/picture?type=#{size}")
-    end
-  end
-
-end

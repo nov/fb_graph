@@ -11,15 +11,12 @@ module FbGraph
   class FbGraph::NotFound < FbGraph::Exception; end
 
   class << self
-
     def node(identifier, options = {})
       Node.new(identifier, options)
     end
-
     def user(identifier, options = {})
       User.new(identifier, options)
     end
-
   end
 
 end

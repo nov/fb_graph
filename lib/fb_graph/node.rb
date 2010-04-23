@@ -7,8 +7,8 @@ module FbGraph
     alias_method :link=, :endpoint=
 
     def ==(other)
-      instance_variables.all? do |instance_variable|
-        instance_variable_get(instance_variable) == other.instance_variable_get(instance_variable)
+      instance_variables.all? do |key|
+        instance_variable_get(key) == other.instance_variable_get(key)
       end
     end
 
@@ -19,26 +19,34 @@ module FbGraph
       @access_token = options[:access_token]
     end
 
-    def picture(size = nil)
-      picture_endpoint = "#{self.endpoint}/picture"
-      if size
-        "#{picture_endpoint}?type=#{size}"
-      else
-        picture_endpoint
-      end
-    end
-
     protected
 
     def get(options = {})
+      _endpoint_ = build_endpoint(options)
+      handle_response RestClient.get(_endpoint_)
+    end
+
+    private
+
+    def build_endpoint(options = {})
+      # setup options
+      # TODO: might needed to reject unsupported params
       options[:access_token] ||= self.access_token
+      _options_ = options.reject do |k, v|
+        v.blank?
+      end
+
+      # setup endpoint
       _endpoint_ = if options[:connection]
         File.join(self.endpoint, options[:connection])
       else
         self.endpoint
       end
-      _endpoint_ << "?#{options.to_query}" unless options.blank?
-      response = RestClient.get(_endpoint_)
+      _endpoint_ << "?#{_options_.to_query}" unless _options_.blank?
+      _endpoint_
+    end
+
+    def handle_response(response)
       case response.code
       when 200
         JSON.parse(response.to_s).with_indifferent_access
