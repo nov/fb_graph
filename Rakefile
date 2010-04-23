@@ -10,7 +10,9 @@ begin
     gem.email = 'nov@matake.jp'
     gem.homepage = 'http://github.com/nov/fb_graph'
     gem.authors = ['nov matake']
+    gem.add_development_dependency 'json'
     gem.add_development_dependency 'activesupport'
+    gem.add_development_dependency 'rest-client'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
