@@ -21,5 +21,6 @@ module FbGraph
 
 end
 
-require 'fb_graph/node'
-require 'fb_graph/user'
+Dir[File.dirname(__FILE__) + '/fb_graph/*.rb'].each do |file| 
+  require file
+end

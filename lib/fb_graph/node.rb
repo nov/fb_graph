@@ -3,8 +3,6 @@ module FbGraph
   class Node
 
     attr_accessor :identifier, :endpoint, :access_token
-    alias_method :link, :endpoint
-    alias_method :link=, :endpoint=
 
     def ==(other)
       instance_variables.all? do |key|
@@ -29,33 +27,32 @@ module FbGraph
     private
 
     def build_endpoint(options = {})
-      # setup options
-      # TODO: might needed to reject unsupported params
+      _endpoint_ = if options[:connection]
+        File.join(self.endpoint, options.delete(:connection))
+      else
+        self.endpoint
+      end
       options[:access_token] ||= self.access_token
       _options_ = options.reject do |k, v|
         v.blank?
-      end
-
-      # setup endpoint
-      _endpoint_ = if options[:connection]
-        File.join(self.endpoint, options[:connection])
-      else
-        self.endpoint
       end
       _endpoint_ << "?#{_options_.to_query}" unless _options_.blank?
       _endpoint_
     end
 
     def handle_response(response)
-      case response.code
-      when 200
-        JSON.parse(response.to_s).with_indifferent_access
-      when 401
-        raise FbGraph::Unauthorized.new('Access token required')
-      when 404
-        raise FbGraph::NotFound.new('Object not found')
+      _response_ = JSON.parse(response.to_s).with_indifferent_access
+      if _response_[:error]
+        case _response_[:error][:type]
+        when 'OAuthAccessTokenException'
+          raise FbGraph::Unauthorized.new(_response_[:error][:message])
+        when 'QueryParseException'
+          raise FbGraph::NotFound.new(_response_[:error][:message])
+        else
+          raise FbGraph::Exception.new("#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
+        end
       else
-        raise FbGraph::Exception.new("Error with response code: #{response.code}")
+        _response_
       end
     end
 
