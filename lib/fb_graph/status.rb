@@ -4,11 +4,11 @@ module FbGraph
 
     def initialize(identifier, options = {})
       super
-      if options[:from]
-        @from = if options[:from][:category]
-          FbGraph::Page.new(options[:from][:id], :name => options[:from][:name], :category => options[:from][:category]) 
+      if (from = options[:from])
+        @from = if from[:category]
+          FbGraph::Page.new(from[:id], :name => from[:name], :category => from[:category]) 
         else
-          FbGraph::User.new(options[:from][:id], :name => options[:from][:name])
+          FbGraph::User.new(from[:id], :name => from[:name])
         end
       end
       @message = options[:message]
