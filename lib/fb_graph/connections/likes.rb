@@ -2,12 +2,13 @@ module FbGraph
   module Connections
     module Likes
       def likes(options = {})
-        @likes ||= get(options.merge(:connection => 'likes'))
-        pages = []
-        @likes[:data].each do |like|
-          pages << Page.new(like[:id], :name => like[:name], :category => like[:category])
+        unless @likes
+          @likes = get(options.merge(:connection => 'likes'))
+          @likes[:data].map! do |like|
+            Page.new(like[:id], :name => like[:name], :category => like[:category])
+          end
         end
-        pages
+        @likes
       end
     end
   end

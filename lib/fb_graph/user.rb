@@ -3,6 +3,7 @@ module FbGraph
   class User < Node
     include Connections::Likes
     include Connections::Picture
+    include Connections::Statuses
 
     attr_accessor :name, :last_name, :first_name, :link, :about, :birthday, :work, :education, :email, :website
 
