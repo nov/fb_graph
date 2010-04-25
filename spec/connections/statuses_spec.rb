@@ -14,9 +14,9 @@ describe FbGraph::Connections::Statuses, '#statuses' do
       end.should raise_exception(FbGraph::Unauthorized)
     end
 
-    it 'should return statuses with pagination info' do
+    it 'should return statuses' do
       statuses = FbGraph::User.new('arjun', :access_token => 'access_token').statuses
-      statuses[:data].first.should == FbGraph::Status.new(
+      statuses.first.should == FbGraph::Status.new(
         '113559395341627',
         :from => {
           :id => '7901103',
@@ -25,7 +25,7 @@ describe FbGraph::Connections::Statuses, '#statuses' do
         :message => 'http://www.facebook.com/photo.php?pid=60538827&l=79b44ffb74&id=7901103',
         :updated_time => '2010-04-21T21:10:16+0000'
       )
-      statuses[:data].last.should == FbGraph::Status.new(
+      statuses.last.should == FbGraph::Status.new(
         '258870336453',
         :from => {
           :id => '7901103',
@@ -34,7 +34,7 @@ describe FbGraph::Connections::Statuses, '#statuses' do
         :message => 'everything that is everywhere is in the Bharata, and what is not is nowhere',
         :updated_time => '2010-01-08T06:55:12+0000'
       )
-      statuses[:data].each do |like|
+      statuses.each do |like|
         like.should be_instance_of(FbGraph::Status)
       end
     end
@@ -54,7 +54,7 @@ describe FbGraph::Connections::Statuses, '#statuses' do
 
     it 'should return statuses with pagination info' do
       statuses = FbGraph::Page.new('platform', :access_token => 'access_token').statuses
-      statuses[:data].first.should == FbGraph::Status.new(
+      statuses.first.should == FbGraph::Status.new(
         '111081598927600',
         :from => {
           :id => '19292868552',
@@ -64,7 +64,7 @@ describe FbGraph::Connections::Statuses, '#statuses' do
         :message => 'Here\'s more information on the new social plugins announced at f8 today - http://bit.ly/db8ahS',
         :updated_time => '2010-04-21T20:17:04+0000'
       )
-      statuses[:data].last.should == FbGraph::Status.new(
+      statuses.last.should == FbGraph::Status.new(
         '59328281651',
         :from => {
           :id => '19292868552',
@@ -74,7 +74,7 @@ describe FbGraph::Connections::Statuses, '#statuses' do
         :message => 'http://developers.facebook.com/news.php?blog=1&story=209',
         :updated_time => '2009-03-06T22:56:36+0000'
       )
-      statuses[:data].each do |like|
+      statuses.each do |like|
         like.should be_instance_of(FbGraph::Status)
       end
     end

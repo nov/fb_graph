@@ -8,7 +8,7 @@ module FbGraph
             Post.new(post.delete(:id), post)
           end
         end
-        @post
+        Collection.new(@posts)
       end
     end
   end

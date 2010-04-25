@@ -8,7 +8,7 @@ module FbGraph
             Status.new(status.delete(:id), status)
           end
         end
-        @statuses
+        Collection.new(@statuses)
       end
     end
   end

@@ -8,7 +8,7 @@ module FbGraph
             Page.new(like.delete(:id), like)
           end
         end
-        @likes
+        Collection.new(@likes)
       end
     end
   end
