@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), '../spec_helper')
+require File.join(File.dirname(__FILE__), '../../spec_helper')
 
 describe FbGraph::Connections::Home, '#home' do
   describe 'when included by FbGraph::User' do

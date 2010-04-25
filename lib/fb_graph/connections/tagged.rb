@@ -2,13 +2,11 @@ module FbGraph
   module Connections
     module Tagged
       def tagged(options = {})
-        unless @posts
-          @posts = get(options.merge(:connection => 'tagged'))
-          @posts[:data].map! do |post|
-            Post.new(post.delete(:id), post)
-          end
+        posts = get(options.merge(:connection => 'tagged'))
+        posts[:data].map! do |post|
+          Post.new(post.delete(:id), post)
         end
-        Collection.new(@posts)
+        Collection.new(posts)
       end
     end
   end
