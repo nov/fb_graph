@@ -2,11 +2,11 @@ module FbGraph
   module Connections
     module Picture
       def picture(size = nil)
-        picture_endpoint = "#{self.endpoint}/picture"
+        _endpoint_ = "#{self.endpoint}/picture"
         if size
-          "#{picture_endpoint}?type=#{size}"
+          "#{_endpoint_}?type=#{size}"
         else
-          picture_endpoint
+          _endpoint_
         end
       end
     end

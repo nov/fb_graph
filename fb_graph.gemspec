@@ -25,11 +25,29 @@ Gem::Specification.new do |s|
      "VERSION",
      "fb_graph.gemspec",
      "lib/fb_graph.rb",
+     "lib/fb_graph/connections.rb",
+     "lib/fb_graph/connections/likes.rb",
+     "lib/fb_graph/connections/picture.rb",
+     "lib/fb_graph/connections/statuses.rb",
      "lib/fb_graph/node.rb",
+     "lib/fb_graph/page.rb",
+     "lib/fb_graph/status.rb",
      "lib/fb_graph/user.rb",
+     "spec/connections/likes_spec.rb",
+     "spec/connections/picture_spec.rb",
+     "spec/connections/statuses_spec.rb",
+     "spec/fake_json/pages/statuses/platform_private.json",
+     "spec/fake_json/pages/statuses/platform_public.json",
+     "spec/fake_json/users/arjun_private.json",
+     "spec/fake_json/users/arjun_public.json",
+     "spec/fake_json/users/likes/arjun_private.json",
+     "spec/fake_json/users/likes/arjun_public.json",
+     "spec/fake_json/users/statuses/arjun_private.json",
+     "spec/fake_json/users/statuses/arjun_public.json",
      "spec/fb_graph/node_spec.rb",
      "spec/fb_graph/user_spec.rb",
      "spec/fb_graph_spec.rb",
+     "spec/helpers/fake_json_helper.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
   ]
@@ -39,9 +57,13 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{Facebook Graph API library for Ruby}
   s.test_files = [
-    "spec/fb_graph/node_spec.rb",
+    "spec/connections/likes_spec.rb",
+     "spec/connections/picture_spec.rb",
+     "spec/connections/statuses_spec.rb",
+     "spec/fb_graph/node_spec.rb",
      "spec/fb_graph/user_spec.rb",
      "spec/fb_graph_spec.rb",
+     "spec/helpers/fake_json_helper.rb",
      "spec/spec_helper.rb"
   ]
 

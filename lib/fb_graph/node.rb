@@ -1,7 +1,5 @@
 module FbGraph
-
   class Node
-
     attr_accessor :identifier, :endpoint, :access_token
 
     def ==(other)
@@ -11,10 +9,14 @@ module FbGraph
     end
 
     def initialize(identifier, options = {})
-      raise FbGraph::NotFound.new('No identifier specified') if identifier.blank?
       @identifier   = identifier
-      @endpoint     = File.join(FbGraph::ROOT_URL,identifier)
+      @endpoint     = File.join(FbGraph::ROOT_URL, identifier)
       @access_token = options[:access_token]
+    end
+
+    def self.fetch(identifier, options = {})
+      _fetched_ = new(identifier).send(:get, options)
+      new(_fetched_.delete(:id), _fetched_)
     end
 
     protected
@@ -57,5 +59,4 @@ module FbGraph
     end
 
   end
-
 end

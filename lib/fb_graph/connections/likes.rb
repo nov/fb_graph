@@ -5,7 +5,7 @@ module FbGraph
         unless @likes
           @likes = get(options.merge(:connection => 'likes'))
           @likes[:data].map! do |like|
-            Page.new(like[:id], :name => like[:name], :category => like[:category])
+            Page.new(like.delete(:id), like)
           end
         end
         @likes
