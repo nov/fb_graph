@@ -7,9 +7,7 @@ describe FbGraph, '#node' do
 end
 
 describe FbGraph, '#user' do
-
   it "should return FbGraph::User instance" do
     FbGraph.user('matake').should == FbGraph::User.new('matake')
   end
-
 end
