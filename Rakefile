@@ -13,7 +13,6 @@ begin
     gem.add_development_dependency 'json'
     gem.add_development_dependency 'activesupport'
     gem.add_development_dependency 'rest-client'
-    gem.add_development_dependency 'will_paginate'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

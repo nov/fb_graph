@@ -93,18 +93,15 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<json>, [">= 0"])
       s.add_development_dependency(%q<activesupport>, [">= 0"])
       s.add_development_dependency(%q<rest-client>, [">= 0"])
-      s.add_development_dependency(%q<will_paginate>, [">= 0"])
     else
       s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 0"])
       s.add_dependency(%q<rest-client>, [">= 0"])
-      s.add_dependency(%q<will_paginate>, [">= 0"])
     end
   else
     s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<activesupport>, [">= 0"])
     s.add_dependency(%q<rest-client>, [">= 0"])
-    s.add_dependency(%q<will_paginate>, [">= 0"])
   end
 end
 
