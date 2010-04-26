@@ -1,23 +1,25 @@
 module FbGraph
   class Post < Node
+    include Connections::Comments
+
     attr_accessor :from, :to, :message, :picture, :link, :name, :caption, :description, :source, :icon, :attribution, :actions, :likes, :created_time, :updated_time
 
     def initialize(identifier, options = {})
       super
       if (from = options[:from])
         @from = if from[:category]
-          FbGraph::Page.new(from[:id], :name => from[:name], :category => from[:category]) 
+          FbGraph::Page.new(from.delete(:id), from) 
         else
-          FbGraph::User.new(from[:id], :name => from[:name])
+          FbGraph::User.new(from.delete(:id), from) 
         end
       end
       @to = []
       if options[:to]
         options[:to][:data].each do |to|
           @to << if to[:category]
-            FbGraph::Page.new(to[:id], :name => to[:name], :category => to[:category]) 
+            FbGraph::Page.new(to.delete(:id), to) 
           else
-            FbGraph::User.new(to[:id], :name => to[:name])
+            FbGraph::User.new(to.delete(:id), to) 
           end
         end
       end

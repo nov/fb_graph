@@ -13,17 +13,19 @@ module FbGraph
     include Connections::Movies
     include Connections::Television
     include Connections::Likes
-    # photos
-    # albums
-    # videos
-    # groups
+    include Connections::Photos
+    include Connections::Albums
+    include Connections::Videos
+    include Connections::Groups
     include Connections::Statuses
-    # links
-    # notes
-    # events
-    # inbox
-    # outbox
-    # updates
+    include Connections::Links
+    include Connections::Notes
+    include Connections::Events
+
+    # TODO:
+    # include Connections::Inbox
+    # include Connections::Outbox
+    # include Connections::Updates
 
     attr_accessor :name, :last_name, :first_name, :link, :about, :birthday, :work, :education, :email, :website
 
