@@ -20,11 +20,6 @@ describe FbGraph::Connections::Likes, '#likes' do
         :name => 'Doing Things at the Last Minute',
         :category => '活動'
       )
-      likes.last.should == FbGraph::Page.new(
-        '329322570299',
-        :name => 'Dirtybird Records',
-        :category => 'Products_other'
-      )
       likes.each do |like|
         like.should be_instance_of(FbGraph::Page)
       end

@@ -2,10 +2,28 @@ module FbGraph
   class User < Node
     include Connections::Home
     include Connections::Feed
+    include Connections::Tagged
     include Connections::Posts
-    include Connections::Likes
     include Connections::Picture
+    include Connections::Friends
+    include Connections::Activities
+    include Connections::Interests
+    include Connections::Music
+    include Connections::Books
+    include Connections::Movies
+    include Connections::Television
+    include Connections::Likes
+    # photos
+    # albums
+    # videos
+    # groups
     include Connections::Statuses
+    # links
+    # notes
+    # events
+    # inbox
+    # outbox
+    # updates
 
     attr_accessor :name, :last_name, :first_name, :link, :about, :birthday, :work, :education, :email, :website
 

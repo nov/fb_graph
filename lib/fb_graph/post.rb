@@ -13,7 +13,7 @@ module FbGraph
       end
       @to = []
       if options[:to]
-        options[:to].each do |to|
+        options[:to][:data].each do |to|
           @to << if to[:category]
             FbGraph::Page.new(to[:id], :name => to[:name], :category => to[:category]) 
           else

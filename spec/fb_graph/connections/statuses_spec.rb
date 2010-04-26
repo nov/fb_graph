@@ -25,15 +25,6 @@ describe FbGraph::Connections::Statuses, '#statuses' do
         :message => 'http://www.facebook.com/photo.php?pid=60538827&l=79b44ffb74&id=7901103',
         :updated_time => '2010-04-21T21:10:16+0000'
       )
-      statuses.last.should == FbGraph::Status.new(
-        '258870336453',
-        :from => {
-          :id => '7901103',
-          :name => 'Arjun Banker'
-        },
-        :message => 'everything that is everywhere is in the Bharata, and what is not is nowhere',
-        :updated_time => '2010-01-08T06:55:12+0000'
-      )
       statuses.each do |like|
         like.should be_instance_of(FbGraph::Status)
       end
@@ -63,16 +54,6 @@ describe FbGraph::Connections::Statuses, '#statuses' do
         },
         :message => 'Here\'s more information on the new social plugins announced at f8 today - http://bit.ly/db8ahS',
         :updated_time => '2010-04-21T20:17:04+0000'
-      )
-      statuses.last.should == FbGraph::Status.new(
-        '59328281651',
-        :from => {
-          :id => '19292868552',
-          :name => 'Facebook Platform',
-          :category => 'Technology'
-        },
-        :message => 'http://developers.facebook.com/news.php?blog=1&story=209',
-        :updated_time => '2009-03-06T22:56:36+0000'
       )
       statuses.each do |like|
         like.should be_instance_of(FbGraph::Status)
