@@ -1,6 +1,30 @@
-= fb_graph
+= FbGraph
 
-Description goes here.
+A Ruby wrapper for Facebook Graph API.
+This is a work in progress.
+
+== Examples
+
+# Basic Objects
+user = FbGraph::User.fetch('matake')
+user.name    # => 'Nov Matake'
+user.picture # => 'https://graph.facebook.com/matake/picture'
+
+page = FbGraph::Page.fetch('smartfmteam')
+page.name     # => 'smart.fm'
+page.picture  # => 'https://graph.facebook.com/smart.fm/picture'
+
+:
+:
+
+# Connections
+likes = user.likes # => Array of FbGraph::Like
+likes.next         # => {:limit => 25, :until => '...'}
+likes.previous     # => {:limit => 25, :since => '...'}
+
+# Pagination
+user.likes(likes.next)     # => Array of FbGraph::Like
+user.likes(likes.previous) # => Array of FbGraph::Like
 
 == Note on Patches/Pull Requests
  
