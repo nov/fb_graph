@@ -18,10 +18,14 @@ This is a work in progress.
 Now FbGraph supports all objects listed here: http://developers.facebook.com/docs/reference/api/
 Almost all connections　for each object are also supported. (Private message connections are not supported yet)
 
-  # Basic Objects
+=== Basic Objects
+
   user = FbGraph::User.fetch('matake')
   user.name    # => 'Nov Matake'
   user.picture # => 'https://graph.facebook.com/matake/picture'
+
+  # User.new doesn't fetch the user's profile info
+  me = User.new('me', :token => YOUR_ACCESS_TOKEN)
 
   page = FbGraph::Page.fetch('smartfmteam')
   page.name     # => 'smart.fm'
@@ -29,12 +33,34 @@ Almost all connections　for each object are also supported. (Private message co
 
   :
 
-  # Connections
+=== Connections
+
+  # Public connections
+  user = FbGraph::User.fetch('matake')
+  user.feed
+  user.posts
+  user.friends
+  user.tagged
+  :
+  
+  # Private connections requires "token"
+  FbGraph::User.new('matake').friends # => raise FbGraph::Unauthorized
+  user = FbGraph::User.fetch('matake', :token => YOUR_ACCESS_TOKEN)
+  user.albums
+  user.events
+  user.friends
+  user.likes
+  :
+  
+  # "home" connection is only available for "me"
+  me = User.new('me', :token => YOUR_ACCESS_TOKEN)
+  me.home
+  :
+
+=== Pagination
   likes = user.likes # => Array of FbGraph::Like
   likes.next         # => {:limit => 25, :until => '...'}
   likes.previous     # => {:limit => 25, :since => '...'}
-
-  # Pagination
   user.likes(likes.next)     # => Array of FbGraph::Like
   user.likes(likes.previous) # => Array of FbGraph::Like
 
