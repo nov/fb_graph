@@ -21,14 +21,21 @@ module FbGraph
 
 end
 
-require 'fb_graph/node'
+require 'fb_graph/comparison'
+require 'fb_graph/collection'
 require 'fb_graph/connections'
 
+require 'fb_graph/node'
 require 'fb_graph/album'
+require 'fb_graph/event'
 require 'fb_graph/group'
+require 'fb_graph/link'
+require 'fb_graph/note'
 require 'fb_graph/page'
 require 'fb_graph/photo'
 require 'fb_graph/post'
 require 'fb_graph/status'
+require 'fb_graph/tag'
 require 'fb_graph/user'
+require 'fb_graph/venue'
 require 'fb_graph/video'

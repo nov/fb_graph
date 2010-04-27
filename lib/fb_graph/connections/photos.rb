@@ -2,7 +2,7 @@ module FbGraph
   module Connections
     module Photos
       def photos(options = {})
-        photos = Collection.new(get(options.merge(:connection => 'photos')))
+        photos = FbGraph::Collection.new(get(options.merge(:connection => 'photos')))
         photos.map! do |photo|
           Photo.new(photo.delete(:id), photo)
         end

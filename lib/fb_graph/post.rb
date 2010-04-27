@@ -15,7 +15,7 @@ module FbGraph
       end
       @to = []
       if options[:to]
-        options[:to][:data].each do |to|
+        FbGraph::Collection.new(options[:to]).each do |to|
           @to << if to[:category]
             FbGraph::Page.new(to.delete(:id), to) 
           else

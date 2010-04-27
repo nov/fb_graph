@@ -4,16 +4,6 @@ module FbGraph
 
     attr_accessor :from, :tags, :name, :picture, :source, :height, :width, :link, :created_time, :updated_time
 
-    class Tag
-      attr_accessor :user, :x, :y, :created_time
-      def initialize(identifier, options = {})
-        @x = options.delete(:x)
-        @y = options.delete(:y)
-        @created_time = options.delete(:created_time)
-        @user = User.new(identifier, options)
-      end
-    end
-
     def initialize(identifier, options = {})
       super
       if (from = options[:from])
@@ -25,8 +15,8 @@ module FbGraph
       end
       @tags = []
       if options[:tags]
-        options[:tags][:data].each do |tag|
-          FbGraph::Tag.new(tag.delete(:id), tag) 
+        FbGraph::Collection.new(options[:tags]).each do |tag|
+          @tags << FbGraph::Tag.new(tag.delete(:id), tag) 
         end
       end
       @name         = options[:name]

@@ -20,7 +20,9 @@ module FbGraph
       @start_time   = options[:start_time]
       @end_time     = options[:end_time]
       @location     = options[:location]
-      @venue        = options[:venue]
+      if options[:venue]
+        @venue = FbGraph::Venue.new(options[:venue])
+      end
       @privacy      = options[:privacy]
       @updated_time = options[:updated_time]
     end

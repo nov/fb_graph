@@ -1,5 +1,5 @@
 module FbGraph
-  class Page < Node
+  class Link < Node
     include Connections::Comments
 
     attr_accessor :from, :link, :message, :updated_time

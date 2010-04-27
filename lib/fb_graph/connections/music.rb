@@ -2,7 +2,7 @@ module FbGraph
   module Connections
     module Music
       def music(options = {})
-        music = Collection.new(get(options.merge(:connection => 'music')))
+        music = FbGraph::Collection.new(get(options.merge(:connection => 'music')))
         music.map! do |_music_|
           Page.new(_music_.delete(:id), _music_)
         end

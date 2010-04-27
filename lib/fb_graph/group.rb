@@ -4,7 +4,7 @@ module FbGraph
     include Connections::Members
     include Connections::Picture
 
-    attr_accessor :owner, :name, :description, :link, :venue, :longitude, :privacy, :updated_time
+    attr_accessor :owner, :name, :description, :link, :venue, :privacy, :updated_time
 
     def initialize(identifier, options = {})
       super
@@ -14,8 +14,9 @@ module FbGraph
       @name         = options[:name]
       @description  = options[:description]
       @link         = options[:link]
-      @venue        = options[:venue]
-      @longitude    = options[:longitude]
+      if options[:venue]
+        @venue = FbGraph::Venue.new(options[:venue])
+      end
       @privacy      = options[:privacy]
       @updated_time = options[:updated_time]
     end

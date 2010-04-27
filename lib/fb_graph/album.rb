@@ -1,5 +1,5 @@
 module FbGraph
-  class Photo < Node
+  class Album < Node
     include Connections::Photos
     include Connections::Comments
 

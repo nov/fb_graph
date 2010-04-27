@@ -1,6 +1,6 @@
-require File.join(File.dirname(__FILE__), '../../spec_helper')
+require File.join(File.dirname(__FILE__), '../spec_helper')
 
-describe FbGraph::Connections::Collection do
+describe FbGraph::Collection do
   before(:all) do
     fake_json(:get, 'platform/statuses', 'pages/statuses/platform_public')
     fake_json(:get, 'platform/statuses?access_token=access_token', 'pages/statuses/platform_private')

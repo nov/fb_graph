@@ -2,7 +2,7 @@ module FbGraph
   module Connections
     module Members
       def members(options = {})
-        members = Collection.new(get(options.merge(:connection => 'members')))
+        members = FbGraph::Collection.new(get(options.merge(:connection => 'members')))
         member.map! do |member|
           if member[:category]
             Page.new(member.delete(:id), member)

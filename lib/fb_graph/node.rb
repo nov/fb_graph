@@ -1,12 +1,8 @@
 module FbGraph
   class Node
-    attr_accessor :identifier, :endpoint, :access_token
+    include FbGraph::Comparison
 
-    def ==(other)
-      instance_variables.all? do |key|
-        instance_variable_get(key) == other.instance_variable_get(key)
-      end
-    end
+    attr_accessor :identifier, :endpoint, :access_token
 
     def initialize(identifier, options = {})
       @identifier   = identifier
