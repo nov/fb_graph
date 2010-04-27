@@ -4,10 +4,10 @@ describe FbGraph::Connections::Tagged, '#tagged' do
   describe 'when included by FbGraph::User' do
     before(:all) do
       fake_json(:get, 'arjun/tagged', 'users/tagged/arjun_public')
-      fake_json(:get, 'arjun/tagged?access_token=access_token', 'users/tagged/arjun_private')
+      fake_json(:get, 'arjun/tagged?token=token', 'users/tagged/arjun_private')
     end
 
-    it 'should return public own posts even when access_token is not given' do
+    it 'should return public own posts even when token is not given' do
       posts = FbGraph::User.new('arjun').tagged
       posts.first.should == FbGraph::Post.new(
         '7901103_117809521578252',

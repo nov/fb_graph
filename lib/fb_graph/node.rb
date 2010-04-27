@@ -2,12 +2,12 @@ module FbGraph
   class Node
     include FbGraph::Comparison
 
-    attr_accessor :identifier, :endpoint, :access_token
+    attr_accessor :identifier, :endpoint, :token
 
     def initialize(identifier, options = {})
-      @identifier   = identifier
-      @endpoint     = File.join(FbGraph::ROOT_URL, identifier)
-      @access_token = options[:access_token]
+      @identifier = identifier
+      @endpoint   = File.join(FbGraph::ROOT_URL, identifier)
+      @token      = options[:token]
     end
 
     def self.fetch(identifier, options = {})
@@ -30,7 +30,7 @@ module FbGraph
       else
         self.endpoint
       end
-      options[:access_token] ||= self.access_token
+      options[:token] ||= self.token
       _options_ = options.reject do |k, v|
         v.blank?
       end
