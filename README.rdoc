@@ -14,6 +14,9 @@ This is a work in progress.
 
 == Examples
 
+Now FbGraph supports all objects listed here: http://developers.facebook.com/docs/reference/api/
+Almost all connections　for each object are also supported. (Private message connections are not supported yet)
+
   # Basic Objects
   user = FbGraph::User.fetch('matake')
   user.name    # => 'Nov Matake'
@@ -23,7 +26,6 @@ This is a work in progress.
   page.name     # => 'smart.fm'
   page.picture  # => 'https://graph.facebook.com/smart.fm/picture'
 
-  :
   :
 
   # Connections
