@@ -10,6 +10,7 @@ This is a work in progress.
 == Resources
 
 * View Source on GitHub (http://github.com/nov/fb_graph)
+* View RDoc on GitHub (http://nov.github.com/fb_graph)
 * Report Issues on GitHub (http://github.com/nov/fb_graph/issues)
 
 == Examples
