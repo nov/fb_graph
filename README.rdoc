@@ -45,7 +45,7 @@ Almost all connections　for each object are also supported. (Private message co
   
   # Private connections requires "token"
   FbGraph::User.new('matake').friends # => raise FbGraph::Unauthorized
-  user = FbGraph::User.fetch('matake', :token => YOUR_ACCESS_TOKEN)
+  user = FbGraph::User.fetch('matake', :token => ACCESS_TOKEN)
   user.albums
   user.events
   user.friends
@@ -53,11 +53,13 @@ Almost all connections　for each object are also supported. (Private message co
   :
   
   # "home" connection is only available for "me"
-  me = User.new('me', :token => YOUR_ACCESS_TOKEN)
+  me = User.new('me', :token => ACCESS_TOKEN)
   me.home
   :
 
 === Pagination
+
+  user = FbGraph::User.new('matake', :token => ACCESS_TOKEN)
   likes = user.likes # => Array of FbGraph::Like
   likes.next         # => {:limit => 25, :until => '...'}
   likes.previous     # => {:limit => 25, :since => '...'}
