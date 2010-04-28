@@ -6,7 +6,7 @@ module FbGraph
 
     def initialize(identifier, options = {})
       @identifier   = identifier
-      @endpoint     = File.join(FbGraph::ROOT_URL, identifier)
+      @endpoint     = File.join(FbGraph::ROOT_URL, identifier.to_s)
       @access_token = options[:access_token]
     end
 

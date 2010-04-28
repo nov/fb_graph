@@ -1,22 +1,8 @@
 require File.join(File.dirname(__FILE__), '../spec_helper')
 
 describe FbGraph::User, '.me' do
-  before(:all) do
-    fake_json(:get, 'me', 'users/me_public')
-    fake_json(:get, 'me?access_token=access_token', 'users/me_private')
-  end
-
   it 'should return FbGraph::User instance with access_token' do
-    FbGraph::User.me('access_token').should == FbGraph::User.new(
-      '579612276',
-      :name => 'Nov Matake',
-      :first_name => 'Nov',
-      :last_name => 'Matake',
-      :link => 'http://www.facebook.com/matake',
-      :about => 'I\'m a Ruby on Rails Developer on smart.fm',
-      :birthday => '12/13/1981',
-      :website => "http://matake.jp\nhttp://blog.matake.jp\nhttp://railspress.matake.jp"
-    )
+    FbGraph::User.me('access_token').should == FbGraph::User.new('me', :access_token => 'access_token')
   end
 end
 
