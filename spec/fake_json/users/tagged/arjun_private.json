@@ -302,7 +302,7 @@
       }
    ],
    "paging": {
-      "previous": "https://graph.facebook.com/7901103/tagged?token=2227470867%7C2.dao7m2Ak0L3D0GcdwgAOxA__.3600.1272276000-579612276%7CDtIxF8whuaOlF3IJ8PQssQYHWk8.&limit=25&since=2010-04-24T08%3A07%3A59%2B0000",
-      "next": "https://graph.facebook.com/7901103/tagged?token=2227470867%7C2.dao7m2Ak0L3D0GcdwgAOxA__.3600.1272276000-579612276%7CDtIxF8whuaOlF3IJ8PQssQYHWk8.&limit=25&until=2010-04-21T07%3A55%3A49%2B0000"
+      "previous": "https://graph.facebook.com/7901103/tagged?access_token=2227470867%7C2.dao7m2Ak0L3D0GcdwgAOxA__.3600.1272276000-579612276%7CDtIxF8whuaOlF3IJ8PQssQYHWk8.&limit=25&since=2010-04-24T08%3A07%3A59%2B0000",
+      "next": "https://graph.facebook.com/7901103/tagged?access_token=2227470867%7C2.dao7m2Ak0L3D0GcdwgAOxA__.3600.1272276000-579612276%7CDtIxF8whuaOlF3IJ8PQssQYHWk8.&limit=25&until=2010-04-21T07%3A55%3A49%2B0000"
    }
 }

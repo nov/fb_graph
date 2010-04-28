@@ -4,17 +4,17 @@ describe FbGraph::Connections::Albums, '#albums' do
   describe 'when included by FbGraph::User' do
     before(:all) do
       fake_json(:get, 'matake/albums', 'users/albums/matake_public')
-      fake_json(:get, 'matake/albums?token=token', 'users/albums/matake_private')
+      fake_json(:get, 'matake/albums?access_token=access_token', 'users/albums/matake_private')
     end
 
-    it 'should raise FbGraph::Unauthorized when no token given' do
+    it 'should raise FbGraph::Unauthorized when no access_token given' do
       lambda do
         FbGraph::User.new('matake').albums
       end.should raise_exception(FbGraph::Unauthorized)
     end
 
     it 'should return liked pages' do
-      albums = FbGraph::User.new('matake', :token => 'token').albums
+      albums = FbGraph::User.new('matake', :access_token => 'access_token').albums
       albums.first.should == FbGraph::Album.new(
         '19351532276',
         :from => {

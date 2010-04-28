@@ -4,12 +4,12 @@ describe FbGraph::Connections::Home, '#home' do
   describe 'when included by FbGraph::User' do
     before(:all) do
       fake_json(:get, 'me/home', 'users/home/me_public')
-      fake_json(:get, 'me/home?token=token', 'users/home/me_private')
+      fake_json(:get, 'me/home?access_token=access_token', 'users/home/me_private')
       fake_json(:get, 'arjun/home', 'users/home/arjun_public')
-      fake_json(:get, 'arjun/home?token=token', 'users/home/arjun_private')
+      fake_json(:get, 'arjun/home?access_token=access_token', 'users/home/arjun_private')
     end
 
-    it 'should raise FbGraph::Exception when no token given' do
+    it 'should raise FbGraph::Exception when no access_token given' do
       lambda do
         FbGraph::User.new('arjun').home
       end.should raise_exception(FbGraph::Exception)
@@ -17,18 +17,18 @@ describe FbGraph::Connections::Home, '#home' do
 
     it 'should raise FbGraph::Exception when identifier is not me' do
       lambda do
-        FbGraph::User.new('arjun', :token => 'token').home
+        FbGraph::User.new('arjun', :access_token => 'access_token').home
       end.should raise_exception(FbGraph::Exception)
     end
 
-    it 'should raise FbGraph::NotFound when identifier is me and no token is given' do
+    it 'should raise FbGraph::NotFound when identifier is me and no access_token is given' do
       lambda do
         FbGraph::User.new('me').home
       end.should raise_exception(FbGraph::NotFound)
     end
 
-    it 'should return posts when identifier is me and token is given' do
-      posts = FbGraph::User.new('me', :token => 'token').home
+    it 'should return posts when identifier is me and access_token is given' do
+      posts = FbGraph::User.new('me', :access_token => 'access_token').home
       posts.first.should == FbGraph::Post.new(
         '634033380_112599768777073',
         :from => {

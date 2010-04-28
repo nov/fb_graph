@@ -43,8 +43,8 @@ module FbGraph
       @website    = options[:website]
     end
 
-    def self.me(token)
-      new('me', :token => token)
+    def self.me(access_token)
+      fetch('me', :access_token => access_token)
     end
 
   end

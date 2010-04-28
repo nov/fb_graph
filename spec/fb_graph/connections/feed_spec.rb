@@ -4,10 +4,10 @@ describe FbGraph::Connections::Feed, '#feed' do
   describe 'when included by FbGraph::User' do
     before(:all) do
       fake_json(:get, 'arjun/feed', 'users/feed/arjun_public')
-      fake_json(:get, 'arjun/feed?token=token', 'users/feed/arjun_private')
+      fake_json(:get, 'arjun/feed?access_token=access_token', 'users/feed/arjun_private')
     end
 
-    it 'should return public wall posts even when token is not given' do
+    it 'should return public wall posts even when access_token is not given' do
       posts = FbGraph::User.new('arjun').feed
       posts.first.should == FbGraph::Post.new(
         '7901103_121392141207495',

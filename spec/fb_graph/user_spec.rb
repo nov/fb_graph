@@ -1,18 +1,32 @@
 require File.join(File.dirname(__FILE__), '../spec_helper')
 
 describe FbGraph::User, '.me' do
-  it 'should return FbGraph::User instance with token' do
-    FbGraph::User.me('token').should == FbGraph::User.new('me', :token => 'token')
+  before(:all) do
+    fake_json(:get, 'me', 'users/me_public')
+    fake_json(:get, 'me?access_token=access_token', 'users/me_private')
+  end
+
+  it 'should return FbGraph::User instance with access_token' do
+    FbGraph::User.me('access_token').should == FbGraph::User.new(
+      '579612276',
+      :name => 'Nov Matake',
+      :first_name => 'Nov',
+      :last_name => 'Matake',
+      :link => 'http://www.facebook.com/matake',
+      :about => 'I\'m a Ruby on Rails Developer on smart.fm',
+      :birthday => '12/13/1981',
+      :website => "http://matake.jp\nhttp://blog.matake.jp\nhttp://railspress.matake.jp"
+    )
   end
 end
 
 describe FbGraph::User, '.fetch' do
   before(:all) do
     fake_json(:get, 'arjun', 'users/arjun_public')
-    fake_json(:get, 'arjun?token=token', 'users/arjun_private')
+    fake_json(:get, 'arjun?access_token=access_token', 'users/arjun_private')
   end
 
-  it 'should get only public profile when no token given' do
+  it 'should get only public profile when no access_token given' do
     user = FbGraph::User.fetch('arjun')
     user.name.should       == 'Arjun Banker'
     user.first_name.should == 'Arjun'
@@ -21,8 +35,8 @@ describe FbGraph::User, '.fetch' do
     user.link.should       == 'http://www.facebook.com/Arjun'
   end
 
-  it 'should get public + private profile when token given' do
-    user = FbGraph::User.fetch('arjun', :token => 'token')
+  it 'should get public + private profile when access_token given' do
+    user = FbGraph::User.fetch('arjun', :access_token => 'access_token')
     # public
     user.name.should       == 'Arjun Banker'
     user.first_name.should == 'Arjun'

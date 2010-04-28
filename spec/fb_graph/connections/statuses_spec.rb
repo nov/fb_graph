@@ -5,17 +5,17 @@ describe FbGraph::Connections::Statuses, '#statuses' do
   describe 'when included by FbGraph::User' do
     before(:all) do
       fake_json(:get, 'arjun/statuses', 'users/statuses/arjun_public')
-      fake_json(:get, 'arjun/statuses?token=token', 'users/statuses/arjun_private')
+      fake_json(:get, 'arjun/statuses?access_token=access_token', 'users/statuses/arjun_private')
     end
 
-    it 'should raise FbGraph::Unauthorized when no token given' do
+    it 'should raise FbGraph::Unauthorized when no access_token given' do
       lambda do
         FbGraph::User.new('arjun').statuses
       end.should raise_exception(FbGraph::Unauthorized)
     end
 
     it 'should return statuses' do
-      statuses = FbGraph::User.new('arjun', :token => 'token').statuses
+      statuses = FbGraph::User.new('arjun', :access_token => 'access_token').statuses
       statuses.first.should == FbGraph::Status.new(
         '113559395341627',
         :from => {
@@ -34,17 +34,17 @@ describe FbGraph::Connections::Statuses, '#statuses' do
   describe 'when included by FbGraph::Page' do
     before(:all) do
       fake_json(:get, 'platform/statuses', 'pages/statuses/platform_public')
-      fake_json(:get, 'platform/statuses?token=token', 'pages/statuses/platform_private')
+      fake_json(:get, 'platform/statuses?access_token=access_token', 'pages/statuses/platform_private')
     end
 
-    it 'should raise FbGraph::Unauthorized when no token given' do
+    it 'should raise FbGraph::Unauthorized when no access_token given' do
       lambda do
         FbGraph::Page.new('platform').statuses
       end.should raise_exception(FbGraph::Unauthorized)
     end
 
     it 'should return statuses with pagination info' do
-      statuses = FbGraph::Page.new('platform', :token => 'token').statuses
+      statuses = FbGraph::Page.new('platform', :access_token => 'access_token').statuses
       statuses.first.should == FbGraph::Status.new(
         '111081598927600',
         :from => {

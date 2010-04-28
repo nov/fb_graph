@@ -25,7 +25,7 @@ module FbGraph
         params[key] = URI.unescape(value)
       end
       params.delete_if do |k, v|
-        k == 'token'
+        k == 'access_token'
       end
     end
   end

@@ -2,11 +2,11 @@ require File.join(File.dirname(__FILE__), '../spec_helper')
 
 describe FbGraph::Collection, '#new' do
   before(:all) do
-    fake_json(:get, 'platform/statuses?token=token', 'pages/statuses/platform_private')
+    fake_json(:get, 'platform/statuses?access_token=access_token', 'pages/statuses/platform_private')
   end
 
   it 'should return an array with pagination info' do
-    statuses = FbGraph::Page.new('platform', :token => 'token').statuses
+    statuses = FbGraph::Page.new('platform', :access_token => 'access_token').statuses
     statuses.should be_kind_of(Array)
     statuses.previous.should be_kind_of(Hash)
     statuses.next.should be_kind_of(Hash)
@@ -15,13 +15,13 @@ end
 
 describe FbGraph::Collection do
   before(:all) do
-    fake_json(:get, 'me/home?token=token', 'users/home/me_private')
-    fake_json(:get, 'me/home?limit=25&since=2010-04-27T13%3A06%3A14%2B0000&token=token', 'users/home/me_private_previous')
-    fake_json(:get, 'me/home?limit=25&token=token&until=2010-04-27T11%3A07%3A48%2B0000', 'users/home/me_private_next')
+    fake_json(:get, 'me/home?access_token=access_token', 'users/home/me_private')
+    fake_json(:get, 'me/home?limit=25&since=2010-04-27T13%3A06%3A14%2B0000&access_token=access_token', 'users/home/me_private_previous')
+    fake_json(:get, 'me/home?limit=25&access_token=access_token&until=2010-04-27T11%3A07%3A48%2B0000', 'users/home/me_private_next')
   end
 
   it 'should ' do
-    me = FbGraph::User.new('me', :token => 'token')
+    me = FbGraph::User.new('me', :access_token => 'access_token')
     posts = me.home
     puts posts.previous.inspect, posts.next.inspect
     previous_posts = me.home(posts.previous)
