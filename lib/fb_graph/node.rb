@@ -10,6 +10,11 @@ module FbGraph
       @access_token = options[:access_token]
     end
 
+    def fetch(options = {})
+      options[:access_token] ||= self.access_token if self.access_token
+      self.class.fetch(self.identifier, options)
+    end
+
     def self.fetch(identifier, options = {})
       _fetched_ = new(identifier).send(:get, options)
       new(_fetched_.delete(:id), _fetched_)

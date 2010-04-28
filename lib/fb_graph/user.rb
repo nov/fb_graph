@@ -44,7 +44,7 @@ module FbGraph
     end
 
     def self.me(access_token)
-      fetch('me', :access_token => access_token)
+      new('me', :access_token => access_token)
     end
 
   end

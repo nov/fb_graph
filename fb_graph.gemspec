@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
-  s.date = %q{2010-04-27}
-  s.description = %q{Facebook Graph API library for Ruby}
+  s.date = %q{2010-04-28}
+  s.description = %q{A Ruby wrapper for Facebook Graph API}
   s.email = %q{nov@matake.jp}
   s.extra_rdoc_files = [
     "LICENSE",
@@ -99,6 +99,8 @@ Gem::Specification.new do |s|
      "spec/fake_json/users/home/me_public.json",
      "spec/fake_json/users/likes/arjun_private.json",
      "spec/fake_json/users/likes/arjun_public.json",
+     "spec/fake_json/users/me_private.json",
+     "spec/fake_json/users/me_public.json",
      "spec/fake_json/users/posts/arjun_private.json",
      "spec/fake_json/users/posts/arjun_public.json",
      "spec/fake_json/users/statuses/arjun_private.json",
@@ -139,7 +141,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
-  s.summary = %q{Facebook Graph API library for Ruby}
+  s.summary = %q{A Ruby wrapper for Facebook Graph API}
   s.test_files = [
     "spec/fb_graph/album_spec.rb",
      "spec/fb_graph/collection_spec.rb",
