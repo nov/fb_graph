@@ -7,6 +7,11 @@ module FbGraph
           Post.new(post.delete(:id), post)
         end
       end
+
+      def feed!(options = {})
+        post = post(options.merge(:connection => 'feed'))
+        Post.new(post.delete(:id), options.merge(post))
+      end
     end
   end
 end

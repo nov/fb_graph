@@ -23,8 +23,17 @@ module FbGraph
     protected
 
     def get(options = {})
-      _endpoint_ = build_endpoint(options)
+      _endpoint_ = build_endpoint(options.merge!(:method => :get))
       handle_response RestClient.get(_endpoint_)
+    rescue RestClient::Exception => e
+      raise FbGraph::Exception.new(e.http_code, e.message, e.http_body)
+    end
+
+    def post(options = {})
+      _endpoint_ = build_endpoint(options.merge!(:method => :post))
+      handle_response RestClient.post(_endpoint_, options)
+    rescue RestClient::Exception => e
+      raise FbGraph::Exception.new(e.http_code, e.message, e.http_body)
     end
 
     private
@@ -36,10 +45,12 @@ module FbGraph
         self.endpoint
       end
       options[:access_token] ||= self.access_token
-      _options_ = options.reject do |k, v|
+      options.delete_if do |k, v|
         v.blank?
       end
-      _endpoint_ << "?#{_options_.to_query}" unless _options_.blank?
+      if options.delete(:method) == :get && options.present?
+        _endpoint_ << "?#{options.to_query}"
+      end
       _endpoint_
     end
 
@@ -48,16 +59,15 @@ module FbGraph
       if _response_[:error]
         case _response_[:error][:type]
         when 'OAuthAccessTokenException'
-          raise FbGraph::Unauthorized.new(_response_[:error][:message])
+          raise FbGraph::Unauthorized.new(401, _response_[:error][:message])
         when 'QueryParseException'
-          raise FbGraph::NotFound.new(_response_[:error][:message])
+          raise FbGraph::NotFound.new(404, _response_[:error][:message])
         else
-          raise FbGraph::Exception.new("#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
+          raise FbGraph::Exception.new(400, "#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
         end
       else
         _response_
       end
     end
-
   end
 end

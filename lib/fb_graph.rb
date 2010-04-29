@@ -6,7 +6,14 @@ require 'restclient'
 module FbGraph
   ROOT_URL = "https://graph.facebook.com"
 
-  class FbGraph::Exception < StandardError; end
+  class FbGraph::Exception < StandardError
+    attr_accessor :code, :message, :body
+    def initialize(code, message, body = '')
+      @code = code
+      @message = message
+      @body = body
+    end
+  end
   class FbGraph::Unauthorized < FbGraph::Exception; end
   class FbGraph::NotFound < FbGraph::Exception; end
 
