@@ -18,7 +18,9 @@ This is a work in progress.
 Now FbGraph supports all objects listed here: http://developers.facebook.com/docs/reference/api/
 Almost all connections　for each object are also supported. (Private message connections are not supported yet)
 
-=== Basic Objects
+=== GET
+
+==== Basic Objects
 
   user = FbGraph::User.fetch('matake')
   user.name    # => 'Nov Matake'
@@ -33,7 +35,7 @@ Almost all connections　for each object are also supported. (Private message co
 
   :
 
-=== Connections
+==== Connections
 
   # Public connections
   user = FbGraph::User.fetch('matake')
@@ -57,7 +59,7 @@ Almost all connections　for each object are also supported. (Private message co
   me.home
   :
 
-=== Pagination
+==== Pagination
 
   user = FbGraph::User.new('matake', :access_token => ACCESS_TOKEN)
   likes = user.likes # => Array of FbGraph::Like
@@ -65,6 +67,19 @@ Almost all connections　for each object are also supported. (Private message co
   likes.previous     # => {:limit => 25, :since => '...'}
   user.likes(likes.next)     # => Array of FbGraph::Like
   user.likes(likes.previous) # => Array of FbGraph::Like
+
+=== POST
+
+==== Status Update
+
+  me = FbGraph::User.me(ACCESS_TOKEN)
+  me.feed!(
+    :message => 'Updating via FbGraph',
+    :picture => 'https://graph.facebook.com/matake/picture',
+    :link => 'http://github.com/nov/fb_graph',
+    :name => 'FbGraph',
+    :description => 'A Ruby wrapper for Facebook Graph API'
+  )
 
 == Note on Patches/Pull Requests
  
