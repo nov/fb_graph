@@ -11,6 +11,10 @@ module FbGraph
           end
         end
       end
+
+      def attending!(options = {})
+        post(options.merge(:connection => 'attending'))
+      end
     end
   end
 end

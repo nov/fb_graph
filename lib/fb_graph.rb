@@ -34,6 +34,7 @@ require 'fb_graph/connections'
 
 require 'fb_graph/node'
 require 'fb_graph/album'
+require 'fb_graph/comment'
 require 'fb_graph/event'
 require 'fb_graph/group'
 require 'fb_graph/link'

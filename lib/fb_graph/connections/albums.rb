@@ -7,6 +7,11 @@ module FbGraph
           Album.new(album.delete(:id), album)
         end
       end
+
+      def album!(options = {})
+        album = post(options.merge(:connection => 'albums'))
+        Album.new(album.delete(:id), options.merge(album))
+      end
     end
   end
 end

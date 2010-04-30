@@ -4,7 +4,7 @@ module FbGraph
       def activities(options = {})
         activities = FbGraph::Collection.new(get(options.merge(:connection => 'activities')))
         activities.map! do |activity|
-          Page.new(activity.delete(:id), activity)
+          FbGraph::Page.new(activity.delete(:id), activity)
         end
       end
     end

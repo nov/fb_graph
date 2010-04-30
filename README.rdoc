@@ -70,7 +70,7 @@ Almost all connections　for each object are also supported. (Private message co
 
 === POST
 
-==== Status Update
+==== Update status (wall post)
 
   me = FbGraph::User.me(ACCESS_TOKEN)
   me.feed!(
@@ -79,6 +79,70 @@ Almost all connections　for each object are also supported. (Private message co
     :link => 'http://github.com/nov/fb_graph',
     :name => 'FbGraph',
     :description => 'A Ruby wrapper for Facebook Graph API'
+  )
+
+==== Post a like/comment to a post
+
+  post = FbGraph::Page.new(117513961602338).feed.first
+  bool = post.like!(
+    :access_token => ACCESS_TOKEN
+  )
+  comment = post.comment!(
+    :access_token => ACCESS_TOKEN,
+    :message => 'Hey, I\'m testing you!'
+  )
+
+==== Post a note
+
+  page = FbGraph::Page.new(117513961602338)
+  note = page.note!(
+    :access_token => ACCESS_TOKEN,
+    :subject => 'testing',
+    :message => 'Hey, I\'m testing you!'
+  )
+
+==== Post a link
+
+  me = FbGraph::User.me(ACCESS_TOKEN)
+  link = me.link!(
+    :link => 'http://github.com/nov/fb_graph',
+    :message => 'A Ruby wrapper for Facebook Graph API.'
+  )
+
+==== Create Event, respond to it
+
+  me = FbGraph::User.me(ACCESS_TOKEN)
+  event = me.event!(
+    :name => 'FbGraph test event',
+    :start_time => 1.week.from_now.to_i,
+    :end_time => 2.week.from_now.to_i
+  )
+  bool = event.attending!(
+    :access_token => ACCESS_TOKEN
+  )
+  bool = event.maybe!(
+    :access_token => ACCESS_TOKEN
+  )
+  bool = event.declined!(
+    :access_token => ACCESS_TOKEN
+  )
+
+==== Create an album
+
+  me = FbGraph::User.me(ACCESS_TOKEN)
+  album = me.album!(
+    :name => 'FbGraph test',
+    :message => 'test test test'
+  ) # => now facebook Graph API returns weird response for this call
+
+==== Upload a photo to an album
+
+  me = FbGraph::User.me(ACCESS_TOKEN)
+  album = me.albums.first
+  album.photo!(
+    :access_token => ACCESS_TOKEN,
+    :image => File.new('/Users/nov/Desktop/nov.gif'),
+    :message => 'Hello, where is photo?'
   )
 
 == Note on Patches/Pull Requests

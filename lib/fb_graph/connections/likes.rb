@@ -7,6 +7,8 @@ module FbGraph
           Page.new(like.delete(:id), like)
         end
       end
+
+      # NOTE: likes! is defined in fb_graph/connections/comments.rb
     end
   end
 end

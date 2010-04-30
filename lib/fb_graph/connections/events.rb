@@ -7,6 +7,11 @@ module FbGraph
           Event.new(event.delete(:id), event)
         end
       end
+
+      def event!(options = {})
+        event = post(options.merge(:connection => 'events'))
+        Event.new(event.delete(:id), options.merge(event))
+      end
     end
   end
 end

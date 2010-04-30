@@ -12,12 +12,17 @@ module FbGraph
 
     def fetch(options = {})
       options[:access_token] ||= self.access_token if self.access_token
-      self.class.fetch(self.identifier, options)
+      _fetched_ = get(options)
+      self.class.new(_fetched_.delete(:id), _fetched_)
     end
 
     def self.fetch(identifier, options = {})
-      _fetched_ = new(identifier).send(:get, options)
-      new(_fetched_.delete(:id), _fetched_)
+      new(identifier).fetch(options)
+    end
+
+    def destroy(options = {})
+      options[:access_token] ||= self.access_token if self.access_token
+      destory(self.identifier, options)
     end
 
     protected
@@ -32,6 +37,14 @@ module FbGraph
     def post(options = {})
       _endpoint_ = build_endpoint(options.merge!(:method => :post))
       handle_response RestClient.post(_endpoint_, options)
+      
+    rescue RestClient::Exception => e
+      raise FbGraph::Exception.new(e.http_code, e.message, e.http_body)
+    end
+
+    def delete(options = {})
+      _endpoint_ = build_endpoint(options.merge!(:method => :delete))
+      handle_response RestClient.delete(_endpoint_, options)
     rescue RestClient::Exception => e
       raise FbGraph::Exception.new(e.http_code, e.message, e.http_body)
     end
@@ -55,18 +68,25 @@ module FbGraph
     end
 
     def handle_response(response)
-      _response_ = JSON.parse(response.to_s).with_indifferent_access
-      if _response_[:error]
-        case _response_[:error][:type]
-        when 'OAuthAccessTokenException'
-          raise FbGraph::Unauthorized.new(401, _response_[:error][:message])
-        when 'QueryParseException'
-          raise FbGraph::NotFound.new(404, _response_[:error][:message])
-        else
-          raise FbGraph::Exception.new(400, "#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
-        end
+      case response.body
+      when 'true'
+        true
+      when 'false'
+        false
       else
-        _response_
+        _response_ = JSON.parse(response.body).with_indifferent_access
+        if _response_[:error]
+          case _response_[:error][:type]
+          when 'OAuthAccessTokenException'
+            raise FbGraph::Unauthorized.new(401, _response_[:error][:message])
+          when 'QueryParseException'
+            raise FbGraph::NotFound.new(404, _response_[:error][:message])
+          else
+            raise FbGraph::Exception.new(400, "#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
+          end
+        else
+          _response_
+        end
       end
     end
   end

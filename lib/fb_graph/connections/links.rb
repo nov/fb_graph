@@ -7,6 +7,11 @@ module FbGraph
           Link.new(link.delete(:id), link)
         end
       end
+
+      def link!(options = {})
+        link = post(options.merge(:connection => 'links'))
+        Link.new(link.delete(:id), options.merge(link))
+      end
     end
   end
 end

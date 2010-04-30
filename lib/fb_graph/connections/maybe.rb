@@ -11,6 +11,10 @@ module FbGraph
           end
         end
       end
+
+      def maybe!(options = {})
+        post(options.merge(:connection => 'maybe'))
+      end
     end
   end
 end
