@@ -17,7 +17,7 @@ module FbGraph
       if attributes[:start_date]
         @start_date = Date.new(*attributes[:start_date].split('-').collect(&:to_i))
       end
-      if attributes[:end_date]
+      if attributes[:end_date] && attributes[:end_date] != '0000-00'
         @end_date = Date.new(*attributes[:end_date].split('-').collect(&:to_i))
       end
     end

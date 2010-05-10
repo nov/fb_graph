@@ -8,34 +8,41 @@ module FbGraph
       super
       if (from = options[:from])
         @from = if from[:category]
-          FbGraph::Page.new(from.delete(:id), from) 
+          FbGraph::Page.new(from.delete(:id), from)
         else
-          FbGraph::User.new(from.delete(:id), from) 
+          FbGraph::User.new(from.delete(:id), from)
         end
       end
       @to = []
       if options[:to]
         FbGraph::Collection.new(options[:to]).each do |to|
           @to << if to[:category]
-            FbGraph::Page.new(to.delete(:id), to) 
+            FbGraph::Page.new(to.delete(:id), to)
           else
-            FbGraph::User.new(to.delete(:id), to) 
+            FbGraph::User.new(to.delete(:id), to)
           end
         end
       end
-      @message      = options[:message]
-      @picture      = options[:picture]
-      @link         = options[:link]
-      @name         = options[:name]
-      @caption      = options[:caption]
-      @description  = options[:description]
-      @source       = options[:source]
-      @icon         = options[:icon]
-      @attribution  = options[:attribution]
-      @actions      = options[:actions]
-      @likes        = options[:likes]
-      @created_time = options[:created_time]
-      @updated_time = options[:updated_time]
+      @message     = options[:message]
+      @picture     = options[:picture]
+      @link        = options[:link]
+      @name        = options[:name]
+      @caption     = options[:caption]
+      @description = options[:description]
+      @source      = options[:source]
+      @icon        = options[:icon]
+      @attribution = options[:attribution]
+      @actions     = options[:actions]
+      @likes       = options[:likes]
+      if options[:created_time]
+        @created_time = Time.parse(options[:created_time])
+      end
+      if options[:updated_time]
+        @updated_time = Time.parse(options[:updated_time])
+      end
+
+      # cached connection
+      @_comments_ = FbGraph::Collection.new(options[:comments])
     end
   end
 end

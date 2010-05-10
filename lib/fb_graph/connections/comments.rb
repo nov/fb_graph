@@ -2,7 +2,14 @@ module FbGraph
   module Connections
     module Comments
       def comments(options = {})
-        comments = FbGraph::Collection.new(get(options.merge(:connection => 'comments')))
+        comments = if options.blank?
+          # Note:
+          # "comments" is a connection, but included in fetched "post" object
+          # this improves performance when rendering the stream with comments
+          @_comments_
+        else
+          FbGraph::Collection.new(get(options.merge(:connection => 'comments')))
+        end
         comments.map! do |comment|
           Comment.new(comment.delete(:id), comment)
         end

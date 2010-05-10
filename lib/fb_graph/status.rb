@@ -10,7 +10,7 @@ module FbGraph
         @from = if from[:category]
           FbGraph::Page.new(from.delete(:id), from)
         else
-          FbGraph::User.new(from.delete(:id), from) 
+          FbGraph::User.new(from.delete(:id), from)
         end
       end
       @message = options[:message]
