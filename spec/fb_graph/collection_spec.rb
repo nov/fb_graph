@@ -23,7 +23,6 @@ describe FbGraph::Collection do
   it 'should ' do
     me = FbGraph::User.new('me', :access_token => 'access_token')
     posts = me.home
-    puts posts.previous.inspect, posts.next.inspect
     previous_posts = me.home(posts.previous)
     next_posts = me.home(posts.next)
     posts.first.created_time.should == '2010-04-27T13:06:14+0000'

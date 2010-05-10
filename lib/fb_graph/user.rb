@@ -36,11 +36,23 @@ module FbGraph
       @first_name = options[:first_name]
       @link       = options[:link]
       @about      = options[:about]
-      @birthday   = options[:birthday]
-      @work       = options[:work]
-      @education  = options[:education]
       @email      = options[:email]
-      @website    = options[:website]
+      if options[:birthday]
+        @birthday = Date.parse(options[:birthday])
+      end
+      @work = []
+      if options[:work]
+        options[:work].each do |work|
+          @work << FbGraph::Work.new(work)
+        end
+      end
+      @education = []
+      if options[:education]
+        options[:education].each do |education|
+          @education << FbGraph::Education.new(education)
+        end
+      end
+      @website = options[:website].to_s.split("\n")
     end
 
     def self.me(access_token)

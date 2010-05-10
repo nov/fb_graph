@@ -19,8 +19,12 @@ module FbGraph
       @location     = options[:location]
       @link         = options[:link]
       @count        = options[:count]
-      @created_time = options[:created_time]
-      @updated_time = options[:updated_time]
+      if options[:created_time]
+        @created_time = Time.parse(options[:created_time])
+      end
+      if options[:updated_time]
+        @updated_time = Time.parse(options[:updated_time])
+      end
     end
   end
 end

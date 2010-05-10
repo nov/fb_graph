@@ -16,7 +16,7 @@ describe FbGraph::Status, '#new' do
     status.identifier.should   == '12345'
     status.from.should         == FbGraph::User.new('23456', :name => 'nov matake')
     status.message.should      == 'hello, how are you?'
-    status.updated_time.should == '2010-01-02T15:37:41+0000'
+    status.updated_time.should == Time.parse('2010-01-02T15:37:41+0000')
   end
 
   it 'should support page as from' do

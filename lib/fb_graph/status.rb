@@ -13,8 +13,10 @@ module FbGraph
           FbGraph::User.new(from.delete(:id), from) 
         end
       end
-      @message      = options[:message]
-      @updated_time = options[:updated_time]
+      @message = options[:message]
+      if (updated_time = options.delete(:updated_time))
+        @updated_time = Time.parse(updated_time)
+      end
     end
   end
 end

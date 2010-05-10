@@ -11,8 +11,10 @@ module FbGraph
           FbGraph::User.new(from.delete(:id), from) 
         end
       end
-      @message      = options[:message]
-      @created_time = options[:created_time]
+      @message = options[:message]
+      if options[:created_time]
+        @created_time = Time.parse(options[:created_time])
+      end
     end
   end
 end

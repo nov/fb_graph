@@ -21,8 +21,8 @@ describe FbGraph::Video, '#new' do
     video.message.should      == 'check this out!'
     video.description.should  == 'Smart.fm learning engine details'
     video.length.should       == 3600
-    video.created_time.should == '2010-01-02T15:37:40+0000'
-    video.updated_time.should == '2010-01-02T15:37:41+0000'
+    video.created_time.should == Time.parse('2010-01-02T15:37:40+0000')
+    video.updated_time.should == Time.parse('2010-01-02T15:37:41+0000')
   end
 
   it 'should support page as from' do

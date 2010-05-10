@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '../../spec_helper')
 
 describe FbGraph::Connections::Picture, '#picture' do
 
-  describe 'when included by FbGraph::User' do
+  context 'when included by FbGraph::User' do
     it 'should return image url' do
       FbGraph::User.new('matake').picture.should == File.join(FbGraph::ROOT_URL, 'matake/picture')
     end
@@ -14,7 +14,7 @@ describe FbGraph::Connections::Picture, '#picture' do
     end
   end
 
-  describe 'when included by FbGraph::Page' do
+  context 'when included by FbGraph::Page' do
     it 'should return image url' do
       FbGraph::Page.new('platform').picture.should == File.join(FbGraph::ROOT_URL, 'platform/picture')
     end

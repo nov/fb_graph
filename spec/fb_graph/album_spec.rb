@@ -25,8 +25,8 @@ describe FbGraph::Album, '#new' do
     album.location.should     == 'Tokyo, Japan'
     album.link.should         == 'http://www.facebook.com/album/12345'
     album.count.should        == 10
-    album.created_time.should == '2009-12-29T15:24:50+0000'
-    album.updated_time.should == '2010-01-02T15:37:41+0000'
+    album.created_time.should == Time.parse('2009-12-29T15:24:50+0000')
+    album.updated_time.should == Time.parse('2010-01-02T15:37:41+0000')
   end
 
   it 'should support page as from' do
