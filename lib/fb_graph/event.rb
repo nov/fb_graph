@@ -17,14 +17,20 @@ module FbGraph
       end
       @name         = options[:name]
       @description  = options[:description]
-      @start_time   = options[:start_time]
-      @end_time     = options[:end_time]
+      if options[:start_time]
+        @start_time = Time.parse(options[:start_time])
+      end
+      if options[:end_time]
+        @end_time = Time.parse(options[:end_time])
+      end
       @location     = options[:location]
+      @privacy      = options[:privacy]
       if options[:venue]
         @venue = FbGraph::Venue.new(options[:venue])
       end
-      @privacy      = options[:privacy]
-      @updated_time = options[:updated_time]
+      if options[:updated_time]
+        @updated_time = Time.parse(options[:updated_time])
+      end
     end
   end
 end

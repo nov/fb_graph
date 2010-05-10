@@ -18,7 +18,7 @@ describe FbGraph::Link, '#new' do
     link.from.should         == FbGraph::User.new('23456', :name => 'nov matake')
     link.link.should         == 'http://www.facebook.com/link/12345'
     link.message.should       == 'check this out!'
-    link.updated_time.should == '2010-01-02T15:37:41+0000'
+    link.updated_time.should == Time.parse('2010-01-02T15:37:41+0000')
   end
 
   it 'should support page as from' do

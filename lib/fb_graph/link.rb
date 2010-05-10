@@ -15,7 +15,9 @@ module FbGraph
       end
       @link         = options[:link]
       @message      = options[:message]
-      @updated_time = options[:updated_time]
+      if options[:updated_time]
+        @updated_time = Time.parse(options[:updated_time])
+      end
     end
   end
 end

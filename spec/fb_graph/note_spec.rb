@@ -19,8 +19,8 @@ describe FbGraph::Note, '#new' do
     note.from.should         == FbGraph::User.new('23456', :name => 'nov matake')
     note.subject.should      == 'TODO'
     note.message.should      == 'later or never'
-    note.created_time.should == '2010-01-02T15:37:40+0000'
-    note.updated_time.should == '2010-01-02T15:37:41+0000'
+    note.created_time.should == Time.parse('2010-01-02T15:37:40+0000')
+    note.updated_time.should == Time.parse('2010-01-02T15:37:41+0000')
   end
 
   it 'should support page as from' do

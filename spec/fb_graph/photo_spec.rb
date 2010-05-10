@@ -42,8 +42,8 @@ describe FbGraph::Photo, '#new' do
     photo.height.should       == 100
     photo.width.should        == 200
     photo.link.should         == 'http://www.facebook.com/photo/12345'
-    photo.created_time.should == '2010-01-02T15:37:40+0000'
-    photo.updated_time.should == '2010-01-02T15:37:41+0000'
+    photo.created_time.should == Time.parse('2010-01-02T15:37:40+0000')
+    photo.updated_time.should == Time.parse('2010-01-02T15:37:41+0000')
   end
 
   it 'should support page as from' do

@@ -40,7 +40,7 @@ describe FbGraph::Group, '#new' do
       :longitude => '139.751'
     )
     group.privacy.should      == 'OPEN'
-    group.updated_time.should == '2010-01-02T15:37:41+0000'
+    group.updated_time.should == Time.parse('2010-01-02T15:37:41+0000')
   end
 
 end
