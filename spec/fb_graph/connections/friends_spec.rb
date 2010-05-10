@@ -9,34 +9,41 @@ describe FbGraph::Connections::Friends, '#friends' do
       fake_json(:get, 'arjun/friends?access_token=access_token', 'users/friends/arjun_private')
     end
 
-    it 'should raise FbGraph::Exception when no access_token given' do
-      lambda do
-        FbGraph::User.new('arjun').friends
-      end.should raise_exception(FbGraph::Exception)
-    end
-
-    it 'should raise FbGraph::Exception when identifier is not me' do
-      lambda do
-        FbGraph::User.new('arjun', :access_token => 'access_token').friends
-      end.should raise_exception(FbGraph::Exception)
-    end
-
-    it 'should raise FbGraph::NotFound when identifier is me and no access_token is given' do
-      lambda do
-        FbGraph::User.new('me').friends
-      end.should raise_exception(FbGraph::NotFound)
-    end
-
-    it 'should return posts when identifier is me and access_token is given' do
-      users = FbGraph::User.new('me', :access_token => 'access_token').friends
-      users.first.should == FbGraph::User.new(
-        '6401',
-        :name => 'Kirk McMurray'
-      )
-      users.each do |user|
-        user.should be_instance_of(FbGraph::User)
+    context 'when no access_token given' do
+      it 'should raise FbGraph::Exception' do
+        lambda do
+          FbGraph::User.new('arjun').friends
+        end.should raise_exception(FbGraph::Exception)
       end
     end
 
+    context 'when identifier is not me' do
+      it 'should raise FbGraph::Exception' do
+        lambda do
+          FbGraph::User.new('arjun', :access_token => 'access_token').friends
+        end.should raise_exception(FbGraph::Exception)
+      end
+    end
+
+    context 'when identifier is me and no access_token is given' do
+      it 'should raise FbGraph::NotFound' do
+        lambda do
+          FbGraph::User.new('me').friends
+        end.should raise_exception(FbGraph::NotFound)
+      end
+    end
+
+    context 'when identifier is me and access_token is given' do
+      it 'should return friends as FbGraph::User' do
+        users = FbGraph::User.new('me', :access_token => 'access_token').friends
+        users.first.should == FbGraph::User.new(
+          '6401',
+          :name => 'Kirk McMurray'
+        )
+        users.each do |user|
+          user.should be_instance_of(FbGraph::User)
+        end
+      end
+    end
   end
 end
