@@ -142,7 +142,7 @@ Almost all connections　for each object are also supported. (Private message co
   album = me.albums.first
   album.photo!(
     :access_token => ACCESS_TOKEN,
-    :image => File.new('/Users/nov/Desktop/nov.gif'),
+    :image => File.new('/Users/nov/Desktop/nov.gif', 'rb'), # 'rb' is needed only on windows
     :message => 'Hello, where is photo?'
   )
 
