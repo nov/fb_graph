@@ -15,7 +15,7 @@ module FbGraph
       end
       @message = options[:message]
       if (updated_time = options.delete(:updated_time))
-        @updated_time = Time.parse(updated_time)
+        @updated_time = Time.parse(updated_time).utc
       end
     end
   end

@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '../../spec_helper')
 
-describe FbGraph::Connections::Albums, '#albums' do
-  context 'when included by FbGraph::User' do
+context 'when included by FbGraph::User' do
+  describe FbGraph::Connections::Albums, '#albums' do
     before(:all) do
       fake_json(:get, 'matake/albums', 'users/albums/matake_public')
       fake_json(:get, 'matake/albums?access_token=access_token', 'users/albums/matake_private')
@@ -34,6 +34,22 @@ describe FbGraph::Connections::Albums, '#albums' do
           album.should be_instance_of(FbGraph::Album)
         end
       end
+    end
+  end
+
+  describe FbGraph::Connections::Albums, '#album!' do
+    before do
+      fake_json(:post, 'matake/albums', 'users/albums/post_with_valid_access_token')
+    end
+
+    it 'should return generated album' do
+      album = FbGraph::User.new('matake', :access_token => 'valid').album!(
+        :name => 'FbGraph test',
+        :message => 'test test test'
+      )
+      album.identifier.should == 401096332276
+      album.name.should == 'FbGraph test'
+      album.description.should == 'test test test'
     end
   end
 end

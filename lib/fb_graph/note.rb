@@ -16,10 +16,10 @@ module FbGraph
       @subject      = options[:subject]
       @message      = options[:message]
       if options[:created_time]
-        @created_time = Time.parse(options[:created_time])
+        @created_time = Time.parse(options[:created_time]).utc
       end
       if options[:updated_time]
-        @updated_time = Time.parse(options[:updated_time])
+        @updated_time = Time.parse(options[:updated_time]).utc
       end
     end
   end

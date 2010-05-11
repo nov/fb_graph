@@ -19,7 +19,7 @@ module FbGraph
         @venue = FbGraph::Venue.new(options[:venue])
       end
       if options[:updated_time]
-        @updated_time = Time.parse(options[:updated_time])
+        @updated_time = Time.parse(options[:updated_time]).utc
       end
     end
   end

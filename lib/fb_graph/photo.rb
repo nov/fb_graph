@@ -19,17 +19,20 @@ module FbGraph
           @tags << FbGraph::Tag.new(tag.delete(:id), tag)
         end
       end
-      @name         = options[:name]
-      @picture      = options[:picture]
-      @source       = options[:source]
-      @height       = options[:height]
-      @width        = options[:width]
-      @link         = options[:link]
+      # NOTE:
+      # for some reason, facebook uses different parameter names.
+      # "name" in GET & "message" in POST
+      @name    = options[:name] || options[:message]
+      @picture = options[:picture]
+      @source  = options[:source]
+      @height  = options[:height]
+      @width   = options[:width]
+      @link    = options[:link]
       if options[:created_time]
-        @created_time = Time.parse(options[:created_time])
+        @created_time = Time.parse(options[:created_time]).utc
       end
       if options[:updated_time]
-        @updated_time = Time.parse(options[:updated_time])
+        @updated_time = Time.parse(options[:updated_time]).utc
       end
     end
   end

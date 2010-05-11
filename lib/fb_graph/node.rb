@@ -71,8 +71,6 @@ module FbGraph
       case response.body
       when 'true'
         true
-      when 'false'
-        false
       else
         _response_ = JSON.parse(response.body).with_indifferent_access
         if _response_[:error]

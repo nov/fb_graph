@@ -8,7 +8,7 @@ module FbGraph
       @x = options.delete(:x)
       @y = options.delete(:y)
       if (created_time = options.delete(:created_time))
-        @created_time = Time.parse(created_time)
+        @created_time = Time.parse(created_time).utc
       end
       @user = User.new(identifier, options)
     end

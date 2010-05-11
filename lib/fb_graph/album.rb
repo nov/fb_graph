@@ -15,15 +15,18 @@ module FbGraph
         end
       end
       @name         = options[:name]
-      @description  = options[:description]
+      # NOTE:
+      # for some reason, facebook uses different parameter names.
+      # "description" in GET & "message" in POST
+      @description  = options[:description] || options[:message]
       @location     = options[:location]
       @link         = options[:link]
       @count        = options[:count]
       if options[:created_time]
-        @created_time = Time.parse(options[:created_time])
+        @created_time = Time.parse(options[:created_time]).utc
       end
       if options[:updated_time]
-        @updated_time = Time.parse(options[:updated_time])
+        @updated_time = Time.parse(options[:updated_time]).utc
       end
     end
   end
