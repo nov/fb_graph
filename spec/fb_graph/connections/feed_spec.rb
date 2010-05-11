@@ -33,3 +33,6 @@ describe FbGraph::Connections::Feed, '#feed' do
     end
   end
 end
+
+describe FbGraph::Connections::Feed, '#feed' do
+end

@@ -7,11 +7,14 @@ module FbGraph
   ROOT_URL = "https://graph.facebook.com"
 
   class FbGraph::Exception < StandardError
-    attr_accessor :code, :message, :body
+    attr_accessor :code, :message
     def initialize(code, message, body = '')
       @code = code
-      @message = message
-      @body = body
+      @message = if body.blank?
+        message
+      else
+        body
+      end
     end
   end
   class FbGraph::Unauthorized < FbGraph::Exception; end

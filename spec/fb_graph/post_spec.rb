@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), '../spec_helper')
 
-describe FbGraph::Post, '#new' do
+describe FbGraph::Post, '.new' do
   it 'should support page as from' do
     page_post = FbGraph::Post.new('12345', :from => {
       :id => '23456',

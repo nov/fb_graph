@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), '../spec_helper')
 
-describe FbGraph::Status, '#new' do
+describe FbGraph::Status, '.new' do
 
   it 'should setup all supported attributes' do
     attributes = {

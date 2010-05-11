@@ -1,5 +1,14 @@
 require File.join(File.dirname(__FILE__), '../spec_helper')
 
+describe FbGraph::User, '.new' do
+  it 'should support year-hidden birthday' do
+    user = FbGraph::User.new(12345, :birthday => '12/13')
+    user.birthday.year.should  == 0
+    user.birthday.month.should == 12
+    user.birthday.day.should   == 13
+  end
+end
+
 describe FbGraph::User, '.me' do
   it 'should return FbGraph::User instance with access_token' do
     FbGraph::User.me('access_token').should == FbGraph::User.new('me', :access_token => 'access_token')

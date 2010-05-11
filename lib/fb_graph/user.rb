@@ -38,7 +38,9 @@ module FbGraph
       @about      = options[:about]
       @email      = options[:email]
       if options[:birthday]
-        @birthday = Date.parse(options[:birthday])
+        month, day, year = options[:birthday].split('/').collect(&:to_i)
+        year ||= 0
+        @birthday = Date.new(year, month, day)
       end
       @work = []
       if options[:work]

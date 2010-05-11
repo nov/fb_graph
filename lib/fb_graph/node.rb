@@ -37,7 +37,6 @@ module FbGraph
     def post(options = {})
       _endpoint_ = build_endpoint(options.merge!(:method => :post))
       handle_response RestClient.post(_endpoint_, options)
-      
     rescue RestClient::Exception => e
       raise FbGraph::Exception.new(e.http_code, e.message, e.http_body)
     end
