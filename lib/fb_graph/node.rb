@@ -27,46 +27,47 @@ module FbGraph
 
     protected
 
-    def get(options = {})
-      _endpoint_ = build_endpoint(options.merge!(:method => :get))
-      handle_response RestClient.get(_endpoint_)
-    rescue RestClient::Exception => e
-      raise FbGraph::Exception.new(e.http_code, e.message, e.http_body)
+    def get(params = {})
+      _endpoint_ = build_endpoint(params.merge!(:method => :get))
+      handle_response do
+        RestClient.get(_endpoint_)
+      end
     end
 
-    def post(options = {})
-      _endpoint_ = build_endpoint(options.merge!(:method => :post))
-      handle_response RestClient.post(_endpoint_, options)
-    rescue RestClient::Exception => e
-      raise FbGraph::Exception.new(e.http_code, e.message, e.http_body)
+    def post(params = {})
+      _endpoint_ = build_endpoint(params.merge!(:method => :post))
+      handle_response do
+        RestClient.post(_endpoint_, params)
+      end
     end
 
-    def delete(options = {})
-      _endpoint_ = build_endpoint(options.merge!(:method => :delete))
-      handle_response RestClient.delete(_endpoint_, options)
-    rescue RestClient::Exception => e
-      raise FbGraph::Exception.new(e.http_code, e.message, e.http_body)
+    def delete(params = {})
+      _endpoint_ = build_endpoint(params.merge!(:method => :delete))
+      handle_response do
+        RestClient.delete(_endpoint_, params)
+      end
     end
 
     private
 
-    def build_endpoint(options = {})
-      _endpoint_ = if options[:connection]
-        File.join(self.endpoint, options.delete(:connection))
+    def build_endpoint(params = {})
+      _endpoint_ = if params[:connection]
+        File.join(self.endpoint, params.delete(:connection))
       else
         self.endpoint
       end
-      options[:access_token] ||= self.access_token
-      options.delete_if do |k, v|
+      params[:access_token] ||= self.access_token
+      params.delete_if do |k, v|
         v.blank?
       end
-      if options.delete(:method) == :get && options.present?
-        _endpoint_ << "?#{options.to_query}"
+      if params.delete(:method) == :get && params.present?
+        _endpoint_ << "?#{params.to_query}"
       end
       _endpoint_
     end
 
-    def handle_response(response)
+    def handle_response
+      response = yield
       case response.body
       when 'true'
         true
@@ -87,6 +88,8 @@ module FbGraph
           _response_
         end
       end
+    rescue RestClient::Exception => e
+      raise FbGraph::Exception.new(e.http_code, e.message, e.http_body)
     end
   end
 end

@@ -1,7 +1,8 @@
 require File.join(File.dirname(__FILE__), '../../spec_helper')
 
-describe FbGraph::Connections::Feed, '#feed' do
-  context 'when included by FbGraph::User' do
+context 'when included by FbGraph::User' do
+
+  describe FbGraph::Connections::Feed, '#feed' do
     before(:all) do
       fake_json(:get, 'arjun/feed', 'users/feed/arjun_public')
       fake_json(:get, 'arjun/feed?access_token=access_token', 'users/feed/arjun_private')
@@ -32,7 +33,43 @@ describe FbGraph::Connections::Feed, '#feed' do
       end
     end
   end
-end
 
-describe FbGraph::Connections::Feed, '#feed' do
+  describe FbGraph::Connections::Feed, '#feed!' do
+    context 'when no access_token given' do
+      before do
+        fake_json(:post, 'matake/feed', 'users/feed/post_without_access_token', :status => [500, 'Internal Server Error'])
+      end
+
+      it 'should raise FbGraph::Exception' do
+        lambda do
+          FbGraph::User.new('matake').feed!(:message => 'hello')
+        end.should raise_exception(FbGraph::Exception)
+      end
+    end
+
+    context 'when invalid access_token is given' do
+      before do
+        fake_json(:post, 'matake/feed', 'users/feed/post_with_invalid_access_token', :status => [500, 'Internal Server Error'])
+      end
+
+      it 'should raise FbGraph::Exception' do
+        lambda do
+          FbGraph::User.new('matake', :access_token => 'invalid').feed!(:message => 'hello')
+        end.should raise_exception(FbGraph::Exception)
+      end
+    end
+
+    context 'when valid access_token is given' do
+      before do
+        fake_json(:post, 'matake/feed', 'users/feed/post_with_valid_access_token')
+      end
+
+      it 'should return generated post' do
+        post = FbGraph::User.new('matake', :access_token => 'valid').feed!(:message => 'hello')
+        post.identifier.should == '579612276_401071652276'
+        post.message.should == 'hello'
+      end
+    end
+  end
+
 end
