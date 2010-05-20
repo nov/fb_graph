@@ -14,11 +14,21 @@ module FbGraph
       if (position = attributes[:position])
         @position = FbGraph::Page.new(position.delete(:id), position)
       end
-      if attributes[:start_date]
-        @start_date = Date.new(*attributes[:start_date].split('-').collect(&:to_i))
+      if attributes[:start_date] && attributes[:start_date] != '0000-00'
+        year, month = attributes[:start_date].split('-').collect(&:to_i)
+        @start_date = if month == 0
+          Date.new(year)
+        else
+          Date.new(year, month)
+        end
       end
       if attributes[:end_date] && attributes[:end_date] != '0000-00'
-        @end_date = Date.new(*attributes[:end_date].split('-').collect(&:to_i))
+        year, month = attributes[:end_date].split('-').collect(&:to_i)
+        @end_date = if month == 0
+          Date.new(year)
+        else
+          Date.new(year, month)
+        end
       end
     end
   end
