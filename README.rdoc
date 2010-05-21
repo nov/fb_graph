@@ -146,6 +146,20 @@ Almost all connections　for each object are also supported. (Private message co
     :message => 'Hello, where is photo?'
   )
 
+==== Delete an object
+
+  post = FbGraph::Page.new(117513961602338).feed.first
+  bool = post.like!(
+    :access_token => ACCESS_TOKEN
+  )
+  comment = post.comment!(
+    :access_token => ACCESS_TOKEN,
+    :message => 'Hey, I\'m testing you!'
+  )
+  comment.destroy(:access_token => ACCESS_TOKEN)
+  post.unlike!(:access_token => ACCESS_TOKEN)
+  post.destroy(:access_token => ACCESS_TOKEN)
+
 == Note on Patches/Pull Requests
  
 * Fork the project.

@@ -26,6 +26,10 @@ module FbGraph
       def like!(options = {})
         post(options.merge(:connection => 'likes'))
       end
+
+      def unlike!(options = {})
+        destroy(options.merge(:connection => 'likes'))
+      end
     end
   end
 end

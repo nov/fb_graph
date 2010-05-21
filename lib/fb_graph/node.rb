@@ -22,7 +22,7 @@ module FbGraph
 
     def destroy(options = {})
       options[:access_token] ||= self.access_token if self.access_token
-      destory(self.identifier, options)
+      delete(options)
     end
 
     protected
@@ -44,7 +44,10 @@ module FbGraph
     def delete(params = {})
       _endpoint_ = build_endpoint(params.merge!(:method => :delete))
       handle_response do
-        RestClient.delete(_endpoint_, params)
+        # NOTE:
+        # DELETE method didn't work for some reason.
+        # Use POST with "method=delete" for now.
+        RestClient.post(_endpoint_, params.merge!(:method => :delete))
       end
     end
 
