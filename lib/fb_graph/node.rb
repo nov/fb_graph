@@ -71,6 +71,14 @@ module FbGraph
       case response.body
       when 'true'
         true
+      when 'false'
+        # NOTE: When the object is not found, Graph API returns
+        #  - error response (JSON) when the identifier contains alphabet (ex. graph.facebook.com/iamnotfound)
+        #  - false when the identifier is only integer + underbar (ex. graph.facebook.com/1234567890, graph.facebook.com/12345_67890)
+        # This is an undocumented behaviour, so facebook might chaange it without any announcement.
+        # I've posted this issue on their forum, so hopefully I'll get a document about Graph API error responses.
+        # ref) http://forum.developers.facebook.com/viewtopic.php?pid=228256#p228256
+        raise FbGraph::NotFound.new(404, 'Graph API returned false, so probably it means your requested object is not found.')
       else
         _response_ = JSON.parse(response.body).with_indifferent_access
         if _response_[:error]
