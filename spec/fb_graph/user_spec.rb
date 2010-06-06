@@ -29,7 +29,7 @@ describe FbGraph::User, '.fetch' do
       user.last_name.should  == 'Banker'
       user.identifier.should == '7901103'
       user.link.should       == 'http://www.facebook.com/Arjun'
-      user.gender.should     == "male"
+      user.gender.should     == 'male'
     end
   end
 
@@ -43,11 +43,11 @@ describe FbGraph::User, '.fetch' do
       user.last_name.should  == 'Banker'
       user.identifier.should == '7901103'
       user.link.should       == 'http://www.facebook.com/Arjun'
+      user.gender.should     == 'male'
 
       # private
       user.about.should    == "squish squash\npip pop\nfizz bang"
       user.birthday.should == Date.parse('04/15/1984')
-      user.gender.should   == "male"
       user.work.should     == [
         FbGraph::Work.new({
           :employer   => {:name => 'Facebook', :id => 20531316728},
