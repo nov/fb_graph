@@ -5,8 +5,7 @@ require 'restclient'
 # NOTE:
 # For some reason, ActiveSupport 3.0.0 doesn'tj load whole code.
 # Load needed extention directly for now.
-require 'active_support/core_ext/object'
-require 'active_support/core_ext/hash'
+require 'active_support/core_ext'
 
 module FbGraph
   ROOT_URL = "https://graph.facebook.com"
