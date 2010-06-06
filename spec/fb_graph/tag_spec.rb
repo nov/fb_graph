@@ -15,7 +15,6 @@ describe FbGraph::Tag, '.new' do
     tag.x.should == 32.5
     tag.y.should == 27.7778
     tag.created_time.should == Time.parse("2010-04-22T08:24:26+0000")
-    
   end
 
 end

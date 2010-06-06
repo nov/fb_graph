@@ -17,8 +17,30 @@ end
 
 describe FbGraph::User, '.fetch' do
   before(:all) do
+    fake_json(:get, 'me', 'users/me_public')
+    fake_json(:get, 'me?access_token=access_token', 'users/me_private')
     fake_json(:get, 'arjun', 'users/arjun_public')
     fake_json(:get, 'arjun?access_token=access_token', 'users/arjun_private')
+  end
+
+  context 'with me context' do
+
+    context 'when no access_token given' do
+      it 'should raise FbGraph::Unauthorized' do
+        lambda do
+          FbGraph::User.fetch('me')
+        end.should raise_exception(FbGraph::Unauthorized)
+      end
+    end
+
+    context 'when access_token given' do
+      it 'should get current user profile' do
+        user = FbGraph::User.me('access_token').fetch
+        user.timezone.should == 9
+        user.verified.should be_true
+      end
+    end
+
   end
 
   context 'when no access_token given' do
@@ -29,6 +51,7 @@ describe FbGraph::User, '.fetch' do
       user.last_name.should  == 'Banker'
       user.identifier.should == '7901103'
       user.link.should       == 'http://www.facebook.com/Arjun'
+      user.location.should   == FbGraph::Page.new(114952118516947, :name => 'San Francisco, California')
       user.gender.should     == 'male'
     end
   end
@@ -43,10 +66,11 @@ describe FbGraph::User, '.fetch' do
       user.last_name.should  == 'Banker'
       user.identifier.should == '7901103'
       user.link.should       == 'http://www.facebook.com/Arjun'
+      user.location.should   == FbGraph::Page.new(114952118516947, :name => 'San Francisco, California')
       user.gender.should     == 'male'
 
       # private
-      user.about.should    == "squish squash\npip pop\nfizz bang"
+      user.about.should    == 'daydrea'
       user.birthday.should == Date.parse('04/15/1984')
       user.work.should     == [
         FbGraph::Work.new({
@@ -87,8 +111,19 @@ describe FbGraph::User, '.fetch' do
           ]
         })
       ]
-      user.email.should   == nil
-      user.website.should == []
+      user.email.should    == nil
+      user.website.should  == []
+      user.hometown.should == FbGraph::Page.new(109533479072558, :name => 'Minnetonka, Minnesota')
+      user.interested_in.should == ['female']
+      user.meeting_for.should == ['Friendship']
+      user.relationship_status.should == 'In a Relationship'
+      user.religion.should == 'zorp'
+      user.political.should == 'Liberal'
+      user.verified.should be_nil
+      # What's this?
+      # user.significant_other
+      user.timezone.should be_nil
+      user.updated_time.should == Time.parse('2010-05-29T04:29:23+0000')
     end
   end
 end

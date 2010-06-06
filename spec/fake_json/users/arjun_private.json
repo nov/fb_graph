@@ -4,9 +4,16 @@
    "first_name": "Arjun",
    "last_name": "Banker",
    "link": "http://www.facebook.com/Arjun",
-   "gender": "male",
-   "about": "squish squash\npip pop\nfizz bang",
+   "about": "daydrea",
    "birthday": "04/15/1984",
+   "hometown": {
+      "id": 109533479072558,
+      "name": "Minnetonka, Minnesota"
+   },
+   "location": {
+      "id": 114952118516947,
+      "name": "San Francisco, California"
+   },
    "work": [
       {
          "employer": {
@@ -88,13 +95,15 @@
          ]
       }
    ],
+   "gender": "male",
    "interested_in": [
-      "\\u5973\\u6027"
+      "female"
    ],
    "meeting_for": [
-      "\\u53cb\\u60c5"
+      "Friendship"
    ],
+   "relationship_status": "In a Relationship",
    "religion": "zorp",
-   "timezone": -7,
-   "updated_time": "2010-04-22T18:23:22+0000"
+   "political": "Liberal",
+   "updated_time": "2010-05-29T04:29:23+0000"
 }

@@ -26,10 +26,10 @@ describe FbGraph::Connections::Friends, '#friends' do
     end
 
     context 'when identifier is me and no access_token is given' do
-      it 'should raise FbGraph::NotFound' do
+      it 'should raise FbGraph::Unauthorized' do
         lambda do
           FbGraph::User.new('me').friends
-        end.should raise_exception(FbGraph::NotFound)
+        end.should raise_exception(FbGraph::Unauthorized)
       end
     end
 

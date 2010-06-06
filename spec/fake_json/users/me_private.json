@@ -6,18 +6,123 @@
    "link": "http://www.facebook.com/matake",
    "about": "I'm a Ruby on Rails Developer on smart.fm",
    "birthday": "12/13/1981",
+   "hometown": {
+      "id": 112359252112966,
+      "name": "Hirakata, Osaka"
+   },
+   "location": {
+      "id": 108449982512946,
+      "name": "Kawasaki, Kanagawa"
+   },
+   "work": [
+      {
+         "employer": {
+            "id": 105612642807396,
+            "name": "Cerego Japan Inc."
+         },
+         "location": {
+            "id": 114600441890814,
+            "name": "Shibuya"
+         },
+         "position": {
+            "id": 112075768810308,
+            "name": "Web Engineer"
+         },
+         "start_date": "2008-00",
+         "end_date": "0000-00"
+      },
+      {
+         "employer": {
+            "id": 107722015925937,
+            "name": "Drecom Co., Ltd."
+         },
+         "location": {
+            "id": 111736052177472,
+            "name": "Tokyo, Tokyo"
+         },
+         "position": {
+            "id": 111091815582753,
+            "name": "Web Engineer"
+         },
+         "start_date": "2007-04",
+         "end_date": "2008-09"
+      }
+   ],
+   "education": [
+      {
+         "school": {
+            "id": 110149592341159,
+            "name": "\u540c\u5fd7\u793e\u5927\u5b66"
+         },
+         "degree": {
+            "id": 110616875633830,
+            "name": "Master of Engineering"
+         },
+         "year": {
+            "id": 104926492884272,
+            "name": "2007"
+         },
+         "concentration": [
+            {
+               "id": 112303688789448,
+               "name": "Engineering"
+            },
+            {
+               "id": 102358546472290,
+               "name": "Intelligent Information"
+            },
+            {
+               "id": 108311762535367,
+               "name": "Intelligent Systems Design Laboratory"
+            }
+         ]
+      },
+      {
+         "school": {
+            "id": 110149592341159,
+            "name": "\u540c\u5fd7\u793e\u5927\u5b66"
+         },
+         "year": {
+            "id": 117078804987252,
+            "name": "2004"
+         },
+         "concentration": [
+            {
+               "id": 108311762535367,
+               "name": "Intelligent Systems Design Laboratory"
+            },
+            {
+               "id": 120973077930419,
+               "name": "Engineering"
+            },
+            {
+               "id": 114592028573050,
+               "name": "Intelligent Information"
+            }
+         ]
+      },
+      {
+         "school": {
+            "id": 114666815212021,
+            "name": "Doshisha H.S."
+         },
+         "year": {
+            "id": 125827317431375,
+            "name": "2000"
+         }
+      }
+   ],
+   "gender": "male",
    "interested_in": [
-      "\u5973\u6027"
+      "female"
    ],
    "meeting_for": [
-      "\u53cb\u60c5",
-      "\u30c7\u30fc\u30c8",
-      "\u604b\u611b",
-      "\u60c5\u5831\u4ea4\u63db"
+      "Friendship",
+      "Networking"
    ],
-   "relationship_status": "\u65e2\u5a5a",
-   "website": "http://matake.jp\nhttp://blog.matake.jp\nhttp://railspress.matake.jp",
+   "relationship_status": "Married",
+   "website": "http://matake.jp",
    "timezone": 9,
    "verified": true,
-   "updated_time": "2009-10-01T06:57:02+0000"
+   "updated_time": "2010-05-20T06:50:04+0000"
 }
