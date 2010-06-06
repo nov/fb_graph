@@ -36,8 +36,14 @@ describe FbGraph::User, '.fetch' do
     context 'when access_token given' do
       it 'should get current user profile' do
         user = FbGraph::User.me('access_token').fetch
-        user.timezone.should == 9
-        user.verified.should be_true
+        user.interested_in.should       == ['female']
+        user.meeting_for.should         == ['Friendship', 'Networking']
+        user.relationship_status.should == 'Married'
+        user.website.should             == ['http://matake.jp']
+        user.religion.should            be_nil
+        user.political.should           be_nil
+        user.timezone.should            == 9
+        user.verified.should            be_true
       end
     end
 
@@ -111,19 +117,19 @@ describe FbGraph::User, '.fetch' do
           ]
         })
       ]
-      user.email.should    == nil
-      user.website.should  == []
-      user.hometown.should == FbGraph::Page.new(109533479072558, :name => 'Minnetonka, Minnesota')
-      user.interested_in.should == ['female']
-      user.meeting_for.should == ['Friendship']
+      user.email.should               == nil
+      user.website.should             == []
+      user.hometown.should            == FbGraph::Page.new(109533479072558, :name => 'Minnetonka, Minnesota')
+      user.interested_in.should       == ['female']
+      user.meeting_for.should         == ['Friendship']
       user.relationship_status.should == 'In a Relationship'
-      user.religion.should == 'zorp'
-      user.political.should == 'Liberal'
-      user.verified.should be_nil
+      user.religion.should            == 'zorp'
+      user.political.should           == 'Liberal'
+      user.verified.should            be_nil
       # What's this?
       # user.significant_other
-      user.timezone.should be_nil
-      user.updated_time.should == Time.parse('2010-05-29T04:29:23+0000')
+      user.timezone.should            be_nil
+      user.updated_time.should        == Time.parse('2010-05-29T04:29:23+0000')
     end
   end
 end
