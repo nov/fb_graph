@@ -27,7 +27,7 @@ module FbGraph
     # include Connections::Outbox
     # include Connections::Updates
 
-    attr_accessor :name, :last_name, :first_name, :link, :about, :birthday, :work, :education, :email, :website
+    attr_accessor :name, :last_name, :first_name, :link, :about, :birthday, :work, :education, :email, :website, :gender
 
     def initialize(identifier, options = {})
       super
@@ -37,6 +37,7 @@ module FbGraph
       @link       = options[:link]
       @about      = options[:about]
       @email      = options[:email]
+      @gender     = options[:gender]
       if options[:birthday]
         month, day, year = options[:birthday].split('/').collect(&:to_i)
         year ||= 0
