@@ -59,7 +59,12 @@ module FbGraph
       else
         self.endpoint
       end
+
       params[:access_token] ||= self.access_token
+      if params[:access_token].is_a?(OAuth2::AccessToken)
+        params[:access_token] = params[:access_token].token
+      end
+
       params.delete_if do |k, v|
         v.blank?
       end

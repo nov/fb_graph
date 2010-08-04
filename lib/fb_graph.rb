@@ -37,6 +37,7 @@ module FbGraph
 
 end
 
+require 'fb_graph/auth'
 require 'fb_graph/comparison'
 require 'fb_graph/collection'
 require 'fb_graph/connections'
