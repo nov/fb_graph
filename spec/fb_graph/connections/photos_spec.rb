@@ -25,5 +25,6 @@ describe FbGraph::Connections::Photos, '#photo!' do
     )
     photo.identifier.should == 401111132276
     photo.name.should == 'Hello, where is photo?'
+    photo.access_token.should == 'valid'
   end
 end

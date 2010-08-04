@@ -26,6 +26,7 @@ context 'when included by FbGraph::Page' do
       note.identifier.should == 396664845100
       note.subject.should == 'test'
       note.message.should == 'hello'
+      note.access_token.should == 'valid'
     end
   end
 end

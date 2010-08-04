@@ -20,6 +20,7 @@ describe FbGraph::Connections::Groups, '#groups' do
         groups = FbGraph::User.new('matake', :access_token => 'access_token').groups
         groups.first.should == FbGraph::Group.new(
           '115286585902',
+          :access_token => 'access_token',
           :name => 'iPhone 3G S'
         )
         groups.each do |group|

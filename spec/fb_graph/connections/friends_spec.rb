@@ -38,6 +38,7 @@ describe FbGraph::Connections::Friends, '#friends' do
         users = FbGraph::User.new('me', :access_token => 'access_token').friends
         users.first.should == FbGraph::User.new(
           '6401',
+          :access_token => 'access_token',
           :name => 'Kirk McMurray'
         )
         users.each do |user|

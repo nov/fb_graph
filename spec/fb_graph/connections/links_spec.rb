@@ -27,6 +27,7 @@ context 'when included by FbGraph::User' do
       link.identifier.should == 120765121284251
       link.link.should == 'http://github.com/nov/fb_graph'
       link.message.should == 'A Ruby wrapper for Facebook Graph API.'
+      link.access_token.should == 'valid'
     end
   end
 end

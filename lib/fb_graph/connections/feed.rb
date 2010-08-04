@@ -4,13 +4,17 @@ module FbGraph
       def feed(options = {})
         posts = FbGraph::Collection.new(get(options.merge(:connection => 'feed')))
         posts.map! do |post|
-          Post.new(post.delete(:id), post)
+          Post.new(post.delete(:id), post.merge(
+            :access_token => options[:access_token] || self.access_token
+          ))
         end
       end
 
       def feed!(options = {})
         post = post(options.merge(:connection => 'feed'))
-        Post.new(post.delete(:id), options.merge(post))
+        Post.new(post.delete(:id), options.merge(post).merge(
+          :access_token => options[:access_token] || self.access_token
+        ))
       end
     end
   end

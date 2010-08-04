@@ -39,7 +39,9 @@ context 'when included by FbGraph::Post' do
       it 'should return generated comment' do
         comment = FbGraph::Post.new('12345', :access_token => 'valid').comment!(:message => 'hello')
         comment.identifier.should == '117513961602338_119401698085884_535271'
+        comment.access_token.should == 'valid'
         comment.message.should == 'hello'
+        comment.access_token.should == 'valid'
       end
     end
   end

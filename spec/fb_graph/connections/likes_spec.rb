@@ -20,6 +20,7 @@ context 'when included by FbGraph::User' do
         likes = FbGraph::User.new('arjun', :access_token => 'access_token').likes
         likes.first.should == FbGraph::Page.new(
           '378209722137',
+          :access_token => 'access_token',
           :name => 'Doing Things at the Last Minute',
           :category => '活動'
         )

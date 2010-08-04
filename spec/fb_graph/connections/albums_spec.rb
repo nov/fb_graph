@@ -20,6 +20,7 @@ context 'when included by FbGraph::User' do
         albums = FbGraph::User.new('matake', :access_token => 'access_token').albums
         albums.first.should == FbGraph::Album.new(
           '19351532276',
+          :access_token => 'access_token',
           :from => {
             :id => '579612276',
             :name => 'Nov Matake'
@@ -48,6 +49,7 @@ context 'when included by FbGraph::User' do
         :message => 'test test test'
       )
       album.identifier.should == 401096332276
+      album.access_token.should == 'valid'
       album.name.should == 'FbGraph test'
       album.description.should == 'test test test'
     end

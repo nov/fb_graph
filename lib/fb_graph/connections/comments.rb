@@ -11,13 +11,17 @@ module FbGraph
           FbGraph::Collection.new(get(options.merge(:connection => 'comments')))
         end
         comments.map! do |comment|
-          Comment.new(comment.delete(:id), comment)
+          Comment.new(comment.delete(:id), comment.merge(
+            :access_token => options[:access_token] || self.access_token
+          ))
         end
       end
 
       def comment!(options = {})
         comment = post(options.merge(:connection => 'comments'))
-        Comment.new(comment.delete(:id), options.merge(comment))
+        Comment.new(comment.delete(:id), options.merge(comment).merge(
+          :access_token => options[:access_token] || self.access_token
+        ))
       end
 
       # NOTE:

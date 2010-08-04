@@ -21,6 +21,7 @@ describe FbGraph::Connections::Statuses, '#statuses' do
         statuses = FbGraph::User.new('arjun', :access_token => 'access_token').statuses
         statuses.first.should == FbGraph::Status.new(
           '113559395341627',
+          :access_token => 'access_token',
           :from => {
             :id => '7901103',
             :name => 'Arjun Banker'
@@ -54,6 +55,7 @@ describe FbGraph::Connections::Statuses, '#statuses' do
         statuses = FbGraph::Page.new('platform', :access_token => 'access_token').statuses
         statuses.first.should == FbGraph::Status.new(
           '111081598927600',
+          :access_token => 'access_token',
           :from => {
             :id => '19292868552',
             :name => 'Facebook Platform',

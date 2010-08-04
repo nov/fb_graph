@@ -20,6 +20,7 @@ describe FbGraph::Connections::Books, '#books' do
         books = FbGraph::User.new('matake', :access_token => 'access_token').books
         books.first.should == FbGraph::Page.new(
           '102253616477130',
+          :access_token => 'access_token',
           :name => 'Momo Michael Ende',
           :category => 'Unknown'
         )

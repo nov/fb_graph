@@ -20,6 +20,7 @@ context 'when included by FbGraph::User' do
         events = FbGraph::User.new('matake', :access_token => 'access_token').events
         events.first.should == FbGraph::Event.new(
           '116600818359630',
+          :access_token => 'access_token',
           :name => 'The Loyal We @ Rainy Day Bookstore and Cafe',
           :start_time => '2010-04-29T01:30:00+0000',
           :end_time => '2010-04-29T04:30:00+0000',
@@ -45,6 +46,7 @@ context 'when included by FbGraph::User' do
         :end_time   => Time.utc(2010, 5, 11, 12, 0, 0).to_i
       )
       event.name.should == 'FbGraph test event'
+      event.access_token.should == 'valid'
       event.start_time.should == Time.utc(2010, 5, 11, 10, 0, 0)
       event.end_time.should == Time.utc(2010, 5, 11, 12, 0, 0)
     end

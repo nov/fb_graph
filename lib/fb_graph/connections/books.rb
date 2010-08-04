@@ -4,7 +4,9 @@ module FbGraph
       def books(options = {})
         books = FbGraph::Collection.new(get(options.merge(:connection => 'books')))
         books.map! do |book|
-          Page.new(book.delete(:id), book)
+          Page.new(book.delete(:id), book.merge(
+            :access_token => options[:access_token] || self.access_token
+          ))
         end
       end
     end

@@ -38,6 +38,7 @@ describe FbGraph::Connections::Home, '#home' do
         posts = FbGraph::User.new('me', :access_token => 'access_token').home
         posts.first.should == FbGraph::Post.new(
           '634033380_112599768777073',
+          :access_token => 'access_token',
           :from => {
             :id => '634033380',
             :name => 'nishikokura hironobu'
