@@ -12,8 +12,4 @@ describe FbGraph::Page, '.fetch' do
     page.name.should       == 'Facebook Platform'
     page.category.should   == 'Technology'
   end
-
-  it 'should not require access_token' do
-    FbGraph::Page.fetch('platform', :access_token => 'access_token').should == FbGraph::Page.fetch('platform')
-  end
 end

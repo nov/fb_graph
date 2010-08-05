@@ -28,26 +28,29 @@ module FbGraph
     protected
 
     def get(params = {})
-      _endpoint_ = build_endpoint(params.merge!(:method => :get))
+      _params_ = stringfy_access_token(params)
+      _endpoint_ = build_endpoint(_params_.merge!(:method => :get))
       handle_response do
         RestClient.get(_endpoint_)
       end
     end
 
     def post(params = {})
-      _endpoint_ = build_endpoint(params.merge!(:method => :post))
+      _params_ = stringfy_access_token(params)
+      _endpoint_ = build_endpoint(_params_.merge!(:method => :post))
       handle_response do
-        RestClient.post(_endpoint_, params)
+        RestClient.post(_endpoint_, _params_)
       end
     end
 
     def delete(params = {})
-      _endpoint_ = build_endpoint(params.merge!(:method => :delete))
+      _params_ = stringfy_access_token(params)
+      _endpoint_ = build_endpoint(_params_.merge!(:method => :delete))
       handle_response do
         # NOTE:
         # DELETE method didn't work for some reason.
         # Use POST with "method=delete" for now.
-        RestClient.post(_endpoint_, params.merge!(:method => :delete))
+        RestClient.post(_endpoint_, _params_.merge!(:method => :delete))
       end
     end
 
@@ -60,11 +63,6 @@ module FbGraph
         self.endpoint
       end
 
-      params[:access_token] ||= self.access_token
-      if params[:access_token].is_a?(OAuth2::AccessToken)
-        params[:access_token] = params[:access_token].token
-      end
-
       params.delete_if do |k, v|
         v.blank?
       end
@@ -72,6 +70,15 @@ module FbGraph
         _endpoint_ << "?#{params.to_query}"
       end
       _endpoint_
+    end
+
+    def stringfy_access_token(params)
+      _params_ = params.dup
+      _params_[:access_token] ||= self.access_token
+      if access_token.is_a?(OAuth2::AccessToken)
+        _params_[:access_token] = _params_[:access_token].token
+      end
+      _params_
     end
 
     def handle_response
