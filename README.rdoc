@@ -1,7 +1,6 @@
 = FbGraph
 
-A Ruby wrapper for Facebook Graph API.
-This is a work in progress.
+A full-stack Facebook Graph API wrapper in Ruby.
 
 == Installation
 
@@ -18,6 +17,8 @@ This is a work in progress.
 
 Now FbGraph supports all objects listed here: http://developers.facebook.com/docs/reference/api/
 Almost all connections　for each object are also supported. (Private message connections are not supported yet)
+
+Plus, you can play an Rails sample app here. http://fbgraphsample.heroku.com/
 
 === GET
 
