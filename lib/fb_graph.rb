@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'json'
 require 'restclient'
+require 'oauth2'
 
 # NOTE:
 # For some reason, ActiveSupport 3.0.0 doesn'tj load whole code.

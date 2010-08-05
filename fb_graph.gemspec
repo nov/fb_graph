@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "0.3.0"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
-  s.date = %q{2010-08-04}
+  s.date = %q{2010-08-05}
   s.description = %q{A Ruby wrapper for Facebook Graph API}
   s.email = %q{nov@matake.jp}
   s.extra_rdoc_files = [
@@ -28,6 +28,8 @@ Gem::Specification.new do |s|
      "fb_graph.gemspec",
      "lib/fb_graph.rb",
      "lib/fb_graph/album.rb",
+     "lib/fb_graph/auth.rb",
+     "lib/fb_graph/auth/cookie.rb",
      "lib/fb_graph/collection.rb",
      "lib/fb_graph/comment.rb",
      "lib/fb_graph/comparison.rb",
@@ -262,6 +264,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<json>, [">= 0"])
       s.add_runtime_dependency(%q<activesupport>, [">= 0"])
       s.add_runtime_dependency(%q<rest-client>, [">= 1.4"])
+      s.add_runtime_dependency(%q<oauth2>, [">= 0.0.10"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<fakeweb>, [">= 0"])
@@ -269,6 +272,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<activesupport>, [">= 0"])
       s.add_dependency(%q<rest-client>, [">= 1.4"])
+      s.add_dependency(%q<oauth2>, [">= 0.0.10"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<fakeweb>, [">= 0"])
@@ -277,6 +281,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<activesupport>, [">= 0"])
     s.add_dependency(%q<rest-client>, [">= 1.4"])
+    s.add_dependency(%q<oauth2>, [">= 0.0.10"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<fakeweb>, [">= 0"])
