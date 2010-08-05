@@ -4,7 +4,8 @@ module FbGraph
 
     def initialize(collection)
       # allow nil input
-      collection ||= {:data => []}
+      collection ||= {}
+      collection[:data] ||= []
 
       result = replace(collection[:data])
       @previous, @next = {}, {}
