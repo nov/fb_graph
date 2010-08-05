@@ -22,6 +22,7 @@ module FbGraph
         cookie[:expires]
       )
       self.user = FbGraph::User.new(cookie[:uid], :access_token => self.access_token)
+      self
     end
   end
 end
