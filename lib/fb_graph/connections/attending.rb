@@ -2,7 +2,7 @@ module FbGraph
   module Connections
     module Attending
       def attending(options = {})
-        members = FbGraph::Collection.new(get(options.merge(:connection => 'attending')))
+        members = self.connection(:attending, options)
         members.map! do |member|
           User.new(member.delete(:id), member.merge(
             :access_token => options[:access_token] || self.access_token

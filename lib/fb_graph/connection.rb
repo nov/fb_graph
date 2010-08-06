@@ -1,27 +1,28 @@
 module FbGraph
-  class Connection
-    include Enumerable
+  class Connection < Collection
+    attr_accessor :collection, :connection, :owner
 
-    attr_accessor :collection, :owner, :collection
-
-    def initialize(owner, connection, options)
+    def initialize(owner, connection, collection = FbGraph::Collection.new)
       @owner = owner
       @connection = connection
-      @collection = FbGraph::Collection.new(owner.get(options.merge(:connection => connection)))
-    end
-
-    def each
-      self.collection.each do
-        yield
-      end
+      @collection = collection
+      replace collection
     end
 
     def next(options = {})
-      new(self.owner, self.connection, options.merge(self.collection.next))
+      if self.collection.next.present?
+        self.owner.send(self.connection, options.merge(self.collection.next))
+      else
+        self.class.new(self.owner, self.connection)
+      end
     end
 
     def previous(options = {})
-      new(self.owner, self.connection, options.merge(self.collection.previous))
+      if self.collection.previous.present?
+        self.owner.send(self.connection, options.merge(self.collection.previous))
+      else
+        self.class.new(self.owner, self.connection)
+      end
     end
   end
 end

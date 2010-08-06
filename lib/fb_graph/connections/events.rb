@@ -2,7 +2,7 @@ module FbGraph
   module Connections
     module Events
       def events(options = {})
-        events = FbGraph::Collection.new(get(options.merge(:connection => 'events')))
+        events = self.connection(:events, options)
         events.map! do |event|
           Event.new(event.delete(:id), event.merge(
             :access_token => options[:access_token] || self.access_token

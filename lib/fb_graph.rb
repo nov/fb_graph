@@ -24,8 +24,24 @@ module FbGraph
       end
     end
   end
-  class Unauthorized < FbGraph::Exception; end
-  class NotFound < FbGraph::Exception; end
+
+  class BadRequest < FbGraph::Exception
+    def initialize(message, body = '')
+      super 400, message, body
+    end
+  end
+
+  class Unauthorized < FbGraph::Exception
+    def initialize(message, body = '')
+      super 401, message, body
+    end
+  end
+
+  class NotFound < FbGraph::Exception
+    def initialize(message, body = '')
+      super 404, message, body
+    end
+  end
 
 end
 

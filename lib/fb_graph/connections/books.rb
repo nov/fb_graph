@@ -2,7 +2,7 @@ module FbGraph
   module Connections
     module Books
       def books(options = {})
-        books = FbGraph::Collection.new(get(options.merge(:connection => 'books')))
+        books = self.connection(:books, options)
         books.map! do |book|
           Page.new(book.delete(:id), book.merge(
             :access_token => options[:access_token] || self.access_token

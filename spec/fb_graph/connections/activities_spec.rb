@@ -18,6 +18,7 @@ context 'when included by FbGraph::User' do
     context 'when access_token is given' do
       it 'should return activities as FbGraph::Page' do
         activities = FbGraph::User.new('arjun', :access_token => 'access_token').activities
+        activities.class.should == FbGraph::Connection
         activities.first.should == FbGraph::Page.new(
           '378209722137',
           :access_token => 'access_token',

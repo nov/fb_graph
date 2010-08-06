@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
      "lib/fb_graph/collection.rb",
      "lib/fb_graph/comment.rb",
      "lib/fb_graph/comparison.rb",
+     "lib/fb_graph/connection.rb",
      "lib/fb_graph/connections.rb",
      "lib/fb_graph/connections/activities.rb",
      "lib/fb_graph/connections/albums.rb",
@@ -194,7 +195,6 @@ Gem::Specification.new do |s|
      "spec/fb_graph/venue_spec.rb",
      "spec/fb_graph/video_spec.rb",
      "spec/fb_graph/work_spec.rb",
-     "spec/fb_graph_spec.rb",
      "spec/helpers/fake_json_helper.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
@@ -251,7 +251,6 @@ Gem::Specification.new do |s|
      "spec/fb_graph/venue_spec.rb",
      "spec/fb_graph/video_spec.rb",
      "spec/fb_graph/work_spec.rb",
-     "spec/fb_graph_spec.rb",
      "spec/helpers/fake_json_helper.rb",
      "spec/spec_helper.rb"
   ]

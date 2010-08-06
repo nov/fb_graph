@@ -2,11 +2,8 @@ module FbGraph
   class Collection < Array
     attr_reader :previous, :next
 
-    def initialize(collection)
-      # allow nil input
-      collection ||= {}
-      collection[:data] ||= []
-
+    def initialize(collection = nil)
+      collection ||= {:data => []}
       result = replace(collection[:data])
       @previous, @next = {}, {}
       if (paging = collection[:paging])

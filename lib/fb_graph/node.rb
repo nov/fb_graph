@@ -21,7 +21,8 @@ module FbGraph
     end
 
     def connection(connection, options = {})
-      Connection.new(self, connection, options)
+      collection = FbGraph::Collection.new(get(options.merge(:connection => connection)))
+      Connection.new(self, connection, collection)
     end
 
     def destroy(options = {})
@@ -62,7 +63,7 @@ module FbGraph
 
     def build_endpoint(params = {})
       _endpoint_ = if params[:connection]
-        File.join(self.endpoint, params.delete(:connection))
+        File.join(self.endpoint, params.delete(:connection).to_s)
       else
         self.endpoint
       end
@@ -97,15 +98,15 @@ module FbGraph
         # This is an undocumented behaviour, so facebook might chaange it without any announcement.
         # I've posted this issue on their forum, so hopefully I'll get a document about Graph API error responses.
         # ref) http://forum.developers.facebook.com/viewtopic.php?pid=228256#p228256
-        raise FbGraph::NotFound.new(404, 'Graph API returned false, so probably it means your requested object is not found.')
+        raise FbGraph::NotFound.new('Graph API returned false, so probably it means your requested object is not found.')
       else
         _response_ = JSON.parse(response.body).with_indifferent_access
         if _response_[:error]
           case _response_[:error][:type]
           when 'OAuthAccessTokenException', 'QueryParseException'
-            raise FbGraph::Unauthorized.new(401, _response_[:error][:message])
+            raise FbGraph::Unauthorized.new(_response_[:error][:message])
           else
-            raise FbGraph::Exception.new(400, "#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
+            raise FbGraph::BadRequest.new("#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
           end
         else
           _response_

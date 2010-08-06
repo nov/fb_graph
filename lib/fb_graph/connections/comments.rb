@@ -8,7 +8,7 @@ module FbGraph
           # this improves performance when rendering the stream with comments
           @_comments_
         else
-          FbGraph::Collection.new(get(options.merge(:connection => 'comments')))
+          self.connection(:comments, options)
         end
         comments.map! do |comment|
           Comment.new(comment.delete(:id), comment.merge(

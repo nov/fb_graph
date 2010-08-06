@@ -2,7 +2,7 @@ module FbGraph
   module Connections
     module Likes
       def likes(options = {})
-        likes = FbGraph::Collection.new(get(options.merge(:connection => 'likes')))
+        likes = self.connection(:likes, options)
         likes.map! do |like|
           Page.new(like.delete(:id), like.merge(
             :access_token => options[:access_token] || self.access_token

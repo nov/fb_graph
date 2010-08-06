@@ -39,7 +39,6 @@ context 'when included by FbGraph::User' do
     end
 
     it 'should return generated note' do
-      puts Time.utc(2010,5,11,9,0).to_i
       event = FbGraph::User.new('matake', :access_token => 'valid').event!(
         :name => 'FbGraph test event',
         :start_time => Time.utc(2010, 5, 11, 10, 0, 0).to_i,

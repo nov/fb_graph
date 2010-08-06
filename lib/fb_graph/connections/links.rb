@@ -2,7 +2,7 @@ module FbGraph
   module Connections
     module Links
       def links(options = {})
-        links = FbGraph::Collection.new(get(options.merge(:connection => 'links')))
+        links = self.connection(:links, options)
         links.map! do |link|
           Link.new(link.delete(:id), link.merge(
             :access_token => options[:access_token] || self.access_token

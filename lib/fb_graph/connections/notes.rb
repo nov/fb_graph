@@ -2,7 +2,7 @@ module FbGraph
   module Connections
     module Notes
       def notes(options = {})
-        notes = FbGraph::Collection.new(get(options.merge(:connection => 'notes')))
+        notes = self.connection(:notes, options)
         notes.map! do |note|
           Note.new(note.delete(:id), note.merge(
             :access_token => options[:access_token] || self.access_token
