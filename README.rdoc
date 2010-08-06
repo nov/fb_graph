@@ -20,6 +20,11 @@ Almost all connections　for each object are also supported. (Private message co
 
 Plus, you can play an Rails sample app here. http://fbgraphsample.heroku.com/
 
+=== Authentication
+
+Both Facebook JavaScript SDK and normal OAuth2 flow is supported.
+See http://github.com/nov/fb_graph_sample
+
 === GET
 
 ==== Basic Objects
@@ -65,10 +70,8 @@ Plus, you can play an Rails sample app here. http://fbgraphsample.heroku.com/
 
   user = FbGraph::User.new('matake', :access_token => ACCESS_TOKEN)
   likes = user.likes # => Array of FbGraph::Like
-  likes.next         # => {:limit => 25, :until => '...'}
-  likes.previous     # => {:limit => 25, :since => '...'}
-  user.likes(likes.next)     # => Array of FbGraph::Like
-  user.likes(likes.previous) # => Array of FbGraph::Like
+  likes.next         # => Array of FbGraph::Like (next page)
+  likes.previous     # => Array of FbGraph::Like (previous page)
 
 === POST
 
@@ -146,6 +149,8 @@ Plus, you can play an Rails sample app here. http://fbgraphsample.heroku.com/
     :image => File.new('/Users/nov/Desktop/nov.gif', 'rb'), # 'rb' is needed only on windows
     :message => 'Hello, where is photo?'
   )
+
+=== DELETE
 
 ==== Delete an object
 
