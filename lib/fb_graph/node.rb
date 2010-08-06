@@ -20,6 +20,10 @@ module FbGraph
       new(identifier).fetch(options)
     end
 
+    def connection(connection, options = {})
+      Connection.new(self, connection, options)
+    end
+
     def destroy(options = {})
       options[:access_token] ||= self.access_token if self.access_token
       delete(options)

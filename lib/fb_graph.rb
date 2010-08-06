@@ -27,20 +27,12 @@ module FbGraph
   class Unauthorized < FbGraph::Exception; end
   class NotFound < FbGraph::Exception; end
 
-  class << self
-    def node(identifier, options = {})
-      Node.new(identifier, options)
-    end
-    def user(identifier, options = {})
-      User.new(identifier, options)
-    end
-  end
-
 end
 
 require 'fb_graph/auth'
 require 'fb_graph/comparison'
 require 'fb_graph/collection'
+require 'fb_graph/connection'
 require 'fb_graph/connections'
 
 require 'fb_graph/node'
