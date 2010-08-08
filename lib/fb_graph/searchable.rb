@@ -36,6 +36,3 @@ module FbGraph
     end
   end
 end
-
-FbGraph::User.serach("matake")
-=> "https://graph.facebook.com/search?q=matake&type=user"
