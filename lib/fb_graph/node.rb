@@ -1,6 +1,6 @@
 module FbGraph
   class Node
-    include FbGraph::Comparison
+    include Comparison
 
     attr_accessor :identifier, :endpoint, :access_token
 
@@ -18,6 +18,14 @@ module FbGraph
 
     def self.fetch(identifier, options = {})
       new(identifier).fetch(options)
+    end
+
+    def self.search(query, options = {})
+      type = self.to_s.underscore
+      options[:type] = type unless type == 'node'
+      FbGraph::Collection.new(
+        Node.new(:search).send(:get, options.merge(:q => query))
+      )
     end
 
     def connection(connection, options = {})

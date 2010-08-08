@@ -1,13 +1,16 @@
 module FbGraph
   module Searchable
     def search(query, options = {})
-      results = FbGraph::Collection.new(
-        Node.fetch(:search, options.merge(:q => query, :type => self.to_s.downcase))
-      )
+      results = Node.search(query, options.merge(:type => self.to_s.downcase))
+      results.map! do |result|
+        type.new(result.delete(:id), result.merge(
+          :access_token => options[:access_token]
+        ))
+      end
       Search.new(query, self, options.merge(:results => results))
     end
 
-    class Search < Collection
+    class Result < Collection
       attr_accessor :results
 
       def initialize(query, type, options = {})
