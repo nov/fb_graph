@@ -1,6 +1,6 @@
 module FbGraph
   module Searchable
-    def self.search(query, options = {})
+    def search(query, options = {})
       results = FbGraph::Collection.new(
         Node.fetch(:search, options.merge(:q => query, :type => self.to_s.downcase))
       )

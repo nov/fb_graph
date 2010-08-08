@@ -12,7 +12,7 @@ module FbGraph
     include Connections::Notes
     include Connections::Posts
     include Connections::Events
-    include Searchable
+    extend Searchable
 
     attr_accessor :name, :category
 

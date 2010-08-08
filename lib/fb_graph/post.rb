@@ -1,7 +1,7 @@
 module FbGraph
   class Post < Node
     include Connections::Comments
-    include Searchable
+    extend Searchable
 
     attr_accessor :from, :to, :message, :picture, :link, :name, :caption, :description, :source, :icon, :attribution, :actions, :likes, :created_time, :updated_time
 
