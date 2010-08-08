@@ -66,12 +66,36 @@ See http://github.com/nov/fb_graph_sample
   me.home
   :
 
+==== Search
+
+  # all objects
+  FbGraph::Searchable.search("FbGraph") # => Array of Hash
+
+  # specify type
+  FbGraph::Page.search("FbGraph") # => Array of FbGraph::Page
+  FbGraph::User.search("matake", :access_token => ACCESS_TOKEN) # => Array of FbGraph::User
+
 ==== Pagination
 
+  # collection
   user = FbGraph::User.new('matake', :access_token => ACCESS_TOKEN)
   likes = user.likes # => Array of FbGraph::Like
   likes.next         # => Array of FbGraph::Like (next page)
   likes.previous     # => Array of FbGraph::Like (previous page)
+  likes.collection.next     # => Hash for pagination options (ex. {"limit"=>"25", "until"=>"2010-08-08T03:17:21+0000"})
+  likes.collection.previous # => Hash for pagination options (ex. {"limit"=>"25", "since"=>"2010-08-08T06:28:20+0000"})
+  user.likes(likes.collection.next)     # => same with likes.next
+  user.likes(likes.collection.previous) # => same with likes.previous
+
+  # search results
+  results = FbGraph::Page.search("FbGraph") # => Array of FbGraph::Page
+  results.next     # => Array of FbGraph::Page (next page)
+  results.previous # => Array of FbGraph::Page (next page)
+  results.klass    # => FbGraph::Page
+  results.collection.next     # => Hash for pagination options (ex. {"limit"=>"25", "until"=>"2010-08-08T03:17:21+0000"})
+  results.collection.previous # => Hash for pagination options (ex. {"limit"=>"25", "since"=>"2010-08-08T06:28:20+0000"})
+  results.klass.search(results.query, results.collection.next)     # => same with results.next
+  results.klass.search(results.query, results.collection.previous) # => same with results.previous
 
 === POST
 
