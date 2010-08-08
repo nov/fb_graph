@@ -6,7 +6,7 @@ module FbGraph
       @owner = owner
       @options = options
       @connection = connection
-      @collection = options[:collection] || FbGraph::Collection.new
+      @collection = options.delete(:collection) || FbGraph::Collection.new
       replace collection
     end
 
@@ -18,7 +18,8 @@ module FbGraph
       end
     end
 
-    def previous(options = {})
+    def previous(_options_ = {})
+      puts self.options.inspect
       if self.collection.previous.present?
         self.owner.send(self.connection, self.options.merge(_options_).merge(self.collection.previous))
       else
