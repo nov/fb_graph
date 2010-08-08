@@ -20,14 +20,6 @@ module FbGraph
       new(identifier).fetch(options)
     end
 
-    def self.search(query, options = {})
-      type = self.to_s.underscore
-      options[:type] = type unless type == 'node'
-      FbGraph::Collection.new(
-        Node.new(:search).send(:get, options.merge(:q => query))
-      )
-    end
-
     def connection(connection, options = {})
       collection = FbGraph::Collection.new(get(options.merge(:connection => connection)))
       Connection.new(self, connection, options.merge(:collection => collection))

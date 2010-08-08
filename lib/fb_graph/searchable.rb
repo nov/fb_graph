@@ -1,13 +1,22 @@
 module FbGraph
   module Searchable
+    def self.search(query, options = {})
+      results = FbGraph::Collection.new(
+        Node.new(:search).send(:get, options.merge(:q => query))
+      )
+      yield results if block_given?
+      Result.new(query, self, options.merge(:results => results))
+    end
+
     def search(query, options = {})
-      results = Node.search(query, options.merge(:type => self.to_s.downcase))
-      results.map! do |result|
-        type.new(result.delete(:id), result.merge(
-          :access_token => options[:access_token]
-        ))
+      type = self.to_s.underscore.split('/').last
+      FbGraph::Searchable.search(query, options.merge(:type => type)) do |result|
+        results.map! do |result|
+          self.new(result.delete(:id), result.merge(
+            :access_token => options[:access_token]
+          ))
+        end
       end
-      Search.new(query, self, options.merge(:results => results))
     end
 
     class Result < Collection
