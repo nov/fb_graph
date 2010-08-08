@@ -10,7 +10,7 @@ module FbGraph
 
     def search(query, options = {})
       type = self.to_s.underscore.split('/').last
-      FbGraph::Searchable.search(query, options.merge(:type => type)) do |result|
+      FbGraph::Searchable.search(query, options.merge(:type => type)) do |results|
         results.map! do |result|
           self.new(result.delete(:id), result.merge(
             :access_token => options[:access_token]
