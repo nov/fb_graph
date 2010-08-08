@@ -1,11 +1,12 @@
 module FbGraph
   module Searchable
     def self.search(query, options = {})
+      klass = options.delete(:class) || self
       results = FbGraph::Collection.new(
         Node.new(:search).send(:get, options.merge(:q => query))
       )
       yield results if block_given?
-      Result.new(query, self, options.merge(:results => results))
+      Result.new(query, klass, options.merge(:results => results))
     end
 
     def search(query, options = {})
@@ -22,8 +23,8 @@ module FbGraph
     class Result < Collection
       attr_accessor :results
 
-      def initialize(query, type, options = {})
-        @type = type
+      def initialize(query, klass, options = {})
+        @klass = klass
         @query = query
         @options = options
         @results = options[:results] || FbGraph::Collection.new
@@ -32,17 +33,17 @@ module FbGraph
 
       def next(_options_ = {})
         if self.results.next.present?
-          self.type.send(:search, self.query, self.options.merge(_options_).merge(self.results.next))
+          self.klass.send(:search, self.query, self.options.merge(_options_).merge(self.results.next))
         else
-          self.class.new(self.query, self.type)
+          self.class.new(self.query, self.klass)
         end
       end
 
       def previous(_options_ = {})
         if self.results.previous.present?
-          self.type.send(:search, self.query, self.options.merge(_options_).merge(self.results.previous))
+          self.klassf.send(:search, self.query, self.options.merge(_options_).merge(self.results.previous))
         else
-          self.class.new(self.query, self.type)
+          self.class.new(self.query, self.klass)
         end
       end
     end
