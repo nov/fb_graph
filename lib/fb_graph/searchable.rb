@@ -1,17 +1,17 @@
 module FbGraph
   module Searchable
     def self.search(query, options = {})
-      klass = options.delete(:class) || self
+      klass = options.delete(:class) || FbGraph::Searchable
       results = FbGraph::Collection.new(
-        Node.new(:search).send(:get, options.merge(:q => query))
+        FbGraph::Node.new(:search).send(:get, options.merge(:q => query))
       )
       yield results if block_given?
-      Result.new(query, klass, options.merge(:results => results))
+      FbGraph::Searchable::Result.new(query, klass, options.merge(:results => results))
     end
 
     def search(query, options = {})
       type = self.to_s.underscore.split('/').last
-      FbGraph::Searchable.search(query, options.merge(:type => type)) do |results|
+      FbGraph::Searchable.search(query, options.merge(:type => type, :class => self)) do |results|
         results.map! do |result|
           self.new(result.delete(:id), result.merge(
             :access_token => options[:access_token]
@@ -21,7 +21,7 @@ module FbGraph
     end
 
     class Result < Collection
-      attr_accessor :results
+      attr_accessor :query, :klass, :results, :options
 
       def initialize(query, klass, options = {})
         @klass = klass
