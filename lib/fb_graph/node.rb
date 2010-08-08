@@ -22,7 +22,7 @@ module FbGraph
 
     def connection(connection, options = {})
       collection = FbGraph::Collection.new(get(options.merge(:connection => connection)))
-      Connection.new(self, connection, collection)
+      Connection.new(self, connection, options.merge(:collection => collection))
     end
 
     def destroy(options = {})
@@ -65,7 +65,7 @@ module FbGraph
       _endpoint_ = if params[:connection]
         File.join(self.endpoint, params.delete(:connection).to_s)
       else
-        self.endpoint
+        params[:endpoint] || self.endpoint
       end
 
       params.delete_if do |k, v|

@@ -21,6 +21,7 @@ module FbGraph
     include Connections::Links
     include Connections::Notes
     include Connections::Events
+    include Searchable
 
     # TODO:
     # include Connections::Inbox

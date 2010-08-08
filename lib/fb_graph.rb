@@ -50,6 +50,7 @@ require 'fb_graph/comparison'
 require 'fb_graph/collection'
 require 'fb_graph/connection'
 require 'fb_graph/connections'
+require 'fb_graph/searchable'
 
 require 'fb_graph/node'
 require 'fb_graph/album'
