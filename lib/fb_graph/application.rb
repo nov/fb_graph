@@ -1,25 +1,27 @@
 module FbGraph
   class Application < Node
-    attr_accessor :auth, :access_token
+    include Connections::Insights
 
-    def initialize(client_id, client_secret, options = {})
-      super(client_id, options)
-      @auth = FbGraph::Auth.new(client_id, client_secret, options)
-      @access_token = options[:access_token]
+    attr_accessor :name, :description, :category, :subcategory, :link, :secret
+
+    def initialize(client_id, options = {})
+      super
+      @name        = options[:name]
+      @description = options[:description]
+      @category    = options[:category]
+      @subcategory = options[:subcategory]
+      @link        = options[:link]
+      @secret      = options[:secret]
     end
 
-    def insights(options = {})
-      get_access_token if self.access_token.blank?
-      insights = get(:endpoint => File.join(self.endpoint, 'insights')
-      puts insights
-    end
-
-    def get_access_token(options = {})
-      response_string = self.auth.client.request(:post, client.access_token_url, {
-        :client_id => self.auth.client.id,
-        :client_secret => self.auth.client.secret,
+    def get_access_token(secret = nil)
+      self.secret ||= secret
+      auth = FbGraph::Auth.new(self.identifier, self.secret)
+      response_string = auth.client.request(:post, auth.client.access_token_url, {
+        :client_id => self.identifier,
+        :client_secret => self.secret,
         :type => 'client_cred'
-      }.merge(options))
+      })
       self.access_token = response_string.split('=').last
     end
 

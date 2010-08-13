@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
      "fb_graph.gemspec",
      "lib/fb_graph.rb",
      "lib/fb_graph/album.rb",
+     "lib/fb_graph/application.rb",
      "lib/fb_graph/auth.rb",
      "lib/fb_graph/auth/cookie.rb",
      "lib/fb_graph/collection.rb",
