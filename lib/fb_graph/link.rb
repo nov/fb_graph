@@ -2,7 +2,7 @@ module FbGraph
   class Link < Node
     include Connections::Comments
 
-    attr_accessor :from, :link, :caption, :description, :icon, :picture, :message, :created_time
+    attr_accessor :from, :link, :name, :caption, :description, :icon, :picture, :message, :created_time
 
     def initialize(identifier, attributes = {})
       super
@@ -13,11 +13,12 @@ module FbGraph
           FbGraph::User.new(from.delete(:id), from)
         end
       end
+      @name        = attributes[:name]
       @link        = attributes[:link]
       @caption     = attributes[:caption]
       @description = attributes[:description]
       @icon        = attributes[:icon]
-      @picture     = attributes[:picture]
+      @picture     = attributes[:picture] # NOTE: this is external image, so isn't connection.
       @message     = attributes[:message]
       if attributes[:created_time]
         @created_time = Time.parse(attributes[:created_time]).utc
