@@ -1,6 +1,10 @@
 require File.join(File.dirname(__FILE__), '../spec_helper')
 
 describe FbGraph::User, '.new' do
+  it 'should setup all supported attributes' do
+    # TODO
+  end
+
   it 'should support year-hidden birthday' do
     user = FbGraph::User.new(12345, :birthday => '12/13')
     user.birthday.year.should  == 0
