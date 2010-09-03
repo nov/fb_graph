@@ -2,8 +2,9 @@ module FbGraph
   class Album < Node
     include Connections::Photos
     include Connections::Comments
+    include Connections::Likes
 
-    attr_accessor :from, :name, :description, :location, :link, :privacy, :count, :created_time, :updated_time, :comments
+    attr_accessor :from, :name, :description, :location, :link, :privacy, :count, :created_time, :updated_time
 
     def initialize(identifier, attributes = {})
       super
