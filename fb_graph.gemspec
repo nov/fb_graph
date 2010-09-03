@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "0.7.0"
+  s.version = "0.7.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
-  s.date = %q{2010-08-13}
+  s.date = %q{2010-09-04}
   s.description = %q{A Ruby wrapper for Facebook Graph API}
   s.email = %q{nov@matake.jp}
   s.extra_rdoc_files = [
@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
      "lib/fb_graph/application.rb",
      "lib/fb_graph/auth.rb",
      "lib/fb_graph/auth/cookie.rb",
+     "lib/fb_graph/checkin.rb",
      "lib/fb_graph/collection.rb",
      "lib/fb_graph/comment.rb",
      "lib/fb_graph/comparison.rb",
@@ -76,7 +77,9 @@ Gem::Specification.new do |s|
      "lib/fb_graph/photo.rb",
      "lib/fb_graph/post.rb",
      "lib/fb_graph/searchable.rb",
+     "lib/fb_graph/searchable/result.rb",
      "lib/fb_graph/status.rb",
+     "lib/fb_graph/subscription.rb",
      "lib/fb_graph/tag.rb",
      "lib/fb_graph/user.rb",
      "lib/fb_graph/venue.rb",
@@ -154,6 +157,8 @@ Gem::Specification.new do |s|
      "spec/fake_json/users/television/matake_private.json",
      "spec/fake_json/users/videos/kirk_private.json",
      "spec/fb_graph/album_spec.rb",
+     "spec/fb_graph/application_spec.rb",
+     "spec/fb_graph/auth_spec.rb",
      "spec/fb_graph/collection_spec.rb",
      "spec/fb_graph/comment_spec.rb",
      "spec/fb_graph/connection_spec.rb",
@@ -188,6 +193,7 @@ Gem::Specification.new do |s|
      "spec/fb_graph/education_spec.rb",
      "spec/fb_graph/event_spec.rb",
      "spec/fb_graph/group_spec.rb",
+     "spec/fb_graph/insight_spec.rb",
      "spec/fb_graph/link_spec.rb",
      "spec/fb_graph/node_spec.rb",
      "spec/fb_graph/note_spec.rb",
@@ -211,6 +217,8 @@ Gem::Specification.new do |s|
   s.summary = %q{A Ruby wrapper for Facebook Graph API}
   s.test_files = [
     "spec/fb_graph/album_spec.rb",
+     "spec/fb_graph/application_spec.rb",
+     "spec/fb_graph/auth_spec.rb",
      "spec/fb_graph/collection_spec.rb",
      "spec/fb_graph/comment_spec.rb",
      "spec/fb_graph/connection_spec.rb",
@@ -245,6 +253,7 @@ Gem::Specification.new do |s|
      "spec/fb_graph/education_spec.rb",
      "spec/fb_graph/event_spec.rb",
      "spec/fb_graph/group_spec.rb",
+     "spec/fb_graph/insight_spec.rb",
      "spec/fb_graph/link_spec.rb",
      "spec/fb_graph/node_spec.rb",
      "spec/fb_graph/note_spec.rb",
