@@ -3,7 +3,7 @@ module FbGraph
     include Connections::Comments
     include Connections::Likes
 
-    attr_accessor :from, :tags, :name, :picture, :source, :height, :width, :link, :created_time, :updated_time
+    attr_accessor :from, :tags, :name, :picture, :icon, :source, :height, :width, :link, :created_time, :updated_time
 
     def initialize(identifier, attributes = {})
       super
@@ -25,6 +25,7 @@ module FbGraph
       # "name" in GET & "message" in POST
       @name    = attributes[:name] || attributes[:message]
       @picture = attributes[:picture]
+      @icon    = attributes[:icon]
       @source  = attributes[:source]
       @height  = attributes[:height]
       @width   = attributes[:width]

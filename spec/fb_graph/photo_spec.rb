@@ -20,6 +20,7 @@ describe FbGraph::Photo, '.new' do
       },
       :name => 'photo 1',
       :picture => 'http://www.facebook.com/matake/picture/album_size',
+      :icon => 'http://static.ak.fbcdn.net/rsrc.php/z2E5Y/hash/8as8iqdm.gif',
       :source => 'http://www.facebook.com/matake/picture/original_size',
       :height => 100,
       :width => 200,
@@ -38,6 +39,7 @@ describe FbGraph::Photo, '.new' do
       :created_time => '2010-01-10T15:37:40+0000'
     )]
     photo.picture.should      == 'http://www.facebook.com/matake/picture/album_size'
+    photo.icon.should         == 'http://static.ak.fbcdn.net/rsrc.php/z2E5Y/hash/8as8iqdm.gif'
     photo.source.should       == 'http://www.facebook.com/matake/picture/original_size'
     photo.height.should       == 100
     photo.width.should        == 200
