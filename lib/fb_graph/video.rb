@@ -1,6 +1,7 @@
 module FbGraph
   class Video < Node
     include Connections::Comments
+    include Connections::Likes
 
     attr_accessor :from, :message, :description, :length, :created_time, :updated_time
 

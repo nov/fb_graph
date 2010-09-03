@@ -21,6 +21,11 @@ module FbGraph
     include Connections::Links
     include Connections::Notes
     include Connections::Events
+    # TODO
+    # include Connections::Inbox
+    # include Connections::Outbox
+    # include Connections::Updates
+    # include Connections::Accounts
     extend Searchable
 
     # TODO:
@@ -28,7 +33,7 @@ module FbGraph
     # include Connections::Outbox
     # include Connections::Updates
 
-    attr_accessor :first_name, :last_name, :name, :link, :about, :birthday, :work, :education, :email, :website, :hometown, :location, :gender, :interested_in, :meeting_for, :relationship_status, :religion, :political, :verified, :significant_other, :timezone, :updated_time
+    attr_accessor :first_name, :last_name, :name, :link, :about, :birthday, :work, :education, :email, :website, :hometown, :location, :bio, :quotes, :gender, :interested_in, :meeting_for, :relationship_status, :religion, :political, :verified, :significant_other, :timezone, :updated_time
 
     def initialize(identifier, options = {})
       super
@@ -62,6 +67,8 @@ module FbGraph
       if (location = options[:location])
         @location = FbGraph::Page.new(location.delete(:id), location)
       end
+      @bio                 = options[:bio]
+      @quotes              = options[:quotes]
       @gender              = options[:gender]
       @interested_in       = Array(options[:interested_in])
       @meeting_for         = Array(options[:meeting_for])

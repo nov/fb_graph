@@ -2,18 +2,18 @@ module FbGraph
   class Comment < Node
     attr_accessor :from, :message, :created_time
 
-    def initialize(identifier, options = {})
+    def initialize(identifier, attributes = {})
       super
-      if (from = options[:from])
+      if (from = attributes[:from])
         @from = if from[:category]
           FbGraph::Page.new(from.delete(:id), from)
         else
           FbGraph::User.new(from.delete(:id), from)
         end
       end
-      @message = options[:message]
-      if options[:created_time]
-        @created_time = Time.parse(options[:created_time]).utc
+      @message = attributes[:message]
+      if attributes[:created_time]
+        @created_time = Time.parse(attributes[:created_time]).utc
       end
     end
   end

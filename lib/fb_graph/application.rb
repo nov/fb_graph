@@ -1,17 +1,28 @@
 module FbGraph
   class Application < Node
+    include Connections::Feed
+    include Connections::Posts
+    include Connections::Picture
+    include Connections::Tagged
+    include Connections::Links
+    include Connections::Photos
+    include Connections::Albums
+    include Connections::Statuses
+    include Connections::Videos
+    include Connections::Notes
+    include Connections::Events
+    # include Connections::Subscriptions # TODO
     include Connections::Insights
 
-    attr_accessor :name, :description, :category, :subcategory, :link, :secret
+    attr_accessor :name, :description, :category, :link, :secret
 
-    def initialize(client_id, options = {})
+    def initialize(client_id, attributes = {})
       super
-      @name        = options[:name]
-      @description = options[:description]
-      @category    = options[:category]
-      @subcategory = options[:subcategory]
-      @link        = options[:link]
-      @secret      = options[:secret]
+      @name        = attributes[:name]
+      @description = attributes[:description]
+      @category    = attributes[:category]
+      @link        = attributes[:link]
+      @secret      = attributes[:secret]
     end
 
     def get_access_token(secret = nil)

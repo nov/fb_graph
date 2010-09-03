@@ -27,6 +27,4 @@ module FbGraph
   end
 end
 
-Dir[File.dirname(__FILE__) + '/auth/*.rb'].each do |file| 
-  require file
-end
+require 'fb_graph/auth/cookie'

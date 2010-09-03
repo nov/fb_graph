@@ -3,31 +3,37 @@ module FbGraph
     include Connections::Photos
     include Connections::Comments
 
-    attr_accessor :from, :name, :description, :location, :link, :count, :created_time, :updated_time
+    attr_accessor :from, :name, :description, :location, :link, :privacy, :count, :created_time, :updated_time, :comments
 
-    def initialize(identifier, options = {})
+    def initialize(identifier, attributes = {})
       super
-      if (from = options[:from])
+      if (from = attributes[:from])
         @from = if from[:category]
           FbGraph::Page.new(from.delete(:id), from)
         else
           FbGraph::User.new(from.delete(:id), from)
         end
       end
-      @name         = options[:name]
+      @name = attributes[:name]
       # NOTE:
       # for some reason, facebook uses different parameter names.
       # "description" in GET & "message" in POST
-      @description  = options[:description] || options[:message]
-      @location     = options[:location]
-      @link         = options[:link]
-      @count        = options[:count]
-      if options[:created_time]
-        @created_time = Time.parse(options[:created_time]).utc
+      # TODO:
+      # check whether this issue is solved or not
+      @description = attributes[:description] || attributes[:message]
+      @location    = attributes[:location]
+      @link        = attributes[:link]
+      @privacy     = attributes[:privacy]
+      @count       = attributes[:count]
+      if attributes[:created_time]
+        @created_time = Time.parse(attributes[:created_time]).utc
       end
-      if options[:updated_time]
-        @updated_time = Time.parse(options[:updated_time]).utc
+      if attributes[:updated_time]
+        @updated_time = Time.parse(attributes[:updated_time]).utc
       end
+
+      # cached connection
+      @_comments_ = FbGraph::Collection.new(attributes[:comments])
     end
   end
 end

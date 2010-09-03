@@ -8,7 +8,6 @@ describe FbGraph::Application, '.new' do
       :name        => 'FbGraph',
       :description => 'Owsome Facebook Graph Wrapper',
       :category    => 'Programming',
-      :subcategory => 'Open Source',
       :link        => 'http://github.com/nov/fb_graph',
       :secret      => 'sec sec'
     }
@@ -17,7 +16,6 @@ describe FbGraph::Application, '.new' do
     app.name.should        == 'FbGraph'
     app.description.should == 'Owsome Facebook Graph Wrapper'
     app.category.should    == 'Programming'
-    app.subcategory.should == 'Open Source'
     app.link.should        == 'http://github.com/nov/fb_graph'
     app.secret.should      == 'sec sec'
   end

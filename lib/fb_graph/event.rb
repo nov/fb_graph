@@ -11,16 +11,16 @@ module FbGraph
 
     attr_accessor :owner, :name, :description, :start_time, :end_time, :location, :venue, :privacy, :updated_time
 
-    def initialize(identifier, options = {})
+    def initialize(identifier, attributes = {})
       super
-      if (owner = options[:owner])
+      if (owner = attributes[:owner])
         @owner = FbGraph::User.new(owner.delete(:id), owner)
       end
-      @name        = options[:name]
-      @description = options[:description]
-      @location    = options[:location]
-      @privacy     = options[:privacy]
-      if (start_time = options[:start_time])
+      @name        = attributes[:name]
+      @description = attributes[:description]
+      @location    = attributes[:location]
+      @privacy     = attributes[:privacy]
+      if (start_time = attributes[:start_time])
         @start_time = case start_time
         when String
           Time.parse(start_time).utc
@@ -28,7 +28,7 @@ module FbGraph
           Time.at(start_time).utc
         end
       end
-      if (end_time = options[:end_time])
+      if (end_time = attributes[:end_time])
         @end_time = case end_time
         when String
           Time.parse(end_time).utc
@@ -36,11 +36,11 @@ module FbGraph
           Time.at(end_time).utc
         end
       end
-      if options[:venue]
-        @venue = FbGraph::Venue.new(options[:venue])
+      if attributes[:venue]
+        @venue = FbGraph::Venue.new(attributes[:venue])
       end
-      if options[:updated_time]
-        @updated_time = Time.parse(options[:updated_time]).utc
+      if attributes[:updated_time]
+        @updated_time = Time.parse(attributes[:updated_time]).utc
       end
     end
   end

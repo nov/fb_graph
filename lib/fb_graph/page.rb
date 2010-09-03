@@ -11,15 +11,24 @@ module FbGraph
     include Connections::Videos
     include Connections::Notes
     include Connections::Posts
+    include Connections::Members
     include Connections::Events
     extend Searchable
 
-    attr_accessor :name, :category
+    attr_accessor :name, :link, :category, :founded, :company_overview, :mission, :products, :fan_count
 
-    def initialize(identifier, options = {})
+    def initialize(identifier, attributes = {})
       super
-      @name     = options[:name]
-      @category = options[:category]
+      @name     = attributes[:name]
+      @link     = attributes[:link]
+      @category = attributes[:category]
+      @founded  = attributes[:founded]
+      @company_overview = attributes[:company_overview]
+      @mission  = attributes[:mission]
+      if (products = attributes[:products])
+        @products = products.split "\n"
+      end
+      @fan_count = attributes[:fan_count]
     end
   end
 end

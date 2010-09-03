@@ -28,6 +28,7 @@ context 'when included by FbGraph::User' do
           :name => 'モバイルアップロード',
           :link => 'http://www.facebook.com/album.php?aid=25463&id=579612276',
           :count => 3,
+          :privacy => 'everyone',
           :created_time => '2008-07-27T11:38:15+0000',
           :updated_time => '2009-02-07T16:09:53+0000'
         )
