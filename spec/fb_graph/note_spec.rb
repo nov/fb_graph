@@ -12,7 +12,8 @@ describe FbGraph::Note, '.new' do
       :subject => 'TODO',
       :message => 'later or never',
       :created_time => '2010-01-02T15:37:40+0000',
-      :updated_time => '2010-01-02T15:37:41+0000'
+      :updated_time => '2010-01-02T15:37:41+0000',
+      :icon => 'http://static.ak.fbcdn.net/rsrc.php/z7NSY/hash/ajh5dbgz.gif'
     }
     note = FbGraph::Note.new(attributes.delete(:id), attributes)
     note.identifier.should   == '12345'
@@ -21,6 +22,7 @@ describe FbGraph::Note, '.new' do
     note.message.should      == 'later or never'
     note.created_time.should == Time.parse('2010-01-02T15:37:40+0000')
     note.updated_time.should == Time.parse('2010-01-02T15:37:41+0000')
+    note.icon.should         == 'http://static.ak.fbcdn.net/rsrc.php/z7NSY/hash/ajh5dbgz.gif'
   end
 
   it 'should support page as from' do
