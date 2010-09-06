@@ -1,6 +1,10 @@
 =begin rdoc
 
-== Update User Wall
+== Updating Wall
+
+See details here: http://developers.facebook.com/docs/reference/api/post
+
+=== User Wall
 
   me = FbGraph::User.me(ACCESS_TOKEN)
   me.feed!(
@@ -11,10 +15,11 @@
     :description => 'A Ruby wrapper for Facebook Graph API'
   )
 
-== Update Page Wall
+=== Page Wall
 
-  page = FbGraph::Page.new(page_id, :access_token => ACCESS_TOKEN)
+  page = FbGraph::Page.new(page_id)
   page.feed!(
+    :access_token => ACCESS_TOKEN,
     :message => 'Updating via FbGraph',
     :picture => 'https://graph.facebook.com/matake/picture',
     :link => 'http://github.com/nov/fb_graph',
