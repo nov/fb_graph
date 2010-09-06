@@ -1,5 +1,32 @@
 =begin rdoc
 
+== Fetching Wall posts
+
+=== User Wall
+
+  FbGraph::User.new(username).feed
+  # => Array of FbGraph::Post
+
+=== Page Wall
+
+  FbGraph::Page.new(page_id).feed
+  # => Array of FbGraph::Post
+
+=== Application Wall
+
+  FbGraph::Application.new(page_id).feed
+  # => Array of FbGraph::Post
+
+=== Event Wall
+
+  FbGraph::Event.new(page_id).feed
+  # => Array of FbGraph::Post
+
+=== Group Wall
+
+  FbGraph::Group.new(page_id).feed
+  # => Array of FbGraph::Post
+
 == Updating Wall
 
 See details here: http://developers.facebook.com/docs/reference/api/post
