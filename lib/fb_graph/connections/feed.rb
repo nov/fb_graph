@@ -29,17 +29,14 @@
 
 == Updating Wall
 
-See details here: http://developers.facebook.com/docs/reference/api/post
+* See supported arguments here http://developers.facebook.com/docs/reference/api/post
+* You need admin user's access_token to update Page/Application/Event/Group wall as itself
 
 === User Wall
 
   me = FbGraph::User.me(ACCESS_TOKEN)
   me.feed!(
-    :message => 'Updating via FbGraph',
-    :picture => 'https://graph.facebook.com/matake/picture',
-    :link => 'http://github.com/nov/fb_graph',
-    :name => 'FbGraph',
-    :description => 'A Ruby wrapper for Facebook Graph API'
+    :message => 'Updating via FbGraph'
   )
 
 === Page Wall
@@ -47,14 +44,33 @@ See details here: http://developers.facebook.com/docs/reference/api/post
   page = FbGraph::Page.new(page_id)
   page.feed!(
     :access_token => ACCESS_TOKEN,
-    :message => 'Updating via FbGraph',
-    :picture => 'https://graph.facebook.com/matake/picture',
-    :link => 'http://github.com/nov/fb_graph',
-    :name => 'FbGraph',
-    :description => 'A Ruby wrapper for Facebook Graph API'
+    :message => 'Updating via FbGraph'
   )
 
-* You need the page admin's access_token
+=== Application Wall
+
+  application = FbGraph::Page.new(application_id)
+  application.feed!(
+    :access_token => ACCESS_TOKEN,
+    :message => 'Updating via FbGraph'
+  )
+
+=== Event Wall
+
+  event = FbGraph::Event.new(event_id)
+  event.feed!(
+    :access_token => ACCESS_TOKEN,
+    :message => 'Updating via FbGraph'
+  )
+
+=== Group Wall
+
+  group = FbGraph::Group.new(group_id)
+  group.feed!(
+    :access_token => ACCESS_TOKEN,
+    :message => 'Updating via FbGraph'
+  )
+
 =end
 
 module FbGraph::Connections::Feed
