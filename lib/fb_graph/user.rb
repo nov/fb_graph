@@ -21,17 +21,14 @@ module FbGraph
     include Connections::Links
     include Connections::Notes
     include Connections::Events
+    # --
     # TODO
     # include Connections::Inbox
     # include Connections::Outbox
     # include Connections::Updates
     # include Connections::Accounts
+    # ++
     extend Searchable
-
-    # TODO:
-    # include Connections::Inbox
-    # include Connections::Outbox
-    # include Connections::Updates
 
     attr_accessor :first_name, :last_name, :name, :link, :about, :birthday, :work, :education, :email, :website, :hometown, :location, :bio, :quotes, :gender, :interested_in, :meeting_for, :relationship_status, :religion, :political, :verified, :significant_other, :timezone, :updated_time
 
