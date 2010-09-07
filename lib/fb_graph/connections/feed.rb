@@ -27,7 +27,6 @@ module FbGraph
       # 
       #   FbGraph::Group.new(page_id).feed
       #   # => Array of FbGraph::Post
-      # 
       def feed(options = {})
         posts = self.connection(:feed, options)
         posts.map! do |post|
@@ -80,7 +79,6 @@ module FbGraph
       #     :access_token => ACCESS_TOKEN,
       #     :message => 'Updating via FbGraph'
       #   )
-      #
       def feed!(options = {})
         post = post(options.merge(:connection => 'feed'))
         Post.new(post.delete(:id), options.merge(post).merge(
