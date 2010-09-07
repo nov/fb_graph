@@ -64,6 +64,7 @@ Gem::Specification.new do |s|
      "lib/fb_graph/connections/picture.rb",
      "lib/fb_graph/connections/posts.rb",
      "lib/fb_graph/connections/statuses.rb",
+     "lib/fb_graph/connections/subscriptions.rb",
      "lib/fb_graph/connections/tagged.rb",
      "lib/fb_graph/connections/television.rb",
      "lib/fb_graph/connections/videos.rb",
