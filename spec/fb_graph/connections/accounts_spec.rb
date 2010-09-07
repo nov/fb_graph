@@ -5,6 +5,7 @@ context 'when included by FbGraph::User' do
     before(:all) do
       fake_json(:get, 'matake/accounts', 'users/accounts/matake_public')
       fake_json(:get, 'matake/accounts?access_token=access_token', 'users/accounts/matake_private')
+      fake_json(:get, 'matake/accounts?access_token=access_token_with_manage_pages_permission', 'users/accounts/matake_private_with_manage_pages_permission')
     end
 
     context 'when no access_token given' do
@@ -27,6 +28,18 @@ context 'when included by FbGraph::User' do
         )
         accounts.each do |account|
           account.should be_instance_of(FbGraph::Page)
+        end
+      end
+
+      context 'when manage_pages permission given' do
+        it 'should has special access_token behalf of the page' do
+          accounts = FbGraph::User.new('matake', :access_token => 'access_token_with_manage_pages_permission').accounts
+          accounts.first.should == FbGraph::Page.new(
+            '140478125968442',
+            :access_token => 'access_token_for_oauth_jp',
+            :name => 'OAuth.jp',
+            :category => 'Technology'
+          )
         end
       end
     end
