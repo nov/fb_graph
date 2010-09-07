@@ -20,6 +20,7 @@ module FbGraph
       # See details at "Subscription Verification" in the Facebook API document.
       # ref) http://developers.facebook.com/docs/api/realtime
       # 
+      #   app = FbGraph::Application.new(APP_ID, :secret => APP_SECRET)
       #   app.subscribe!(
       #     :object => "user",
       #     :fields => "name,email",
@@ -38,6 +39,7 @@ module FbGraph
       # If you specify an object parameter, it will only delete the corresponding subscription.
       # ref) http://developers.facebook.com/docs/api/realtime
       # 
+      #   app = FbGraph::Application.new(APP_ID, :secret => APP_SECRET)
       #   app.unsubscribe!(
       #     :object => "user"
       #   )
