@@ -11,18 +11,18 @@ module FbGraph
     include Connections::Videos
     include Connections::Notes
     include Connections::Events
-    # include Connections::Subscriptions # TODO
+    include Connections::Subscriptions
     include Connections::Insights
 
     attr_accessor :name, :description, :category, :link, :secret
 
     def initialize(client_id, attributes = {})
       super
-      @name        = attributes[:name]
-      @description = attributes[:description]
-      @category    = attributes[:category]
-      @link        = attributes[:link]
-      @secret      = attributes[:secret]
+      @name         = attributes[:name]
+      @description  = attributes[:description]
+      @category     = attributes[:category]
+      @link         = attributes[:link]
+      @secret       = attributes[:secret]
     end
 
     def get_access_token(secret = nil)

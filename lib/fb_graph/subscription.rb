@@ -2,9 +2,12 @@ module FbGraph
   class Subscription < Node
     attr_accessor :object, :fields, :callback_url, :active
 
-    def initialize(identifier, options = {})
+    def initialize(identifier, attributes = {})
       super
-      # TODO
+      @object       = attributes[:object]
+      @fields       = attributes[:fields]
+      @callback_url = attributes[:callback_url]
+      @active       = attributes[:active]
     end
   end
 end

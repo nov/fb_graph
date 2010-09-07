@@ -5,7 +5,7 @@ module FbGraph
         options[:access_token] ||= self.access_token || get_access_token(options[:secret])
         insights = self.connection(:insights, options)
         insights.map! do |insight|
-          FbGraph::Insight.new(insight.merge(:access_token => options[:access_token]))
+          Insight.new(insight.merge(:access_token => options[:access_token]))
         end
       end
     end

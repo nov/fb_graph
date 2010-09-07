@@ -1,5 +1,5 @@
 module FbGraph
-  class Event < Node
+  class Checkin < Node
     attr_accessor :from, :tags, :place, :message, :coordinates, :application, :created_time
 
     def initialize(identifier, attributes = {})
