@@ -26,7 +26,7 @@ module FbGraph
     # include Connections::Inbox
     # include Connections::Outbox
     # include Connections::Updates
-    # include Connections::Accounts
+    include Connections::Accounts
     # ++
     extend Searchable
 
