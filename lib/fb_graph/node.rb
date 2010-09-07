@@ -99,6 +99,8 @@ module FbGraph
         # I've posted this issue on their forum, so hopefully I'll get a document about Graph API error responses.
         # ref) http://forum.developers.facebook.com/viewtopic.php?pid=228256#p228256
         raise FbGraph::NotFound.new('Graph API returned false, so probably it means your requested object is not found.')
+      when 'null'
+        nil
       else
         _response_ = JSON.parse(response.body).with_indifferent_access
         if _response_[:error]
