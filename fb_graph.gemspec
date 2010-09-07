@@ -111,6 +111,7 @@ Gem::Specification.new do |s|
      "spec/fake_json/posts/platform_private.json",
      "spec/fake_json/posts/platform_public.json",
      "spec/fake_json/users/accounts/matake_private.json",
+     "spec/fake_json/users/accounts/matake_private_with_manage_pages_permission.json",
      "spec/fake_json/users/accounts/matake_public.json",
      "spec/fake_json/users/activities/arjun_private.json",
      "spec/fake_json/users/activities/arjun_public.json",
