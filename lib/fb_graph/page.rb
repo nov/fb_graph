@@ -13,6 +13,7 @@ module FbGraph
     include Connections::Posts
     include Connections::Members
     include Connections::Events
+    include Connections::Checkins
     extend Searchable
 
     attr_accessor :name, :username, :link, :category, :founded, :company_overview, :mission, :products, :fan_count, :location
