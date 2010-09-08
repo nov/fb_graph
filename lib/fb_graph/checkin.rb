@@ -31,7 +31,11 @@ module FbGraph
       end
     end
 
-    def search(options = {})
+    # = Search for recent check-ins for an authorized user and his or her friends:
+    # 
+    #   FbGraph::Checkin.search(:access_token => ACCESS_TOKEN)
+    #   => Array of FbGraph::Checkin
+    def self.search(options = {})
       # NOTE:
       # checkin search doesn't support "q=***" parameter
       super(nil, options)
