@@ -5,17 +5,17 @@ module FbGraph
 
     attr_accessor :from, :message, :updated_time
 
-    def initialize(identifier, options = {})
+    def initialize(identifier, attributes = {})
       super
-      if (from = options[:from])
+      if (from = attributes[:from])
         @from = if from[:category]
           FbGraph::Page.new(from.delete(:id), from)
         else
           FbGraph::User.new(from.delete(:id), from)
         end
       end
-      @message = options[:message]
-      if (updated_time = options.delete(:updated_time))
+      @message = attributes[:message]
+      if (updated_time = attributes.delete(:updated_time))
         @updated_time = Time.parse(updated_time).utc
       end
     end

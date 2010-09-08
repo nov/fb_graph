@@ -7,9 +7,26 @@ module FbGraph
       if (from = attributes[:from])
         @from = FbGraph::User.new(from.delete(:id), from)
       end
-      # TODO
-      # Checkin isn't available in Japan yet, so I can't use this feature yet.
-      # I'm very glad if someone helps me here.
+      @tags = []
+      if (tags = attributes[:tags])
+        FbGraph::Collection.new(tags).each do |user|
+          @tags << FbGraph::User.new(user.delete(:id), user)
+        end
+      end
+      if (location = attributes[:location])
+        @location = FbGraph::Page.new(location.delete(:id), location)
+      end
+      @message = attributes[:message]
+      if (coordinates = attributes[:coordinates])
+        # NOTE: it seems this attributes isn't used now
+        @coordinates = FbGraph::Venue.new(location)
+      end
+      if (application = attributes[:application])
+        @application = FbGraph::Application.new(application.delete(:id), application)
+      end
+      if (created_time = attributes.delete(:created_time))
+        @created_time = Time.parse(created_time).utc
+      end
     end
   end
 end

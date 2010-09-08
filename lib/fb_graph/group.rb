@@ -7,20 +7,20 @@ module FbGraph
 
     attr_accessor :owner, :name, :description, :link, :venue, :privacy, :updated_time
 
-    def initialize(identifier, options = {})
+    def initialize(identifier, attributes = {})
       super
-      if (owner = options[:owner])
+      if (owner = attributes[:owner])
         @owner = FbGraph::User.new(owner.delete(:id), owner)
       end
-      @name         = options[:name]
-      @description  = options[:description]
-      @link         = options[:link]
-      @privacy      = options[:privacy]
-      if options[:venue]
-        @venue = FbGraph::Venue.new(options[:venue])
+      @name         = attributes[:name]
+      @description  = attributes[:description]
+      @link         = attributes[:link]
+      @privacy      = attributes[:privacy]
+      if attributes[:venue]
+        @venue = FbGraph::Venue.new(attributes[:venue])
       end
-      if options[:updated_time]
-        @updated_time = Time.parse(options[:updated_time]).utc
+      if attributes[:updated_time]
+        @updated_time = Time.parse(attributes[:updated_time]).utc
       end
     end
   end

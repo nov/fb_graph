@@ -15,7 +15,7 @@ module FbGraph
     include Connections::Events
     extend Searchable
 
-    attr_accessor :name, :username, :link, :category, :founded, :company_overview, :mission, :products, :fan_count
+    attr_accessor :name, :username, :link, :category, :founded, :company_overview, :mission, :products, :fan_count, :location
 
     def initialize(identifier, attributes = {})
       super
@@ -32,6 +32,9 @@ module FbGraph
         @products = products.split "\n"
       end
       @fan_count = attributes[:fan_count]
+      if (location = attributes[:location])
+        @venue = FbGraph::Venue.new(location)
+      end
     end
   end
 end
