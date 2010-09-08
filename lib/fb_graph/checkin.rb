@@ -15,8 +15,8 @@ module FbGraph
           @tags << FbGraph::User.new(user.delete(:id), user)
         end
       end
-      if (location = attributes[:location])
-        @location = FbGraph::Page.new(location.delete(:id), location)
+      if (place = attributes[:place])
+        @place = FbGraph::Page.new(place.delete(:id), place)
       end
       @message = attributes[:message]
       if (coordinates = attributes[:coordinates])

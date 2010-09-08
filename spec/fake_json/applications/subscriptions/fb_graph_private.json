@@ -1,0 +1,12 @@
+{
+   "data": [
+      {
+         "object": "user",
+         "callback_url": "http://fbgraphsample.heroku.com/subscription",
+         "fields": [
+            "email"
+         ],
+         "active": true
+      }
+   ]
+}
