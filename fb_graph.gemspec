@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "1.0.0"
+  s.version = "1.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
@@ -90,6 +90,9 @@ Gem::Specification.new do |s|
      "lib/fb_graph/work.rb",
      "spec/fake_json/albums/photos/matake_private.json",
      "spec/fake_json/albums/photos/post_with_valid_access_token.json",
+     "spec/fake_json/applications/subscriptions/fb_graph_private.json",
+     "spec/fake_json/checkins/search_private.json",
+     "spec/fake_json/checkins/search_public.json",
      "spec/fake_json/events/attending/post_with_valid_access_token.json",
      "spec/fake_json/events/attending/smartday_private.json",
      "spec/fake_json/events/declined/post_with_valid_access_token.json",
@@ -200,6 +203,7 @@ Gem::Specification.new do |s|
      "spec/fb_graph/connections/picture_spec.rb",
      "spec/fb_graph/connections/posts_spec.rb",
      "spec/fb_graph/connections/statuses_spec.rb",
+     "spec/fb_graph/connections/subscriptions_spec.rb",
      "spec/fb_graph/connections/tagged_spec.rb",
      "spec/fb_graph/connections/television_spec.rb",
      "spec/fb_graph/connections/videos_spec.rb",
@@ -214,6 +218,7 @@ Gem::Specification.new do |s|
      "spec/fb_graph/photo_spec.rb",
      "spec/fb_graph/post_spec.rb",
      "spec/fb_graph/status_spec.rb",
+     "spec/fb_graph/subscription_spec.rb",
      "spec/fb_graph/tag_spec.rb",
      "spec/fb_graph/user_spec.rb",
      "spec/fb_graph/venue_spec.rb",
@@ -263,6 +268,7 @@ Gem::Specification.new do |s|
      "spec/fb_graph/connections/picture_spec.rb",
      "spec/fb_graph/connections/posts_spec.rb",
      "spec/fb_graph/connections/statuses_spec.rb",
+     "spec/fb_graph/connections/subscriptions_spec.rb",
      "spec/fb_graph/connections/tagged_spec.rb",
      "spec/fb_graph/connections/television_spec.rb",
      "spec/fb_graph/connections/videos_spec.rb",
@@ -277,6 +283,7 @@ Gem::Specification.new do |s|
      "spec/fb_graph/photo_spec.rb",
      "spec/fb_graph/post_spec.rb",
      "spec/fb_graph/status_spec.rb",
+     "spec/fb_graph/subscription_spec.rb",
      "spec/fb_graph/tag_spec.rb",
      "spec/fb_graph/user_spec.rb",
      "spec/fb_graph/venue_spec.rb",
