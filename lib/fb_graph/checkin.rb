@@ -1,5 +1,7 @@
 module FbGraph
   class Checkin < Node
+    extend Searchable
+
     attr_accessor :from, :tags, :place, :message, :coordinates, :application, :created_time
 
     def initialize(identifier, attributes = {})
@@ -27,6 +29,12 @@ module FbGraph
       if (created_time = attributes.delete(:created_time))
         @created_time = Time.parse(created_time).utc
       end
+    end
+
+    def search(options = {})
+      # NOTE:
+      # checkin search doesn't support "q=***" parameter
+      super(nil, options)
     end
   end
 end
