@@ -3,6 +3,8 @@ require 'digest/md5'
 module FbGraph
   class Auth
     class Cookie
+      # NOTE:
+      # If you want access token, use FbGraph::Auth.new(APP_ID, APP_SECRET, :cookie => {..}) instead
       def self.parse(client, cookie)
         fb_cookie_string = if cookie.is_a?(Hash)
           cookie["fbs_#{client.id}"]
