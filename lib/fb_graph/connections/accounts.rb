@@ -27,6 +27,20 @@ module FbGraph
     #   # => array of FbGraph::Page
     #   pages.first.access_token
     #   # => String if "manage_pages" permission has been granted, nil if not.
+    #
+    # = Notes
+    #
+    # == Access token of the page
+    #
+    # Using given access token, you can do those things as the page, not as yourself.
+    #
+    # * update the page's wall
+    # * create new page's album and upload photos into it
+    # * create and manage an event
+    #
+    #   # Consider "manage_pages" permission is already given
+    #   page = FbGraph::User.me(ACCESS_TOKEN).accounts.first
+    #   page.feed!(:message => 'Updating via FbGraph')
     module Accounts
       def accounts(options = {})
         accounts = self.connection(:accounts, options)
