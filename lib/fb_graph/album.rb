@@ -1,7 +1,5 @@
 module FbGraph
-  # == Album object
-  #
-  # === Attributes
+  # = Attributes
   #
   # +from+::         FbGraph::User or FbGraph::Page
   # +name+::         String
@@ -13,22 +11,22 @@ module FbGraph
   # +created_time+:: Time (UTC)
   # +updated_time+:: Time (UTC)
   #
-  # === Connections
+  # = Connections
   #
   # +photos+::   Array of FbGraph::Photo
   # +comments+:: Array of FbGraph::Comment
   # +likes+::    Array of FbGraph::Page
   #
-  # === Notes
+  # = Notes
   #
-  # ==== Attribute +from+
+  # == Attribute +from+
   #
   # Both facebook user and page can have albums, so +from+ can be either FbGraph::User or FbGraph::Page.
   # * When you called +ablums+ connection of FbGraph::User, all +from+ should be FbGraph::User.
   # * When you called +ablums+ connection of FbGraph::Page, all +from+ should be FbGraph::Page.
   # * When you fetched an album by objedt id, +from+ can be either FbGraph::User or FbGraph::Page.
   #
-  # ==== Cached Comments
+  # == Cached Comments
   #
   # When album object fetched, several comments are included in the response.
   # So first time you called +album.comments+, those cached comments will be returned.
