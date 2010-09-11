@@ -16,11 +16,12 @@ A full-stack Facebook Graph API wrapper in Ruby.
 == Documents
 
 Currently fb_graph isn't so well documented.
-I'm continuously updating RDoc now.
-Please see RDoc.info (http://rdoc.info/github/nov/fb_graph), and if the document is missing or hard to understand, please ask me on github.
-Both issues and DM are OK.
 
-== Objects and Connections
+I'm continuously updating RDoc now, but writing all documents *in English* is heavy task for me.
+
+Please see RDoc.info (http://rdoc.info/github/nov/fb_graph), and if the document is missing or hard to understand, please contact me on github.
+
+I'll add more documents or sample code.
 
 === Objects
 
