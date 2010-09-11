@@ -44,6 +44,7 @@ module FbGraph
     #   page.access_token
     #   # => given because "manage_pages" permission has been granted.
     #   page.feed!(:message => 'Updating via FbGraph')
+    #   # => update the page's wall, not the user's wall
     module Accounts
       def accounts(options = {})
         accounts = self.connection(:accounts, options)
