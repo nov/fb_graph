@@ -32,7 +32,7 @@ module FbGraph
   #
   #   FbGraph::album.fetch(ALBUM_ID, :access_token => ACCESS_TOKEN)
   #
-  # == Connection
+  # == Fetch connection
   #
   #   photos = album.photos
   #   likes = album.likes
@@ -49,6 +49,31 @@ module FbGraph
   # == Creat new album
   #
   # See RDoc for FbGraph::Connections::Albums
+  #
+  # == Upload a photo
+  #
+  #   album.photo!(
+  #     :image => File.new(File.join(File.dirname(__FILE__), 'nov.gif')),
+  #     :name => "name",
+  #     :message => 'message'
+  #   )
+  #
+  # == Post a comment
+  #
+  #   album.comment!(
+  #     :access_token => ACCESS_TOKEN,
+  #     :message => 'Hey, I\'m testing you!'
+  #   )
+  #
+  # == Delete a comment
+  #
+  #   comment = album.comments.last
+  #   comment.destroy
+  #
+  # == Like and unlike
+  #
+  #   album.like!
+  #   album.unlike!
   #
   # = Notes
   #

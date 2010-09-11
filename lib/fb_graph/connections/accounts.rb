@@ -37,6 +37,7 @@ module FbGraph
     # * update the page's wall
     # * create new page's album and upload photos into it
     # * create and manage an event
+    # * etc.
     #
     #   page = FbGraph::User.me(ACCESS_TOKEN).accounts.first
     #   page.access_token
