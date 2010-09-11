@@ -1,6 +1,6 @@
 module FbGraph
   class Education
-    include FbGraph::Comparison
+    include Comparison
 
     attr_accessor :school, :degree, :year, :concentration
 

@@ -1,6 +1,6 @@
 module FbGraph
   class Venue
-    include FbGraph::Comparison
+    include Comparison
 
     attr_accessor :street, :city, :state, :zip, :country, :latitude, :longitude
 

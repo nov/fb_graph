@@ -37,6 +37,15 @@ Plus, you can play an Rails sample app here. http://fbgraphsample.heroku.com/
 
   :
 
+==== Attributes
+
+  FbGraph::Event.attributes
+  # => [:owner, :name, :description, :start_time, :end_time, :location, :venue, :privacy, :updated_time]
+
+  FbGraph::Album.attributes
+  # => [:from, :name, :description, :location, :link, :privacy, :count, :created_time, :updated_time]
+
+
 ==== Connections
 
   # Public connections

@@ -1,6 +1,6 @@
 module FbGraph
   class Tag
-    include FbGraph::Comparison
+    include Comparison
 
     attr_accessor :user, :x, :y, :created_time
 

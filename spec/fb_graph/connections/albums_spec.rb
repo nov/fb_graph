@@ -26,7 +26,9 @@ context 'when included by FbGraph::User' do
             :name => 'Nov Matake'
           },
           :name => 'モバイルアップロード',
+          :description => 'hello facebookers!',
           :link => 'http://www.facebook.com/album.php?aid=25463&id=579612276',
+          :location => 'NYC',
           :count => 3,
           :privacy => 'everyone',
           :created_time => '2008-07-27T11:38:15+0000',

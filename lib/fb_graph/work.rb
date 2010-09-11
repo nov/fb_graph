@@ -1,6 +1,6 @@
 module FbGraph
   class Work
-    include FbGraph::Comparison
+    include Comparison
 
     attr_accessor :employer, :location, :position, :start_date, :end_date
 
