@@ -3,7 +3,6 @@ module FbGraph
     # = What's "accounts"?
     #
     # Pages owned by the current user.
-    # Yes, the naming doesn't make sense :(
     #
     # ref) http://developers.facebook.com/docs/api#impersonation
     #
