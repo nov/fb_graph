@@ -1,4 +1,8 @@
 module FbGraph
+  # = Authentication
+  #
+  # * Access token required to fetch album info.
+  #
   # = Attributes
   #
   # +from+::         FbGraph::User or FbGraph::Page
@@ -17,6 +21,35 @@ module FbGraph
   # +comments+:: Array of FbGraph::Comment
   # +likes+::    Array of FbGraph::Page
   #
+  # = Examples
+  #
+  # == Fetch album info
+  #
+  #   album = FbGraph::Album.new(ALBUM_ID)
+  #   album.fetch(:access_token => ACCESS_TOKEN)
+  #
+  # or
+  #
+  #   FbGraph::album.fetch(ALBUM_ID, :access_token => ACCESS_TOKEN)
+  #
+  # == Connection
+  #
+  #   photos = album.photos
+  #   likes = album.likes
+  #   comments = album.comments
+  #
+  # === Pagination
+  #
+  #   photos = album.photos
+  #   photos_next = photos.next
+  #   photos_previous = photos.previous
+  #   photos = album.photos(:since => '2010-09-01', :until => '2010-10-01')
+  #   photos = album.photos(:offset => 20, :limit => 20)
+  #
+  # == Creat new album
+  #
+  # See RDoc for FbGraph::Connections::Albums
+  #
   # = Notes
   #
   # == Attribute +from+
@@ -26,7 +59,7 @@ module FbGraph
   # * When you called +ablums+ connection of FbGraph::Page, all +from+ should be FbGraph::Page.
   # * When you fetched an album by objedt id, +from+ can be either FbGraph::User or FbGraph::Page.
   #
-  # == Cached Comments
+  # == Cached +comments+
   #
   # When album object fetched, several comments are included in the response.
   # So first time you called +album.comments+, those cached comments will be returned.
@@ -43,8 +76,8 @@ module FbGraph
 
     def initialize(identifier, attributes = {})
       super
-      if (from = attributes[:from])
-        @from = if from[:category]
+      @from = if (from = attributes[:from])
+        if from[:category]
           FbGraph::Page.new(from.delete(:id), from)
         else
           FbGraph::User.new(from.delete(:id), from)
@@ -61,11 +94,11 @@ module FbGraph
       @link        = attributes[:link]
       @privacy     = attributes[:privacy]
       @count       = attributes[:count]
-      if attributes[:created_time]
-        @created_time = Time.parse(attributes[:created_time]).utc
+      @created_time = if attributes[:created_time]
+        Time.parse(attributes[:created_time]).utc
       end
-      if attributes[:updated_time]
-        @updated_time = Time.parse(attributes[:updated_time]).utc
+      @updated_time = if attributes[:updated_time]
+        Time.parse(attributes[:updated_time]).utc
       end
 
       # cached connection
