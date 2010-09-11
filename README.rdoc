@@ -8,10 +8,17 @@ A full-stack Facebook Graph API wrapper in Ruby.
 
 == Resources
 
-* View RDoc on RDoc.info (http://rdoc.info/github/nov/fb_graph/master/frames)
+* View RDoc on RDoc.info (http://rdoc.info/github/nov/fb_graph)
 * View Source on GitHub (http://github.com/nov/fb_graph)
 * Report Issues on GitHub (http://github.com/nov/fb_graph/issues)
 * Facebook fan page (http://www.facebook.com/pages/FbGraph/117513961602338)
+
+== Documents
+
+Currently fb_graph isn't so well documented.
+I'm continuously updating RDoc now.
+Please see RDoc.info (http://rdoc.info/github/nov/fb_graph), and if the document is missing or hard to understand, please ask me on github.
+Both issues and DM are OK.
 
 == Examples
 
