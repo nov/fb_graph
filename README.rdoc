@@ -20,6 +20,27 @@ I'm continuously updating RDoc now.
 Please see RDoc.info (http://rdoc.info/github/nov/fb_graph), and if the document is missing or hard to understand, please ask me on github.
 Both issues and DM are OK.
 
+== Objects and Connections
+
+=== Objects
+
+* FbGraph::Album[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Album]
+* FbGraph::Application[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Application]
+* FbGraph::Checkin[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Checkin]
+* FbGraph::Comment[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Comment]
+* FbGraph::Event[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Event]
+* FbGraph::Group[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Group]
+* FbGraph::Insight[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Insight]
+* FbGraph::Link[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Link]
+* FbGraph::Note[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Note]
+* FbGraph::Page[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Page]
+* FbGraph::Photo[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Photo]
+* FbGraph::Post[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Post]
+* FbGraph::Status[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Status]
+* FbGraph::Subscription[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Subscription]
+* FbGraph::User[http://rdoc.info/github/nov/fb_graph/master/FbGraph/User]
+* FbGraph::Video[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Video]
+
 == Examples
 
 Now FbGraph supports all objects listed here: http://developers.facebook.com/docs/reference/api/
@@ -31,12 +52,20 @@ Plus, you can play an Rails sample app here. http://fbgraphsample.heroku.com/
 
 ==== Basic Objects
 
+  user = FbGraph::User.me(ACCESS_TOKEN)
+
   user = FbGraph::User.fetch('matake')
   user.name    # => 'Nov Matake'
   user.picture # => 'https://graph.facebook.com/matake/picture'
 
-  # User.new doesn't fetch the user's profile info
-  me = User.new('me', :access_token => YOUR_ACCESS_TOKEN)
+  # fb_graph doesn't access to Graph API until you call "fetch"
+  user = FbGraph::User.new('matake', :access_token => YOUR_ACCESS_TOKEN)
+  user.identifier # => "matake"
+  user.name # => nil
+  user.link # => nil
+  user.fetch
+  user.name # => "Nov Matake"
+  user.description # => "http://www.facebook.com/matake"
 
   page = FbGraph::Page.fetch('smartfmteam')
   page.name     # => 'smart.fm'
