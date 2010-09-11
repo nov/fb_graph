@@ -39,6 +39,7 @@ module FbGraph
     # * create and manage an event
     # * etc.
     #
+    # See RDoc for FbGraph::Page for more details.
     #
     #   page = FbGraph::User.me(ACCESS_TOKEN).accounts.first
     #   page.access_token
