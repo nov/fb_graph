@@ -38,8 +38,10 @@ module FbGraph
     # * create new page's album and upload photos into it
     # * create and manage an event
     #
-    #   # Consider "manage_pages" permission is already given
+    #  
     #   page = FbGraph::User.me(ACCESS_TOKEN).accounts.first
+    #   page.access_token
+    #   # => given because "manage_pages" permission has been granted.
     #   page.feed!(:message => 'Updating via FbGraph')
     module Accounts
       def accounts(options = {})
