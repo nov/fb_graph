@@ -1,7 +1,7 @@
 module FbGraph
   # = Authentication
   #
-  # * Access token required to fetch album info.
+  # * Access token is required to fetch album info.
   #
   # = Attributes
   #

@@ -2,7 +2,7 @@ module FbGraph
   module Connections
     # = Authentication
     #
-    # * Access token required to fetch/create albums.
+    # * Access token is required to fetch/create albums.
     # * "publish_stream" permissin is required to create new album.
     #
     # = Connected with
