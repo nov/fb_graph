@@ -39,6 +39,7 @@ module FbGraph
     # * create and manage an event
     # * etc.
     #
+    #
     #   page = FbGraph::User.me(ACCESS_TOKEN).accounts.first
     #   page.access_token
     #   # => given because "manage_pages" permission has been granted.
