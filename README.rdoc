@@ -251,22 +251,22 @@ I'll add more documents or sample code.
 
 === Objects
 
-* FbGraph::Album        [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Album]
-* FbGraph::Application  [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Application]
-* FbGraph::Checkin      [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Checkin]
-* FbGraph::Comment      [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Comment]
-* FbGraph::Event        [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Event]
-* FbGraph::Group        [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Group]
-* FbGraph::Insight      [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Insight]
-* FbGraph::Link         [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Link]
-* FbGraph::Note         [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Note]
-* FbGraph::Page         [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Page]
-* FbGraph::Photo        [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Photo]
-* FbGraph::Post         [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Post]
-* FbGraph::Status       [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Status]
-* FbGraph::Subscription [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Subscription]
-* FbGraph::User         [http://rdoc.info/github/nov/fb_graph/master/FbGraph/User]
-* FbGraph::Video        [http://rdoc.info/github/nov/fb_graph/master/FbGraph/Video]
+* FbGraph::Album[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Album]
+* FbGraph::Application[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Application]
+* FbGraph::Checkin[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Checkin]
+* FbGraph::Comment[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Comment]
+* FbGraph::Event[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Event]
+* FbGraph::Group[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Group]
+* FbGraph::Insight[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Insight]
+* FbGraph::Link[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Link]
+* FbGraph::Note[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Note]
+* FbGraph::Page[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Page]
+* FbGraph::Photo[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Photo]
+* FbGraph::Post[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Post]
+* FbGraph::Status[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Status]
+* FbGraph::Subscription[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Subscription]
+* FbGraph::User[http://rdoc.info/github/nov/fb_graph/master/FbGraph/User]
+* FbGraph::Video[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Video]
 
 === Connections
 
