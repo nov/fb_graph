@@ -243,7 +243,7 @@ You can also see http://github.com/nov/fb_graph_sample for more details Rails3 s
 
 Currently fb_graph isn't so well documented.
 
-I'm continuously updating RDoc now, but writing all documents *in English* is heavy task for me.
+I'm continuously updating RDoc now, but writing all documents <b>in English</b> is heavy task for me.
 
 Please see RDoc.info (http://rdoc.info/github/nov/fb_graph), and if the document is missing or hard to understand, please contact me on github.
 
