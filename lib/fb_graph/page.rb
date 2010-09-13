@@ -25,7 +25,7 @@ module FbGraph
       @link     = attributes[:link]
       @category = attributes[:category]
       if (founded = attributes[:founded])
-        @founded = Date.parse(founded)
+        @founded = Date.parse(founded) rescue Date.new(founded.to_i)
       end
       @company_overview = attributes[:company_overview]
       @mission  = attributes[:mission]
