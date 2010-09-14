@@ -1,10 +1,12 @@
 module FbGraph
   class Collection < Array
-    attr_reader :previous, :next
+    attr_reader :previous, :next, :total_count
 
     def initialize(collection = nil)
-      collection ||= {:data => []}
+      collection ||= {}
+      collection[:data] ||= []
       result = replace(collection[:data])
+      @total_count = collection[:count]
       @previous, @next = {}, {}
       if (paging = collection[:paging])
         if paging[:previous]
