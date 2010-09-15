@@ -3,8 +3,17 @@ module FbGraph
     attr_reader :previous, :next, :total_count
 
     def initialize(collection = nil)
-      collection ||= {}
-      collection[:data] ||= []
+      collection = case collection
+      when Array
+        {:data => collection, :count => collection.size}
+      when Hash
+        collection[:data] ||= []
+        collection
+      when nil
+        collection = {:data => [], :count => 0}
+      else
+        raise "Invalid collection"
+      end
       result = replace(collection[:data])
       @total_count = collection[:count]
       @previous, @next = {}, {}
