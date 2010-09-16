@@ -33,4 +33,13 @@ describe FbGraph::Collection, '.new' do
     collection = FbGraph::Collection.new({:count => 5})
     collection.total_count.should == 5
   end
+
+  it 'should accept Array' do
+    collection = FbGraph::Collection.new([1, 2, 3])
+    collection.total_count.should == 3
+    collection.should == [1, 2, 3]
+    collection.previous.should be_blank
+    collection.next.should be_blank
+  end
+
 end
