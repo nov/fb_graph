@@ -16,7 +16,7 @@ begin
     gem.add_dependency 'oauth2', '>= 0.0.10'
     gem.add_development_dependency 'rspec'
     gem.add_development_dependency 'rcov'
-    gem.add_development_dependency 'fakeweb'
+    gem.add_development_dependency 'fakeweb', '>= 1.3.0'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
