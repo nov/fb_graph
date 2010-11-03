@@ -65,7 +65,7 @@ module FbGraph
       _endpoint_ = if params[:connection]
         File.join(self.endpoint, params.delete(:connection).to_s)
       else
-        params[:endpoint] || self.endpoint
+        self.endpoint.dup
       end
 
       params.delete_if do |k, v|
