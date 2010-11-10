@@ -30,11 +30,14 @@ module FbGraph
 
     def from_cookie(cookie)
       cookie = FbGraph::Auth::Cookie.parse(self.client, cookie)
+      expires_in = unless cookie[:expires].zero?
+        cookie[:expires] - Time.now.to_i
+      end
       self.access_token = OAuth2::AccessToken.new(
         self.client,
         cookie[:access_token],
         cookie[:refresh_token],
-        cookie[:expires]
+        expires_in
       )
       self.user = FbGraph::User.new(cookie[:uid], :access_token => self.access_token)
       self
