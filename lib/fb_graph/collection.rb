@@ -14,6 +14,10 @@ module FbGraph
       else
         raise "Invalid collection"
       end
+
+      # NOTE: Graph API returns {"data":{"to":[null]}} sometimes... :(
+      collection[:data].delete_if(&:nil?)
+
       result = replace(collection[:data])
       @total_count = collection[:count]
       @previous, @next = {}, {}

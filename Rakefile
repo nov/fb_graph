@@ -14,7 +14,7 @@ begin
     gem.add_dependency 'activesupport'
     gem.add_dependency 'rest-client', '>= 1.4'
     gem.add_dependency 'oauth2', '>= 0.1.0'
-    gem.add_development_dependency 'rspec'
+    gem.add_development_dependency 'rspec', '~> 1.3'
     gem.add_development_dependency 'rcov'
     gem.add_development_dependency 'fakeweb', '>= 1.3.0'
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
