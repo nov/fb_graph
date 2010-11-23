@@ -18,10 +18,12 @@ module FbGraph
       @to = []
       if attributes[:to]
         FbGraph::Collection.new(attributes[:to]).each do |to|
-          @to << if to[:category]
-            FbGraph::Page.new(to.delete(:id), to)
-          else
-            FbGraph::User.new(to.delete(:id), to)
+          if !to.nil?
+            @to << if to[:category]
+              FbGraph::Page.new(to.delete(:id), to)
+            else
+              FbGraph::User.new(to.delete(:id), to)
+            end
           end
         end
       end
