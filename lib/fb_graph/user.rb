@@ -1,34 +1,34 @@
 module FbGraph
   class User < Node
-    include Connections::Home
-    include Connections::Feed
-    include Connections::Tagged
-    include Connections::Posts
-    include Connections::Picture
-    include Connections::Friends
+    include Connections::Accounts
     include Connections::Activities
-    include Connections::Interests
-    include Connections::Music
-    include Connections::Books
-    include Connections::Movies
-    include Connections::Television
-    include Connections::Likes
-    include Connections::Photos
     include Connections::Albums
-    include Connections::Videos
-    include Connections::Groups
-    include Connections::Statuses
-    include Connections::Links
-    include Connections::Notes
+    include Connections::Books
+    include Connections::Checkins
     include Connections::Events
+    include Connections::Feed
+    include Connections::Friends
+    include Connections::Groups
+    include Connections::Home
+    include Connections::Interests
+    include Connections::Likes
+    include Connections::Links
+    include Connections::Movies
+    include Connections::Music
+    include Connections::Notes
+    include Connections::Photos
+    include Connections::Picture
+    include Connections::Posts
+    include Connections::Statuses
+    include Connections::Tagged
+    include Connections::Television
+    include Connections::Videos
     # --
     # TODO
     # include Connections::Inbox
     # include Connections::Outbox
     # include Connections::Updates
     # ++
-    include Connections::Accounts
-    include Connections::Checkins
     extend Searchable
 
     attr_accessor :first_name, :last_name, :name, :link, :about, :birthday, :work, :education, :email, :website, :hometown, :location, :bio, :quotes, :gender, :interested_in, :meeting_for, :relationship_status, :religion, :political, :verified, :significant_other, :timezone, :updated_time

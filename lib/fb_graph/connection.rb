@@ -19,7 +19,6 @@ module FbGraph
     end
 
     def previous(_options_ = {})
-      puts self.options.inspect
       if self.collection.previous.present?
         self.owner.send(self.connection, self.options.merge(_options_).merge(self.collection.previous))
       else

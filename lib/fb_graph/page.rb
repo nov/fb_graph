@@ -1,19 +1,20 @@
 module FbGraph
   class Page < Node
-    include Connections::Feed
-    include Connections::Picture
-    include Connections::Tagged
-    include Connections::Links
-    include Connections::Photos
-    include Connections::Groups
     include Connections::Albums
-    include Connections::Statuses
-    include Connections::Videos
-    include Connections::Notes
-    include Connections::Posts
-    include Connections::Members
-    include Connections::Events
     include Connections::Checkins
+    include Connections::Events
+    include Connections::Feed
+    include Connections::Groups
+    include Connections::Insights
+    include Connections::Links
+    include Connections::Members
+    include Connections::Notes
+    include Connections::Photos
+    include Connections::Picture
+    include Connections::Posts
+    include Connections::Statuses
+    include Connections::Tagged
+    include Connections::Videos
     extend Searchable
 
     attr_accessor :name, :username, :link, :category, :founded, :company_overview, :mission, :products, :fan_count, :location

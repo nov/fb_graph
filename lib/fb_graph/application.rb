@@ -1,18 +1,18 @@
 module FbGraph
   class Application < Node
-    include Connections::Feed
-    include Connections::Posts
-    include Connections::Picture
-    include Connections::Tagged
-    include Connections::Links
-    include Connections::Photos
     include Connections::Albums
-    include Connections::Statuses
-    include Connections::Videos
-    include Connections::Notes
     include Connections::Events
-    include Connections::Subscriptions
+    include Connections::Feed
     include Connections::Insights
+    include Connections::Links
+    include Connections::Notes
+    include Connections::Photos
+    include Connections::Picture
+    include Connections::Posts
+    include Connections::Statuses
+    include Connections::Subscriptions
+    include Connections::Tagged
+    include Connections::Videos
 
     attr_accessor :name, :description, :category, :link, :secret
 

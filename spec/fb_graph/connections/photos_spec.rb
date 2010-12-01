@@ -1,14 +1,31 @@
 require File.join(File.dirname(__FILE__), '../../spec_helper')
 
 describe FbGraph::Connections::Photos, '#photos' do
-  before(:all) do
-    fake_json(:get, '12345/photos?access_token=access_token', 'albums/photos/matake_private')
+  context 'when included by FbGraph::Album' do
+    before(:all) do
+      fake_json(:get, '12345/photos?access_token=access_token', 'albums/photos/matake_private')
+    end
+
+    it 'should return photos as FbGraph::Photo' do
+      photos = FbGraph::Album.new('12345', :access_token => 'access_token').photos
+      photos.each do |photo|
+        photo.should be_instance_of(FbGraph::Photo)
+      end
+    end
   end
 
-  it 'should return photos as FbGraph::Photo' do
-    photos = FbGraph::Album.new('12345', :access_token => 'access_token').photos
-    photos.each do |photo|
-      photo.should be_instance_of(FbGraph::Photo)
+  context 'when included by FbGraph::User' do
+    before(:all) do
+      fake_json(:get, 'me/photos?access_token=access_token', 'users/photos/me_private')
+    end
+
+    it 'should return photos as FbGraph::Photo' do
+      photos = FbGraph::User.me('access_token').photos
+      p photos
+      photos.each do |photo|
+        p photo.picture.to_s
+        photo.should be_instance_of(FbGraph::Photo)
+      end
     end
   end
 end
