@@ -1,8 +1,7 @@
 require File.join(File.dirname(__FILE__), '../../spec_helper')
 
-context 'when included by FbGraph::User' do
-
-  describe FbGraph::Connections::Feed, '#feed' do
+describe FbGraph::Connections::Feed, '#feed' do
+  context 'when included by FbGraph::User' do
     before(:all) do
       fake_json(:get, 'arjun/feed', 'users/feed/arjun_public')
       fake_json(:get, 'arjun/feed?access_token=access_token', 'users/feed/arjun_private')
@@ -59,8 +58,10 @@ context 'when included by FbGraph::User' do
       end
     end
   end
+end
 
-  describe FbGraph::Connections::Feed, '#feed!' do
+describe FbGraph::Connections::Feed, '#feed!' do
+  context 'when included by FbGraph::User' do
     context 'when no access_token given' do
       before do
         fake_json(:post, 'matake/feed', 'users/feed/post_without_access_token', :status => [500, 'Internal Server Error'])
@@ -98,5 +99,4 @@ context 'when included by FbGraph::User' do
       end
     end
   end
-
 end

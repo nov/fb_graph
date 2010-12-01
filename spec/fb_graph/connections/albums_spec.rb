@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '../../spec_helper')
 
-context 'when included by FbGraph::User' do
-  describe FbGraph::Connections::Albums, '#albums' do
+describe FbGraph::Connections::Albums, '#albums' do
+  context 'when included by FbGraph::User' do
     before(:all) do
       fake_json(:get, 'matake/albums', 'users/albums/matake_public')
       fake_json(:get, 'matake/albums?access_token=access_token', 'users/albums/matake_private')
@@ -40,8 +40,10 @@ context 'when included by FbGraph::User' do
       end
     end
   end
+end
 
-  describe FbGraph::Connections::Albums, '#album!' do
+describe FbGraph::Connections::Albums, '#album!' do
+  context 'when included by FbGraph::User' do
     before do
       fake_json(:post, 'matake/albums', 'users/albums/post_with_valid_access_token')
     end

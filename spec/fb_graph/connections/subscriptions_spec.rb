@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '../../spec_helper')
 
-context 'when included by FbGraph::Application' do
-  describe FbGraph::Connections::Subscriptions, '#subscriptions' do
+describe FbGraph::Connections::Subscriptions, '#subscriptions' do
+  context 'when included by FbGraph::Application' do
     before(:all) do
       fake_json(:get, 'fb_graph/subscriptions?access_token=access_token', 'applications/subscriptions/fb_graph_private')
     end

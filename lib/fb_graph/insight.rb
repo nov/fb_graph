@@ -1,10 +1,11 @@
 module FbGraph
-  class Insight
+  class Insight < Node
     include FbGraph::Comparison
 
     attr_accessor :name, :period, :values, :description
 
-    def initialize(attributes = {})
+    def initialize(identifier, attributes = {})
+      super
       @name   = attributes[:name]
       @period = attributes[:period]
       @values = attributes[:values].collect(&:with_indifferent_access)

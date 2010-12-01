@@ -1,12 +1,13 @@
 require File.join(File.dirname(__FILE__), '../../spec_helper')
 
-context 'when included by FbGraph::Post' do
-
-  describe FbGraph::Connections::Comments, '#comments' do
+describe FbGraph::Connections::Comments, '#comments' do
+  context 'when included by FbGraph::Post' do
     # TODO
   end
+end
 
-  describe FbGraph::Connections::Comments, '#comment!' do
+describe FbGraph::Connections::Comments, '#comment!' do
+  context 'when included by FbGraph::Post' do
     context 'when no access_token given' do
       before do
         fake_json(:post, '12345/comments', 'posts/comments/post_without_access_token', :status => [500, 'Internal Server Error'])
@@ -45,8 +46,10 @@ context 'when included by FbGraph::Post' do
       end
     end
   end
+end
 
-  describe FbGraph::Connections::Comments, '#like!' do
+describe FbGraph::Connections::Comments, '#like!' do
+  context 'when included by FbGraph::Post' do
     context 'when no access_token given' do
       before do
         fake_json(:post, '12345/likes', 'posts/likes/post_without_access_token', :status => [500, 'Internal Server Error'])
@@ -81,5 +84,4 @@ context 'when included by FbGraph::Post' do
       end
     end
   end
-
 end

@@ -13,21 +13,6 @@ describe FbGraph::Connections::Photos, '#photos' do
       end
     end
   end
-
-  context 'when included by FbGraph::User' do
-    before(:all) do
-      fake_json(:get, 'me/photos?access_token=access_token', 'users/photos/me_private')
-    end
-
-    it 'should return photos as FbGraph::Photo' do
-      photos = FbGraph::User.me('access_token').photos
-      p photos
-      photos.each do |photo|
-        p photo.picture.to_s
-        photo.should be_instance_of(FbGraph::Photo)
-      end
-    end
-  end
 end
 
 describe FbGraph::Connections::Photos, '#photo!' do
