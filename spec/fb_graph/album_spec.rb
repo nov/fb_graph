@@ -14,6 +14,7 @@ describe FbGraph::Album, '.new' do
       :location => 'Tokyo, Japan',
       :link => 'http://www.facebook.com/album/12345',
       :count => 10,
+      :type => 'normal',
       :created_time => '2009-12-29T15:24:50+0000',
       :updated_time => '2010-01-02T15:37:41+0000',
       :comments => {
@@ -36,6 +37,7 @@ describe FbGraph::Album, '.new' do
     album.location.should       == 'Tokyo, Japan'
     album.link.should           == 'http://www.facebook.com/album/12345'
     album.count.should          == 10
+    album.type.should           == 'normal'
     album.created_time.should   == Time.parse('2009-12-29T15:24:50+0000')
     album.updated_time.should   == Time.parse('2010-01-02T15:37:41+0000')
     album.comments.should       == [FbGraph::Comment.new(

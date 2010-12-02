@@ -12,6 +12,7 @@ module FbGraph
   # +link+::         String
   # +privacy+::      String <em>ex.) "everyone"</em>
   # +count+::        Integer
+  # +type+::         String <em>ex.) "normal"</em>
   # +created_time+:: Time (UTC)
   # +updated_time+:: Time (UTC)
   #
@@ -97,7 +98,7 @@ module FbGraph
     include Connections::Comments
     include Connections::Likes
 
-    attr_accessor :from, :name, :description, :location, :link, :privacy, :count, :created_time, :updated_time
+    attr_accessor :from, :name, :description, :location, :link, :privacy, :count, :created_time, :updated_time, :type
 
     def initialize(identifier, attributes = {})
       super
@@ -119,6 +120,8 @@ module FbGraph
       @link        = attributes[:link]
       @privacy     = attributes[:privacy]
       @count       = attributes[:count]
+      @type        = attributes[:type]
+      
       @created_time = if attributes[:created_time]
         Time.parse(attributes[:created_time]).utc
       end
