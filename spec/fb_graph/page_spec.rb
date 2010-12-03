@@ -13,7 +13,8 @@ describe FbGraph::Page, '.new' do
       :fan_count => 578246,
       :company_overview => 'Facebook Platform enables anyone to build social applications on Facebook and the web.',
       :link => 'http://www.facebook.com/platform',
-      :picture => 'http://profile.ak.fbcdn.net/profile-ak-snc1/object3/1566/8/s19292868552_1660.jpg'
+      :picture => 'http://profile.ak.fbcdn.net/profile-ak-snc1/object3/1566/8/s19292868552_1660.jpg',
+      :website => 'http://developers.facebook.com'
     }
     page = FbGraph::Page.new(attributes.delete(:id), attributes)
     page.identifier.should == '19292868552'
@@ -33,6 +34,7 @@ describe FbGraph::Page, '.new' do
     page.company_overview.should == 'Facebook Platform enables anyone to build social applications on Facebook and the web.'
     page.link.should    == 'http://www.facebook.com/platform'
     page.picture.should == 'https://graph.facebook.com/19292868552/picture' # use connection
+    page.website.should == 'http://developers.facebook.com'
   end
 
   it 'should allow invalid date as founded' do

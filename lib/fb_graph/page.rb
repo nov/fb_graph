@@ -7,7 +7,6 @@ module FbGraph
     include Connections::Groups
     include Connections::Insights
     include Connections::Links
-    include Connections::Members
     include Connections::Notes
     include Connections::Photos
     include Connections::Picture
@@ -17,7 +16,7 @@ module FbGraph
     include Connections::Videos
     extend Searchable
 
-    attr_accessor :name, :username, :link, :category, :founded, :company_overview, :mission, :products, :fan_count, :location
+    attr_accessor :name, :username, :link, :category, :founded, :company_overview, :mission, :products, :fan_count, :location, :website
 
     def initialize(identifier, attributes = {})
       super
@@ -37,6 +36,7 @@ module FbGraph
       if (location = attributes[:location])
         @venue = FbGraph::Venue.new(location)
       end
+      @website = attributes[:website]
     end
   end
 end
