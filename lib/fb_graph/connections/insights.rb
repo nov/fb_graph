@@ -7,6 +7,7 @@ module FbGraph
         if options[:metrics].nil?: insight_link = :insights
         else 
         	insight_link = "insights/#{options[:metrics]}"
+        	insight_link += "/${options[:period]}" unless options[:period].nil? 
         end
         insights = self.connection(insight_link, options)
         insights.map! do |insight|
