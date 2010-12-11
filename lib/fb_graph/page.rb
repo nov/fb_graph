@@ -7,7 +7,6 @@ module FbGraph
     include Connections::Groups
     include Connections::Insights
     include Connections::Links
-    include Connections::Members
     include Connections::Notes
     include Connections::Photos
     include Connections::Picture
