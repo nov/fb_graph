@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "1.1.1"
+  s.version = "1.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
@@ -106,6 +106,8 @@ Gem::Specification.new do |s|
      "spec/fake_json/pages/checkins/gowalla_public.json",
      "spec/fake_json/pages/insights/FbGraph_private.json",
      "spec/fake_json/pages/insights/FbGraph_public.json",
+     "spec/fake_json/pages/insights/page_like_adds/FbGraph_private.json",
+     "spec/fake_json/pages/insights/page_like_adds/day/FbGraph_private.json",
      "spec/fake_json/pages/notes/post_with_valid_access_token.json",
      "spec/fake_json/pages/platform_private.json",
      "spec/fake_json/pages/platform_public.json",
