@@ -36,6 +36,63 @@ describe FbGraph::Connections::Insights, '#insights' do
         end
       end
     end
+
+    context 'when metrics is given' do
+      before(:all) do
+        fake_json(:get, 'FbGraph/insights/page_like_adds?access_token=access_token', 'pages/insights/page_like_adds/FbGraph_private')
+        fake_json(:get, 'FbGraph/insights/page_like_adds/day?access_token=access_token', 'pages/insights/page_like_adds/day/FbGraph_private')
+      end
+
+      it 'should treat metrics as connection scope' do
+        insights = FbGraph::Page.new('FbGraph').insights(:access_token => 'access_token', :metrics => 'page_like_adds')
+        insights.options.should == {
+          :connection_scope => 'page_like_adds',
+          :access_token => 'access_token'
+        }
+        insights.first.should == FbGraph::Insight.new(
+          '117513961602338/insights/page_like_adds/day',
+          :access_token => 'access_token',
+          :name => 'page_like_adds',
+          :description => 'Daily Likes of your Page\'s content (Total Count)',
+          :period => 'day',
+          :values => [{
+            :value => 0,
+            :end_time => '2010-12-09T08:00:00+0000'
+          }, {
+            :value => 0,
+            :end_time => '2010-12-10T08:00:00+0000'
+          }, {
+            :value => 0,
+            :end_time => '2010-12-11T08:00:00+0000'
+          }]
+        )
+      end
+
+      it 'should support period also' do
+        insights = FbGraph::Page.new('FbGraph').insights(:access_token => 'access_token', :metrics => 'page_like_adds', :period => 'day')
+        insights.options.should == {
+          :connection_scope => 'page_like_adds/day',
+          :access_token => 'access_token'
+        }
+        insights.first.should == FbGraph::Insight.new(
+          '117513961602338/insights/page_like_adds/day',
+          :access_token => 'access_token',
+          :name => 'page_like_adds',
+          :description => 'Daily Likes of your Page\'s content (Total Count)',
+          :period => 'day',
+          :values => [{
+            :value => 1,
+            :end_time => '2010-12-09T08:00:00+0000'
+          }, {
+            :value => 1,
+            :end_time => '2010-12-10T08:00:00+0000'
+          }, {
+            :value => 1,
+            :end_time => '2010-12-11T08:00:00+0000'
+          }]
+        )
+      end
+    end
   end
 
 end
