@@ -44,7 +44,7 @@ describe FbGraph::Connections::Insights, '#insights' do
       end
 
       it 'should treat metrics as connection scope' do
-        insights = FbGraph::Page.new('FbGraph').insights(:access_token => 'access_token', :metrics => 'page_like_adds')
+        insights = FbGraph::Page.new('FbGraph').insights(:access_token => 'access_token', :metrics => :page_like_adds)
         insights.options.should == {
           :connection_scope => 'page_like_adds',
           :access_token => 'access_token'
@@ -69,7 +69,7 @@ describe FbGraph::Connections::Insights, '#insights' do
       end
 
       it 'should support period also' do
-        insights = FbGraph::Page.new('FbGraph').insights(:access_token => 'access_token', :metrics => 'page_like_adds', :period => 'day')
+        insights = FbGraph::Page.new('FbGraph').insights(:access_token => 'access_token', :metrics => :page_like_adds, :period => :day)
         insights.options.should == {
           :connection_scope => 'page_like_adds/day',
           :access_token => 'access_token'

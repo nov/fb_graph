@@ -62,12 +62,7 @@ module FbGraph
     private
 
     def build_endpoint(params = {})
-      _endpoint_ = if params[:connection]
-        File.join([self.endpoint, params.delete(:connection).to_s, params.delete(:connection_scope)].compact)
-      else
-        self.endpoint.dup
-      end
-
+      _endpoint_ = File.join([self.endpoint, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s))
       params.delete_if do |k, v|
         v.blank?
       end
