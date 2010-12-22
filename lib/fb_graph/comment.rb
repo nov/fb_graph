@@ -1,6 +1,8 @@
 module FbGraph
   class Comment < Node
-    attr_accessor :from, :message, :created_time
+    include Connections::Likes
+
+    attr_accessor :from, :message, :created_time, :like_count
 
     def initialize(identifier, attributes = {})
       super
@@ -12,6 +14,7 @@ module FbGraph
         end
       end
       @message = attributes[:message]
+      @like_count = attributes[:likes]
       if attributes[:created_time]
         @created_time = Time.parse(attributes[:created_time]).utc
       end

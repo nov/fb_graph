@@ -23,6 +23,9 @@ module FbGraph
       if attributes[:created_time]
         @created_time = Time.parse(attributes[:created_time]).utc
       end
+
+      # cached connection
+      @_comments_ = FbGraph::Collection.new(attributes[:comments])
     end
   end
 end

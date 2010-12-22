@@ -7,6 +7,7 @@ module FbGraph
     include Connections::Checkins
     include Connections::Events
     include Connections::Feed
+    include Connections::FriendLists
     include Connections::Friends
     include Connections::Groups
     include Connections::Home

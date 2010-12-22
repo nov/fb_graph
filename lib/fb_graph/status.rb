@@ -18,6 +18,10 @@ module FbGraph
       if (updated_time = attributes.delete(:updated_time))
         @updated_time = Time.parse(updated_time).utc
       end
+
+      # cached connection
+      @_comments_ = FbGraph::Collection.new(attributes[:comments])
+      @_likes_ = FbGraph::Collection.new(attributes[:likes])
     end
   end
 end

@@ -4,7 +4,7 @@ module FbGraph
       def comments(options = {})
         comments = if @_comments_.present? && options.blank?
           # Note:
-          # "comments" is a connection, but included in fetched "post" object
+          # "comments" is a connection, but included in fetched object
           # this improves performance when rendering the stream with comments
           @_comments_
         else
