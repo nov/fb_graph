@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "1.1.3"
+  s.version = "1.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
-  s.date = %q{2010-12-13}
+  s.date = %q{2010-12-22}
   s.description = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.email = %q{nov@matake.jp}
   s.extra_rdoc_files = [
@@ -47,6 +47,7 @@ Gem::Specification.new do |s|
      "lib/fb_graph/connections/declined.rb",
      "lib/fb_graph/connections/events.rb",
      "lib/fb_graph/connections/feed.rb",
+     "lib/fb_graph/connections/friend_lists.rb",
      "lib/fb_graph/connections/friends.rb",
      "lib/fb_graph/connections/groups.rb",
      "lib/fb_graph/connections/home.rb",
@@ -71,6 +72,7 @@ Gem::Specification.new do |s|
      "lib/fb_graph/connections/videos.rb",
      "lib/fb_graph/education.rb",
      "lib/fb_graph/event.rb",
+     "lib/fb_graph/friend_list.rb",
      "lib/fb_graph/group.rb",
      "lib/fb_graph/insight.rb",
      "lib/fb_graph/link.rb",
@@ -143,6 +145,7 @@ Gem::Specification.new do |s|
      "spec/fake_json/users/feed/post_with_invalid_access_token.json",
      "spec/fake_json/users/feed/post_with_valid_access_token.json",
      "spec/fake_json/users/feed/post_without_access_token.json",
+     "spec/fake_json/users/friend_lists/matake.json",
      "spec/fake_json/users/friends/arjun_private.json",
      "spec/fake_json/users/friends/arjun_public.json",
      "spec/fake_json/users/friends/me_private.json",
@@ -190,6 +193,7 @@ Gem::Specification.new do |s|
      "spec/fb_graph/connections/declined_spec.rb",
      "spec/fb_graph/connections/events_spec.rb",
      "spec/fb_graph/connections/feed_spec.rb",
+     "spec/fb_graph/connections/friend_lists_spec.rb",
      "spec/fb_graph/connections/friends_spec.rb",
      "spec/fb_graph/connections/groups_spec.rb",
      "spec/fb_graph/connections/home_spec.rb",
@@ -214,6 +218,7 @@ Gem::Specification.new do |s|
      "spec/fb_graph/connections/videos_spec.rb",
      "spec/fb_graph/education_spec.rb",
      "spec/fb_graph/event_spec.rb",
+     "spec/fb_graph/friend_list_spec.rb",
      "spec/fb_graph/group_spec.rb",
      "spec/fb_graph/insight_spec.rb",
      "spec/fb_graph/link_spec.rb",
@@ -256,6 +261,7 @@ Gem::Specification.new do |s|
      "spec/fb_graph/connections/declined_spec.rb",
      "spec/fb_graph/connections/events_spec.rb",
      "spec/fb_graph/connections/feed_spec.rb",
+     "spec/fb_graph/connections/friend_lists_spec.rb",
      "spec/fb_graph/connections/friends_spec.rb",
      "spec/fb_graph/connections/groups_spec.rb",
      "spec/fb_graph/connections/home_spec.rb",
@@ -280,6 +286,7 @@ Gem::Specification.new do |s|
      "spec/fb_graph/connections/videos_spec.rb",
      "spec/fb_graph/education_spec.rb",
      "spec/fb_graph/event_spec.rb",
+     "spec/fb_graph/friend_list_spec.rb",
      "spec/fb_graph/group_spec.rb",
      "spec/fb_graph/insight_spec.rb",
      "spec/fb_graph/link_spec.rb",
