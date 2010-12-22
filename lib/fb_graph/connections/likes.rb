@@ -2,7 +2,7 @@ module FbGraph
   module Connections
     module Likes
       def likes(options = {})
-        likes = if @_likes_.present? && options.blank?
+        likes = if @_likes_ && options.blank?
           # Note:
           # "likes" is a connection, but included in fetched object
           # this improves performance when rendering the stream with likes
