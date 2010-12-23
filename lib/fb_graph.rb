@@ -74,3 +74,5 @@ require 'fb_graph/user'
 require 'fb_graph/venue'
 require 'fb_graph/video'
 require 'fb_graph/work'
+
+require 'fb_graph/query'
