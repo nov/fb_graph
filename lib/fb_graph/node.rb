@@ -21,7 +21,7 @@ module FbGraph
     end
 
     def connection(connection, options = {})
-      collection = FbGraph::Collection.new(get(options.merge(:connection => connection)))
+      collection = options[:cached_collection] || FbGraph::Collection.new(get(options.merge(:connection => connection)))
       Connection.new(self, connection, options.merge(:collection => collection))
     end
 

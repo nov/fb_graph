@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), '../../spec_helper')
 describe FbGraph::Connections::Insights, '#insights' do
 
   context 'when included by FbGraph::Page' do
-    before(:all) do
+    before do
       fake_json(:get, 'FbGraph/insights', 'pages/insights/FbGraph_public')
       fake_json(:get, 'FbGraph/insights?access_token=access_token', 'pages/insights/FbGraph_private')
     end
@@ -38,7 +38,7 @@ describe FbGraph::Connections::Insights, '#insights' do
     end
 
     context 'when metrics is given' do
-      before(:all) do
+      before do
         fake_json(:get, 'FbGraph/insights/page_like_adds?access_token=access_token', 'pages/insights/page_like_adds/FbGraph_private')
         fake_json(:get, 'FbGraph/insights/page_like_adds/day?access_token=access_token', 'pages/insights/page_like_adds/day/FbGraph_private')
       end

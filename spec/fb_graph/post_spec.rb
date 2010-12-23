@@ -27,7 +27,7 @@ end
 describe FbGraph::Post, '#fetch' do
 
   context 'when no access_token given' do
-    before(:all) do
+    before do
       fake_json(:get, 'platform', 'posts/platform_public')
     end
 
@@ -48,7 +48,7 @@ describe FbGraph::Post, '#fetch' do
   end
 
   context 'when access_token given' do
-    before(:all) do
+    before do
       fake_json(:get, 'platform?access_token=access_token', 'posts/platform_private')
     end
 

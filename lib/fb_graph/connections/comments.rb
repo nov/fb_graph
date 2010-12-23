@@ -3,10 +3,7 @@ module FbGraph
     module Comments
       def comments(options = {})
         comments = if @_comments_ && options.blank?
-          # Note:
-          # "comments" is a connection, but included in fetched object
-          # this improves performance when rendering the stream with comments
-          @_comments_
+          self.connection(:comments, options.merge(:cached_collection => @_comments_))
         else
           self.connection(:comments, options)
         end

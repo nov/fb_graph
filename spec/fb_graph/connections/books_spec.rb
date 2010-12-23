@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '../../spec_helper')
 
 describe FbGraph::Connections::Books, '#books' do
   context 'when included by FbGraph::User' do
-    before(:all) do
+    before do
       fake_json(:get, 'matake/books', 'users/books/matake_public')
       fake_json(:get, 'matake/books?access_token=access_token', 'users/books/matake_private')
     end

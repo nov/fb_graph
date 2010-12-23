@@ -5,7 +5,7 @@ describe FbGraph::Checkin, '.new' do
 end
 
 describe FbGraph::Checkin, '.search' do
-  before(:all) do
+  before do
     fake_json(:get, 'search?type=checkin', 'checkins/search_public')
     fake_json(:get, 'search?type=checkin&access_token=access_token', 'checkins/search_private')
   end

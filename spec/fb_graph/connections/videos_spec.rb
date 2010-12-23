@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '../../spec_helper')
 
 describe FbGraph::Connections::Videos, '#videos' do
-  before(:all) do
+  before do
     fake_json(:get, 'kirk/videos?access_token=access_token', 'users/videos/kirk_private')
   end
 

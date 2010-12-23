@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '../../spec_helper')
 
 describe FbGraph::Connections::Photos, '#photos' do
   context 'when included by FbGraph::Album' do
-    before(:all) do
+    before do
       fake_json(:get, '12345/photos?access_token=access_token', 'albums/photos/matake_private')
     end
 

@@ -3,10 +3,7 @@ module FbGraph
     module Likes
       def likes(options = {})
         likes = if @_likes_ && options.blank?
-          # Note:
-          # "likes" is a connection, but included in fetched object
-          # this improves performance when rendering the stream with likes
-          @_likes_
+          self.connection(:likes, options.merge(:cached_collection => @_likes_))
         else
           self.connection(:likes, options)
         end

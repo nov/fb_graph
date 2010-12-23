@@ -9,10 +9,3 @@ require 'fakeweb'
 require 'helpers/fake_json_helper'
 include FakeJsonHelper
 FakeWeb.allow_net_connect = false
-
-
-Spec::Runner.configure do |config|
-  config.before(:all) do
-    
-  end
-end

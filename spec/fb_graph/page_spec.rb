@@ -44,7 +44,7 @@ describe FbGraph::Page, '.new' do
 end
 
 describe FbGraph::Page, '.fetch' do
-  before(:all) do
+  before do
     fake_json(:get, 'platform', 'pages/platform_public')
     fake_json(:get, 'platform?access_token=access_token', 'pages/platform_private')
   end

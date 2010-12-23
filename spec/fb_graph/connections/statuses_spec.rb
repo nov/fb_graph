@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), '../../spec_helper')
 describe FbGraph::Connections::Statuses, '#statuses' do
 
   context 'when included by FbGraph::User' do
-    before(:all) do
+    before do
       fake_json(:get, 'arjun/statuses', 'users/statuses/arjun_public')
       fake_json(:get, 'arjun/statuses?access_token=access_token', 'users/statuses/arjun_private')
     end
@@ -37,7 +37,7 @@ describe FbGraph::Connections::Statuses, '#statuses' do
   end
 
   context 'when included by FbGraph::Page' do
-    before(:all) do
+    before do
       fake_json(:get, 'platform/statuses', 'pages/statuses/platform_public')
       fake_json(:get, 'platform/statuses?access_token=access_token', 'pages/statuses/platform_private')
     end

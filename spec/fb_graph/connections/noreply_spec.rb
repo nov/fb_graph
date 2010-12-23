@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '../../spec_helper')
 
 describe FbGraph::Connections::Noreply, '#noreply' do
-  before(:all) do
+  before do
     fake_json(:get, 'smartday/noreply?access_token=access_token', 'events/noreply/smartday_private')
   end
 

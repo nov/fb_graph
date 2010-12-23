@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), '../../spec_helper')
 
 describe FbGraph::Connections::Maybe, '#maybe' do
-  before(:all) do
+  before do
     fake_json(:get, 'smartday/maybe?access_token=access_token', 'events/maybe/smartday_private')
   end
 

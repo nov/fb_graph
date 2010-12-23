@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '../../spec_helper')
 
 describe FbGraph::Connections::Checkins, '#checkins' do
   context 'when included by FbGraph::User' do
-    before(:all) do
+    before do
       fake_json(:get, 'mattt/checkins', 'users/checkins/mattt_public')
       fake_json(:get, 'mattt/checkins?access_token=access_token', 'users/checkins/mattt_private')
     end
@@ -54,7 +54,7 @@ describe FbGraph::Connections::Checkins, '#checkins' do
   end
 
   context 'when included by FbGraph::Page' do
-    before(:all) do
+    before do
       fake_json(:get, 'gowalla/checkins', 'pages/checkins/gowalla_public')
       fake_json(:get, 'gowalla/checkins?access_token=access_token', 'pages/checkins/gowalla_private')
     end
