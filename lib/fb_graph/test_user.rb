@@ -8,5 +8,18 @@ module FbGraph
       super
       @login_url = attributes[:login_url]
     end
+
+    def friend!(test_user)
+      post(
+        :access_token => self.access_token,
+        :connection => :friends,
+        :connection_scope => test_user.identifier
+      )
+      post(
+        :access_token => test_user.access_token,
+        :connection => :friends,
+        :connection_scope => self.identifier
+      )
+    end
   end
 end
