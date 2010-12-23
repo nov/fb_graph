@@ -200,6 +200,18 @@ Both Facebook JavaScript SDK and normal OAuth2 flow is supported.
 Below I show simple sample code.
 You can also see http://github.com/nov/fb_graph_sample for more details Rails3 sample application.
 
+=== Test User
+
+Not tested well yet.
+Sample is here.
+https://gist.github.com/752974
+
+=== FQL
+
+Not tested well yet.
+Sample is here.
+https://gist.github.com/752914
+
 ==== JavaScript SDK
 
   fb_auth = FbGraph::Auth.new(YOUR_APP_ID, YOUR_APPLICATION_SECRET)
