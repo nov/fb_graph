@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "1.1.6"
+  s.version = "1.1.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
@@ -123,6 +123,7 @@ Gem::Specification.new do |s|
      "spec/fake_json/posts/likes/post_without_access_token.json",
      "spec/fake_json/posts/platform_private.json",
      "spec/fake_json/posts/platform_public.json",
+     "spec/fake_json/statuses/with_likes.json",
      "spec/fake_json/users/accounts/matake_private.json",
      "spec/fake_json/users/accounts/matake_private_with_manage_pages_permission.json",
      "spec/fake_json/users/accounts/matake_public.json",
