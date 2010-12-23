@@ -81,6 +81,7 @@ Gem::Specification.new do |s|
      "lib/fb_graph/page.rb",
      "lib/fb_graph/photo.rb",
      "lib/fb_graph/post.rb",
+     "lib/fb_graph/query.rb",
      "lib/fb_graph/searchable.rb",
      "lib/fb_graph/searchable/result.rb",
      "lib/fb_graph/status.rb",

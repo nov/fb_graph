@@ -97,16 +97,22 @@ module FbGraph
       when 'null'
         nil
       else
-        _response_ = JSON.parse(response.body).with_indifferent_access
-        if _response_[:error]
-          case _response_[:error][:type]
-          when 'OAuthAccessTokenException', 'QueryParseException', 'OAuthInvalidRequestException', 'OAuthInvalidTokenException', 'OAuthException'
-            raise FbGraph::Unauthorized.new(_response_[:error][:message])
+        _response_ = JSON.parse(response.body)
+        case _response_
+        when Array
+          _response_.map!(&:with_indifferent_access)
+        when Hash
+          _response_ = _response_.with_indifferent_access
+          if _response_[:error]
+            case _response_[:error][:type]
+            when 'OAuthAccessTokenException', 'QueryParseException', 'OAuthInvalidRequestException', 'OAuthInvalidTokenException', 'OAuthException'
+              raise FbGraph::Unauthorized.new(_response_[:error][:message])
+            else
+              raise FbGraph::BadRequest.new("#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
+            end
           else
-            raise FbGraph::BadRequest.new("#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
+            _response_
           end
-        else
-          _response_
         end
       end
     rescue RestClient::Exception => e
