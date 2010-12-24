@@ -16,7 +16,7 @@ module FbGraph
     include Connections::Videos
     extend Searchable
 
-    attr_accessor :name, :username, :link, :category, :founded, :company_overview, :mission, :products, :fan_count, :location, :website, :like_count
+    attr_accessor :name, :username, :link, :category, :founded, :company_overview, :mission, :products, :fan_count, :location, :website, :like_count, :venue
 
     def initialize(identifier, attributes = {})
       super
