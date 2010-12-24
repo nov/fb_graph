@@ -11,7 +11,7 @@ module FbGraph
       end
 
       def photo!(options = {})
-        photo = post(options.merge(:connection => 'photos'))
+        photo = post(options.merge(:connection => :photos))
         Photo.new(photo.delete(:id), options.merge(photo).merge(
           :access_token => options[:access_token] || self.access_token
         ))

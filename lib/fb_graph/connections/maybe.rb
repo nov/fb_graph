@@ -11,7 +11,7 @@ module FbGraph
       end
 
       def maybe!(options = {})
-        post(options.merge(:connection => 'maybe'))
+        post(options.merge(:connection => :maybe))
       end
     end
   end

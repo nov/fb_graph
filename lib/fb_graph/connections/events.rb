@@ -11,7 +11,7 @@ module FbGraph
       end
 
       def event!(options = {})
-        event = post(options.merge(:connection => 'events'))
+        event = post(options.merge(:connection => :events))
         Event.new(event.delete(:id), options.merge(event).merge(
           :access_token => options[:access_token] || self.access_token
         ))

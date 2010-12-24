@@ -11,7 +11,7 @@ module FbGraph
       end
 
       def declined!(options = {})
-        post(options.merge(:connection => 'declined'))
+        post(options.merge(:connection => :declined))
       end
     end
   end
