@@ -33,7 +33,7 @@ module FbGraph
       case response
       when Hash
         if response[:error_code]
-          raise FbGraph::Exception.new(response[:error_code], response[:error_msg])
+          raise Exception.new(response[:error_code], response[:error_msg])
         else
           response
         end

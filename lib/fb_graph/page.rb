@@ -34,7 +34,7 @@ module FbGraph
       end
       @fan_count = attributes[:fan_count]
       if (location = attributes[:location])
-        @venue = FbGraph::Venue.new(location)
+        @venue = Venue.new(location)
       end
       @website = attributes[:website]
       @like_count = attributes[:likes]

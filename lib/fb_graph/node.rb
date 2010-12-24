@@ -6,7 +6,7 @@ module FbGraph
 
     def initialize(identifier, options = {})
       @identifier   = identifier
-      @endpoint     = File.join(FbGraph::ROOT_URL, identifier.to_s)
+      @endpoint     = File.join(ROOT_URL, identifier.to_s)
       @access_token = options[:access_token]
     end
 
@@ -21,7 +21,7 @@ module FbGraph
     end
 
     def connection(connection, options = {})
-      collection = options[:cached_collection] || FbGraph::Collection.new(get(options.merge(:connection => connection)))
+      collection = options[:cached_collection] || Collection.new(get(options.merge(:connection => connection)))
       Connection.new(self, connection, options.merge(:collection => collection))
     end
 
@@ -93,7 +93,7 @@ module FbGraph
         # This is an undocumented behaviour, so facebook might chaange it without any announcement.
         # I've posted this issue on their forum, so hopefully I'll get a document about Graph API error responses.
         # ref) http://forum.developers.facebook.com/viewtopic.php?pid=228256#p228256
-        raise FbGraph::NotFound.new('Graph API returned false, so probably it means your requested object is not found.')
+        raise NotFound.new('Graph API returned false, so probably it means your requested object is not found.')
       when 'null'
         nil
       else
@@ -106,9 +106,9 @@ module FbGraph
           if _response_[:error]
             case _response_[:error][:type]
             when 'OAuthAccessTokenException', 'QueryParseException', 'OAuthInvalidRequestException', 'OAuthInvalidTokenException', 'OAuthException'
-              raise FbGraph::Unauthorized.new(_response_[:error][:message])
+              raise Unauthorized.new(_response_[:error][:message])
             else
-              raise FbGraph::BadRequest.new("#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
+              raise BadRequest.new("#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
             end
           else
             _response_
@@ -116,7 +116,7 @@ module FbGraph
         end
       end
     rescue RestClient::Exception => e
-      raise FbGraph::Exception.new(e.http_code, e.message, e.http_body)
+      raise Exception.new(e.http_code, e.message, e.http_body)
     end
   end
 end

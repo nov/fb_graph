@@ -7,24 +7,24 @@ module FbGraph
     def initialize(identifier, attributes = {})
       super
       if (from = attributes[:from])
-        @from = FbGraph::User.new(from.delete(:id), from)
+        @from = User.new(from.delete(:id), from)
       end
       @tags = []
       if (tags = attributes[:tags])
-        FbGraph::Collection.new(tags).each do |user|
-          @tags << FbGraph::User.new(user.delete(:id), user)
+        Collection.new(tags).each do |user|
+          @tags << User.new(user.delete(:id), user)
         end
       end
       if (place = attributes[:place])
-        @place = FbGraph::Page.new(place.delete(:id), place)
+        @place = Page.new(place.delete(:id), place)
       end
       @message = attributes[:message]
       if (coordinates = attributes[:coordinates])
         # NOTE: it seems this attributes isn't used now
-        @coordinates = FbGraph::Venue.new(location)
+        @coordinates = Venue.new(location)
       end
       if (application = attributes[:application])
-        @application = FbGraph::Application.new(application.delete(:id), application)
+        @application = Application.new(application.delete(:id), application)
       end
       if (created_time = attributes.delete(:created_time))
         @created_time = Time.parse(created_time).utc
