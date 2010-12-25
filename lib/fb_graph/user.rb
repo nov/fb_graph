@@ -49,22 +49,22 @@ module FbGraph
       @work = []
       if attributes[:work]
         attributes[:work].each do |work|
-          @work << FbGraph::Work.new(work)
+          @work << Work.new(work)
         end
       end
       @education = []
       if attributes[:education]
         attributes[:education].each do |education|
-          @education << FbGraph::Education.new(education)
+          @education << Education.new(education)
         end
       end
       @email   = attributes[:email]
       @website = attributes[:website].to_s.split("\n")
       if (hometown = attributes[:hometown])
-        @hometown = FbGraph::Page.new(hometown.delete(:id), hometown)
+        @hometown = Page.new(hometown.delete(:id), hometown)
       end
       if (location = attributes[:location])
-        @location = FbGraph::Page.new(location.delete(:id), location)
+        @location = Page.new(location.delete(:id), location)
       end
       @bio                 = attributes[:bio]
       @quotes              = attributes[:quotes]

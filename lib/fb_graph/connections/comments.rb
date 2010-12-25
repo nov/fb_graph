@@ -15,7 +15,7 @@ module FbGraph
       end
 
       def comment!(options = {})
-        comment = post(options.merge(:connection => 'comments'))
+        comment = post(options.merge(:connection => :comments))
         Comment.new(comment.delete(:id), options.merge(comment).merge(
           :access_token => options[:access_token] || self.access_token
         ))
@@ -25,11 +25,11 @@ module FbGraph
       # the context of getting likes is User, but the context of posting like is not user.
       # posting like is always in same context with comment!
       def like!(options = {})
-        post(options.merge(:connection => 'likes'))
+        post(options.merge(:connection => :likes))
       end
 
       def unlike!(options = {})
-        destroy(options.merge(:connection => 'likes'))
+        destroy(options.merge(:connection => :likes))
       end
     end
   end

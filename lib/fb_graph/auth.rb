@@ -15,13 +15,13 @@ module FbGraph
   #   auth = FbGraph::Auth.new(APP_ID, APP_SECRET, :cookie => {..})
   #   auth.access_token # already parsed
   class Auth
-    class VerificationFailed < FbGraph::Exception; end
+    class VerificationFailed < Exception; end
 
     attr_accessor :client, :access_token, :user
 
     def initialize(client_id, client_secret, options = {})
       @client = OAuth2::Client.new(client_id, client_secret, options.merge(
-        :site => FbGraph::ROOT_URL
+        :site => ROOT_URL
       ))
       if options[:cookie].present?
         from_cookie(options[:cookie])
@@ -29,7 +29,7 @@ module FbGraph
     end
 
     def from_cookie(cookie)
-      cookie = FbGraph::Auth::Cookie.parse(self.client, cookie)
+      cookie = Auth::Cookie.parse(self.client, cookie)
       expires_in = unless cookie[:expires].zero?
         cookie[:expires] - Time.now.to_i
       end
@@ -39,7 +39,7 @@ module FbGraph
         cookie[:refresh_token],
         expires_in
       )
-      self.user = FbGraph::User.new(cookie[:uid], :access_token => self.access_token)
+      self.user = User.new(cookie[:uid], :access_token => self.access_token)
       self
     end
   end

@@ -1,6 +1,6 @@
 module FbGraph
   class Insight < Node
-    include FbGraph::Comparison
+    include Comparison
 
     attr_accessor :name, :period, :values, :description
 

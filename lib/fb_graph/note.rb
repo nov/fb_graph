@@ -9,9 +9,9 @@ module FbGraph
       super
       if (from = attributes[:from])
         @from = if from[:category]
-          FbGraph::Page.new(from.delete(:id), from)
+          Page.new(from.delete(:id), from)
         else
-          FbGraph::User.new(from.delete(:id), from)
+          User.new(from.delete(:id), from)
         end
       end
       @subject = attributes[:subject]
@@ -25,7 +25,7 @@ module FbGraph
       @icon = attributes[:icon]
 
       # cached connection
-      @_comments_ = FbGraph::Collection.new(attributes[:comments])
+      @_comments_ = Collection.new(attributes[:comments])
     end
   end
 end

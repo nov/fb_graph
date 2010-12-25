@@ -14,7 +14,7 @@ module FbGraph
     def initialize(identifier, attributes = {})
       super
       if (owner = attributes[:owner])
-        @owner = FbGraph::User.new(owner.delete(:id), owner)
+        @owner = User.new(owner.delete(:id), owner)
       end
       @name        = attributes[:name]
       @description = attributes[:description]
@@ -37,7 +37,7 @@ module FbGraph
         end
       end
       if attributes[:venue]
-        @venue = FbGraph::Venue.new(attributes[:venue])
+        @venue = Venue.new(attributes[:venue])
       end
       if attributes[:updated_time]
         @updated_time = Time.parse(attributes[:updated_time]).utc

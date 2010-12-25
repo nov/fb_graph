@@ -1,6 +1,6 @@
 module FbGraph
   class Subscription
-    include FbGraph::Comparison
+    include Comparison
 
     attr_accessor :object, :fields, :callback_url, :active
 

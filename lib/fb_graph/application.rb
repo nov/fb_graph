@@ -45,7 +45,7 @@ module FbGraph
     #   # => Array of FbGraph::Subscription
     def get_access_token(secret = nil)
       self.secret ||= secret
-      auth = FbGraph::Auth.new(self.identifier, self.secret)
+      auth = Auth.new(self.identifier, self.secret)
       response_string = auth.client.request(:post, auth.client.access_token_url, {
         :client_id => self.identifier,
         :client_secret => self.secret,

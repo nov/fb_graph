@@ -6,7 +6,7 @@ module FbGraph
       @owner = owner
       @options = options
       @connection = connection
-      @collection = options.delete(:collection) || FbGraph::Collection.new
+      @collection = options.delete(:collection) || Collection.new
       replace collection
     end
 

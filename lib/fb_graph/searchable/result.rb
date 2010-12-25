@@ -7,7 +7,7 @@ module FbGraph
         @klass = klass
         @query = query
         @options = options
-        @collection = options.delete(:collection) || FbGraph::Collection.new
+        @collection = options.delete(:collection) || Collection.new
         replace @collection
       end
 

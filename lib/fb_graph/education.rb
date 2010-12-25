@@ -6,18 +6,18 @@ module FbGraph
 
     def initialize(attributes = {})
       if (school = attributes[:school])
-        @school = FbGraph::Page.new(school.delete(:id), school)
+        @school = Page.new(school.delete(:id), school)
       end
       if (degree = attributes[:degree])
-        @degree = FbGraph::Page.new(degree.delete(:id), degree)
+        @degree = Page.new(degree.delete(:id), degree)
       end
       if (year = attributes[:year])
-        @year = FbGraph::Page.new(year.delete(:id), year)
+        @year = Page.new(year.delete(:id), year)
       end
       @concentration = []
       if attributes[:concentration]
         attributes[:concentration].each do |concentration|
-          @concentration << FbGraph::Page.new(concentration.delete(:id), concentration)
+          @concentration << Page.new(concentration.delete(:id), concentration)
         end
       end
     end

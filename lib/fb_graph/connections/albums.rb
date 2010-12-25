@@ -86,7 +86,7 @@ module FbGraph
       end
 
       def album!(options = {})
-        album = post(options.merge(:connection => 'albums'))
+        album = post(options.merge(:connection => :albums))
         Album.new(album.delete(:id), options.merge(album).merge(
           :access_token => options[:access_token] || self.access_token
         ))

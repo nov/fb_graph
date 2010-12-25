@@ -11,7 +11,7 @@ module FbGraph
       end
 
       def note!(options = {})
-        note = post(options.merge(:connection => 'notes'))
+        note = post(options.merge(:connection => :notes))
         Note.new(note.delete(:id), options.merge(note).merge(
           :access_token => options[:access_token] || self.access_token
         ))
