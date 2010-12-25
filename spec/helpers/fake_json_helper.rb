@@ -1,4 +1,5 @@
 module FakeJsonHelper
+
   def fake_json(method, path, file_path, options = {})
     FakeWeb.register_uri(
       method,
@@ -8,4 +9,21 @@ module FakeJsonHelper
       )
     )
   end
+
+  def fake_fql_json(query, file_path, options = {})
+    params = {
+      :query => query,
+      :access_token => options[:access_token],
+      :format => :json
+    }
+    params.delete_if do |k, v|
+      v.blank?
+    end
+    FakeWeb.register_uri(
+      :get,
+      FbGraph::Query::ENDPOINT + '?' + params.to_query,
+      :body => File.read(File.join(File.dirname(__FILE__), '../fake_json', "#{file_path}.json"))
+    )
+  end
+
 end
