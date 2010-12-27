@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "1.2.3"
+  s.version = "1.2.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
-  s.date = %q{2010-12-25}
+  s.date = %q{2010-12-27}
   s.description = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.email = %q{nov@matake.jp}
   s.extra_rdoc_files = [
@@ -82,13 +82,16 @@ Gem::Specification.new do |s|
     "lib/fb_graph/photo.rb",
     "lib/fb_graph/place.rb",
     "lib/fb_graph/post.rb",
+    "lib/fb_graph/privacy.rb",
     "lib/fb_graph/project.rb",
     "lib/fb_graph/query.rb",
     "lib/fb_graph/searchable.rb",
     "lib/fb_graph/searchable/result.rb",
+    "lib/fb_graph/serialization.rb",
     "lib/fb_graph/status.rb",
     "lib/fb_graph/subscription.rb",
     "lib/fb_graph/tag.rb",
+    "lib/fb_graph/targeting.rb",
     "lib/fb_graph/test_user.rb",
     "lib/fb_graph/user.rb",
     "lib/fb_graph/venue.rb",
@@ -97,6 +100,8 @@ Gem::Specification.new do |s|
     "spec/fake_json/albums/photos/matake_private.json",
     "spec/fake_json/albums/photos/post_with_valid_access_token.json",
     "spec/fake_json/applications/subscriptions/fb_graph_private.json",
+    "spec/fake_json/applications/test_users/created.json",
+    "spec/fake_json/applications/test_users/private.json",
     "spec/fake_json/checkins/search_private.json",
     "spec/fake_json/checkins/search_public.json",
     "spec/fake_json/events/attending/post_with_valid_access_token.json",
@@ -117,6 +122,8 @@ Gem::Specification.new do |s|
     "spec/fake_json/pages/notes/post_with_valid_access_token.json",
     "spec/fake_json/pages/platform_private.json",
     "spec/fake_json/pages/platform_public.json",
+    "spec/fake_json/pages/search_fb_graph.json",
+    "spec/fake_json/pages/search_google.json",
     "spec/fake_json/pages/statuses/platform_private.json",
     "spec/fake_json/pages/statuses/platform_public.json",
     "spec/fake_json/posts/comments/post_with_invalid_access_token.json",
@@ -224,9 +231,11 @@ Gem::Specification.new do |s|
     "spec/fb_graph/connections/subscriptions_spec.rb",
     "spec/fb_graph/connections/tagged_spec.rb",
     "spec/fb_graph/connections/television_spec.rb",
+    "spec/fb_graph/connections/test_users_spec.rb",
     "spec/fb_graph/connections/videos_spec.rb",
     "spec/fb_graph/education_spec.rb",
     "spec/fb_graph/event_spec.rb",
+    "spec/fb_graph/exception_spec.rb",
     "spec/fb_graph/friend_list_spec.rb",
     "spec/fb_graph/group_spec.rb",
     "spec/fb_graph/insight_spec.rb",
@@ -236,11 +245,15 @@ Gem::Specification.new do |s|
     "spec/fb_graph/page_spec.rb",
     "spec/fb_graph/photo_spec.rb",
     "spec/fb_graph/post_spec.rb",
+    "spec/fb_graph/privacy_spec.rb",
     "spec/fb_graph/project_spec.rb",
     "spec/fb_graph/query/core_spec.rb",
+    "spec/fb_graph/searchable_spec.rb",
+    "spec/fb_graph/seriarization_spec.rb",
     "spec/fb_graph/status_spec.rb",
     "spec/fb_graph/subscription_spec.rb",
     "spec/fb_graph/tag_spec.rb",
+    "spec/fb_graph/targeting_spec.rb",
     "spec/fb_graph/test_user_spec.rb",
     "spec/fb_graph/user_spec.rb",
     "spec/fb_graph/venue_spec.rb",
@@ -294,9 +307,11 @@ Gem::Specification.new do |s|
     "spec/fb_graph/connections/subscriptions_spec.rb",
     "spec/fb_graph/connections/tagged_spec.rb",
     "spec/fb_graph/connections/television_spec.rb",
+    "spec/fb_graph/connections/test_users_spec.rb",
     "spec/fb_graph/connections/videos_spec.rb",
     "spec/fb_graph/education_spec.rb",
     "spec/fb_graph/event_spec.rb",
+    "spec/fb_graph/exception_spec.rb",
     "spec/fb_graph/friend_list_spec.rb",
     "spec/fb_graph/group_spec.rb",
     "spec/fb_graph/insight_spec.rb",
@@ -306,11 +321,15 @@ Gem::Specification.new do |s|
     "spec/fb_graph/page_spec.rb",
     "spec/fb_graph/photo_spec.rb",
     "spec/fb_graph/post_spec.rb",
+    "spec/fb_graph/privacy_spec.rb",
     "spec/fb_graph/project_spec.rb",
     "spec/fb_graph/query/core_spec.rb",
+    "spec/fb_graph/searchable_spec.rb",
+    "spec/fb_graph/seriarization_spec.rb",
     "spec/fb_graph/status_spec.rb",
     "spec/fb_graph/subscription_spec.rb",
     "spec/fb_graph/tag_spec.rb",
+    "spec/fb_graph/targeting_spec.rb",
     "spec/fb_graph/test_user_spec.rb",
     "spec/fb_graph/user_spec.rb",
     "spec/fb_graph/venue_spec.rb",
