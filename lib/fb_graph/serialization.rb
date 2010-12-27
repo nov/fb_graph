@@ -1,7 +1,7 @@
 module FbGraph
   module Serialization
     def to_hash
-      raise 'Define me!'
+      raise "Define #{self.class}#to_hash!"
     end
 
     def to_json
