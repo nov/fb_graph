@@ -36,3 +36,15 @@ describe FbGraph::TestUser, '.friend!' do
   end
 
 end
+
+describe FbGraph::TestUser, '.destroy' do
+  before do
+    @user = FbGraph::TestUser.new(111, :access_token => 'token1')
+  end
+
+  it 'should DELETE /user_id' do
+    lambda do
+      @user.destroy
+    end.should request_to('111?access_token=token1', :delete)
+  end
+end

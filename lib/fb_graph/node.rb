@@ -52,10 +52,7 @@ module FbGraph
       _params_ = stringfy_access_token(params)
       _endpoint_ = build_endpoint(_params_.merge!(:method => :delete))
       handle_response do
-        # NOTE:
-        # DELETE method didn't work for some reason.
-        # Use POST with "method=delete" for now.
-        RestClient.post(_endpoint_, _params_.merge!(:method => :delete))
+        RestClient.delete(_endpoint_)
       end
     end
 
@@ -66,7 +63,7 @@ module FbGraph
       params.delete_if do |k, v|
         v.blank?
       end
-      if params.delete(:method) == :get && params.present?
+      if [:get, :delete].include?(params.delete(:method)) && params.present?
         _endpoint_ << "?#{params.to_query}"
       end
       _endpoint_
