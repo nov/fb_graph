@@ -10,6 +10,14 @@ module FakeJsonHelper
     )
   end
 
+  def request_to(path, method = :get)
+    endpoint = File.join(FbGraph::ROOT_URL, path)
+    raise_error(
+      FakeWeb::NetConnectNotAllowedError,
+      "Real HTTP connections are disabled. Unregistered request: #{method.to_s.upcase} #{endpoint}"
+    )
+  end
+
   def fake_fql_json(query, file_path, options = {})
     params = {
       :query => query,

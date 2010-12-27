@@ -21,7 +21,7 @@ module FbGraph
 
       def previous(_options_ = {})
         if self.collection.previous.present?
-          self.klassf.search(self.query, self.options.merge(_options_).merge(self.collection.previous))
+          self.klass.search(self.query, self.options.merge(_options_).merge(self.collection.previous))
         else
           self.class.new(self.query, self.klass)
         end

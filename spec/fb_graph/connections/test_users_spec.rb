@@ -10,10 +10,7 @@ describe FbGraph::Connections::TestUsers, '#test_users' do
     it 'should get access_token first' do
       lambda do
         @app.test_users
-      end.should raise_error(
-        FakeWeb::NetConnectNotAllowedError,
-        "Real HTTP connections are disabled. Unregistered request: POST https://graph.facebook.com/oauth/access_token"
-      )
+      end.should request_to('oauth/access_token', :post)
     end
   end
 
@@ -38,10 +35,7 @@ describe FbGraph::Connections::TestUsers, '#test_user!' do
     it 'should get access_token first' do
       lambda do
         @app.test_user!
-      end.should raise_error(
-        FakeWeb::NetConnectNotAllowedError,
-        "Real HTTP connections are disabled. Unregistered request: POST https://graph.facebook.com/oauth/access_token"
-      )
+      end.should request_to('oauth/access_token', :post)
     end
   end
 

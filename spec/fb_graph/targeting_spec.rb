@@ -25,6 +25,10 @@ describe FbGraph::Targeting, '.to_json' do
       :region  => 'Tokyo'
     }
     targeting = FbGraph::Targeting.new(attributes)
-    targeting.to_json.should == "{\"country\":\"jp\",\"city\":\"Tokyo\",\"locale\":9,\"region\":\"Tokyo\"}"
+    hash = JSON.parse(targeting.to_json).with_indifferent_access
+    hash[:country].should == attributes[:country]
+    hash[:city].should    == attributes[:city]
+    hash[:locale].should  == attributes[:locale]
+    hash[:region].should  == attributes[:region]
   end
 end

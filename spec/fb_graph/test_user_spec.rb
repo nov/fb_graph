@@ -24,17 +24,11 @@ describe FbGraph::TestUser, '.friend!' do
   it 'should POST twice' do
     lambda do
       @u1.friend! @u2
-    end.should raise_error(
-      FakeWeb::NetConnectNotAllowedError,
-      "Real HTTP connections are disabled. Unregistered request: POST https://graph.facebook.com/111/friends/222"
-    )
+    end.should request_to('111/friends/222', :post)
     fake_json(:post, '111/friends/222', 'true')
     lambda do
       @u1.friend! @u2
-    end.should raise_error(
-      FakeWeb::NetConnectNotAllowedError,
-      "Real HTTP connections are disabled. Unregistered request: POST https://graph.facebook.com/222/friends/111"
-    )
+    end.should request_to('222/friends/111', :post)
     fake_json(:post, '222/friends/111', 'true')
     lambda do
       @u1.friend! @u2
