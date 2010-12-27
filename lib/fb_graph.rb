@@ -47,6 +47,7 @@ end
 
 require 'fb_graph/auth'
 require 'fb_graph/comparison'
+require 'fb_graph/serialization'
 require 'fb_graph/collection'
 require 'fb_graph/connection'
 require 'fb_graph/connections'

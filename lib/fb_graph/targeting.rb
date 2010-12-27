@@ -11,13 +11,13 @@ module FbGraph
       @locale  = attriutes[:locale]
     end
 
-    def to_s
+    def to_hash
       {
         :country => self.country,
-        :city => self.city,
-        :region => self.region,
-        :locale => self.locale
-      }.to_json
+        :city    => self.city,
+        :region  => self.region,
+        :locale  => self.locale
+      }
     end
   end
 end
