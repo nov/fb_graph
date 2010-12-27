@@ -105,3 +105,6 @@ describe FbGraph::Connections::Checkins, '#checkins' do
     end
   end
 end
+
+describe FbGraph::Connections::Checkins, '#checkin!' do
+end
