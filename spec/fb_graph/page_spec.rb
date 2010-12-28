@@ -41,6 +41,13 @@ describe FbGraph::Page, '.new' do
     page = FbGraph::Page.new(12345, :founded => "2004")
     page.founded.should == Date.new(2004, 1, 1)
   end
+
+  it 'should allow invalid date as release_date' do
+    page1 = FbGraph::Page.new(12345, :release_date => "2010-04-23")
+    page1.release_date.should == Date.new(2010, 4, 23)
+    page2 = FbGraph::Page.new(12345, :release_date => "someday")
+    page2.release_date.should == 'someday'
+  end
 end
 
 describe FbGraph::Page, '.fetch' do
