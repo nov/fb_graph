@@ -54,6 +54,7 @@ require 'fb_graph/connections'
 require 'fb_graph/searchable'
 
 require 'fb_graph/node'
+require 'fb_graph/action'
 require 'fb_graph/album'
 require 'fb_graph/application'
 require 'fb_graph/checkin'

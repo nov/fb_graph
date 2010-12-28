@@ -2,7 +2,22 @@ require File.join(File.dirname(__FILE__), '../../spec_helper')
 
 describe FbGraph::Connections::Comments, '#comments' do
   context 'when included by FbGraph::Post' do
-    # TODO
+    before do
+      fake_json :get, 'no_comments', 'posts/no_comments'
+      @post = FbGraph::Post.new('no_comments').fetch
+    end
+
+    it 'should use cached @_comments_ as default' do
+      lambda do
+        @post.comments
+      end.should_not raise_error(FakeWeb::NetConnectNotAllowedError)
+    end
+
+    it 'should ignore cached @_comments_ when options are given' do
+      lambda do
+        @post.comments(:no_cache => true)
+      end.should_not request_to 'no_comments/comments'
+    end
   end
 end
 
@@ -83,5 +98,13 @@ describe FbGraph::Connections::Comments, '#like!' do
         FbGraph::Post.new('12345', :access_token => 'valid').like!.should be_true
       end
     end
+  end
+end
+
+describe FbGraph::Connections::Comments, '#unlike!' do
+  it 'should DELETE /:object_id/likes' do
+    lambda do
+      FbGraph::Post.new('12345', :access_token => 'valid').unlike!
+    end.should request_to '12345/likes?access_token=valid', :delete
   end
 end

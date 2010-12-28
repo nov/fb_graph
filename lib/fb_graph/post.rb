@@ -34,7 +34,12 @@ module FbGraph
       @source      = attributes[:source]
       @icon        = attributes[:icon]
       @attribution = attributes[:attribution]
-      @actions     = attributes[:actions]
+      @actions     = []
+      if attributes[:actions]
+        attributes[:actions].each do |action|
+          @actions << FbGraph::Action.new(action)
+        end
+      end
       @like_count  = attributes[:likes]
       @type        = attributes[:type]
       if attributes[:privacy]
