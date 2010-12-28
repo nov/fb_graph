@@ -1,6 +1,7 @@
 module FbGraph
   class Link < Node
     include Connections::Comments
+    include Connections::Likes
 
     attr_accessor :from, :link, :name, :caption, :description, :icon, :picture, :message, :created_time
 
