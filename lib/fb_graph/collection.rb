@@ -12,7 +12,7 @@ module FbGraph
       when nil
         collection = {:data => [], :count => 0}
       else
-        raise "Invalid collection"
+        raise ArgumentError.new("Invalid collection")
       end
 
       # NOTE: Graph API returns {"data":{"to":[null]}} sometimes... :(

@@ -42,4 +42,10 @@ describe FbGraph::Collection, '.new' do
     collection.next.should be_blank
   end
 
+  it 'should raise error for invalid input' do
+    lambda do
+      FbGraph::Collection.new("STRING")
+    end.should raise_error(ArgumentError, 'Invalid collection')
+  end
+
 end

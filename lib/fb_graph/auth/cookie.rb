@@ -21,7 +21,7 @@ module FbGraph
           if k == 'sig'
             signature = v
           else
-            v = v.to_i if ['uid', 'expires'].include?(k)
+            v = v.to_i if k == 'expires'
             fb_cookie[k] = v
           end
         end
