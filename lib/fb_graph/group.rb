@@ -5,7 +5,7 @@ module FbGraph
     include Connections::Picture
     extend Searchable
 
-    attr_accessor :owner, :name, :description, :link, :venue, :privacy, :updated_time
+    attr_accessor :owner, :name, :description, :link, :icon, :venue, :privacy, :version, :updated_time
 
     def initialize(identifier, attributes = {})
       super
@@ -15,7 +15,9 @@ module FbGraph
       @name         = attributes[:name]
       @description  = attributes[:description]
       @link         = attributes[:link]
+      @icon         = attributes[:icon]
       @privacy      = attributes[:privacy]
+      @version      = attributes[:version]
       if attributes[:venue]
         @venue = Venue.new(attributes[:venue])
       end

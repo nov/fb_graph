@@ -55,6 +55,7 @@ require 'fb_graph/searchable'
 
 require 'fb_graph/action'
 require 'fb_graph/education'
+require 'fb_graph/location'
 require 'fb_graph/privacy'
 require 'fb_graph/subscription'
 require 'fb_graph/targeting'

@@ -16,12 +16,12 @@ module FbGraph
         end
       end
       if (place = attributes[:place])
-        @place = Page.new(place.delete(:id), place)
+        @place = Place.new(place.delete(:id), place)
       end
       @message = attributes[:message]
       if (coordinates = attributes[:coordinates])
         # NOTE: it seems this attributes isn't used now
-        @coordinates = Venue.new(location)
+        @coordinates = Location.new(location)
       end
       if (application = attributes[:application])
         @application = Application.new(application.delete(:id), application)

@@ -1,17 +1,14 @@
 module FbGraph
-  class Venue
-    include Comparison
-
-    attr_accessor :street, :city, :state, :zip, :country, :latitude, :longitude
+  class Venue < Location
+    attr_accessor :street, :city, :state, :zip, :country
 
     def initialize(attriutes = {})
+      super
       @street    = attriutes[:street]
       @city      = attriutes[:city]
       @state     = attriutes[:state]
       @zip       = attriutes[:zip]
       @country   = attriutes[:country]
-      @latitude  = attriutes[:latitude]
-      @longitude = attriutes[:longitude]
     end
   end
 end
