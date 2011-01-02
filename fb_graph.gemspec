@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
-  s.date = %q{2010-12-27}
+  s.date = %q{2011-01-03}
   s.description = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.email = %q{nov@matake.jp}
   s.extra_rdoc_files = [
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "assets/fb_graph.png",
     "fb_graph.gemspec",
     "lib/fb_graph.rb",
+    "lib/fb_graph/action.rb",
     "lib/fb_graph/album.rb",
     "lib/fb_graph/application.rb",
     "lib/fb_graph/auth.rb",
@@ -76,6 +77,7 @@ Gem::Specification.new do |s|
     "lib/fb_graph/group.rb",
     "lib/fb_graph/insight.rb",
     "lib/fb_graph/link.rb",
+    "lib/fb_graph/location.rb",
     "lib/fb_graph/node.rb",
     "lib/fb_graph/note.rb",
     "lib/fb_graph/page.rb",
@@ -132,12 +134,14 @@ Gem::Specification.new do |s|
     "spec/fake_json/posts/likes/post_with_invalid_access_token.json",
     "spec/fake_json/posts/likes/post_with_valid_access_token.json",
     "spec/fake_json/posts/likes/post_without_access_token.json",
+    "spec/fake_json/posts/no_comments.json",
     "spec/fake_json/posts/platform_private.json",
     "spec/fake_json/posts/platform_public.json",
     "spec/fake_json/query/user/with_invalid_token.json",
     "spec/fake_json/query/user/with_valid_token.json",
     "spec/fake_json/query/user/without_token.json",
     "spec/fake_json/statuses/with_likes.json",
+    "spec/fake_json/token_response.json",
     "spec/fake_json/true.json",
     "spec/fake_json/users/accounts/matake_private.json",
     "spec/fake_json/users/accounts/matake_private_with_manage_pages_permission.json",
@@ -153,6 +157,7 @@ Gem::Specification.new do |s|
     "spec/fake_json/users/books/matake_public.json",
     "spec/fake_json/users/checkins/mattt_private.json",
     "spec/fake_json/users/checkins/mattt_public.json",
+    "spec/fake_json/users/checkins/posted.json",
     "spec/fake_json/users/events/matake_private.json",
     "spec/fake_json/users/events/matake_public.json",
     "spec/fake_json/users/events/post_with_valid_access_token.json",
@@ -194,6 +199,7 @@ Gem::Specification.new do |s|
     "spec/fake_json/users/videos/kirk_private.json",
     "spec/fb_graph/album_spec.rb",
     "spec/fb_graph/application_spec.rb",
+    "spec/fb_graph/auth/cookie_spec.rb",
     "spec/fb_graph/auth_spec.rb",
     "spec/fb_graph/checkin_spec.rb",
     "spec/fb_graph/collection_spec.rb",
@@ -240,6 +246,7 @@ Gem::Specification.new do |s|
     "spec/fb_graph/group_spec.rb",
     "spec/fb_graph/insight_spec.rb",
     "spec/fb_graph/link_spec.rb",
+    "spec/fb_graph/location_spec.rb",
     "spec/fb_graph/node_spec.rb",
     "spec/fb_graph/note_spec.rb",
     "spec/fb_graph/page_spec.rb",
@@ -265,11 +272,12 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/nov/fb_graph}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.4.1}
   s.summary = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.test_files = [
     "spec/fb_graph/album_spec.rb",
     "spec/fb_graph/application_spec.rb",
+    "spec/fb_graph/auth/cookie_spec.rb",
     "spec/fb_graph/auth_spec.rb",
     "spec/fb_graph/checkin_spec.rb",
     "spec/fb_graph/collection_spec.rb",
@@ -316,6 +324,7 @@ Gem::Specification.new do |s|
     "spec/fb_graph/group_spec.rb",
     "spec/fb_graph/insight_spec.rb",
     "spec/fb_graph/link_spec.rb",
+    "spec/fb_graph/location_spec.rb",
     "spec/fb_graph/node_spec.rb",
     "spec/fb_graph/note_spec.rb",
     "spec/fb_graph/page_spec.rb",
@@ -340,7 +349,6 @@ Gem::Specification.new do |s|
   ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
