@@ -47,7 +47,10 @@ describe FbGraph::Connections::Home, '#home' do
           :icon => 'http://photos-h.ak.fbcdn.net/photos-ak-sf2p/v43/23/2231777543/app_2_2231777543_2528.gif',
           :attribution => 'Twitter',
           :created_time => '2010-04-27T13:06:14+0000',
-          :updated_time => '2010-04-27T13:06:14+0000'
+          :updated_time => '2010-04-27T13:06:14+0000',
+          :privacy => {
+            :value => 'EVERYONE'
+          }
         )
         posts.each do |post|
           post.should be_instance_of(FbGraph::Post)

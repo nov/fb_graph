@@ -2,7 +2,76 @@ require File.join(File.dirname(__FILE__), '../spec_helper')
 
 describe FbGraph::Post, '.new' do
   it 'should setup all supported attributes' do
-    # TODO
+    attributes = {
+      :id => "579612276_10150089741782277",
+      :message => "hello",
+      :from => {
+        :name => "Nov Matake",
+        :id => "579612276"
+      },
+      :icon => "http://photos-d.ak.fbcdn.net/photos-ak-snc1/v27562/23/2231777543/app_2_2231777543_9553.gif",
+      :type => "status",
+      :attribution => "Twitter",
+      :actions => [{
+        :name => "Comment",
+        :link => "http://www.facebook.com/579612276/posts/10150089741782277"
+      }, {
+        :name => "Like",
+        :link => "http://www.facebook.com/579612276/posts/10150089741782277"
+      }, {
+        :name => "@nov on Twitter",
+        :link => "http://twitter.com/nov?utm_source=fb&utm_medium=fb&utm_campaign=nov&utm_content=19294280413614080"
+      }],
+      :privacy => {
+        :value => "EVERYONE",
+        :description => "Everyone"
+      },
+      :targeting => {
+        :country => 'ja'
+      },
+      :created_time => "2010-12-27T07:31:30+0000",
+      :updated_time => "2010-12-27T07:31:30+0000"
+    }
+    post = FbGraph::Post.new(attributes.delete(:id), attributes)
+    post.identifier.should == '579612276_10150089741782277'
+    post.message.should == 'hello'
+    post.from.should == FbGraph::User.new("579612276", :name => 'Nov Matake')
+    post.icon.should == 'http://photos-d.ak.fbcdn.net/photos-ak-snc1/v27562/23/2231777543/app_2_2231777543_9553.gif'
+    post.type.should == 'status'
+    post.attribution.should == 'Twitter'
+    post.actions.should == [
+      FbGraph::Action.new(
+        :name => "Comment",
+        :link => "http://www.facebook.com/579612276/posts/10150089741782277"
+      ),
+      FbGraph::Action.new(
+        :name => "Like",
+        :link => "http://www.facebook.com/579612276/posts/10150089741782277"
+      ),
+      FbGraph::Action.new(
+        :name => "@nov on Twitter",
+        :link => "http://twitter.com/nov?utm_source=fb&utm_medium=fb&utm_campaign=nov&utm_content=19294280413614080"
+      )
+    ]
+    post.privacy.should == FbGraph::Privacy.new(
+      :value => "EVERYONE",
+      :description => "Everyone"
+    )
+    post.targeting.should == FbGraph::Targeting.new(
+      :country => 'ja'
+    )
+    post.created_time.should == Time.parse("2010-12-27T07:31:30+0000")
+    post.updated_time.should == Time.parse("2010-12-27T07:31:30+0000")
+  end
+
+  it 'should support FbGraph::Privacy as privacy' do
+    post = FbGraph::Post.new(12345, :privacy => FbGraph::Privacy.new(:value => 'EVERYONE'))
+    post.privacy.should == FbGraph::Privacy.new(:value => 'EVERYONE')
+  end
+
+  it 'should support FbGraph::Targeting as targeting' do
+    post = FbGraph::Post.new(12345, :targeting => FbGraph::Targeting.new(:country => 'ja'))
+    post.targeting.should == FbGraph::Targeting.new(:country => 'ja')
   end
 
   it 'should support page as from' do

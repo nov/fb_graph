@@ -38,11 +38,11 @@ module FbGraph
         :connection => :friends,
         :connection_scope => test_user.identifier
       )
-      post(
+      test_user.send :post, {
         :access_token => test_user.access_token,
         :connection => :friends,
         :connection_scope => self.identifier
-      )
+      }
     end
   end
 end

@@ -31,7 +31,10 @@ describe FbGraph::Connections::Tagged, '#tagged' do
           :icon => 'http://static.ak.fbcdn.net/rsrc.php/zB010/hash/9yvl71tw.gif',
           :created_time => '2010-04-24T08:07:59+0000',
           :updated_time => '2010-04-24T08:07:59+0000',
-          :likes => 1
+          :likes => 1,
+          :privacy => {
+            :value => 'EVERYONE'
+          }
         )
         posts.each do |post|
           post.should be_instance_of(FbGraph::Post)

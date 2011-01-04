@@ -105,3 +105,21 @@ describe FbGraph::Connections::Checkins, '#checkins' do
     end
   end
 end
+
+describe FbGraph::Connections::Checkins, '#checkin!' do
+  before do
+    fake_json :post, 'me/checkins', 'users/checkins/posted'
+  end
+
+  it 'should POST :user_id/checkins' do
+    checkin = FbGraph::User.me('token').checkin!(
+      :place => 'place_id',
+      :coordinates => {
+        :latitude => 30.26876,
+        :longitude => -97.74962
+      }.to_json
+    )
+    checkin.identifier.should == '10150090286117277'
+    checkin.place.should == FbGraph::Place.new('place_id')
+  end
+end

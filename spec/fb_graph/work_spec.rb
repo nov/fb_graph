@@ -16,6 +16,16 @@ describe FbGraph::Work, '.new' do
         :id => 111091815582753,
         :name => "Web Engineer"
       },
+      :projects => [{
+        :id   => 184246058253896,
+        :name => "Drecom Blog",
+        :with => [{
+          :id   => 1064067203,
+          :name => "Takanori Ishikawa"
+        }],
+        :start_date => "2008-04",
+        :end_date   => "2008-09"
+      }],
       :start_date => "2007-04",
       :end_date   => "2008-09"
     }
@@ -32,6 +42,16 @@ describe FbGraph::Work, '.new' do
       111091815582753,
       :name => "Web Engineer"
     )
+    work.projects.should == [FbGraph::Project.new(
+      184246058253896,
+      :name => "Drecom Blog",
+      :with => [{
+        :id   => 1064067203,
+        :name => "Takanori Ishikawa"
+      }],
+      :start_date => "2008-04",
+      :end_date   => "2008-09"
+    )]
     work.start_date.should == Date.new(2007, 4)
     work.end_date.should   == Date.new(2008, 9)
   end

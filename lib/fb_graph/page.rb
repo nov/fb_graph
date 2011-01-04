@@ -16,7 +16,7 @@ module FbGraph
     include Connections::Videos
     extend Searchable
 
-    attr_accessor :name, :username, :link, :category, :founded, :company_overview, :mission, :products, :fan_count, :location, :website, :like_count, :venue
+    attr_accessor :name, :username, :link, :category, :founded, :is_community_page, :company_overview, :general_info, :mission, :products, :release_date, :fan_count, :location, :website, :like_count, :checkin_count
 
     def initialize(identifier, attributes = {})
       super
@@ -27,17 +27,23 @@ module FbGraph
       if (founded = attributes[:founded])
         @founded = Date.parse(founded) rescue Date.new(founded.to_i)
       end
+      @is_community_page = attributes[:is_community_page]
       @company_overview = attributes[:company_overview]
-      @mission  = attributes[:mission]
+      @general_info = attributes[:general_info]
+      @mission = attributes[:mission]
       if (products = attributes[:products])
         @products = products.split "\n"
       end
+      if (release_date = attributes[:release_date])
+        @release_date = Date.parse(release_date) rescue release_date
+      end
       @fan_count = attributes[:fan_count]
       if (location = attributes[:location])
-        @venue = Venue.new(location)
+        @location = Venue.new(location)
       end
       @website = attributes[:website]
       @like_count = attributes[:likes]
+      @checkin_count = attributes[:checkins]
     end
   end
 end

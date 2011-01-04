@@ -1,0 +1,1 @@
+{"error_code":190,"error_msg":"Invalid OAuth 2.0 Access Token","request_args":[{"key":"method","value":"fql.query"},{"key":"access_token","value":"token"},{"key":"format","value":"json"},{"key":"query","value":"SELECT uid FROM user WHERE uid = me()"}]}

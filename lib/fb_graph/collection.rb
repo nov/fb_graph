@@ -12,7 +12,7 @@ module FbGraph
       when nil
         collection = {:data => [], :count => 0}
       else
-        raise "Invalid collection"
+        raise ArgumentError.new("Invalid collection")
       end
 
       # NOTE: Graph API returns {"data":{"to":[null]}} sometimes... :(
@@ -38,11 +38,11 @@ module FbGraph
       params = {}
       query.split('&').each do |q|
         key, value = q.split('=')
-        params[key] = URI.unescape(value)
+        if ['limit', 'offset', 'until', 'since'].include?(key)
+          params[key.to_sym] = URI.unescape(value)
+        end
       end
-      params.delete_if do |k, v|
-        !['limit', 'offset', 'until', 'since'].include?(k)
-      end
+      params
     end
   end
 end

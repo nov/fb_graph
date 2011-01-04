@@ -54,10 +54,10 @@ describe FbGraph::Connections::Likes, '#likes' do
         it 'should access to Graph API' do
           lambda do
             @status.likes(:no_cache => true) # :no_cache has no meaning, just putting some value as options
-          end.should raise_error(FakeWeb::NetConnectNotAllowedError)
+          end.should request_to('115838235152172/likes?access_token=access_token&no_cache=true')
           lambda do
             @status.likes(:limit => 10)
-          end.should raise_error(FakeWeb::NetConnectNotAllowedError)
+          end.should request_to('115838235152172/likes?access_token=access_token&limit=10')
         end
 
         context 'when next/previous are obviously blank' do

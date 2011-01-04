@@ -4,7 +4,7 @@ module FbGraph
     include Connections::Likes
     extend Searchable
 
-    attr_accessor :from, :to, :message, :picture, :link, :name, :caption, :description, :source, :icon, :attribution, :actions, :like_count, :created_time, :updated_time
+    attr_accessor :from, :to, :message, :picture, :link, :name, :caption, :description, :source, :icon, :attribution, :actions, :like_count, :type, :privacy, :targeting, :created_time, :updated_time
 
     def initialize(identifier, attributes = {})
       super
@@ -34,8 +34,28 @@ module FbGraph
       @source      = attributes[:source]
       @icon        = attributes[:icon]
       @attribution = attributes[:attribution]
-      @actions     = attributes[:actions]
+      @actions     = []
+      if attributes[:actions]
+        attributes[:actions].each do |action|
+          @actions << FbGraph::Action.new(action)
+        end
+      end
       @like_count  = attributes[:likes]
+      @type        = attributes[:type]
+      if attributes[:privacy]
+        @privacy = if attributes[:privacy].is_a?(Privacy)
+          attributes[:privacy]
+        else
+          Privacy.new(attributes[:privacy])
+        end
+      end
+      if attributes[:targeting]
+        @targeting = if attributes[:targeting].is_a?(Targeting)
+          attributes[:targeting]
+        else
+          Targeting.new(attributes[:targeting])
+        end
+      end
       if attributes[:created_time]
         @created_time = Time.parse(attributes[:created_time]).utc
       end

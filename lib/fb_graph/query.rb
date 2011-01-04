@@ -23,6 +23,9 @@ module FbGraph
         :access_token => self.access_token,
         :format => :json
       )
+      params.delete_if do |k, v|
+        v.blank?
+      end
       ENDPOINT + "?#{params.to_query}"
     end
 
