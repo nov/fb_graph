@@ -17,7 +17,11 @@ module FbGraph
       @tags = []
       if attributes[:tags]
         Collection.new(attributes[:tags]).each do |tag|
-          @tags << Tag.new(tag)
+          @tags << if tag.is_a?(Tag)
+            tag
+          else
+            Tag.new(tag)
+          end
         end
       end
       # NOTE:

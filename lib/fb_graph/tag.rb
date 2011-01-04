@@ -1,6 +1,7 @@
 module FbGraph
   class Tag
     include Comparison
+    include Serialization
 
     attr_accessor :user, :name, :x, :y, :created_time
 
@@ -14,6 +15,16 @@ module FbGraph
         @user = User.new(identifier, attributes)
       end
       @name = attributes[:name]
+    end
+
+    def to_hash(options = {})
+      hash = {
+        :tag_text => self.name,
+        :x => self.x,
+        :y => self.y
+      }
+      hash[:tag_uid] = self.user.identifier if self.user
+      hash
     end
   end
 end

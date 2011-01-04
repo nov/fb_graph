@@ -2,11 +2,7 @@ require 'rubygems'
 require 'json'
 require 'restclient'
 require 'oauth2'
-
-# NOTE:
-# For some reason, ActiveSupport 3.0.0 doesn'tj load whole code.
-# Load needed extention directly for now.
-require 'active_support/core_ext'
+require 'active_support/all'
 
 module FbGraph
   ROOT_URL = "https://graph.facebook.com"

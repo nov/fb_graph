@@ -14,7 +14,7 @@ module FbGraph
       @deny        = attriutes[:deny]
     end
 
-    def to_hash
+    def to_hash(options = {})
       {
         :value => self.value,
         :friends => self.friends,

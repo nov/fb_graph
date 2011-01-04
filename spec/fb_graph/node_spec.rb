@@ -12,11 +12,19 @@ describe FbGraph::Node, '.new' do
 
 end
 
-describe FbGraph::Node, '#stringfy_access_token' do
+describe FbGraph::Node, '#stringfy_params' do
+  it 'should make all values to JSON' do
+    client = OAuth2::Client.new('client_id', 'client_secret')
+    node = FbGraph::Node.new('identifier')
+    params = node.send :stringfy_params, {:hash => {:a => :b}, :array => [:a, :b]}
+    params[:hash].should == '{"a":"b"}'
+    params[:array].should == '["a","b"]'
+  end
+
   it 'should support OAuth2::AccessToken' do
     client = OAuth2::Client.new('client_id', 'client_secret')
     node = FbGraph::Node.new('identifier', :access_token => OAuth2::AccessToken.new(client, 'token', 'secret'))
-    params = node.send :stringfy_access_token, {}
+    params = node.send :stringfy_params, {}
     params[:access_token].should == 'token'
   end
 end

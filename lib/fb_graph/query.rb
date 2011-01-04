@@ -18,7 +18,7 @@ module FbGraph
 
     ENDPOINT = 'https://api.facebook.com/method/fql.query'
     def build_endpoint
-      params = stringfy_access_token(
+      params = stringfy_params(
         :query => self.query,
         :access_token => self.access_token,
         :format => :json

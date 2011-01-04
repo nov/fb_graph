@@ -37,7 +37,7 @@ module FbGraph
       @actions     = []
       if attributes[:actions]
         attributes[:actions].each do |action|
-          @actions << FbGraph::Action.new(action)
+          @actions << Action.new(action)
         end
       end
       @like_count  = attributes[:likes]

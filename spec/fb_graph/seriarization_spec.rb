@@ -6,7 +6,7 @@ class Klass1
 end
 
 class Klass2 < Klass1
-  def to_hash
+  def to_hash(options = {})
     {:att1 => self.att1, :att2 => self.att2}
   end
 end

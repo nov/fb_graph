@@ -10,7 +10,7 @@ module FbGraph
       @longitude = attriutes[:longitude]
     end
 
-    def to_hash
+    def to_hash(options = {})
       {
         :latitude  => self.latitude,
         :longitude => self.longitude

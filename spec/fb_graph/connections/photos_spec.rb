@@ -29,4 +29,13 @@ describe FbGraph::Connections::Photos, '#photo!' do
     photo.name.should == 'Hello, where is photo?'
     photo.access_token.should == 'valid'
   end
+
+  it 'should support Tag' do
+    photo = FbGraph::Album.new('12345', :access_token => 'valid').photo!(
+      :image => Tempfile.new('image_file'),
+      :message => 'Hello, where is photo?',
+      :tags => [FbGraph::Tag.new(:id => 12345, :name => 'me', :x => 0, :y => 10)]
+    )
+    photo.tags.should == [FbGraph::Tag.new(:id => 12345, :name => 'me', :x => 0, :y => 10)]
+  end
 end

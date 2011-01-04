@@ -4,11 +4,11 @@ module FbGraph
 
     def initialize(attriutes = {})
       super
-      @street    = attriutes[:street]
-      @city      = attriutes[:city]
-      @state     = attriutes[:state]
-      @zip       = attriutes[:zip]
-      @country   = attriutes[:country]
+      @street  = attriutes[:street]
+      @city    = attriutes[:city]
+      @state   = attriutes[:state]
+      @zip     = attriutes[:zip]
+      @country = attriutes[:country]
     end
   end
 end

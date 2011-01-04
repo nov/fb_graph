@@ -33,7 +33,7 @@ module FbGraph
     protected
 
     def get(params = {})
-      _params_ = stringfy_access_token(params)
+      _params_ = stringfy_params(params)
       _endpoint_ = build_endpoint(_params_.merge!(:method => :get))
       handle_response do
         RestClient.get(_endpoint_)
@@ -41,7 +41,7 @@ module FbGraph
     end
 
     def post(params = {})
-      _params_ = stringfy_access_token(params)
+      _params_ = stringfy_params(params)
       _endpoint_ = build_endpoint(_params_.merge!(:method => :post))
       handle_response do
         RestClient.post(_endpoint_, _params_)
@@ -49,7 +49,7 @@ module FbGraph
     end
 
     def delete(params = {})
-      _params_ = stringfy_access_token(params)
+      _params_ = stringfy_params(params)
       _endpoint_ = build_endpoint(_params_.merge!(:method => :delete))
       handle_response do
         RestClient.delete(_endpoint_)
@@ -69,11 +69,16 @@ module FbGraph
       _endpoint_
     end
 
-    def stringfy_access_token(params)
+    def stringfy_params(params)
       _params_ = params.dup
       _params_[:access_token] ||= self.access_token
       if access_token.is_a?(OAuth2::AccessToken)
         _params_[:access_token] = _params_[:access_token].token
+      end
+      _params_.each do |key, value|
+        if value.present? && ![Symbol, String, Numeric, IO].any? { |klass| value.is_a? klass }
+          _params_[key] = value.to_json
+        end
       end
       _params_
     end

@@ -11,7 +11,7 @@ module FbGraph
       @locale  = attriutes[:locale]
     end
 
-    def to_hash
+    def to_hash(options = {})
       {
         :country => self.country,
         :city    => self.city,
