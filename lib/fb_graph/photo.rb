@@ -17,7 +17,7 @@ module FbGraph
       @tags = []
       if attributes[:tags]
         Collection.new(attributes[:tags]).each do |tag|
-          @tags << Tag.new(tag.delete(:id), tag)
+          @tags << Tag.new(tag)
         end
       end
       # NOTE:

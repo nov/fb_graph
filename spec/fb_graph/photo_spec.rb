@@ -32,7 +32,7 @@ describe FbGraph::Photo, '.new' do
     photo.identifier.should   == '12345'
     photo.from.should         == FbGraph::User.new('23456', :name => 'nov matake')
     photo.tags.should         == [FbGraph::Tag.new(
-      '12345',
+      :id => '12345',
       :name => 'nov matake',
       :x => 32.5,
       :y => 27.7778,
