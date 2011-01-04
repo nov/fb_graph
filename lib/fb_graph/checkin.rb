@@ -17,6 +17,8 @@ module FbGraph
       end
       if (place = attributes[:place])
         @place = case place
+        when Place
+          place
         when String, Integer
           Place.new(place)
         when Hash
