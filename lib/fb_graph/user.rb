@@ -32,7 +32,7 @@ module FbGraph
     # ++
     extend Searchable
 
-    attr_accessor :first_name, :last_name, :name, :link, :about, :birthday, :work, :education, :email, :website, :hometown, :location, :bio, :quotes, :gender, :interested_in, :meeting_for, :relationship_status, :religion, :political, :verified, :significant_other, :timezone, :updated_time
+    attr_accessor :first_name, :last_name, :name, :link, :about, :birthday, :work, :education, :email, :website, :hometown, :location, :bio, :quotes, :gender, :interested_in, :meeting_for, :relationship_status, :religion, :political, :verified, :significant_other, :timezone, :updated_time, :sports, :favorite_teams, :favorite_athletes, :locale, :languages
 
     def initialize(identifier, attributes = {})
       super
@@ -66,6 +66,24 @@ module FbGraph
       if (location = attributes[:location])
         @location = Page.new(location.delete(:id), location)
       end
+      @sports = []
+      if (sports = attributes[:sports])
+        sports.each do |sport|
+          @sports << Page.new(sport.delete(:id), sport)
+        end
+      end
+      @favorite_teams = []
+      if (favorite_teams = attributes[:favorite_teams])
+        favorite_teams.each do |favorite_team|
+          @favorite_teams << Page.new(favorite_team.delete(:id), favorite_team)
+        end
+      end
+      @favorite_athletes = []
+      if (favorite_athletes = attributes[:favorite_athletes])
+        favorite_athletes.each do |favorite_athlete|
+          @favorite_athletes << Page.new(favorite_athlete.delete(:id), favorite_athlete)
+        end
+      end
       @bio                 = attributes[:bio]
       @quotes              = attributes[:quotes]
       @gender              = attributes[:gender]
@@ -77,6 +95,13 @@ module FbGraph
       @verified            = attributes[:verified]
       @significant_other   = attributes[:significant_other] # What's this??
       @timezone            = attributes[:timezone]
+      @locale              = attributes[:locale]
+      @languages = []
+      if (languages = attributes[:languages])
+        languages.each do |language|
+          @languages << Page.new(language.delete(:id), language)
+        end
+      end
       if attributes[:updated_time]
         @updated_time = Time.parse(attributes[:updated_time]).utc
       end

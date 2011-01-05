@@ -30,7 +30,6 @@
             "name": "Rails Developer"
          },
          "start_date": "2008-10",
-         "end_date": "0000-00",
          "projects": [
             {
                "id": "139390256117606",
@@ -54,6 +53,16 @@
             "id": "114582978558535",
             "name": "Web-developer"
          },
+         "with": [
+            {
+               "id": "1064067203",
+               "name": "Takanori Ishikawa"
+            },
+            {
+               "id": "1641626585",
+               "name": "Shoichi Imamura"
+            }
+         ],
          "start_date": "2006-01",
          "end_date": "2008-09",
          "projects": [
@@ -66,7 +75,7 @@
                      "name": "Takanori Ishikawa"
                   }
                ],
-               "start_date": "2008-04",
+               "start_date": "2008-00",
                "end_date": "2008-09"
             },
             {
@@ -94,6 +103,36 @@
                "end_date": "2007-12"
             }
          ]
+      }
+   ],
+   "sports": [
+      {
+         "id": "114967135183020",
+         "name": "Billiards"
+      },
+      {
+         "id": "104085636293671",
+         "name": "Darts"
+      },
+      {
+         "id": "111124835576428",
+         "name": "Rugby"
+      }
+   ],
+   "favorite_teams": [
+      {
+         "id": "112498808761105",
+         "name": "Bologna F.C. 1909"
+      },
+      {
+         "id": "103968596307357",
+         "name": "Gamba Osaka"
+      }
+   ],
+   "favorite_athletes": [
+      {
+         "id": "112766865404959",
+         "name": "Giuseppe Signori"
       }
    ],
    "education": [
