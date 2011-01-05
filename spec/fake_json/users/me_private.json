@@ -135,6 +135,10 @@
          "name": "Giuseppe Signori"
       }
    ],
+   "inspirational_people": [{
+      "id": "1234567890",
+      "name": "Someone"
+    }],
    "education": [
       {
          "school": {
@@ -183,7 +187,19 @@
             "id": "125324724167172",
             "name": "2000"
          },
-         "type": "High School"
+         "type": "High School",
+         "classes": [
+            {
+               "id": "182887815062869",
+               "name": "class '99",
+               "with": [
+                  {
+                     "id": "1268300987",
+                     "name": "Yuko Shimabata"
+                  }
+               ]
+            }
+         ]
       }
    ],
    "gender": "male",
@@ -194,6 +210,10 @@
       "Friendship",
       "Networking"
    ],
+   "significant_other": {
+      "id": "1234567890",
+      "name": "Satomi Matake"
+    },
    "relationship_status": "Married",
    "website": "http://matake.jp",
    "timezone": 9,
@@ -209,5 +229,5 @@
       }
    ],
    "verified": true,
-   "updated_time": "2010-12-11T08:33:47+0000"
+   "updated_time": "2011-01-05T13:44:17+0000"
 }

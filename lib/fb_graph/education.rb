@@ -2,7 +2,7 @@ module FbGraph
   class Education
     include Comparison
 
-    attr_accessor :school, :degree, :year, :concentration
+    attr_accessor :school, :degree, :year, :concentration, :classes, :type
 
     def initialize(attributes = {})
       if (school = attributes[:school])
@@ -20,6 +20,13 @@ module FbGraph
           @concentration << Page.new(concentration.delete(:id), concentration)
         end
       end
+      @classes = []
+      if attributes[:classes]
+        attributes[:classes].each do |klass|
+          @classes << Page.new(klass.delete(:id), klass)
+        end
+      end
+      @type = attributes[:type]
     end
   end
 end
