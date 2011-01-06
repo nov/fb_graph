@@ -21,10 +21,17 @@ describe FbGraph::Node, '#stringfy_params' do
     params[:array].should == '["a","b"]'
   end
 
-  it 'should support OAuth2::AccessToken' do
+  it 'should support OAuth2::AccessToken as self.access_token' do
     client = OAuth2::Client.new('client_id', 'client_secret')
     node = FbGraph::Node.new('identifier', :access_token => OAuth2::AccessToken.new(client, 'token', 'secret'))
     params = node.send :stringfy_params, {}
+    params[:access_token].should == 'token'
+  end
+
+  it 'should support OAuth2::AccessToken as options[:access_token]' do
+    client = OAuth2::Client.new('client_id', 'client_secret')
+    node = FbGraph::Node.new('identifier')
+    params = node.send :stringfy_params, {:access_token => OAuth2::AccessToken.new(client, 'token', 'secret')}
     params[:access_token].should == 'token'
   end
 end
