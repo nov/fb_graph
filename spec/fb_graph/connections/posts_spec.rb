@@ -24,7 +24,6 @@ describe FbGraph::Connections::Posts, '#posts' do
           :icon => 'http://static.ak.fbcdn.net/rsrc.php/z9XZ8/hash/976ulj6z.gif',
           :created_time => '2010-04-25T04:05:32+0000',
           :updated_time => '2010-04-25T04:05:32+0000',
-          :likes => 1,
           :privacy => {
             :value => 'EVERYONE'
           }

@@ -10,7 +10,7 @@ describe FbGraph::Page, '.new' do
       :username => 'platform',
       :mission => 'To make the web more open and social.',
       :products => "Facebook Application Programming Interface (API)\nFacebook Query Language (FQL)\nFacebook Markup Language (FBML)\nFacebook JavaScript (FBJS)\nFacebook Connect\n",
-      :fan_count => 578246,
+      :likes => 578246,
       :company_overview => 'Facebook Platform enables anyone to build social applications on Facebook and the web.',
       :link => 'http://www.facebook.com/platform',
       :picture => 'http://profile.ak.fbcdn.net/profile-ak-snc1/object3/1566/8/s19292868552_1660.jpg',
@@ -30,11 +30,12 @@ describe FbGraph::Page, '.new' do
       'Facebook JavaScript (FBJS)',
       'Facebook Connect'
     ]
-    page.fan_count.should        == 578246
+    page.like_count.should == 578246
     page.company_overview.should == 'Facebook Platform enables anyone to build social applications on Facebook and the web.'
-    page.link.should    == 'http://www.facebook.com/platform'
-    page.picture.should == 'https://graph.facebook.com/19292868552/picture' # use connection
-    page.website.should == 'http://developers.facebook.com'
+    page.link.should     == 'http://www.facebook.com/platform'
+    page.picture.should  == 'https://graph.facebook.com/19292868552/picture' # use connection
+    page.website.should  == 'http://developers.facebook.com'
+    page.websites.should == ['http://developers.facebook.com']
   end
 
   it 'should allow invalid date as founded' do

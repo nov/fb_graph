@@ -109,7 +109,10 @@ describe FbGraph::Post, '#fetch' do
         :category => "Technology"
       )
       post.message.should == "We're getting ready for f8! Check out the latest on the f8 Page, including a video from the first event, when Platform launched :: http://bit.ly/ahHl7j"
-      post.like_count.should == 61
+      post.likes.should == [
+        FbGraph::User.new("100000785546814", :name => "Anter Saied")
+      ]
+      post.likes.collection.total_count.should == 270
       post.created_time.should == Time.parse("2010-04-15T17:37:03+0000")
       post.updated_time.should == Time.parse("2010-04-22T18:19:13+0000")
       post.comments.size.should == 4
@@ -130,7 +133,6 @@ describe FbGraph::Post, '#fetch' do
         :category => "Technology"
       )
       post.message.should == "We're getting ready for f8! Check out the latest on the f8 Page, including a video from the first event, when Platform launched :: http://bit.ly/ahHl7j"
-      post.like_count.should == 61
       post.created_time.should == Time.parse("2010-04-15T17:37:03+0000")
       post.updated_time.should == Time.parse("2010-04-22T18:19:13+0000")
       post.comments.size.should == 9

@@ -8,7 +8,15 @@
    "message": "We're getting ready for f8! Check out the latest on the f8 Page, including a video from the first event, when Platform launched :: http://bit.ly/ahHl7j",
    "created_time": "2010-04-15T17:37:03+0000",
    "updated_time": "2010-04-22T18:19:13+0000",
-   "likes": 61,
+   "likes": {
+     "data": [
+       {
+         "name": "Anter Saied",
+         "id": "100000785546814"
+       }
+     ],
+     "count": 270
+   },
    "comments": {
       "data": [
          {
