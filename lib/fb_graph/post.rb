@@ -4,7 +4,7 @@ module FbGraph
     include Connections::Likes
     extend Searchable
 
-    attr_accessor :from, :to, :message, :picture, :link, :name, :caption, :description, :source, :icon, :attribution, :actions, :like_count, :type, :privacy, :targeting, :created_time, :updated_time
+    attr_accessor :from, :to, :message, :picture, :link, :name, :caption, :description, :source, :icon, :attribution, :actions, :type, :privacy, :targeting, :created_time, :updated_time
 
     def initialize(identifier, attributes = {})
       super
@@ -40,7 +40,6 @@ module FbGraph
           @actions << Action.new(action)
         end
       end
-      @like_count  = attributes[:likes]
       @type        = attributes[:type]
       if attributes[:privacy]
         @privacy = if attributes[:privacy].is_a?(Privacy)
@@ -64,6 +63,7 @@ module FbGraph
       end
 
       # cached connection
+      @_likes_ = Collection.new(attributes[:likes])
       @_comments_ = Collection.new(attributes[:comments])
     end
   end
