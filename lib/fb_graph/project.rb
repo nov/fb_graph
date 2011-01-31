@@ -6,7 +6,7 @@ module FbGraph
       super
       if attributes[:start_date]
         year, month = attributes[:start_date].split('-').collect(&:to_i)
-        @start_date = if month == 0
+        @start_date = if month.blank? || month == 0
           Date.new(year)
         else
           Date.new(year, month)
@@ -14,7 +14,7 @@ module FbGraph
       end
       if attributes[:end_date]
         year, month = attributes[:end_date].split('-').collect(&:to_i)
-        @end_date = if month == 0
+        @end_date = if month.blank? || month == 0
           Date.new(year)
         else
           Date.new(year, month)
