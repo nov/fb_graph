@@ -2,7 +2,19 @@ require File.join(File.dirname(__FILE__), '../spec_helper')
 
 describe FbGraph::User, '.new' do
   it 'should setup all supported attributes' do
-    # TODO
+    # TODO: add more attributes
+    attributes = {
+      :id => '12345',
+      :address => {
+        :city => "Kawasaki",
+        :state => "Kanagawa",
+        :country => "Japan"
+      },
+      :mobile_phone => '810000000000'
+    }
+    user = FbGraph::User.new(attributes.delete(:id), attributes)
+    user.address.should == FbGraph::Venue.new(attributes[:address])
+    user.mobile_phone.should == '810000000000'
   end
 
   it 'should support year-hidden birthday' do
