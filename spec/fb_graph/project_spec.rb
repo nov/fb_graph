@@ -31,4 +31,16 @@ describe FbGraph::Project, '.new' do
     project.end_date.should   == Date.new(2009)
   end
 
+  it 'should treat 2008 style date' do
+    attributes = {
+      :id   => 184246058253896,
+      :name => "Drecom Blog",
+      :start_date => "2008",
+      :end_date   => "2009"
+    }
+    project = FbGraph::Project.new(attributes.delete(:id), attributes)
+    project.start_date.should == Date.new(2008)
+    project.end_date.should   == Date.new(2009)
+  end
+
 end

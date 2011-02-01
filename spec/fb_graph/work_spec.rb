@@ -84,4 +84,18 @@ describe FbGraph::Work, '.new' do
     work.end_date.should ==  Date.new(2010, 1)
   end
 
+  it 'should treat 2010 date ' do
+    attributes = {
+      :employer => {
+        :id => 105612642807396,
+        :name => "Cerego Japan Inc."
+      },
+      :start_date => "2008",
+      :end_date   => "2010"
+    }
+    work = FbGraph::Work.new(attributes)
+    work.start_date.should == Date.new(2008)
+    work.end_date.should ==  Date.new(2010)
+  end
+
 end
