@@ -60,6 +60,7 @@ require 'fb_graph/work'
 
 require 'fb_graph/node'
 require 'fb_graph/album'
+require 'fb_graph/app_request'
 require 'fb_graph/application'
 require 'fb_graph/checkin'
 require 'fb_graph/comment'

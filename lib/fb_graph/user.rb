@@ -3,6 +3,7 @@ module FbGraph
     include Connections::Accounts
     include Connections::Activities
     include Connections::Albums
+		include Connections::AppRequests
     include Connections::Books
     include Connections::Checkins
     include Connections::Events
