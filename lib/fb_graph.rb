@@ -78,6 +78,7 @@ require 'fb_graph/project'
 require 'fb_graph/status'
 require 'fb_graph/tag'
 require 'fb_graph/test_user'
+require 'fb_graph/thread'
 require 'fb_graph/user'
 require 'fb_graph/video'
 

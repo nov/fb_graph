@@ -25,6 +25,7 @@ module FbGraph
     include Connections::Statuses
     include Connections::Tagged
     include Connections::Television
+    include Connections::Threads
     include Connections::Videos
     # --
     # TODO
