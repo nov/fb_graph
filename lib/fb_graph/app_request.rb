@@ -5,12 +5,20 @@ module FbGraph
 
     def initialize(identifier, attributes = {})
       super
-      @application  = Application.new(attributes[:application].delete(:id), attributes[:application])
-      @created_time = attributes[:created_time]
-      @data         = attributes[:data]
-      @from         = User.new(attributes[:from].delete(:id), attributes[:from])
-      @message      = attributes[:message]
-      @to           = User.new(attributes[:to].delete(:id), attributes[:to])
+      @data = attributes[:data]
+      @message = attributes[:message]
+      if attributes[:from]
+        @from = User.new(attributes[:from].delete(:id), attributes[:from])
+      end
+      if attributes[:to]
+        @to = User.new(attributes[:to].delete(:id), attributes[:to])
+      end
+      if attributes[:application]
+        @application = Application.new(attributes[:application].delete(:id), attributes[:application])
+      end
+      if attributes[:created_time]
+        @created_time = Time.parse(attributes[:created_time]).utc
+      end
     end
   end
 end
