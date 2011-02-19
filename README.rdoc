@@ -12,7 +12,7 @@ A full-stack Facebook Graph API wrapper in Ruby.
 * View Source on GitHub (http://github.com/nov/fb_graph)
 * Report Issues on GitHub (http://github.com/nov/fb_graph/issues)
 * Q&A on Google Groups (https://groups.google.com/group/fb_graph)
-* Facebook fan page (http://www.facebook.com/pages/FbGraph/117513961602338)
+* Facebook Page (http://www.facebook.com/pages/FbGraph/117513961602338)
 
 == Examples
 
