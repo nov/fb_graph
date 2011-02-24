@@ -32,11 +32,15 @@ module FbGraph
 
     protected
 
+    def client
+      @client ||= HTTPClient.new
+    end
+
     def get(params = {})
       _params_ = stringfy_params(params)
       _endpoint_ = build_endpoint(_params_.merge!(:method => :get))
       handle_response do
-        RestClient.get(_endpoint_)
+        client.get(_endpoint_)
       end
     end
 
@@ -44,7 +48,7 @@ module FbGraph
       _params_ = stringfy_params(params)
       _endpoint_ = build_endpoint(_params_.merge!(:method => :post))
       handle_response do
-        RestClient.post(_endpoint_, _params_)
+        client.post(_endpoint_, _params_)
       end
     end
 
@@ -52,7 +56,7 @@ module FbGraph
       _params_ = stringfy_params(params)
       _endpoint_ = build_endpoint(_params_.merge!(:method => :delete))
       handle_response do
-        RestClient.delete(_endpoint_)
+        client.delete(_endpoint_)
       end
     end
 
@@ -85,7 +89,7 @@ module FbGraph
 
     def handle_response
       response = yield
-      case response.body
+      case response.content
       when 'true'
         true
       when 'false'
@@ -99,7 +103,7 @@ module FbGraph
       when 'null'
         nil
       else
-        _response_ = JSON.parse(response.body)
+        _response_ = JSON.parse(response.content)
         case _response_
         when Array
           _response_.map!(&:with_indifferent_access)
@@ -107,7 +111,7 @@ module FbGraph
           _response_ = _response_.with_indifferent_access
           if _response_[:error]
             case _response_[:error][:type]
-            when 'OAuthAccessTokenException', 'QueryParseException', 'OAuthInvalidRequestException', 'OAuthInvalidTokenException', 'OAuthException'
+            when /OAuth/
               raise Unauthorized.new(_response_[:error][:message])
             else
               raise BadRequest.new("#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
@@ -117,8 +121,14 @@ module FbGraph
           end
         end
       end
-    rescue RestClient::Exception => e
-      raise Exception.new(e.http_code, e.message, e.http_body)
+    rescue HTTPClient::BadResponseError => e
+      if e.res
+        raise APIError.new(e.res.status, e.message, e.res.content)
+      else
+        raise Exception.new(e.message)
+      end
+    rescue HTTPClient::ConfigurationError, HTTPClient::TimeoutError => e
+      raise Exception.new(e.message)
     end
   end
 end

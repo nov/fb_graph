@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'json'
-require 'restclient_with_ssl_support'
+require 'httpclient'
 require 'oauth2'
 require 'active_support/all'
 
@@ -8,12 +8,15 @@ module FbGraph
   ROOT_URL = "https://graph.facebook.com"
 
   class Exception < StandardError
-    attr_accessor :code, :type, :message
-    def initialize(code, message, body = '')
-      @code = code
-      if body.blank?
-        @message = message
-      else
+  end
+
+  class APIError < Exception
+    attr_accessor :status, :type
+    alias code status
+    def initialize(status, message, body = nil)
+      super message
+      @status = status
+      if body.present?
         response = JSON.parse(body).with_indifferent_access
         @message = response[:error][:message]
         @type = response[:error][:type]
@@ -21,19 +24,19 @@ module FbGraph
     end
   end
 
-  class BadRequest < Exception
+  class BadRequest < APIError
     def initialize(message, body = '')
       super 400, message, body
     end
   end
 
-  class Unauthorized < Exception
+  class Unauthorized < APIError
     def initialize(message, body = '')
       super 401, message, body
     end
   end
 
-  class NotFound < Exception
+  class NotFound < APIError
     def initialize(message, body = '')
       super 404, message, body
     end

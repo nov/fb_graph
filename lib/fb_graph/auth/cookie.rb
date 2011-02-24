@@ -12,7 +12,7 @@ module FbGraph
           cookie
         end
 
-        raise VerificationFailed.new(401, 'Facebook cookie not found') if fb_cookie_string.blank?
+        raise VerificationFailed.new('Facebook cookie not found') if fb_cookie_string.blank?
 
         fb_cookie_string.gsub!(/[\\"]/, '')
         signature, fb_cookie = '', {}
@@ -33,7 +33,7 @@ module FbGraph
         end.join
 
         unless Digest::MD5.hexdigest("#{signature_base_string}#{client.secret}") == signature
-          raise VerificationFailed.new(401, 'Facebook cookie signature invalid')
+          raise VerificationFailed.new('Facebook cookie signature invalid')
         end
 
         fb_cookie.with_indifferent_access

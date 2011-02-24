@@ -13,8 +13,11 @@ describe FbGraph::Node, '.new' do
 end
 
 describe FbGraph::Node, '#stringfy_params' do
+  let :client do
+    OAuth2::Client.new('client_id', 'client_secret')
+  end
+
   it 'should make all values to JSON' do
-    client = OAuth2::Client.new('client_id', 'client_secret')
     node = FbGraph::Node.new('identifier')
     params = node.send :stringfy_params, {:hash => {:a => :b}, :array => [:a, :b]}
     params[:hash].should == '{"a":"b"}'
@@ -22,14 +25,12 @@ describe FbGraph::Node, '#stringfy_params' do
   end
 
   it 'should support OAuth2::AccessToken as self.access_token' do
-    client = OAuth2::Client.new('client_id', 'client_secret')
     node = FbGraph::Node.new('identifier', :access_token => OAuth2::AccessToken.new(client, 'token', 'secret'))
     params = node.send :stringfy_params, {}
     params[:access_token].should == 'token'
   end
 
   it 'should support OAuth2::AccessToken as options[:access_token]' do
-    client = OAuth2::Client.new('client_id', 'client_secret')
     node = FbGraph::Node.new('identifier')
     params = node.send :stringfy_params, {:access_token => OAuth2::AccessToken.new(client, 'token', 'secret')}
     params[:access_token].should == 'token'
@@ -37,15 +38,25 @@ describe FbGraph::Node, '#stringfy_params' do
 end
 
 describe FbGraph::Node, '#handle_response' do
+  let :node do
+    FbGraph::Node.new('identifier')
+  end
+
+  let :null_response do
+    HTTP::Message.new_response('null')
+  end
+
+  let :false_response do
+    HTTP::Message.new_response('false')
+  end
+
   it 'should handle null/false response' do
-    node = FbGraph::Node.new('identifier')
-    null_response = node.send :handle_response do
-      RestClient::Response.create 'null', nil, nil
-    end
-    null_response.should be_nil
+    node.send :handle_response do
+      null_response
+    end.should be_nil
     lambda do
       node.send :handle_response do
-        RestClient::Response.create 'false', nil, nil
+        false_response
       end
     end.should raise_error(
       FbGraph::NotFound,

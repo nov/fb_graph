@@ -10,7 +10,7 @@ module FbGraph
     def fetch(access_token = nil)
       self.access_token ||= access_token
       handle_response do
-        RestClient.get build_endpoint
+        client.get build_endpoint
       end
     end
 
@@ -36,7 +36,7 @@ module FbGraph
       case response
       when Hash
         if response[:error_code]
-          raise Exception.new(response[:error_code], response[:error_msg])
+          raise APIError.new(response[:error_code], response[:error_msg])
         else
           response
         end

@@ -12,7 +12,7 @@ begin
     gem.authors = ['nov matake']
     gem.add_dependency 'json', '>= 1.4.3'
     gem.add_dependency 'activesupport', '>= 2.3'
-    gem.add_dependency 'rest-client', '>= 1.4'
+    gem.add_dependency 'httpclient', '>= 2.1.6'
     gem.add_dependency 'oauth2', '>= 0.1.0'
     gem.add_development_dependency 'rspec', '~> 1.3'
     gem.add_development_dependency 'rcov'
