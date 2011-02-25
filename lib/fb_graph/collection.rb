@@ -9,7 +9,7 @@ module FbGraph
       when Hash
         collection[:data] ||= []
         collection
-      when nil
+      when nil, Integer
         collection = {:data => [], :count => 0}
       else
         raise ArgumentError.new("Invalid collection")
