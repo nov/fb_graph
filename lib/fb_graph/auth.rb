@@ -42,6 +42,21 @@ module FbGraph
       self.user = User.new(cookie[:uid], :access_token => self.access_token)
       self
     end
+
+    def from_signed_request(signed_request)
+      data = Auth::SignedRequest.verify(self.client, signed_request)
+      expires_in = unless data[:expires].zero?
+        data[:expires] - Time.now.to_i
+      end
+      self.access_token = OAuth2::AccessToken.new(
+        self.client,
+        data[:oauth_token],
+        nil,
+        expires_in
+      )
+      self.user = User.new(data[:user_id], :locale => data[:locale], :access_token => self.access_token)
+      self
+    end
   end
 end
 

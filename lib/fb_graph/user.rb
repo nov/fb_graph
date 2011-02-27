@@ -29,7 +29,7 @@ module FbGraph
     include Connections::Videos
     extend Searchable
 
-    attr_accessor :first_name, :last_name, :name, :link, :about, :birthday, :work, :education, :email, :website, :websites, :hometown, :location, :bio, :quotes, :gender, :interested_in, :meeting_for, :relationship_status, :religion, :political, :verified, :significant_other, :timezone, :updated_time, :sports, :favorite_teams, :favorite_athletes, :inspirational_people, :locale, :languages, :third_party_id, :address, :mobile_phone
+    attr_accessor :first_name, :last_name, :name, :link, :about, :birthday, :work, :education, :email, :website, :websites, :hometown, :location, :bio, :quotes, :gender, :interested_in, :meeting_for, :relationship_status, :religion, :political, :verified, :significant_other, :timezone, :updated_time, :sports, :favorite_teams, :favorite_athletes, :inspirational_people, :locale, :languages, :third_party_id, :address, :mobile_phone, :age, :country
 
     def initialize(identifier, attributes = {})
       super
@@ -116,6 +116,8 @@ module FbGraph
         @address = Venue.new(attributes[:address])
       end
       @mobile_phone = attributes[:mobile_phone]
+      @age = attributes[:age]
+      @country = attributes[:country]
     end
 
     def self.me(access_token)
