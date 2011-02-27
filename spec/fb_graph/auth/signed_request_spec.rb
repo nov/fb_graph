@@ -7,8 +7,15 @@ describe FbGraph::Auth::SignedRequest, '.parse' do
   end
 
   it 'should verify signature and return data' do
-    data = FbGraph::Auth::SignedRequest.verify(@client, @cookie)
-    p data
+    data = FbGraph::Auth::SignedRequest.verify(@client, @signed_request)
+    data[:expires].should          == 0
+    data[:algorithm].should        == 'HMAC-SHA256'
+    data[:user_id].should          == '579612276'
+    data[:oauth_token].should      == '134145643294322|2b8a6f97552c6dced205810b-579612276|FKZ4jGJgBp7i7lYk9XaRMPgya6s'
+    data[:issued_at].should        == 1298783739
+    data[:user][:country].should   == 'jp'
+    data[:user][:locale].should    == 'en_US'
+    data[:user][:age][:min].should == 21
   end
 end
 

@@ -31,14 +31,14 @@ module FbGraph
     end
 
     def from_cookie(cookie)
-      data = Auth::Cookie.parse(self.client, cookie)
+      data = Cookie.parse(self.client, cookie)
       self.access_token = build_access_token(data)
       self.user = User.new(data[:uid], :access_token => self.access_token)
       self
     end
 
     def from_signed_request(signed_request)
-      data = Auth::SignedRequest.verify(self.client, signed_request)
+      data = SignedRequest.verify(self.client, signed_request)
       self.access_token = build_access_token(data)
       self.user = User.new(data[:user_id], data[:user].merge(:access_token => self.access_token))
       self
