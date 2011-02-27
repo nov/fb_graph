@@ -305,7 +305,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/nov/fb_graph}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.5.2}
+  s.rubygems_version = %q{1.5.3}
   s.summary = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.test_files = [
     "spec/fb_graph/album_spec.rb",
