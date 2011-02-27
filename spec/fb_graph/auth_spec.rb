@@ -1,7 +1,6 @@
 require File.join(File.dirname(__FILE__), '../spec_helper')
 
 describe FbGraph::Auth, '.new' do
-
   it 'should setup OAuth2::Client' do
     auth = FbGraph::Auth.new('client_id', 'client_secret')
     auth.client.should be_a(OAuth2::Client)
@@ -16,7 +15,6 @@ describe FbGraph::Auth, '.new' do
       end.should raise_exception(FbGraph::Auth::VerificationFailed)
     end
   end
-
 end
 
 describe FbGraph::Auth, '.from_cookie' do
@@ -46,5 +44,31 @@ describe FbGraph::Auth, '.from_cookie' do
       end.should raise_exception(FbGraph::Auth::VerificationFailed)
     end
   end
+end
 
+describe FbGraph::Auth, '.from_signed_request' do
+  before do
+    @signed_request = "LqsgnfcsRdfjOgyW6ZuSLpGBVsxUBegEqai4EcrWS0A=.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImV4cGlyZXMiOjAsImlzc3VlZF9hdCI6MTI5ODc4MzczOSwib2F1dGhfdG9rZW4iOiIxMzQxNDU2NDMyOTQzMjJ8MmI4YTZmOTc1NTJjNmRjZWQyMDU4MTBiLTU3OTYxMjI3NnxGS1o0akdKZ0JwN2k3bFlrOVhhUk1QZ3lhNnMiLCJ1c2VyIjp7ImNvdW50cnkiOiJqcCIsImxvY2FsZSI6ImVuX1VTIiwiYWdlIjp7Im1pbiI6MjF9fSwidXNlcl9pZCI6IjU3OTYxMjI3NiJ9"
+    @auth = FbGraph::Auth.new('client_id', 'client_secret')
+  end
+
+  it 'should fetch user and access_token from fbs_APP_ID cookie' do
+    @auth.access_token.should be_nil
+    @auth.user.should be_nil
+    @auth.from_signed_request(@signed_request)
+    @auth.access_token.token.should      == '134145643294322|2b8a6f97552c6dced205810b-579612276|FKZ4jGJgBp7i7lYk9XaRMPgya6s'
+    @auth.user.identifier.should         == '579612276'
+    @auth.user.access_token.token.should == '134145643294322|2b8a6f97552c6dced205810b-579612276|FKZ4jGJgBp7i7lYk9XaRMPgya6s'
+    @auth.user.locale.should             == 'en_US'
+    @auth.user.country.should            == 'jp'
+    @auth.user.age.should                == {:min => 21}
+  end
+
+  context 'when invalid cookie given' do
+    it 'should raise FbGraph::VerificationFailed' do
+      lambda do
+        @auth.from_signed_request('invalid')
+      end.should raise_exception(FbGraph::Auth::VerificationFailed)
+    end
+  end
 end

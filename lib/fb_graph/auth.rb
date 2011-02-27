@@ -23,41 +23,42 @@ module FbGraph
       @client = OAuth2::Client.new(client_id, client_secret, options.merge(
         :site => ROOT_URL
       ))
-      if options[:cookie].present?
-        from_cookie(options[:cookie])
+      if options[:cookie]
+        from_cookie options[:cookie]
+      elsif options[:signed_request]
+        from_signed_request options[:signed_request]
       end
     end
 
     def from_cookie(cookie)
-      cookie = Auth::Cookie.parse(self.client, cookie)
-      expires_in = unless cookie[:expires].zero?
-        cookie[:expires] - Time.now.to_i
-      end
-      self.access_token = OAuth2::AccessToken.new(
-        self.client,
-        cookie[:access_token],
-        cookie[:refresh_token],
-        expires_in
-      )
-      self.user = User.new(cookie[:uid], :access_token => self.access_token)
+      data = Auth::Cookie.parse(self.client, cookie)
+      self.access_token = build_access_token(data)
+      self.user = User.new(data[:uid], :access_token => self.access_token)
       self
     end
 
     def from_signed_request(signed_request)
       data = Auth::SignedRequest.verify(self.client, signed_request)
+      self.access_token = build_access_token(data)
+      self.user = User.new(data[:user_id], data[:user].merge(:access_token => self.access_token))
+      self
+    end
+
+    private
+
+    def build_access_token(data)
       expires_in = unless data[:expires].zero?
         data[:expires] - Time.now.to_i
       end
-      self.access_token = OAuth2::AccessToken.new(
+      OAuth2::AccessToken.new(
         self.client,
-        data[:oauth_token],
+        data[:oauth_token] || data[:access_token],
         nil,
         expires_in
       )
-      self.user = User.new(data[:user_id], :locale => data[:locale], :access_token => self.access_token)
-      self
     end
   end
 end
 
 require 'fb_graph/auth/cookie'
+require 'fb_graph/auth/signed_request'
