@@ -1,5 +1,5 @@
 require 'base64'
-require 'hmac/sha2'
+require 'openssl'
 
 module FbGraph
   class Auth
@@ -11,12 +11,17 @@ module FbGraph
         signature = base64_url_decode signature
         data = decode_json base64_url_decode(payload)
         raise VerificationFailed.new(401, 'Unexpected Signature Algorithm') unless data[:algorithm] == 'HMAC-SHA256'
-        _signature_ = HMAC::SHA256.digest(client.secret, payload)
+        _signature_ = sign(client.secret, payload)
         raise VerificationFailed.new(401, 'Signature Invalid') unless signature == _signature_
         data
       end
 
       private
+
+      def self.sign(key, data)
+        klass = OpenSSL::Digest::SHA256.new
+        OpenSSL::HMAC.digest(klass, key, data)
+      end
 
       def self.decode_json(json)
         JSON.parse(json).with_indifferent_access
