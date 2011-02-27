@@ -17,7 +17,7 @@ module FbGraph
   class Auth
     class VerificationFailed < Exception; end
 
-    attr_accessor :client, :access_token, :user
+    attr_accessor :client, :access_token, :user, :data
 
     def initialize(client_id, client_secret, options = {})
       @client = OAuth2::Client.new(client_id, client_secret, options.merge(
@@ -30,17 +30,25 @@ module FbGraph
       end
     end
 
+    def authorized?
+      self.access_token.present?
+    end
+
     def from_cookie(cookie)
       data = Cookie.parse(self.client, cookie)
       self.access_token = build_access_token(data)
       self.user = User.new(data[:uid], :access_token => self.access_token)
+      self.data = data
       self
     end
 
     def from_signed_request(signed_request)
       data = SignedRequest.verify(self.client, signed_request)
-      self.access_token = build_access_token(data)
-      self.user = User.new(data[:user_id], data[:user].merge(:access_token => self.access_token))
+      if data[:oauth_token]
+        self.access_token = build_access_token(data)
+        self.user = User.new(data[:user_id], data[:user].merge(:access_token => self.access_token))
+      end
+      self.data = data
       self
     end
 
