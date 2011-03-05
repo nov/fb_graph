@@ -67,9 +67,16 @@ describe FbGraph::Auth, '.from_signed_request' do
     @auth.access_token.token.should      == '134145643294322|2b8a6f97552c6dced205810b-579612276|FKZ4jGJgBp7i7lYk9XaRMPgya6s'
     @auth.user.identifier.should         == '579612276'
     @auth.user.access_token.token.should == '134145643294322|2b8a6f97552c6dced205810b-579612276|FKZ4jGJgBp7i7lYk9XaRMPgya6s'
-    @auth.user.locale.should             == 'en_US'
-    @auth.user.country.should            == 'jp'
-    @auth.user.age[:min].should          == 21
+    @auth.data.should include(
+      "expires"=>0,
+      "algorithm"=>"HMAC-SHA256",
+      "issued_at"=>1298783739
+    )
+    @auth.data['user'].should include(
+      "country"=>"jp",
+      "locale"=>"en_US",
+      "age"=>{"min"=>21}
+    )
   end
 
   context 'when invalid signed_request given' do

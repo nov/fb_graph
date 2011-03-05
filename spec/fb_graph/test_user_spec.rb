@@ -6,10 +6,12 @@ describe FbGraph::TestUser, '.new' do
     attributes = {
       :id => 12345,
       :access_token => 'access_token',
+      :name => 'nov',
       :login_url => 'https://www.facebook.com/login/test-user/12345'
     }
     test_user = FbGraph::TestUser.new(attributes.delete(:id), attributes)
     test_user.login_url.should == 'https://www.facebook.com/login/test-user/12345'
+    test_user.name.should == 'nov'
   end
 
 end

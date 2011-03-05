@@ -26,7 +26,6 @@ module FbGraph
       def self.decode_json(json)
         JSON.parse(json).with_indifferent_access
       rescue => e
-        p e
         raise VerificationFailed.new(400, 'Invalid JSON')
       end
 
