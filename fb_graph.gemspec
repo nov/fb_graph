@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "1.5.5"
+  s.version = "1.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
@@ -92,6 +92,8 @@ Gem::Specification.new do |s|
     "lib/fb_graph/node.rb",
     "lib/fb_graph/note.rb",
     "lib/fb_graph/page.rb",
+    "lib/fb_graph/page/categories.rb",
+    "lib/fb_graph/page/categories/local_business.rb",
     "lib/fb_graph/photo.rb",
     "lib/fb_graph/place.rb",
     "lib/fb_graph/post.rb",
