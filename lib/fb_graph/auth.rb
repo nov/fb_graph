@@ -35,9 +35,9 @@ module FbGraph
     end
 
     def authorize_uri(canvas_uri)
-      endpoint = URI.parse SignedRequest::DIALOG_ENDPOINT
+      endpoint = URI.parse SignedRequest::OAUTH_DIALOG_ENDPOINT
       endpoint.query = {
-        :client_id => self.client.identifier,
+        :client_id => self.client.id,
         :redirect_uri => canvas_uri
       }.to_query
       endpoint.to_s
