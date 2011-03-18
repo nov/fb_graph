@@ -16,8 +16,6 @@ module FbGraph
     include Connections::Videos
     extend Searchable
 
-    include Categories::LocalBusiness
-
     attr_accessor :name, :username, :link, :category, :founded, :can_post, :is_community_page, :company_overview, :general_info, :mission, :products, :public_transit, :release_date, :location, :website, :websites, :like_count, :checkin_count, :with, :created_time
 
     def initialize(identifier, attributes = {})
@@ -58,3 +56,5 @@ module FbGraph
     end
   end
 end
+
+require 'fb_graph/page/categories'
