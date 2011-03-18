@@ -34,6 +34,15 @@ module FbGraph
       self.access_token.present?
     end
 
+    def authorize_uri(canvas_uri)
+      endpoint = URI.parse SignedRequest::DIALOG_ENDPOINT
+      endpoint.query = {
+        :client_id => self.client.identifier,
+        :redirect_uri => canvas_uri
+      }.to_query
+      endpoint.to_s
+    end
+
     def from_cookie(cookie)
       data = Cookie.parse(self.client, cookie)
       self.access_token = build_access_token(data)
