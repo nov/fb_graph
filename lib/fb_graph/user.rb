@@ -57,7 +57,6 @@ module FbGraph
       end
       @email = attributes[:email]
       @website = attributes[:website]
-      @websites = attributes[:website].to_s.split
       if (hometown = attributes[:hometown])
         @hometown = Page.new(hometown.delete(:id), hometown)
       end
