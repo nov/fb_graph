@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "1.6.0"
+  s.version = "1.6.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
-  s.date = %q{2011-03-19}
+  s.date = %q{2011-03-20}
   s.description = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.email = %q{nov@matake.jp}
   s.extra_rdoc_files = [
@@ -130,6 +130,7 @@ Gem::Specification.new do |s|
     "spec/fake_json/events/maybe/smartday_private.json",
     "spec/fake_json/events/noreply/smartday_private.json",
     "spec/fake_json/groups/members/emacs_private.json",
+    "spec/fake_json/pages/categories/local_business.json",
     "spec/fake_json/pages/checkins/gowalla_private.json",
     "spec/fake_json/pages/checkins/gowalla_public.json",
     "spec/fake_json/pages/insights/FbGraph_private.json",
@@ -281,6 +282,7 @@ Gem::Specification.new do |s|
     "spec/fb_graph/message_spec.rb",
     "spec/fb_graph/node_spec.rb",
     "spec/fb_graph/note_spec.rb",
+    "spec/fb_graph/page/categories/local_business_spec.rb",
     "spec/fb_graph/page_spec.rb",
     "spec/fb_graph/photo_spec.rb",
     "spec/fb_graph/place_spec.rb",
@@ -372,6 +374,7 @@ Gem::Specification.new do |s|
     "spec/fb_graph/message_spec.rb",
     "spec/fb_graph/node_spec.rb",
     "spec/fb_graph/note_spec.rb",
+    "spec/fb_graph/page/categories/local_business_spec.rb",
     "spec/fb_graph/page_spec.rb",
     "spec/fb_graph/photo_spec.rb",
     "spec/fb_graph/place_spec.rb",
