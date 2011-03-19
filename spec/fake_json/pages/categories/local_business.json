@@ -47,10 +47,14 @@
         "visa":
         1
     },
+    "phone":
+    "1234567890",
     "picture":
     "http://b.static.ak.fbcdn.net/rsrc.php/v1/y0/r/XsEg9L6Ie5_.jpg",
     "price_range":
     "$ (0-10)",
+    "public_transit":
+    "30 min from Kyoto St.",
     "restaurant_services":
     {
         "groups":
