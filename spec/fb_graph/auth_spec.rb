@@ -25,7 +25,7 @@ describe FbGraph::Auth, '.new' do
   end
 end
 
-describe FbGraph::Auth, '.from_cookie' do
+describe FbGraph::Auth, '#from_cookie' do
   before do
     @auth = FbGraph::Auth.new('client_id', 'client_secret')
     @expires_at = Time.parse('2020-12-31 12:00:00')
@@ -54,7 +54,7 @@ describe FbGraph::Auth, '.from_cookie' do
   end
 end
 
-describe FbGraph::Auth, '.from_signed_request' do
+describe FbGraph::Auth, '#from_signed_request' do
   before do
     @signed_request = "LqsgnfcsRdfjOgyW6ZuSLpGBVsxUBegEqai4EcrWS0A=.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImV4cGlyZXMiOjAsImlzc3VlZF9hdCI6MTI5ODc4MzczOSwib2F1dGhfdG9rZW4iOiIxMzQxNDU2NDMyOTQzMjJ8MmI4YTZmOTc1NTJjNmRjZWQyMDU4MTBiLTU3OTYxMjI3NnxGS1o0akdKZ0JwN2k3bFlrOVhhUk1QZ3lhNnMiLCJ1c2VyIjp7ImNvdW50cnkiOiJqcCIsImxvY2FsZSI6ImVuX1VTIiwiYWdlIjp7Im1pbiI6MjF9fSwidXNlcl9pZCI6IjU3OTYxMjI3NiJ9"
     @auth = FbGraph::Auth.new('client_id', 'client_secret')
@@ -87,3 +87,34 @@ describe FbGraph::Auth, '.from_signed_request' do
     end
   end
 end
+
+describe FbGraph::Auth do
+  let(:auth) { FbGraph::Auth.new('client_id', 'client_secret') }
+
+  describe '#authorized?' do
+    subject { auth.authorized? }
+
+    context 'when access_token is given' do
+      before do
+        auth.access_token = 'access_token'
+      end
+      it { should be_true }
+    end
+
+    context 'otherwise' do
+      it { should be_false }
+    end
+  end
+
+  describe '#authorize_uri' do
+    let(:canvas_uri) { 'http://client.example.com/canvas' }
+    subject { auth.authorize_uri(canvas_uri) }
+    it { should == "https://www.facebook.com/dialog/oauth?client_id=client_id&redirect_uri=#{CGI.escape canvas_uri}" }
+
+    context 'when params are given' do
+      subject { auth.authorize_uri(canvas_uri, :scope => 'scope1 scope2', :state => 'state1') }
+      it { should == "https://www.facebook.com/dialog/oauth?client_id=client_id&redirect_uri=#{CGI.escape canvas_uri}&scope=scope1+scope2&state=state1" }
+    end
+  end
+end
+

@@ -23,13 +23,7 @@ describe FbGraph::Page, '.new' do
     page.category.should   == 'Technology'
     page.username.should   == 'platform'
     page.mission.should    == 'To make the web more open and social.'
-    page.products.should   == [
-      'Facebook Application Programming Interface (API)',
-      'Facebook Query Language (FQL)',
-      'Facebook Markup Language (FBML)',
-      'Facebook JavaScript (FBJS)',
-      'Facebook Connect'
-    ]
+    page.products.should   == "Facebook Application Programming Interface (API)\nFacebook Query Language (FQL)\nFacebook Markup Language (FBML)\nFacebook JavaScript (FBJS)\nFacebook Connect\n"
     page.like_count.should == 578246
     page.company_overview.should == 'Facebook Platform enables anyone to build social applications on Facebook and the web.'
     page.link.should     == 'http://www.facebook.com/platform'
