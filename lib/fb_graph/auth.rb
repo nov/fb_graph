@@ -34,12 +34,13 @@ module FbGraph
       self.access_token.present?
     end
 
-    def authorize_uri(canvas_uri, params = {})
+    def authorize_uri(canvas_uri, options = {})
       endpoint = URI.parse SignedRequest::OAUTH_DIALOG_ENDPOINT
-      endpoint.query = params.merge(
+      params = options.merge(
         :client_id => self.client.id,
         :redirect_uri => canvas_uri
-      ).to_query
+      )
+      endpoint.query = params.to_query
       endpoint.to_s
     end
 

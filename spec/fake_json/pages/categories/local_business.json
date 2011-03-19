@@ -1,0 +1,68 @@
+{
+    "attire":
+    "Casual",
+    "category":
+    "Bar",
+    "culinary_team":
+    "Team FbGraph!",
+    "general_manager":
+    "Nov Matake",
+    "hours":
+    {
+        "mon_1_open":
+        378000,
+        "mon_2_close":
+        406800
+    },
+    "id":
+    "196723247025808",
+    "link":
+    "http://www.facebook.com/pages/Local-Business-Sample/196723247025808",
+    "location":
+    {
+        "city":
+        "Kyoto",
+        "country":
+        "Japan",
+        "street":
+        "\u65b0\u7530\u8fba",
+        "zip":
+        "513001"
+    },
+    "name":
+    "Local Business Sample",
+    "parking":
+    {
+        "street":
+        1,
+        "valet":
+        1
+    },
+    "payment_options":
+    {
+        "amex":
+        1,
+        "mastercard":
+        1,
+        "visa":
+        1
+    },
+    "picture":
+    "http://b.static.ak.fbcdn.net/rsrc.php/v1/y0/r/XsEg9L6Ie5_.jpg",
+    "price_range":
+    "$ (0-10)",
+    "restaurant_services":
+    {
+        "groups":
+        1,
+        "reserve":
+        1
+    },
+    "restaurant_specialties":
+    {
+        "dinner":
+        1,
+        "drinks":
+        1
+    }
+}

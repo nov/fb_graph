@@ -2,7 +2,7 @@ module FbGraph
   class Page
     module Categories
       module LocalBusiness
-        attr_accessor :attire, :general_manager, :hours, :parking, :payment_options, :phone, :price_range, :public_transit, :restaurant_services, :restaurant_specialties
+        attr_accessor :attire, :culinary_team, :general_manager, :hours, :parking, :payment_options, :phone, :price_range, :public_transit, :restaurant_services, :restaurant_specialties
 
         def self.included(klass)
           klass.alias_method_chain :initialize, :category_specific_attributes
@@ -10,7 +10,7 @@ module FbGraph
 
         def initialize_with_category_specific_attributes(identifier, attributes = {})
           initialize_without_category_specific_attributes identifier, attributes
-          [:attire, :general_manager, :phone, :price_range, :public_transit].each do |key|
+          [:attire, :culinary_team, :general_manager, :phone, :price_range, :public_transit].each do |key|
             self.send :"#{key}=", attributes[key]
           end
           [:parking, :payment_options, :restaurant_services, :restaurant_specialties].each do |key|
