@@ -112,8 +112,8 @@ describe FbGraph::Auth do
     it { should == "https://www.facebook.com/dialog/oauth?client_id=client_id&redirect_uri=#{CGI.escape canvas_uri}" }
 
     context 'when params are given' do
-      subject { auth.authorize_uri(canvas_uri, :scope => 'scope1 scope2', :state => 'state1') }
-      it { should == "https://www.facebook.com/dialog/oauth?client_id=client_id&redirect_uri=#{CGI.escape canvas_uri}&scope=scope1+scope2&state=state1" }
+      subject { auth.authorize_uri(canvas_uri, :scope => [:scope1, :scope2], :state => 'state1') }
+      it { should == "https://www.facebook.com/dialog/oauth?client_id=client_id&redirect_uri=#{CGI.escape canvas_uri}&scope=#{CGI.escape "scope1,scope2"}&state=state1" }
     end
   end
 end

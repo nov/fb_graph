@@ -40,6 +40,7 @@ module FbGraph
         :client_id => self.client.id,
         :redirect_uri => canvas_uri
       )
+      params[:scope] = Array(params[:scope]).join(',') if params[:scope].present?
       endpoint.query = params.to_query
       endpoint.to_s
     end
