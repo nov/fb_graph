@@ -1,48 +1,43 @@
-Dir[File.dirname(__FILE__) + '/categories/*.rb'].each do |file| 
-  require file
-end
-
 module FbGraph
   class Page
     module CategoryAttributes
-      @@attributes = {
-        :raw => [
-          :attire,
-          :awards,
-          :can_post,
-          :company_overview,
-          :culinary_team,
-          :features,
-          :general_info,
-          :general_manager,
-          :is_community_page,
-          :link,
-          :location,
-          :mission,
-          :mpg,
-          :phone,
-          :price_range,
-          :products,
-          :public_transit,
-          :website
-        ],
-        :symbols => [
-          :parking,
-          :payment_options,
-          :restaurant_services,
-          :restaurant_specialties
-        ],
-        :date => [
-          :built,
-          :founded,
-          :release_date
-        ],
-        :others => [
-          :checkin_count,
-          :hours,
-          :location
-        ]
-      }
+      @@attributes = {}
+      @@attributes[:raw] = [
+        :attire,
+        :awards,
+        :can_post,
+        :company_overview,
+        :culinary_team,
+        :features,
+        :general_info,
+        :general_manager,
+        :is_community_page,
+        :link,
+        :location,
+        :mission,
+        :mpg,
+        :phone,
+        :price_range,
+        :products,
+        :public_transit,
+        :website
+      ]
+      @@attributes[:symbols] = [
+        :parking,
+        :payment_options,
+        :restaurant_services,
+        :restaurant_specialties
+      ]
+      @@attributes[:date] = [
+        :built,
+        :founded,
+        :release_date
+      ]
+      @@attributes[:others] = [
+        :checkin_count,
+        :hours,
+        :location
+      ]
       attr_accessor *@@attributes.values.flatten
 
       def self.included(klass)
