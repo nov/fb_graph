@@ -3,24 +3,44 @@ module FbGraph
     module CategoryAttributes
       @@attributes = {}
       @@attributes[:raw] = [
+        :affiliation,
+        :artists_we_like,
         :attire,
         :awards,
+        :band_interests,
+        :band_members,
+        :bio,
+        :booking_agent,
         :can_post,
         :company_overview,
         :culinary_team,
+        :current_location,
+        :directed_by,
         :features,
         :general_info,
         :general_manager,
+        :genre,
+        :influences,
         :is_community_page,
         :link,
         :location,
         :mission,
         :mpg,
+        :personal_info,
+        :personal_interests,
         :phone,
+        :plot_outline,
+        :press_contact,
         :price_range,
+        :produced_by,
         :products,
         :public_transit,
-        :website
+        :record_label,
+        :screenplay_by,
+        :starring,
+        :studio,
+        :website,
+        :written_by
       ]
       @@attributes[:symbols] = [
         :parking,
@@ -29,6 +49,7 @@ module FbGraph
         :restaurant_specialties
       ]
       @@attributes[:date] = [
+        :birthday,
         :built,
         :founded,
         :release_date
