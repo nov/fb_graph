@@ -26,8 +26,8 @@ describe FbGraph::Page::CategoryAttributes do
   its(:hours) do
     should == {
       :mon => [
-        {:open  => Time.parse('Wed Mar 23 09:00:00 UTC 2011')},
-        {:close => Time.parse('Wed Mar 23 17:00:00 UTC 2011')}
+        {:open  => Time.parse('Thu Jan 01 09:00:00 UTC 1970')},
+        {:close => Time.parse('Thu Jan 01 17:00:00 UTC 1970')}
       ]
     }
   end

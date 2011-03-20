@@ -33,7 +33,7 @@ describe FbGraph::Page, '.new' do
 
   it 'should allow invalid date as founded' do
     page = FbGraph::Page.new(12345, :founded => "2004")
-    page.founded.should == Date.new(2004, 1, 1)
+    page.founded.should == '2004'
   end
 
   it 'should allow invalid date as release_date' do
