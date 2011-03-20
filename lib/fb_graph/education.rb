@@ -23,7 +23,7 @@ module FbGraph
       @classes = []
       if attributes[:classes]
         attributes[:classes].each do |klass|
-          @classes << Page.new(klass.delete(:id), klass)
+          @classes << Klass.new(klass.delete(:id), klass)
         end
       end
       @type = attributes[:type]

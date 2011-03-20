@@ -1,19 +1,4 @@
 module FbGraph
-  # = Parse & verify facebook auth cookie
-  # 
-  # Used with Facebook JavaScript SDK
-  # 
-  #   app = FbGraph::Auth.new(APP_ID, APP_SECRET)
-  #   app.from_cookie(cookie_hash)
-  #   auth.access_token
-  #   # => OAuth2::AccessToken (not String!)
-  #   auth.user # only initialized
-  #   auth.user.fetch # fetch whole profile
-  # 
-  # This method is called automatically if cookie is given when initializing
-  # 
-  #   auth = FbGraph::Auth.new(APP_ID, APP_SECRET, :cookie => {..})
-  #   auth.access_token # already parsed
   class Auth
     class VerificationFailed < Exception; end
 
