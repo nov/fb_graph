@@ -1,6 +1,6 @@
-require File.join(File.dirname(__FILE__), '../../../spec_helper')
+require File.join(File.dirname(__FILE__), '../../spec_helper')
 
-describe FbGraph::Page::Categories::LocalBusiness do
+describe FbGraph::Page::CategoryAttributes do
   before do
     fake_json(:get, 'local_business', 'pages/categories/local_business')
   end

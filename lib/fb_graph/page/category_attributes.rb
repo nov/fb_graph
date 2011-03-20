@@ -11,7 +11,6 @@ module FbGraph
           :awards,
           :built, 
           :can_post,
-          :checkin_count,
           :company_overview,
           :culinary_team,
           :features,
@@ -39,7 +38,7 @@ module FbGraph
           :release_date
         ],
         :others => [
-          :checkins,
+          :checkin_count,
           :hours,
           :location
         ]
@@ -76,7 +75,8 @@ module FbGraph
             index = index.to_i - 1
             date, mode = date.to_sym, mode.to_sym
             time = value.since(utc_beginning_of_day)
-            time.year, time.month, time.day = 1970, 1, 1
+            p time
+            time = Time.utc(1970, 1, 1, time.hour, time.min)
             @hours[date] ||= []
             @hours[date][index] ||= {}
             @hours[date][index][mode] = time

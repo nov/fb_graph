@@ -75,12 +75,14 @@ require 'fb_graph/page'
 require 'fb_graph/photo'
 require 'fb_graph/place'
 require 'fb_graph/post'
-require 'fb_graph/project'
 require 'fb_graph/status'
 require 'fb_graph/tag'
 require 'fb_graph/thread'
 require 'fb_graph/user'
 require 'fb_graph/test_user' # Load after FbGraph::User
 require 'fb_graph/video'
+
+require 'fb_graph/klass'
+require 'fb_graph/project'
 
 require 'fb_graph/query'

@@ -29,7 +29,6 @@ describe FbGraph::Page, '.new' do
     page.link.should     == 'http://www.facebook.com/platform'
     page.picture.should  == 'https://graph.facebook.com/19292868552/picture' # use connection
     page.website.should  == 'http://developers.facebook.com'
-    page.websites.should == ['http://developers.facebook.com']
   end
 
   it 'should allow invalid date as founded' do

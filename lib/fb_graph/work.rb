@@ -21,6 +21,7 @@ module FbGraph
           @projects << Project.new(project.delete(:id), project)
         end
       end
+      @with = []
       if attributes[:with]
         attributes[:with].each do |user|
           @with << User.new(user.delete(:id), user)
