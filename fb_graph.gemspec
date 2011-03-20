@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "1.6.1"
+  s.version = "1.6.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
@@ -86,14 +86,14 @@ Gem::Specification.new do |s|
     "lib/fb_graph/friend_list.rb",
     "lib/fb_graph/group.rb",
     "lib/fb_graph/insight.rb",
+    "lib/fb_graph/klass.rb",
     "lib/fb_graph/link.rb",
     "lib/fb_graph/location.rb",
     "lib/fb_graph/message.rb",
     "lib/fb_graph/node.rb",
     "lib/fb_graph/note.rb",
     "lib/fb_graph/page.rb",
-    "lib/fb_graph/page/categories.rb",
-    "lib/fb_graph/page/categories/local_business.rb",
+    "lib/fb_graph/page/category_attributes.rb",
     "lib/fb_graph/photo.rb",
     "lib/fb_graph/place.rb",
     "lib/fb_graph/post.rb",
@@ -131,6 +131,10 @@ Gem::Specification.new do |s|
     "spec/fake_json/events/noreply/smartday_private.json",
     "spec/fake_json/groups/members/emacs_private.json",
     "spec/fake_json/pages/categories/local_business.json",
+    "spec/fake_json/pages/categories/movie.json",
+    "spec/fake_json/pages/categories/music.json",
+    "spec/fake_json/pages/categories/person.json",
+    "spec/fake_json/pages/categories/product.json",
     "spec/fake_json/pages/checkins/gowalla_private.json",
     "spec/fake_json/pages/checkins/gowalla_public.json",
     "spec/fake_json/pages/insights/FbGraph_private.json",
@@ -282,7 +286,11 @@ Gem::Specification.new do |s|
     "spec/fb_graph/message_spec.rb",
     "spec/fb_graph/node_spec.rb",
     "spec/fb_graph/note_spec.rb",
-    "spec/fb_graph/page/categories/local_business_spec.rb",
+    "spec/fb_graph/page/local_business_spec.rb",
+    "spec/fb_graph/page/movie_spec.rb",
+    "spec/fb_graph/page/music_spec.rb",
+    "spec/fb_graph/page/person_spec.rb",
+    "spec/fb_graph/page/product_spec.rb",
     "spec/fb_graph/page_spec.rb",
     "spec/fb_graph/photo_spec.rb",
     "spec/fb_graph/place_spec.rb",
@@ -374,7 +382,11 @@ Gem::Specification.new do |s|
     "spec/fb_graph/message_spec.rb",
     "spec/fb_graph/node_spec.rb",
     "spec/fb_graph/note_spec.rb",
-    "spec/fb_graph/page/categories/local_business_spec.rb",
+    "spec/fb_graph/page/local_business_spec.rb",
+    "spec/fb_graph/page/movie_spec.rb",
+    "spec/fb_graph/page/music_spec.rb",
+    "spec/fb_graph/page/person_spec.rb",
+    "spec/fb_graph/page/product_spec.rb",
     "spec/fb_graph/page_spec.rb",
     "spec/fb_graph/photo_spec.rb",
     "spec/fb_graph/place_spec.rb",
