@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'json'
-require 'restclient_with_ssl_support'
+require 'restclient_with_cert'
 require 'oauth2'
 require 'active_support/all'
 
