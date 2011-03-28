@@ -6,6 +6,7 @@ module FbGraph
     include Connections::Insights
     include Connections::Links
     include Connections::Notes
+    include Connections::Payments
     include Connections::Photos
     include Connections::Picture
     include Connections::Posts

@@ -19,6 +19,7 @@ module FbGraph
     include Connections::Movies
     include Connections::Music
     include Connections::Notes
+    include Connections::Payments
     include Connections::Photos
     include Connections::Picture
     include Connections::Posts
