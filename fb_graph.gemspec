@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "1.6.3"
+  s.version = "1.6.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
-  s.date = %q{2011-03-22}
+  s.date = %q{2011-03-30}
   s.description = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.email = %q{nov@matake.jp}
   s.extra_rdoc_files = [
@@ -69,6 +69,7 @@ Gem::Specification.new do |s|
     "lib/fb_graph/connections/noreply.rb",
     "lib/fb_graph/connections/notes.rb",
     "lib/fb_graph/connections/participants.rb",
+    "lib/fb_graph/connections/payments.rb",
     "lib/fb_graph/connections/photos.rb",
     "lib/fb_graph/connections/picture.rb",
     "lib/fb_graph/connections/posts.rb",
@@ -91,6 +92,7 @@ Gem::Specification.new do |s|
     "lib/fb_graph/message.rb",
     "lib/fb_graph/node.rb",
     "lib/fb_graph/note.rb",
+    "lib/fb_graph/order.rb",
     "lib/fb_graph/page.rb",
     "lib/fb_graph/page/category_attributes.rb",
     "lib/fb_graph/photo.rb",
