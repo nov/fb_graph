@@ -31,9 +31,9 @@ module FbGraph
       if (end_time = attributes[:end_time])
         @end_time = case end_time
         when String
-          Time.parse(end_time).utc
+          Time.parse(end_time)
         when Fixnum
-          Time.at(end_time).utc
+          Time.at(end_time)
         end
       end
       if attributes[:venue]
