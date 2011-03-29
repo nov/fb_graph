@@ -12,7 +12,7 @@ describe FbGraph::Event, '.new' do
       :name => 'event 1',
       :description => 'an event for fb_graph test',
       :start_time => '2010-03-14T21:00:00+0000',
-      :end_time => '2010-03-15T00:30:00+0000',
+      :end_time => 1268613000, # 2010-03-15T00:30:00+0000
       :location => 'Smart.fm office',
       :venue => {
         :street => 'Sakuragaoka',
@@ -24,7 +24,7 @@ describe FbGraph::Event, '.new' do
         :longitude => '139.751'
       },
       :privacy => 'OPEN',
-      :updated_time => '2010-01-02T15:37:41+0000'
+      :updated_time => Time.at(1262446661) # 2010-01-02T15:37:41+0000
     }
     event = FbGraph::Event.new(attributes.delete(:id), attributes)
     event.identifier.should   == '12345'

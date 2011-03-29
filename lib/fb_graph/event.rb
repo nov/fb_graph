@@ -20,27 +20,29 @@ module FbGraph
       @description = attributes[:description]
       @location    = attributes[:location]
       @privacy     = attributes[:privacy]
-      if (start_time = attributes[:start_time])
-        @start_time = case start_time
-        when String
-          Time.parse(start_time)
-        when Fixnum
-          Time.at(start_time)
-        end
+      if attributes[:start_time]
+        @start_time = convert_time(attributes[:start_time])
       end
-      if (end_time = attributes[:end_time])
-        @end_time = case end_time
-        when String
-          Time.parse(end_time)
-        when Fixnum
-          Time.at(end_time)
-        end
+      if attributes[:end_time]
+        @end_time = convert_time(attributes[:end_time])
       end
       if attributes[:venue]
         @venue = Venue.new(attributes[:venue])
       end
       if attributes[:updated_time]
-        @updated_time = Time.parse(attributes[:updated_time]).utc
+        @updated_time = convert_time(attributes[:updated_time])
+      end
+    end
+
+    private
+    def convert_time(time)
+      case time
+      when String
+        Time.parse(time)
+      when Fixnum
+        Time.at(time)
+      when Time
+        time
       end
     end
   end
