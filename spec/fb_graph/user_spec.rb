@@ -56,7 +56,6 @@ describe FbGraph::User, '.fetch' do
         user.meeting_for.should         == ['Friendship', 'Networking']
         user.relationship_status.should == 'Married'
         user.website.should             == 'http://matake.jp'
-        user.websites.should            == ['http://matake.jp']
         user.religion.should            be_nil
         user.political.should           be_nil
         user.timezone.should            == 9
@@ -136,7 +135,6 @@ describe FbGraph::User, '.fetch' do
       ]
       user.email.should               == nil
       user.website.should             == nil
-      user.websites.should            == []
       user.hometown.should            == FbGraph::Page.new(109533479072558, :name => 'Minnetonka, Minnesota')
       user.interested_in.should       == ['female']
       user.meeting_for.should         == ['Friendship']

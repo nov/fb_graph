@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "1.5.4"
+  s.version = "1.6.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
-  s.date = %q{2011-03-05}
+  s.date = %q{2011-03-22}
   s.description = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.email = %q{nov@matake.jp}
   s.extra_rdoc_files = [
@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
     "assets/fb_graph.ai",
     "assets/fb_graph.png",
     "fb_graph.gemspec",
-    "lib/cert",
     "lib/fb_graph.rb",
     "lib/fb_graph/action.rb",
     "lib/fb_graph/album.rb",
@@ -86,12 +85,14 @@ Gem::Specification.new do |s|
     "lib/fb_graph/friend_list.rb",
     "lib/fb_graph/group.rb",
     "lib/fb_graph/insight.rb",
+    "lib/fb_graph/klass.rb",
     "lib/fb_graph/link.rb",
     "lib/fb_graph/location.rb",
     "lib/fb_graph/message.rb",
     "lib/fb_graph/node.rb",
     "lib/fb_graph/note.rb",
     "lib/fb_graph/page.rb",
+    "lib/fb_graph/page/category_attributes.rb",
     "lib/fb_graph/photo.rb",
     "lib/fb_graph/place.rb",
     "lib/fb_graph/post.rb",
@@ -111,7 +112,6 @@ Gem::Specification.new do |s|
     "lib/fb_graph/venue.rb",
     "lib/fb_graph/video.rb",
     "lib/fb_graph/work.rb",
-    "lib/restclient_with_ssl_support.rb",
     "spec/fake_json/albums/photos/matake_private.json",
     "spec/fake_json/albums/photos/post_with_valid_access_token.json",
     "spec/fake_json/applications/subscriptions/fb_graph_private.json",
@@ -128,6 +128,11 @@ Gem::Specification.new do |s|
     "spec/fake_json/events/maybe/smartday_private.json",
     "spec/fake_json/events/noreply/smartday_private.json",
     "spec/fake_json/groups/members/emacs_private.json",
+    "spec/fake_json/pages/categories/local_business.json",
+    "spec/fake_json/pages/categories/movie.json",
+    "spec/fake_json/pages/categories/music.json",
+    "spec/fake_json/pages/categories/person.json",
+    "spec/fake_json/pages/categories/product.json",
     "spec/fake_json/pages/checkins/gowalla_private.json",
     "spec/fake_json/pages/checkins/gowalla_public.json",
     "spec/fake_json/pages/insights/FbGraph_private.json",
@@ -279,6 +284,11 @@ Gem::Specification.new do |s|
     "spec/fb_graph/message_spec.rb",
     "spec/fb_graph/node_spec.rb",
     "spec/fb_graph/note_spec.rb",
+    "spec/fb_graph/page/local_business_spec.rb",
+    "spec/fb_graph/page/movie_spec.rb",
+    "spec/fb_graph/page/music_spec.rb",
+    "spec/fb_graph/page/person_spec.rb",
+    "spec/fb_graph/page/product_spec.rb",
     "spec/fb_graph/page_spec.rb",
     "spec/fb_graph/photo_spec.rb",
     "spec/fb_graph/place_spec.rb",
@@ -370,6 +380,11 @@ Gem::Specification.new do |s|
     "spec/fb_graph/message_spec.rb",
     "spec/fb_graph/node_spec.rb",
     "spec/fb_graph/note_spec.rb",
+    "spec/fb_graph/page/local_business_spec.rb",
+    "spec/fb_graph/page/movie_spec.rb",
+    "spec/fb_graph/page/music_spec.rb",
+    "spec/fb_graph/page/person_spec.rb",
+    "spec/fb_graph/page/product_spec.rb",
     "spec/fb_graph/page_spec.rb",
     "spec/fb_graph/photo_spec.rb",
     "spec/fb_graph/place_spec.rb",
@@ -400,7 +415,7 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<json>, [">= 1.4.3"])
       s.add_runtime_dependency(%q<activesupport>, [">= 2.3"])
-      s.add_runtime_dependency(%q<rest-client>, [">= 1.4"])
+      s.add_runtime_dependency(%q<restclient_with_cert>, [">= 0"])
       s.add_runtime_dependency(%q<oauth2>, [">= 0.1.0"])
       s.add_development_dependency(%q<rspec>, ["~> 1.3"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
@@ -408,7 +423,7 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<json>, [">= 1.4.3"])
       s.add_dependency(%q<activesupport>, [">= 2.3"])
-      s.add_dependency(%q<rest-client>, [">= 1.4"])
+      s.add_dependency(%q<restclient_with_cert>, [">= 0"])
       s.add_dependency(%q<oauth2>, [">= 0.1.0"])
       s.add_dependency(%q<rspec>, ["~> 1.3"])
       s.add_dependency(%q<rcov>, [">= 0"])
@@ -417,7 +432,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<json>, [">= 1.4.3"])
     s.add_dependency(%q<activesupport>, [">= 2.3"])
-    s.add_dependency(%q<rest-client>, [">= 1.4"])
+    s.add_dependency(%q<restclient_with_cert>, [">= 0"])
     s.add_dependency(%q<oauth2>, [">= 0.1.0"])
     s.add_dependency(%q<rspec>, ["~> 1.3"])
     s.add_dependency(%q<rcov>, [">= 0"])

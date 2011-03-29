@@ -2,9 +2,10 @@ module FbGraph
   class Work
     include Comparison
 
-    attr_accessor :employer, :location, :position, :projects, :start_date, :end_date
+    attr_accessor :description, :employer, :location, :position, :projects, :with, :start_date, :end_date
 
     def initialize(attributes = {})
+      @description = attributes[:description]
       if (employer = attributes[:employer])
         @employer = Page.new(employer.delete(:id), employer)
       end
@@ -18,6 +19,12 @@ module FbGraph
       if attributes[:projects]
         attributes[:projects].each do |project|
           @projects << Project.new(project.delete(:id), project)
+        end
+      end
+      @with = []
+      if attributes[:with]
+        attributes[:with].each do |user|
+          @with << User.new(user.delete(:id), user)
         end
       end
       if attributes[:start_date] && attributes[:start_date] != '0000-00'
