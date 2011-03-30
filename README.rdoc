@@ -243,69 +243,6 @@ Not tested well yet.
 Sample is here.
 https://gist.github.com/752914
 
-== Documents
-
-Currently fb_graph isn't so well documented.
-
-I'm continuously updating RDoc now, but writing all documents <b>in English</b> is heavy task for me.
-
-Please see RDoc.info (http://rdoc.info/github/nov/fb_graph), and if the document is missing or hard to understand, please contact me on github.
-
-I'll add more documents or sample code.
-
-=== Objects
-
-* FbGraph::Album[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Album]
-* FbGraph::Application[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Application]
-* FbGraph::Checkin[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Checkin]
-* FbGraph::Comment[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Comment]
-* FbGraph::Event[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Event]
-* FbGraph::Group[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Group]
-* FbGraph::Insight[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Insight]
-* FbGraph::Link[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Link]
-* FbGraph::Note[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Note]
-* FbGraph::Page[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Page]
-* FbGraph::Photo[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Photo]
-* FbGraph::Post[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Post]
-* FbGraph::Status[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Status]
-* FbGraph::Subscription[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Subscription]
-* FbGraph::User[http://rdoc.info/github/nov/fb_graph/master/FbGraph/User]
-* FbGraph::Video[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Video]
-
-=== Connections
-
-* FbGraph::Connections::Accounts[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Accounts]
-* FbGraph::Connections::Activities[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Activities]
-* FbGraph::Connections::Albums[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Albums]
-* FbGraph::Connections::Attending[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Attending]
-* FbGraph::Connections::Books[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Books]
-* FbGraph::Connections::Checkins[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Checkins]
-* FbGraph::Connections::Comments[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Comments]
-* FbGraph::Connections::Declined[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Declined]
-* FbGraph::Connections::Events[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Events]
-* FbGraph::Connections::Feed[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Feed]
-* FbGraph::Connections::Friends[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Friends]
-* FbGraph::Connections::Groups[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Groups]
-* FbGraph::Connections::Home[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Home]
-* FbGraph::Connections::Insights[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Insights]
-* FbGraph::Connections::Interests[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Interests]
-* FbGraph::Connections::Invited[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Invited]
-* FbGraph::Connections::Likes[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Likes]
-* FbGraph::Connections::Links[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Links]
-* FbGraph::Connections::Maybe[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Maybe]
-* FbGraph::Connections::Members[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Members]
-* FbGraph::Connections::Movies[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Movies]
-* FbGraph::Connections::Music[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Music]
-* FbGraph::Connections::Noreply[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Noreply]
-* FbGraph::Connections::Notes[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Notes]
-* FbGraph::Connections::Photos[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Photos]
-* FbGraph::Connections::Picture[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Picture]
-* FbGraph::Connections::Statuses[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Statuses]
-* FbGraph::Connections::Subscriptions[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Subscriptions]
-* FbGraph::Connections::Tagged[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Tagged]
-* FbGraph::Connections::Television[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Television]
-* FbGraph::Connections::Videos[http://rdoc.info/github/nov/fb_graph/master/FbGraph/Connections/Videos]
-
 == Note on Patches/Pull Requests
  
 * Fork the project.
