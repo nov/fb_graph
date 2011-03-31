@@ -20,8 +20,17 @@ module FbGraph
         Collection.new(attributes[:to]).each do |to|
           @to << if to[:category]
             Page.new(to.delete(:id), to)
+          elsif to[:start_time]
+            Event.new(to.delete(:id), to)
+          elsif to[:version]
+            Group.new(to.delete(:id), to)
           else
-            User.new(to.delete(:id), to)
+            case attributes[:context]
+            when Application
+              Application.new(to.delete(:id), to)
+            else
+              User.new(to.delete(:id), to)
+            end
           end
         end
       end
