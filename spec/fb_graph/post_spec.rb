@@ -140,3 +140,42 @@ describe FbGraph::Post, '#fetch' do
   end
 
 end
+
+describe FbGraph::Post, '#to' do
+  subject { post.to.first }
+
+  context 'when include Event' do
+    before do
+      fake_json(:get, 'to_event', 'posts/to_event')
+    end
+    let(:post) { FbGraph::Post.fetch('to_event') }
+    it { should be_instance_of FbGraph::Event }
+  end
+
+  context 'when include Application' do
+    context 'when fetched as Application#feed' do
+      before do
+        fake_json(:get, 'app/feed', 'applications/feed/public')
+      end
+      let(:post) { FbGraph::Application.new('app').feed.first }
+      it { should be_instance_of FbGraph::Application }
+    end
+
+    context 'otherwize' do # no way to detect this case..
+      before do
+        fake_json(:get, 'to_application', 'posts/to_application')
+      end
+      let(:post) { FbGraph::Post.fetch('to_application') }
+      it { should be_instance_of FbGraph::User }
+    end
+  end
+
+  context 'when include Group' do
+    before do
+      fake_json(:get, 'to_group?access_token=access_token', 'posts/to_group')
+    end
+    let(:post) { FbGraph::Post.fetch('to_group', :access_token => 'access_token') }
+    it { should be_instance_of FbGraph::Group }
+  end
+
+end

@@ -25,8 +25,7 @@ module FbGraph
           elsif to[:version]
             Group.new(to.delete(:id), to)
           else
-            case attributes[:context]
-            when Application
+            if attributes[:context] == Application
               Application.new(to.delete(:id), to)
             else
               User.new(to.delete(:id), to)
