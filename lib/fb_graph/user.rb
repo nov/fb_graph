@@ -122,5 +122,8 @@ module FbGraph
       new('me', :access_token => access_token)
     end
 
+    def <=>(other_user)
+      self.name <=> other_user.name
+    end
   end
 end
