@@ -25,8 +25,11 @@ module FbGraph
       Connection.new(self, connection, options.merge(:collection => collection))
     end
 
+    def update(options = {})
+      post(options)
+    end
+
     def destroy(options = {})
-      options[:access_token] ||= self.access_token if self.access_token
       delete(options)
     end
 
