@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "1.6.5"
+  s.version = "1.6.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
-  s.date = %q{2011-04-01}
+  s.date = %q{2011-04-22}
   s.description = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.email = %q{nov@matake.jp}
   s.extra_rdoc_files = [
@@ -116,6 +116,7 @@ Gem::Specification.new do |s|
     "lib/fb_graph/work.rb",
     "spec/fake_json/albums/photos/matake_private.json",
     "spec/fake_json/albums/photos/post_with_valid_access_token.json",
+    "spec/fake_json/applications/feed/public.json",
     "spec/fake_json/applications/subscriptions/fb_graph_private.json",
     "spec/fake_json/applications/test_users/created.json",
     "spec/fake_json/applications/test_users/private.json",
@@ -157,6 +158,9 @@ Gem::Specification.new do |s|
     "spec/fake_json/posts/no_comments.json",
     "spec/fake_json/posts/platform_private.json",
     "spec/fake_json/posts/platform_public.json",
+    "spec/fake_json/posts/to_application.json",
+    "spec/fake_json/posts/to_event.json",
+    "spec/fake_json/posts/to_group.json",
     "spec/fake_json/query/user/with_invalid_token.json",
     "spec/fake_json/query/user/with_valid_token.json",
     "spec/fake_json/query/user/without_token.json",
@@ -311,7 +315,6 @@ Gem::Specification.new do |s|
     "spec/fb_graph/video_spec.rb",
     "spec/fb_graph/work_spec.rb",
     "spec/helpers/fake_json_helper.rb",
-    "spec/restclient_with_ssl_support_spec.rb",
     "spec/spec.opts",
     "spec/spec_helper.rb"
   ]
@@ -407,7 +410,6 @@ Gem::Specification.new do |s|
     "spec/fb_graph/video_spec.rb",
     "spec/fb_graph/work_spec.rb",
     "spec/helpers/fake_json_helper.rb",
-    "spec/restclient_with_ssl_support_spec.rb",
     "spec/spec_helper.rb"
   ]
 
