@@ -110,7 +110,7 @@ module FbGraph
           _response_ = _response_.with_indifferent_access
           if _response_[:error]
             case _response_[:error][:type]
-            when 'OAuthAccessTokenException', 'QueryParseException', 'OAuthInvalidRequestException', 'OAuthInvalidTokenException', 'OAuthException'
+            when /OAuth/
               raise Unauthorized.new(_response_[:error][:message])
             else
               raise BadRequest.new("#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
