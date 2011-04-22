@@ -1,10 +1,10 @@
 require File.join(File.dirname(__FILE__), '../spec_helper')
 
 describe FbGraph::Auth, '.new' do
-  it 'should setup OAuth2::Client' do
+  it 'should setup Rack::OAuth2::Client' do
     auth = FbGraph::Auth.new('client_id', 'client_secret')
-    auth.client.should be_a(OAuth2::Client)
-    auth.client.id.should     == 'client_id'
+    auth.client.should be_a(Rack::OAuth2::Client)
+    auth.client.identifier.should     == 'client_id'
     auth.client.secret.should == 'client_secret'
   end
 
@@ -38,11 +38,10 @@ describe FbGraph::Auth, '#from_cookie' do
     @auth.access_token.should be_nil
     @auth.user.should be_nil
     @auth.from_cookie(@cookie)
-    @auth.access_token.token.should      == 't'
-    @auth.access_token.expires_in.should be_close @expires_at - Time.now, 1
-    @auth.access_token.expires_at.should be_close @expires_at, 1
-    @auth.user.identifier.should         == '12345'
-    @auth.user.access_token.token.should == 't'
+    @auth.access_token.access_token.should      == 't'
+    @auth.access_token.expires_in.should        be_close @expires_at - Time.now, 1
+    @auth.user.identifier.should                == '12345'
+    @auth.user.access_token.access_token.should == 't'
   end
 
   context 'when invalid cookie given' do
@@ -64,9 +63,9 @@ describe FbGraph::Auth, '#from_signed_request' do
     @auth.access_token.should be_nil
     @auth.user.should be_nil
     @auth.from_signed_request(@signed_request)
-    @auth.access_token.token.should      == '134145643294322|2b8a6f97552c6dced205810b-579612276|FKZ4jGJgBp7i7lYk9XaRMPgya6s'
-    @auth.user.identifier.should         == '579612276'
-    @auth.user.access_token.token.should == '134145643294322|2b8a6f97552c6dced205810b-579612276|FKZ4jGJgBp7i7lYk9XaRMPgya6s'
+    @auth.access_token.access_token.should      == '134145643294322|2b8a6f97552c6dced205810b-579612276|FKZ4jGJgBp7i7lYk9XaRMPgya6s'
+    @auth.user.identifier.should                == '579612276'
+    @auth.user.access_token.access_token.should == '134145643294322|2b8a6f97552c6dced205810b-579612276|FKZ4jGJgBp7i7lYk9XaRMPgya6s'
     @auth.data.should include(
       "expires"=>0,
       "algorithm"=>"HMAC-SHA256",

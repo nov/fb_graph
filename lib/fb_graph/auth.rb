@@ -5,9 +5,13 @@ module FbGraph
     attr_accessor :client, :access_token, :user, :data
 
     def initialize(client_id, client_secret, options = {})
-      @client = OAuth2::Client.new(client_id, client_secret, options.merge(
-        :site => ROOT_URL
-      ))
+      @client = Rack::OAuth2::Client.new(
+        :identifier             => client_id,
+        :secret                 => client_secret,
+        :host                   => URI.parse(ROOT_URL).host,
+        :authorization_endpoint => '/oauth/authorize',
+        :token_endpoint         => '/oauth/access_token'
+      )
       if options[:cookie]
         from_cookie options[:cookie]
       elsif options[:signed_request]
@@ -22,7 +26,7 @@ module FbGraph
     def authorize_uri(canvas_uri, options = {})
       endpoint = URI.parse SignedRequest::OAUTH_DIALOG_ENDPOINT
       params = options.merge(
-        :client_id => self.client.id,
+        :client_id    => self.client.identifier,
         :redirect_uri => canvas_uri
       )
       params[:scope] = Array(params[:scope]).join(',') if params[:scope].present?
@@ -54,11 +58,9 @@ module FbGraph
       expires_in = unless data[:expires].zero?
         data[:expires] - Time.now.to_i
       end
-      OAuth2::AccessToken.new(
-        self.client,
-        data[:oauth_token] || data[:access_token],
-        nil,
-        expires_in
+      Rack::OAuth2::AccessToken::Legacy.new(
+        :access_token => data[:oauth_token] || data[:access_token],
+        :expires_in   => expires_in
       )
     end
   end

@@ -30,12 +30,7 @@ module FbGraph
     def get_access_token(secret = nil)
       self.secret ||= secret
       auth = Auth.new(self.identifier, self.secret)
-      response_string = auth.client.request(:post, auth.client.access_token_url, {
-        :client_id => self.identifier,
-        :client_secret => self.secret,
-        :type => 'client_cred'
-      })
-      self.access_token = response_string.split('=').last
+      self.access_token = auth.client.access_token!
     end
 
   end
