@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '../../spec_helper')
 
 describe FbGraph::Auth::Cookie, '.parse' do
   before do
-    @client = OAuth2::Client.new('client_id', 'client_secret')
+    @client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
     @cookie = {
       'fbs_client_id' => "access_token=t&expires=0&secret=s&session_key=k&sig=f4bae8ec88ba11440e3bdcc1bcf78317&uid=12345"
     }

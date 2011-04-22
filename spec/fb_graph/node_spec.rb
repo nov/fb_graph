@@ -14,24 +14,24 @@ end
 
 describe FbGraph::Node, '#stringfy_params' do
   it 'should make all values to JSON' do
-    client = OAuth2::Client.new('client_id', 'client_secret')
+    client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
     node = FbGraph::Node.new('identifier')
     params = node.send :stringfy_params, {:hash => {:a => :b}, :array => [:a, :b]}
     params[:hash].should == '{"a":"b"}'
     params[:array].should == '["a","b"]'
   end
 
-  it 'should support OAuth2::AccessToken as self.access_token' do
-    client = OAuth2::Client.new('client_id', 'client_secret')
-    node = FbGraph::Node.new('identifier', :access_token => OAuth2::AccessToken.new(client, 'token', 'secret'))
+  it 'should support Rack::OAuth2::AccessToken as self.access_token' do
+    client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
+    node = FbGraph::Node.new('identifier', :access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token'))
     params = node.send :stringfy_params, {}
     params[:access_token].should == 'token'
   end
 
   it 'should support OAuth2::AccessToken as options[:access_token]' do
-    client = OAuth2::Client.new('client_id', 'client_secret')
+    client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
     node = FbGraph::Node.new('identifier')
-    params = node.send :stringfy_params, {:access_token => OAuth2::AccessToken.new(client, 'token', 'secret')}
+    params = node.send :stringfy_params, {:access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token')}
     params[:access_token].should == 'token'
   end
 end

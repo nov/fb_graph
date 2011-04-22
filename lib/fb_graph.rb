@@ -1,8 +1,5 @@
 require 'rubygems'
-require 'json'
-require 'restclient_with_cert'
-require 'oauth2'
-require 'active_support/all'
+require 'rack/oauth2'
 
 module FbGraph
   ROOT_URL = "https://graph.facebook.com"

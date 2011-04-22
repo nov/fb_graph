@@ -10,10 +10,7 @@ begin
     gem.email = 'nov@matake.jp'
     gem.homepage = 'http://github.com/nov/fb_graph'
     gem.authors = ['nov matake']
-    gem.add_dependency 'json', '>= 1.4.3'
-    gem.add_dependency 'activesupport', '>= 2.3'
-    gem.add_dependency 'restclient_with_cert'
-    gem.add_dependency 'oauth2', '>= 0.1.0'
+    gem.add_dependency 'rack-oauth2', '>= 0.6.5'
     gem.add_development_dependency 'rspec', '~> 1.3'
     gem.add_development_dependency 'rcov'
     gem.add_development_dependency 'fakeweb', '>= 1.3.0'

@@ -29,7 +29,8 @@ describe FbGraph::Application, '.get_access_token' do
   it 'should POST oauth/token' do
     @app.access_token.should be_nil
     @app.get_access_token
-    @app.access_token.should == 'token'
+    @app.access_token.should be_instance_of(Rack::OAuth2::AccessToken::Legacy)
+    @app.access_token.access_token.should == 'token'
   end
 
   after do

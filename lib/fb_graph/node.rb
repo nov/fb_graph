@@ -75,8 +75,8 @@ module FbGraph
     def stringfy_params(params)
       _params_ = params.dup
       _params_[:access_token] ||= self.access_token
-      if _params_[:access_token].is_a?(OAuth2::AccessToken)
-        _params_[:access_token] = _params_[:access_token].token
+      if _params_[:access_token].is_a?(Rack::OAuth2::AccessToken::Legacy)
+        _params_[:access_token] = _params_[:access_token].access_token
       end
       _params_.each do |key, value|
         if value.present? && ![Symbol, String, Numeric, IO].any? { |klass| value.is_a? klass }

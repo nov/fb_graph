@@ -7,7 +7,7 @@ module FbGraph
     class Cookie
       def self.parse(client, cookie)
         fb_cookie_string = if cookie.is_a?(Hash)
-          cookie["fbs_#{client.id}"]
+          cookie["fbs_#{client.identifier}"]
         else
           cookie
         end
