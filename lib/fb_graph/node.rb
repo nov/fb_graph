@@ -116,15 +116,11 @@ module FbGraph
 
     def handle_restclient_error(e)
       _response_ = JSON.parse(e.http_body).with_indifferent_access
-      if _response_[:error]
-        case _response_[:error][:type]
-        when /OAuth/
-          raise Unauthorized.new(e.message, e.http_body)
-        else
-          raise BadRequest.new(e.message, e.http_body)
-        end
+      case _response_[:error][:type]
+      when /OAuth/
+        raise Unauthorized.new(e.message, e.http_body)
       else
-        raise Exception.new(e.http_code, e.message, e.http_body)
+        raise BadRequest.new(e.message, e.http_body)
       end
     rescue JSON::ParserError
       raise Exception.new(e.http_code, e.message, e.http_body)
