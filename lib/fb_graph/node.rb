@@ -119,9 +119,9 @@ module FbGraph
       if _response_[:error]
         case _response_[:error][:type]
         when /OAuth/
-          raise Unauthorized.new(_response_[:error][:message])
+          raise Unauthorized.new(e.message, e.http_body)
         else
-          raise BadRequest.new("#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
+          raise BadRequest.new(e.message, e.http_body)
         end
       else
         raise Exception.new(e.http_code, e.message, e.http_body)
