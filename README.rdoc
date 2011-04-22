@@ -203,28 +203,29 @@ You can also see http://github.com/nov/fb_graph_sample for more details Rails3 s
 ==== JavaScript SDK
 
   fb_auth = FbGraph::Auth.new(YOUR_APP_ID, YOUR_APPLICATION_SECRET)
-  fb_auth.client # => OAuth2::Client
+  fb_auth.client # => Rack::OAuth2::Client
 
   # get Facebook's auth cookie in advance using their JS SDK
   fb_auth.from_cookie(cookies)
-  fb_auth.access_token # => OAuth2::AccessToken
+  fb_auth.access_token # => Rack::OAuth2::AccessToken
   fb_auth.user         # => FbGraph::User (only basic attributes)
   fb_auth.user.fetch   # => fetch more details
 
 ==== Normal OAuth2 Flow
 
+  # setup client
+  client = fb_auth.client
+  client.redirect_uri = "http://your.client.com/facebook/callback"
+
   # redirect user to facebook
-  redirect_to fb_auth.client.web_server.authorize_url(
-    :redirect_uri => "http://your.client.com/facebook/callback",
-    :scope => "email,read_stream,offline_access"
+  redirect_to client.authorize_uri(
+    :scope => [:email, :read_stream, :offline_access]
   )
 
   # in callback
-  fb_auth.client.web_server.get_access_token(
-    params[:code],
-    :redirect_uri => callback_facebook_url
-  ) # => OAuth2::AccessToken
-  FbGraph::User.me(access_token).fetch # => fetch user
+  client.authorization_code = params[:code]
+  access_token = client.access_token!  # => Rack::OAuth2::AccessToken
+  FbGraph::User.me(access_token).fetch # => FbGraph::User
 
 === Analytics
 
