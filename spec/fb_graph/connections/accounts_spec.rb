@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), '../../spec_helper')
 describe FbGraph::Connections::Accounts, '#accounts' do
   context 'when included by FbGraph::User' do
     before do
-      fake_json(:get, 'matake/accounts', 'users/accounts/matake_public')
+      fake_json(:get, 'matake/accounts', 'users/accounts/matake_public', :status => [401, 'Unauthorized'])
       fake_json(:get, 'matake/accounts?access_token=access_token', 'users/accounts/matake_private')
       fake_json(:get, 'matake/accounts?access_token=access_token_with_manage_pages_permission', 'users/accounts/matake_private_with_manage_pages_permission')
     end

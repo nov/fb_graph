@@ -107,20 +107,26 @@ module FbGraph
         when Array
           _response_.map!(&:with_indifferent_access)
         when Hash
-          _response_ = _response_.with_indifferent_access
-          if _response_[:error]
-            case _response_[:error][:type]
-            when /OAuth/
-              raise Unauthorized.new(_response_[:error][:message])
-            else
-              raise BadRequest.new("#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
-            end
-          else
-            _response_
-          end
+          _response_.with_indifferent_access
         end
       end
     rescue RestClient::Exception => e
+      handle_restclient_error(e)
+    end
+
+    def handle_restclient_error(e)
+      _response_ = JSON.parse(e.http_body).with_indifferent_access
+      if _response_[:error]
+        case _response_[:error][:type]
+        when /OAuth/
+          raise Unauthorized.new(_response_[:error][:message])
+        else
+          raise BadRequest.new("#{_response_[:error][:type]} :: #{_response_[:error][:message]}")
+        end
+      else
+        raise Exception.new(e.http_code, e.message, e.http_body)
+      end
+    rescue JSON::ParserError
       raise Exception.new(e.http_code, e.message, e.http_body)
     end
   end

@@ -4,7 +4,7 @@ describe FbGraph::Connections::Statuses, '#statuses' do
 
   context 'when included by FbGraph::User' do
     before do
-      fake_json(:get, 'arjun/statuses', 'users/statuses/arjun_public')
+      fake_json(:get, 'arjun/statuses', 'users/statuses/arjun_public', :status => [401, 'Unauthorized'])
       fake_json(:get, 'arjun/statuses?access_token=access_token', 'users/statuses/arjun_private')
     end
 
@@ -38,7 +38,7 @@ describe FbGraph::Connections::Statuses, '#statuses' do
 
   context 'when included by FbGraph::Page' do
     before do
-      fake_json(:get, 'platform/statuses', 'pages/statuses/platform_public')
+      fake_json(:get, 'platform/statuses', 'pages/statuses/platform_public', :status => [401, 'Unauthorized'])
       fake_json(:get, 'platform/statuses?access_token=access_token', 'pages/statuses/platform_private')
     end
 

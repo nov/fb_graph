@@ -3,10 +3,10 @@ require File.join(File.dirname(__FILE__), '../../spec_helper')
 describe FbGraph::Connections::Home, '#home' do
   context 'when included by FbGraph::User' do
     before do
-      fake_json(:get, 'me/home', 'users/home/me_public')
+      fake_json(:get, 'me/home', 'users/home/me_public', :status => [401, 'Unauthorized'])
       fake_json(:get, 'me/home?access_token=access_token', 'users/home/me_private')
-      fake_json(:get, 'arjun/home', 'users/home/arjun_public')
-      fake_json(:get, 'arjun/home?access_token=access_token', 'users/home/arjun_private')
+      fake_json(:get, 'arjun/home', 'users/home/arjun_public', :status => [400, 'BadRequest'])
+      fake_json(:get, 'arjun/home?access_token=access_token', 'users/home/arjun_private', :status => [400, 'BadRequest'])
     end
 
     context 'when no access_token given' do

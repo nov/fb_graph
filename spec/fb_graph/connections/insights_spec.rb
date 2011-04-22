@@ -4,7 +4,7 @@ describe FbGraph::Connections::Insights, '#insights' do
 
   context 'when included by FbGraph::Page' do
     before do
-      fake_json(:get, 'FbGraph/insights', 'pages/insights/FbGraph_public')
+      fake_json(:get, 'FbGraph/insights', 'pages/insights/FbGraph_public', :status => [401, 'Unauthorized'])
       fake_json(:get, 'FbGraph/insights?access_token=access_token', 'pages/insights/FbGraph_private')
     end
 

@@ -16,7 +16,7 @@ end
 
 describe FbGraph::Checkin, '.search' do
   before do
-    fake_json(:get, 'search?type=checkin', 'checkins/search_public')
+    fake_json(:get, 'search?type=checkin', 'checkins/search_public', :status => [401, 'Unauthorized'])
     fake_json(:get, 'search?type=checkin&access_token=access_token', 'checkins/search_private')
   end
 

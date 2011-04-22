@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), '../../spec_helper')
 describe FbGraph::Connections::Activities, '#activities' do
   context 'when included by FbGraph::User' do
     before do
-      fake_json(:get, 'arjun/activities', 'users/activities/arjun_public')
+      fake_json(:get, 'arjun/activities', 'users/activities/arjun_public', :status => [401, 'Unauthorized'])
       fake_json(:get, 'arjun/activities?access_token=access_token', 'users/activities/arjun_private')
     end
 

@@ -33,7 +33,7 @@ end
 
 describe FbGraph::User, '.fetch' do
   before do
-    fake_json(:get, 'me', 'users/me_public')
+    fake_json(:get, 'me', 'users/me_public', :status => [401, 'Unauthorized'])
     fake_json(:get, 'me?access_token=access_token', 'users/me_private')
     fake_json(:get, 'arjun', 'users/arjun_public')
     fake_json(:get, 'arjun?access_token=access_token', 'users/arjun_private')
