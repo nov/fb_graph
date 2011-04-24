@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{fb_graph}
-  s.version = "1.7.0"
+  s.version = "1.7.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
-  s.date = %q{2011-04-23}
+  s.date = %q{2011-04-24}
   s.description = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.email = %q{nov@matake.jp}
   s.extra_rdoc_files = [
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
+    ".rspec-tm",
     "LICENSE",
     "README.rdoc",
     "Rakefile",
@@ -320,7 +321,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/nov/fb_graph}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.5.3}
+  s.rubygems_version = %q{1.7.2}
   s.summary = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.test_files = [
     "spec/fb_graph/album_spec.rb",
