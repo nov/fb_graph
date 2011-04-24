@@ -78,7 +78,11 @@ module FbGraph
         end
         @@attributes[:date].each do |key|
           if attributes[key]
-            value = Date.parse(attributes[key]) rescue attributes[key]
+            value = if attributes[key] =~ /\d{2}\/\d{2}\/\d{4}/
+              Date.strptime(attributes[key], '%m/%d/%Y')
+            else
+              Date.parse(attributes[key]) rescue attributes[key]
+            end
             self.send :"#{key}=", value
           end
         end
