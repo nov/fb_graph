@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), '../spec_helper')
+require 'spec_helper'
 
 describe FbGraph::Place, '.to_json' do
   it 'should return identifier' do

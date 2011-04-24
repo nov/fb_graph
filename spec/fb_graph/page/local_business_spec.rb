@@ -1,4 +1,5 @@
-require File.join(File.dirname(__FILE__), '../../spec_helper')
+# -*- coding: utf-8 -*-
+require 'spec_helper'
 
 describe FbGraph::Page do
   context 'for local_business category' do

@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), '../../spec_helper')
+require 'spec_helper'
 
 describe FbGraph::Connections::Photos, '#photos' do
   context 'when included by FbGraph::Album' do

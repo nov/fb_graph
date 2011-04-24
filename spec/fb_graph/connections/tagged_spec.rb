@@ -1,4 +1,5 @@
-require File.join(File.dirname(__FILE__), '../../spec_helper')
+# -*- coding: utf-8 -*-
+require 'spec_helper'
 
 describe FbGraph::Connections::Tagged, '#tagged' do
   context 'when included by FbGraph::User' do

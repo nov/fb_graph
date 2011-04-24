@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), '../spec_helper')
+require 'spec_helper'
 
 describe FbGraph::User, '.new' do
   it 'should setup all supported attributes' do
@@ -93,7 +93,7 @@ describe FbGraph::User, '.fetch' do
 
       # private
       user.about.should    == 'daydrea'
-      user.birthday.should == Date.parse('04/15/1984')
+      user.birthday.should == Date.strptime("04/15/1984", "%m/%d/%Y")
       user.work.should     == [
         FbGraph::Work.new({
           :employer   => {:name => 'Facebook', :id => 20531316728},

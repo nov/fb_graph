@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), '../spec_helper')
+require 'spec_helper'
 
 describe FbGraph::Auth, '.new' do
   it 'should setup Rack::OAuth2::Client' do

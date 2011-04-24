@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), '../spec_helper')
+require 'spec_helper'
 
 describe FbGraph::Searchable do
   context 'when included by FbGraph::Page' do
