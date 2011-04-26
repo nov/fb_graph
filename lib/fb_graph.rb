@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'rack/oauth2'
 
 module FbGraph

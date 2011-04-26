@@ -1,3 +1,5 @@
+require 'fakeweb'
+
 module FakeJsonHelper
 
   def fake_json(method, path, file_path, options = {})
