@@ -218,7 +218,7 @@ You can also see http://github.com/nov/fb_graph_sample for more details Rails3 s
   client.redirect_uri = "http://your.client.com/facebook/callback"
 
   # redirect user to facebook
-  redirect_to client.authorize_uri(
+  redirect_to client.authorization_uri(
     :scope => [:email, :read_stream, :offline_access]
   )
 
