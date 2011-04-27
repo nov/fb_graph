@@ -20,6 +20,7 @@ module FbGraph
         :general_info,
         :general_manager,
         :genre,
+        :hometown,
         :influences,
         :is_community_page,
         :link,
