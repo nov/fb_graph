@@ -39,7 +39,7 @@ describe FbGraph::Auth, '#from_cookie' do
     @auth.user.should be_nil
     @auth.from_cookie(@cookie)
     @auth.access_token.access_token.should      == 't'
-    @auth.access_token.expires_in.should        be_close @expires_at - Time.now, 1
+    @auth.access_token.expires_in.should        be_within(1).of(@expires_at - Time.now)
     @auth.user.identifier.should                == '12345'
     @auth.user.access_token.access_token.should == 't'
   end
