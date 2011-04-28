@@ -23,6 +23,10 @@ Plus, you can play an Rails sample app here. http://fbgraphsample.heroku.com/
 
 === GET
 
+==== Recently Added
+  user = FbGraph::User.me(ACCESS_TOKEN)
+  user.family	# => Fetch all family members of user
+
 ==== Basic Objects
 
   user = FbGraph::User.me(ACCESS_TOKEN)
