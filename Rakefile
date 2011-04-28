@@ -1,46 +1,20 @@
-require 'rubygems'
-require 'rake'
+require 'bundler'
+Bundler::GemHelper.install_tasks
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = 'fb_graph'
-    gem.summary = %Q{A full-stack Facebook Graph API wrapper in Ruby.}
-    gem.description = %Q{A full-stack Facebook Graph API wrapper in Ruby.}
-    gem.email = 'nov@matake.jp'
-    gem.homepage = 'http://github.com/nov/fb_graph'
-    gem.authors = ['nov matake']
-    gem.add_dependency 'rack-oauth2', '>= 0.6.5'
-    gem.add_development_dependency 'rspec', '~> 1.3'
-    gem.add_development_dependency 'rcov'
-    gem.add_development_dependency 'fakeweb', '>= 1.3.0'
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts 'Jeweler not available. Install it with: gem install jeweler'
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec)
+
+RSpec::Core::RakeTask.new(:rcov) do |spec|
+  spec.rcov = true
+  spec.rcov_opts = ['-Ilib -Ispec --exclude spec,gems']
 end
 
-#require 'spec/rake/spectask'
-#Spec::Rake::SpecTask.new(:spec) do |spec|
-#  spec.fail_on_error = false
-#  spec.libs << 'lib' << 'spec'
-#  spec.spec_files = FileList['spec/**/*_spec.rb']
-#end
-#Spec::Rake::SpecTask.new(:rcov) do |spec|
-#  spec.libs << 'lib' << 'spec'
-#  spec.pattern = 'spec/**/*_spec.rb'
-#  spec.rcov = true
-#  spec.rcov_opts = ['--exclude spec,gems']
-#end
-#task :spec => :check_dependencies
-#task :default => :spec
+task :default => :spec
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
-  version = File.read('VERSION')
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = 'fb_graph #{version}'
+  rdoc.title = "fb_graph #{File.read('VERSION')}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
