@@ -1,7 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "fb_graph"
   s.version = File.read("VERSION")
-  s.required_rubygems_version = Gem::Requirement.new(">= 1.3.6") if s.respond_to? :required_rubygems_version=
   s.authors = ["nov matake"]
   s.description = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.summary = %q{A full-stack Facebook Graph API wrapper in Ruby.}
@@ -18,4 +17,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rcov", ">= 0.9"
   s.add_development_dependency "rspec", ">= 2"
   s.add_development_dependency "fakeweb", ">= 1.3"
+  s.add_development_dependency "webmock", ">= 1.6.2"
 end

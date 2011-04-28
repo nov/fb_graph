@@ -21,19 +21,13 @@ describe FbGraph::Application, '.new' do
 end
 
 describe FbGraph::Application, '.get_access_token' do
-  before do
-    fake_json :post, 'oauth/access_token', 'token_response'
-    @app = FbGraph::Application.new('client_id', :secret => 'client_secret')
-  end
-
-  it 'should POST oauth/token' do
-    @app.access_token.should be_nil
-    @app.get_access_token
-    @app.access_token.should be_instance_of(Rack::OAuth2::AccessToken::Legacy)
-    @app.access_token.access_token.should == 'token'
-  end
-
-  after do
-    FakeWeb.clean_registry
+  let(:app) { FbGraph::Application.new('client_id', :secret => 'client_secret') }
+  it 'should return Rack::OAuth2::AccessToken::Legacy' do
+    mock_graph :post, 'oauth/access_token', 'token_response' do
+      app.access_token.should be_nil
+      app.get_access_token
+      app.access_token.should be_instance_of(Rack::OAuth2::AccessToken::Legacy)
+      app.access_token.access_token.should == 'token'
+    end
   end
 end
