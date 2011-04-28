@@ -1,15 +1,16 @@
 require 'spec_helper'
 
 describe FbGraph::Collection, '.new' do
-  before do
-    fake_json(:get, 'platform/statuses?access_token=access_token', 'pages/statuses/platform_private')
-  end
 
   it 'should return an array with pagination info' do
-    collection = FbGraph::Page.new('platform', :access_token => 'access_token').statuses.collection
-    collection.should be_kind_of(Array)
-    collection.previous.should be_kind_of(Hash)
-    collection.next.should be_kind_of(Hash)
+    mock_graph :get, 'platform/statuses', 'pages/statuses/platform_private', :params => {
+      :access_token => 'access_token'
+    } do
+      collection = FbGraph::Page.new('platform', :access_token => 'access_token').statuses.collection
+      collection.should be_kind_of(Array)
+      collection.previous.should be_kind_of(Hash)
+      collection.next.should be_kind_of(Hash)
+    end
   end
 
   it 'should allow blank data' do

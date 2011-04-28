@@ -15,24 +15,28 @@ describe FbGraph::Checkin, '.new' do
 end
 
 describe FbGraph::Checkin, '.search' do
-  before do
-    fake_json(:get, 'search?type=checkin', 'checkins/search_public', :status => [401, 'Unauthorized'])
-    fake_json(:get, 'search?type=checkin&access_token=access_token', 'checkins/search_private')
-  end
-
   context 'when no access_token given' do
     it 'should raise FbGraph::Unauthorized' do
-      lambda do
-        FbGraph::Checkin.search
-      end.should raise_exception(FbGraph::Unauthorized)
+      mock_graph :get, 'search', 'checkins/search_public', :params => {
+        :type => 'checkin'
+      }, :status => [401, 'Unauthorized'] do
+        lambda do
+          FbGraph::Checkin.search
+        end.should raise_exception(FbGraph::Unauthorized)
+      end
     end
   end
 
   context 'when access_token is given' do
     it 'should return checkins as FbGraph::Checkin' do
-      checkins = FbGraph::Checkin.search(:access_token => 'access_token')
-      checkins.each do |checkin|
-        checkin.should be_instance_of(FbGraph::Checkin)
+      mock_graph :get, 'search', 'checkins/search_private', :params => {
+        :type => 'checkin',
+        :access_token => 'access_token'
+      } do
+        checkins = FbGraph::Checkin.search(:access_token => 'access_token')
+        checkins.each do |checkin|
+          checkin.should be_instance_of(FbGraph::Checkin)
+        end
       end
     end
   end
