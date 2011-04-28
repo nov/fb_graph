@@ -2,21 +2,24 @@ require 'webmock/rspec'
 
 module WebMockHelper
   def mock_graph(method, path, response_file, options = {})
-    endpoint = File.join(FbGraph::ROOT_URL, path)
-    stub_request(method, endpoint).with(
+    stub_request(method, endpoint_for(path)).with(
       request_for(method, options)
     ).to_return(
       response_for(response_file, options)
     )
     yield
-    a_request(method, endpoint).with(
+    a_request(method, endpoint_for(path)).with(
       request_for(method, options)
     ).should have_been_made.once
     WebMock.reset!
   end
 
-  def request_to(method, path)
-    
+  def request_to(path, method = :get)
+    raise_error(WebMock::NetConnectNotAllowedError) { |e|
+      p e.message
+      e.message.should include("Unregistered request: #{method.to_s.upcase}")
+      e.message.should include(endpoint_for path)
+    }
   end
 
   def mock_fql(query, file_path, options = {})
@@ -24,6 +27,10 @@ module WebMockHelper
   end
 
   private
+
+  def endpoint_for(path)
+    File.join(FbGraph::ROOT_URL, path)
+  end
 
   def request_for(method, options = {})
     request = {}

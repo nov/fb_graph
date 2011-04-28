@@ -12,7 +12,7 @@ module FakeWebHelper
     )
   end
 
-  def request_to(path, method = :get)
+  def _request_to(path, method = :get)
     endpoint = File.join(FbGraph::ROOT_URL, path)
     raise_error(
       FakeWeb::NetConnectNotAllowedError,
