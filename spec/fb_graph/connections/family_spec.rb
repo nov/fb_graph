@@ -21,7 +21,8 @@ describe FbGraph::Connections::Family, '#family' do
         users.first.should == FbGraph::User.new(
           '720112389',
           :access_token => 'access_token',
-          :name => 'TD Lee'
+          :name => 'TD Lee',
+          :relationship => 'brother'
         )
         users.each do |user|
           user.should be_instance_of(FbGraph::User)
