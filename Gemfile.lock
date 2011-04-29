@@ -16,7 +16,7 @@ GEM
     json (1.5.1)
     mime-types (1.16)
     rack (1.2.2)
-    rack-oauth2 (0.6.5)
+    rack-oauth2 (0.6.6)
       activesupport (>= 2.3)
       attr_required (>= 0.0.3)
       i18n
@@ -27,7 +27,7 @@ GEM
     rcov (0.9.9)
     rest-client (1.6.1)
       mime-types (>= 1.16)
-    restclient_with_cert (0.0.6)
+    restclient_with_cert (0.0.7)
       rest-client (>= 1.6)
     rspec (2.5.0)
       rspec-core (~> 2.5.0)
