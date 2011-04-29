@@ -2,40 +2,40 @@ require 'spec_helper'
 
 describe FbGraph::Connections::Photos, '#photos' do
   context 'when included by FbGraph::Album' do
-    before do
-      fake_json(:get, '12345/photos?access_token=access_token', 'albums/photos/matake_private')
-    end
-
     it 'should return photos as FbGraph::Photo' do
-      photos = FbGraph::Album.new('12345', :access_token => 'access_token').photos
-      photos.each do |photo|
-        photo.should be_instance_of(FbGraph::Photo)
+      mock_graph :get, '12345/photos', 'albums/photos/matake_private', :params => {
+        :access_token => 'access_token'
+      } do
+        photos = FbGraph::Album.new('12345', :access_token => 'access_token').photos
+        photos.each do |photo|
+          photo.should be_instance_of(FbGraph::Photo)
+        end
       end
     end
   end
 end
 
 describe FbGraph::Connections::Photos, '#photo!' do
-  before do
-    fake_json(:post, '12345/photos', 'albums/photos/post_with_valid_access_token')
-  end
-
   it 'should return generated photo' do
-    photo = FbGraph::Album.new('12345', :access_token => 'valid').photo!(
-      :image => Tempfile.new('image_file'),
-      :message => 'Hello, where is photo?'
-    )
-    photo.identifier.should == 401111132276
-    photo.name.should == 'Hello, where is photo?'
-    photo.access_token.should == 'valid'
+    mock_graph :post, '12345/photos', 'albums/photos/post_with_valid_access_token' do
+      photo = FbGraph::Album.new('12345', :access_token => 'valid').photo!(
+        :image => Tempfile.new('image_file'),
+        :message => 'Hello, where is photo?'
+      )
+      photo.identifier.should == 401111132276
+      photo.name.should == 'Hello, where is photo?'
+      photo.access_token.should == 'valid'
+    end
   end
 
   it 'should support Tag' do
-    photo = FbGraph::Album.new('12345', :access_token => 'valid').photo!(
-      :image => Tempfile.new('image_file'),
-      :message => 'Hello, where is photo?',
-      :tags => [FbGraph::Tag.new(:id => 12345, :name => 'me', :x => 0, :y => 10)]
-    )
-    photo.tags.should == [FbGraph::Tag.new(:id => 12345, :name => 'me', :x => 0, :y => 10)]
+    mock_graph :post, '12345/photos', 'albums/photos/post_with_valid_access_token' do
+      photo = FbGraph::Album.new('12345', :access_token => 'valid').photo!(
+        :image => Tempfile.new('image_file'),
+        :message => 'Hello, where is photo?',
+        :tags => [FbGraph::Tag.new(:id => 12345, :name => 'me', :x => 0, :y => 10)]
+      )
+      photo.tags.should == [FbGraph::Tag.new(:id => 12345, :name => 'me', :x => 0, :y => 10)]
+    end
   end
 end

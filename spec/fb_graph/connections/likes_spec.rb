@@ -3,30 +3,31 @@ require 'spec_helper'
 
 describe FbGraph::Connections::Likes, '#likes' do
   context 'when included by FbGraph::User' do
-    before do
-      fake_json(:get, 'arjun/likes', 'users/likes/arjun_public', :status => [401, 'Unauthorized'])
-      fake_json(:get, 'arjun/likes?access_token=access_token', 'users/likes/arjun_private')
-    end
-
     context 'when no access_token given' do
       it 'should raise FbGraph::Unauthorized' do
-        lambda do
-          FbGraph::User.new('arjun').likes
-        end.should raise_exception(FbGraph::Unauthorized)
+        mock_graph :get, 'arjun/likes', 'users/likes/arjun_public', :status => [401, 'Unauthorized'] do
+          lambda do
+            FbGraph::User.new('arjun').likes
+          end.should raise_exception(FbGraph::Unauthorized)
+        end
       end
     end
 
     context 'when access_token is given' do
       it 'should return liked pages as FbGraph::Page' do
-        likes = FbGraph::User.new('arjun', :access_token => 'access_token').likes
-        likes.first.should == FbGraph::Page.new(
-          '378209722137',
-          :access_token => 'access_token',
-          :name => 'Doing Things at the Last Minute',
-          :category => '活動'
-        )
-        likes.each do |like|
-          like.should be_instance_of(FbGraph::Page)
+        mock_graph :get, 'arjun/likes', 'users/likes/arjun_private', :params => {
+          :access_token => 'access_token'
+        } do
+          likes = FbGraph::User.new('arjun', :access_token => 'access_token').likes
+          likes.first.should == FbGraph::Page.new(
+            '378209722137',
+            :access_token => 'access_token',
+            :name => 'Doing Things at the Last Minute',
+            :category => '活動'
+          )
+          likes.each do |like|
+            like.should be_instance_of(FbGraph::Page)
+          end
         end
       end
     end
@@ -35,8 +36,11 @@ describe FbGraph::Connections::Likes, '#likes' do
   context 'when included by FbGraph::Status' do
     context 'when cached collection exists' do
       before do
-        fake_json(:get, 'with_likes?access_token=access_token', 'statuses/with_likes')
-        @status = FbGraph::Status.new('with_likes').fetch(:access_token => 'access_token')
+        mock_graph :get, 'with_likes', 'statuses/with_likes', :params => {
+          :access_token => 'access_token'
+        } do
+          @status = FbGraph::Status.new('with_likes').fetch(:access_token => 'access_token')
+        end
       end
 
       context 'when no options given' do

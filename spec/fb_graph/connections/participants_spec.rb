@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe FbGraph::Connections::Participants, '#participants' do
-  before do
-    fake_json(:get, '12345/participants?access_token=access_token&no_cache=true', 'thread/participants/private')
-  end
-
   it 'should use cached contents as default' do
     lambda do
       FbGraph::Thread.new(12345, :access_token => 'access_token').participants
@@ -18,9 +14,14 @@ describe FbGraph::Connections::Participants, '#participants' do
   end
 
   it 'should return participants as FbGraph::User' do
-    participants = FbGraph::Thread.new(12345, :access_token => 'access_token').participants(:no_cache => true)
-    participants.each do |participant|
-      participant.should be_instance_of(FbGraph::User)
+    mock_graph :get, '12345/participants', 'thread/participants/private', :params => {
+      :access_token => 'access_token',
+      :no_cache => 'true'
+    } do
+      participants = FbGraph::Thread.new(12345, :access_token => 'access_token').participants(:no_cache => true)
+      participants.each do |participant|
+        participant.should be_instance_of(FbGraph::User)
+      end
     end
   end
 end
