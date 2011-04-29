@@ -21,22 +21,14 @@ describe FbGraph::Page do
   its(:username)   { should == attributes[:username] }
 
   describe '.fetch' do
-    before do
-      fake_json(:get, 'platform', 'pages/platform_public')
-      fake_json(:get, 'platform?access_token=access_token', 'pages/platform_private')
+    subject do
+      mock_graph :get, 'platform', 'pages/platform_public' do
+        FbGraph::Page.fetch('platform')
+      end
     end
-
-    context 'when access_token is given' do
-      subject { FbGraph::Page.fetch('platform') }
-      its(:identifier) { should == '19292868552' }
-      its(:name)       { should == 'Facebook Platform' }
-      its(:category)   { should == 'Technology' }
-      its(:like_count) { should == 578214 }
-    end
-
-    context 'otherwise' do
-      subject { FbGraph::Page.fetch('platform', :access_token => 'access_token') }
-      its(:like_count) { should == 578214 }
-    end
+    its(:identifier) { should == '19292868552' }
+    its(:name)       { should == 'Facebook Platform' }
+    its(:category)   { should == 'Technology' }
+    its(:like_count) { should == 578214 }
   end
 end

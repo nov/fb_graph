@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe FbGraph::Page do
   context 'for product category' do
-    before do
-      fake_json(:get, 'product', 'pages/categories/product')
+    let :page do
+      mock_graph :get, 'product', 'pages/categories/product' do
+        FbGraph::Page.new('product').fetch
+      end
     end
-
-    let(:page) { FbGraph::Page.new('product').fetch }
     subject { page }
 
     [

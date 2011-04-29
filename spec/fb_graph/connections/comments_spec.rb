@@ -2,22 +2,22 @@ require 'spec_helper'
 
 describe FbGraph::Connections::Comments, '#comments' do
   context 'when included by FbGraph::Post' do
-    before do
+    let :post do
       mock_graph :get, 'no_comments', 'posts/no_comments' do
-        @post = FbGraph::Post.new('no_comments').fetch
+        FbGraph::Post.new('no_comments').fetch
       end
     end
 
     it 'should use cached @_comments_ as default' do
       lambda do
-        @post.comments
-      end.should_not raise_error(FakeWeb::NetConnectNotAllowedError)
+        post.comments
+      end.should_not request_to "#{post.identifier}/comments"
     end
 
     it 'should ignore cached @_comments_ when options are given' do
       lambda do
-        @post.comments(:no_cache => true)
-      end.should_not request_to 'no_comments/comments'
+        post.comments(:no_cache => true)
+      end.should request_to "#{post.identifier}/comments"
     end
   end
 end

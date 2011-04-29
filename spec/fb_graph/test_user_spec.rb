@@ -24,17 +24,11 @@ describe FbGraph::TestUser, '.friend!' do
   end
 
   it 'should POST twice' do
-    lambda do
-      @u1.friend! @u2
-    end.should request_to('111/friends/222', :post)
-    fake_json(:post, '111/friends/222', 'true')
-    lambda do
-      @u1.friend! @u2
-    end.should request_to('222/friends/111', :post)
-    fake_json(:post, '222/friends/111', 'true')
-    lambda do
-      @u1.friend! @u2
-    end.should_not raise_error(FakeWeb::NetConnectNotAllowedError)
+    mock_graph :post, '111/friends/222', 'true' do
+      mock_graph :post, '222/friends/111', 'true' do
+        @u1.friend! @u2
+      end
+    end
   end
 
 end

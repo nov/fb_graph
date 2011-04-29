@@ -96,46 +96,44 @@ end
 describe FbGraph::Post, '#fetch' do
 
   context 'when no access_token given' do
-    before do
-      fake_json(:get, 'platform', 'posts/platform_public')
-    end
-
     it 'should get all attributes except some comments' do
-      post = FbGraph::Post.fetch('platform')
-      post.identifier.should == '19292868552_118464504835613'
-      post.from.should == FbGraph::Page.new(
-        "19292868552",
-        :name => "Facebook Platform",
-        :category => "Technology"
-      )
-      post.message.should == "We're getting ready for f8! Check out the latest on the f8 Page, including a video from the first event, when Platform launched :: http://bit.ly/ahHl7j"
-      post.likes.should == [
-        FbGraph::User.new("100000785546814", :name => "Anter Saied")
-      ]
-      post.likes.collection.total_count.should == 270
-      post.created_time.should == Time.parse("2010-04-15T17:37:03+0000")
-      post.updated_time.should == Time.parse("2010-04-22T18:19:13+0000")
-      post.comments.size.should == 4
+      mock_graph :get, 'platform', 'posts/platform_public' do
+        post = FbGraph::Post.fetch('platform')
+        post.identifier.should == '19292868552_118464504835613'
+        post.from.should == FbGraph::Page.new(
+          "19292868552",
+          :name => "Facebook Platform",
+          :category => "Technology"
+        )
+        post.message.should == "We're getting ready for f8! Check out the latest on the f8 Page, including a video from the first event, when Platform launched :: http://bit.ly/ahHl7j"
+        post.likes.should == [
+          FbGraph::User.new("100000785546814", :name => "Anter Saied")
+        ]
+        post.likes.collection.total_count.should == 270
+        post.created_time.should == Time.parse("2010-04-15T17:37:03+0000")
+        post.updated_time.should == Time.parse("2010-04-22T18:19:13+0000")
+        post.comments.size.should == 4
+      end
     end
   end
 
   context 'when access_token given' do
-    before do
-      fake_json(:get, 'platform?access_token=access_token', 'posts/platform_private')
-    end
-
     it 'shold get all attributes and comments' do
-      post = FbGraph::Post.fetch('platform', :access_token => 'access_token')
-      post.identifier.should == '19292868552_118464504835613'
-      post.from.should == FbGraph::Page.new(
-        "19292868552",
-        :name => "Facebook Platform",
-        :category => "Technology"
-      )
-      post.message.should == "We're getting ready for f8! Check out the latest on the f8 Page, including a video from the first event, when Platform launched :: http://bit.ly/ahHl7j"
-      post.created_time.should == Time.parse("2010-04-15T17:37:03+0000")
-      post.updated_time.should == Time.parse("2010-04-22T18:19:13+0000")
-      post.comments.size.should == 9
+      mock_graph :get, 'platform', 'posts/platform_private', :params => {
+        :access_token => 'access_token'
+      } do
+        post = FbGraph::Post.fetch('platform', :access_token => 'access_token')
+        post.identifier.should == '19292868552_118464504835613'
+        post.from.should == FbGraph::Page.new(
+          "19292868552",
+          :name => "Facebook Platform",
+          :category => "Technology"
+        )
+        post.message.should == "We're getting ready for f8! Check out the latest on the f8 Page, including a video from the first event, when Platform launched :: http://bit.ly/ahHl7j"
+        post.created_time.should == Time.parse("2010-04-15T17:37:03+0000")
+        post.updated_time.should == Time.parse("2010-04-22T18:19:13+0000")
+        post.comments.size.should == 9
+      end
     end
   end
 
@@ -145,36 +143,42 @@ describe FbGraph::Post, '#to' do
   subject { post.to.first }
 
   context 'when include Event' do
-    before do
-      fake_json(:get, 'to_event', 'posts/to_event')
+    let :post do
+      mock_graph :get, 'to_event', 'posts/to_event' do
+        FbGraph::Post.fetch('to_event')
+      end
     end
-    let(:post) { FbGraph::Post.fetch('to_event') }
     it { should be_instance_of FbGraph::Event }
   end
 
   context 'when include Application' do
     context 'when fetched as Application#feed' do
-      before do
-        fake_json(:get, 'app/feed', 'applications/feed/public')
+      let :post do
+        mock_graph :get, 'app/feed', 'applications/feed/public' do
+          FbGraph::Application.new('app').feed.first
+        end
       end
-      let(:post) { FbGraph::Application.new('app').feed.first }
       it { should be_instance_of FbGraph::Application }
     end
 
     context 'otherwize' do # no way to detect this case..
-      before do
-        fake_json(:get, 'to_application', 'posts/to_application')
+      let :post do
+        mock_graph :get, 'to_application', 'posts/to_application' do
+          FbGraph::Post.fetch('to_application')
+        end
       end
-      let(:post) { FbGraph::Post.fetch('to_application') }
       it { should be_instance_of FbGraph::User }
     end
   end
 
   context 'when include Group' do
-    before do
-      fake_json(:get, 'to_group?access_token=access_token', 'posts/to_group')
+    let :post do
+      mock_graph :get, 'to_group', 'posts/to_group', :params => {
+        :access_token => 'access_token'
+      } do
+        FbGraph::Post.fetch('to_group', :access_token => 'access_token')
+      end
     end
-    let(:post) { FbGraph::Post.fetch('to_group', :access_token => 'access_token') }
     it { should be_instance_of FbGraph::Group }
   end
 

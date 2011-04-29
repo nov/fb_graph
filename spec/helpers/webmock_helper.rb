@@ -7,11 +7,11 @@ module WebMockHelper
     ).to_return(
       response_for(response_file, options)
     )
-    yield
+    res = yield
     a_request(method, endpoint_for(path)).with(
       request_for(method, options)
     ).should have_been_made.once
-    WebMock.reset!
+    res
   end
 
   def request_to(path, method = :get)
@@ -22,7 +22,17 @@ module WebMockHelper
   end
 
   def mock_fql(query, file_path, options = {})
-    
+    params = {
+      :query => query,
+      :format => :json
+    }
+    params[:access_token] = options[:access_token] if options[:access_token]
+    stub_request(:get, FbGraph::Query::ENDPOINT).with(:query => params).to_return(
+      :body => File.read(File.join(File.dirname(__FILE__), '../mock_json', "#{file_path}.json"))
+    )
+    res = yield
+    a_request(:get, FbGraph::Query::ENDPOINT).with(:query => params).should have_been_made.once
+    res
   end
 
   private
@@ -49,7 +59,7 @@ module WebMockHelper
 
   def response_for(response_file, options = {})
     response = {}
-    response[:body] = File.new(File.join(File.dirname(__FILE__), '../fake_json', "#{response_file}.json"))
+    response[:body] = File.new(File.join(File.dirname(__FILE__), '../mock_json', "#{response_file}.json"))
     if options[:status]
       response[:status] = options[:status]
     end

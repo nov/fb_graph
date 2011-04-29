@@ -11,21 +11,25 @@ describe FbGraph::Searchable do
 end
 
 describe FbGraph::Searchable::Result do
-  before do
-    fake_json :get, 'search?q=fbgraph&type=page', 'pages/search_fb_graph'
-    fake_json :get, 'search?limit=25&offset=25&q=google&type=page', 'pages/search_google'
-    @fb_graph = FbGraph::Page.search('fbgraph')
-    @google_page2 = FbGraph::Page.search('google', :limit => 25, :offset => 25)
+  let :fb_graph do
+    mock_graph :get, 'search?q=fbgraph&type=page', 'pages/search_fb_graph' do
+      FbGraph::Page.search('fbgraph')
+    end
+  end
+  let :google_page2 do
+    mock_graph :get, 'search?limit=25&offset=25&q=google&type=page', 'pages/search_google' do
+      FbGraph::Page.search('google', :limit => 25, :offset => 25)
+    end
   end
 
   it 'should support pagination' do
-    @fb_graph.next.should     == []
-    @fb_graph.previous.should == []
+    fb_graph.next.should     == []
+    fb_graph.previous.should == []
     lambda do
-      @google_page2.next
+      google_page2.next
     end.should request_to('search?limit=25&offset=50&q=google&type=page')
     lambda do
-      @google_page2.previous
+      google_page2.previous
     end.should request_to('search?limit=25&offset=0&q=google&type=page')
   end
 end

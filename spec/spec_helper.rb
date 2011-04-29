@@ -4,4 +4,3 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'fb_graph'
 require 'rspec'
 require 'helpers/webmock_helper'
-require 'helpers/fakeweb_helper'
