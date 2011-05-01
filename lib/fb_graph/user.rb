@@ -21,6 +21,7 @@ module FbGraph
     include Connections::Music
     include Connections::Notes
     include Connections::Payments
+    include Connections::Permissions
     include Connections::Photos
     include Connections::Picture
     include Connections::Posts
