@@ -34,7 +34,7 @@ module FbGraph
     private
 
     def fetch_params(url)
-      query = URI.parse(url).query
+      query = URI.parse(URI.encode(url)).query
       params = {}
       query.split('&').each do |q|
         key, value = q.split('=')
