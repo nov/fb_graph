@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fb_graph (1.7.1)
+    fb_graph (1.7.3)
       rack-oauth2 (>= 0.6.5)
 
 GEM
@@ -33,7 +33,7 @@ GEM
       rspec-core (~> 2.5.0)
       rspec-expectations (~> 2.5.0)
       rspec-mocks (~> 2.5.0)
-    rspec-core (2.5.1)
+    rspec-core (2.5.2)
     rspec-expectations (2.5.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.5.0)
