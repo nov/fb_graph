@@ -1,10 +1,11 @@
 module FbGraph
   class TestUser < User
-    attr_accessor :login_url
+    attr_accessor :login_url, :password
 
     def initialize(identifier, attributes = {})
       super
       @login_url = attributes[:login_url]
+      @password = attributes[:password]
     end
 
     def friend!(test_user)
