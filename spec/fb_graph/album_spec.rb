@@ -31,6 +31,7 @@ describe FbGraph::Album, '.new' do
     }
     album = FbGraph::Album.new(attributes.delete(:id), attributes)
     album.identifier.should     == '12345'
+    album.picture.should        == 'https://graph.facebook.com/12345/picture'
     album.from.should           == FbGraph::User.new('23456', :name => 'nov matake')
     album.name.should           == 'album 1'
     album.description.should    == 'an album for fb_graph test'

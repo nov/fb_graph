@@ -3,6 +3,7 @@ module FbGraph
     include Connections::Photos
     include Connections::Comments
     include Connections::Likes
+    include Connections::Picture
 
     attr_accessor :from, :name, :description, :location, :link, :privacy, :count, :created_time, :updated_time, :type
 
