@@ -14,10 +14,7 @@ describe FbGraph::Connections::Senders, '#senders' do
   end
 
   it 'should return senders as FbGraph::User' do
-    mock_graph :get, '12345/senders', 'thread/senders/private', :params => {
-      :access_token => 'access_token',
-      :no_cache => 'true'
-    } do
+    mock_graph :get, '12345/senders', 'thread/senders/private', :params => {:no_cache => 'true'}, :access_token => 'access_token' do
       senders = FbGraph::Thread.new(12345, :access_token => 'access_token').senders(:no_cache => true)
       senders.each do |sender|
         sender.should be_instance_of(FbGraph::User)

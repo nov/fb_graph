@@ -15,9 +15,7 @@ describe FbGraph::Connections::Activities, '#activities' do
 
     context 'when access_token is given' do
       it 'should return activities as FbGraph::Page' do
-        mock_graph :get, 'arjun/activities', 'users/activities/arjun_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'arjun/activities', 'users/activities/arjun_private', :access_token => 'access_token' do
           activities = FbGraph::User.new('arjun', :access_token => 'access_token').activities
           activities.class.should == FbGraph::Connection
           activities.first.should == FbGraph::Page.new(

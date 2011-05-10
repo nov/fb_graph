@@ -14,10 +14,7 @@ describe FbGraph::Connections::Participants, '#participants' do
   end
 
   it 'should return participants as FbGraph::User' do
-    mock_graph :get, '12345/participants', 'thread/participants/private', :params => {
-      :access_token => 'access_token',
-      :no_cache => 'true'
-    } do
+    mock_graph :get, '12345/participants', 'thread/participants/private', :params => {:no_cache => 'true'}, :access_token => 'access_token' do
       participants = FbGraph::Thread.new(12345, :access_token => 'access_token').participants(:no_cache => true)
       participants.each do |participant|
         participant.should be_instance_of(FbGraph::User)

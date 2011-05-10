@@ -1,5 +1,7 @@
 module FbGraph
   class Query < Node
+    ENDPOINT = 'https://api.facebook.com/method/fql.query'
+
     attr_accessor :access_token, :query
 
     def initialize(query, access_token = nil)
@@ -8,25 +10,22 @@ module FbGraph
     end
 
     def fetch(access_token = nil)
-      self.access_token ||= access_token
       handle_response do
-        RestClient.get build_endpoint
+        HTTPClient.new.get(
+          ENDPOINT,
+          build_params,
+          build_headers(:access_token => self.access_token || access_token)
+        )
       end
     end
 
     private
 
-    ENDPOINT = 'https://api.facebook.com/method/fql.query'
-    def build_endpoint
-      params = stringfy_params(
+    def build_params
+      params = super(
         :query => self.query,
-        :access_token => self.access_token,
         :format => :json
       )
-      params.delete_if do |k, v|
-        v.blank?
-      end
-      ENDPOINT + "?#{params.to_query}"
     end
 
     def handle_response

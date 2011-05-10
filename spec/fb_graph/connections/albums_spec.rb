@@ -15,9 +15,7 @@ describe FbGraph::Connections::Albums, '#albums' do
 
     context 'when access_token is given' do
       it 'should return albums as FbGraph::Album' do
-        mock_graph :get, 'matake/albums', 'users/albums/matake_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'matake/albums', 'users/albums/matake_private', :access_token => 'access_token' do
           albums = FbGraph::User.new('matake', :access_token => 'access_token').albums
           albums.first.should == FbGraph::Album.new(
             '19351532276',
@@ -47,8 +45,7 @@ end
 describe FbGraph::Connections::Albums, '#album!' do
   context 'when included by FbGraph::User' do
     it 'should return generated album' do
-      mock_graph :post, 'matake/albums', 'users/albums/post_with_valid_access_token', :params => {
-        :access_token => 'valid',
+      mock_graph :post, 'matake/albums', 'users/albums/post_with_valid_access_token', :access_token => 'valid', :params => {
         :name => 'FbGraph test',
         :message => 'test test test'
       } do

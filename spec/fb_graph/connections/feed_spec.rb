@@ -33,9 +33,7 @@ describe FbGraph::Connections::Feed, '#feed' do
 
     context 'when access_token is given' do
       it 'should return posts on the user\'s wall as FbGraph::Post' do
-        mock_graph :get, 'arjun/feed', 'users/feed/arjun_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'arjun/feed', 'users/feed/arjun_private', :access_token => 'access_token' do
           posts = FbGraph::User.new('arjun').feed(:access_token => 'access_token')
           posts.first.should == FbGraph::Post.new(
             '7901103_121392141207495',

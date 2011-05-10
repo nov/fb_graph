@@ -119,9 +119,7 @@ describe FbGraph::Post, '#fetch' do
 
   context 'when access_token given' do
     it 'shold get all attributes and comments' do
-      mock_graph :get, 'platform', 'posts/platform_private', :params => {
-        :access_token => 'access_token'
-      } do
+      mock_graph :get, 'platform', 'posts/platform_private', :access_token => 'access_token' do
         post = FbGraph::Post.fetch('platform', :access_token => 'access_token')
         post.identifier.should == '19292868552_118464504835613'
         post.from.should == FbGraph::Page.new(
@@ -173,9 +171,7 @@ describe FbGraph::Post, '#to' do
 
   context 'when include Group' do
     let :post do
-      mock_graph :get, 'to_group', 'posts/to_group', :params => {
-        :access_token => 'access_token'
-      } do
+      mock_graph :get, 'to_group', 'posts/to_group', :access_token => 'access_token' do
         FbGraph::Post.fetch('to_group', :access_token => 'access_token')
       end
     end

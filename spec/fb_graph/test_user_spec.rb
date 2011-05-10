@@ -28,8 +28,8 @@ describe FbGraph::TestUser, '.friend!' do
   end
 
   it 'should POST twice' do
-    mock_graph :post, '111/friends/222', 'true' do
-      mock_graph :post, '222/friends/111', 'true' do
+    mock_graph :post, '111/friends/222', 'true', :access_token => 'token1' do
+      mock_graph :post, '222/friends/111', 'true', :access_token => 'token2' do
         @u1.friend! @u2
       end
     end
@@ -39,12 +39,12 @@ end
 
 describe FbGraph::TestUser, '.destroy' do
   before do
-    @user = FbGraph::TestUser.new(111, :access_token => 'token1')
+    @user = FbGraph::TestUser.new(111, :access_token => 'access_token')
   end
 
   it 'should DELETE /user_id' do
-    lambda do
+    mock_graph :delete, '111', 'true', :access_token => 'access_token' do
       @user.destroy
-    end.should request_to('111?access_token=token1', :delete)
+    end
   end
 end

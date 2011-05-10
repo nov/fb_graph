@@ -36,26 +36,20 @@ module FbGraph
     protected
 
     def get(params = {})
-      _headers_  = build_headers(params)
-      _params_   = stringfy_params(params)
-      _endpoint_ = build_endpoint(params)
       handle_response do
-        HTTPClient.new.get(_endpoint_, _params_, _headers_)
+        HTTPClient.new.get *build_request(params)
       end
     end
 
     def post(params = {})
-      _headers_  = build_headers(params)
-      _params_   = stringfy_params(params)
-      _endpoint_ = build_endpoint(params)
       handle_response do
-        HTTPClient.new.post(_endpoint_, _params_, _headers_)
+        HTTPClient.new.post *build_request(params)
       end
     end
 
     def delete(params = {})
-      _headers_  = build_headers(params)
-      _endpoint_ = build_endpoint(params)
+      _endpoint_, _params_, _headers_ = build_request(params)
+      _endpoint_ = [_endpoint_, _params_.try(:to_query)].compact.join('?')
       handle_response do
         HTTPClient.new.delete(_endpoint_, _headers_)
       end
@@ -63,20 +57,19 @@ module FbGraph
 
     private
 
+    def build_request(params)
+      [
+        build_endpoint(params),
+        build_params(params),
+        build_headers(params)
+      ]
+    end
+
     def build_endpoint(params = {})
       File.join([self.endpoint, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s))
     end
 
-    def build_headers(params)
-      access_token = params[:access_token] || self.access_token
-      if access_token
-        {:authorization => "OAuth #{access_token.to_s}"}
-      else
-        nil
-      end
-    end
-
-    def stringfy_params(params)
+    def build_params(params)
       _params_ = params.dup
       _params_.delete_if do |k, v|
         v.blank? || k == :access_token
@@ -89,6 +82,15 @@ module FbGraph
         end
       end
       _params_.blank? ? nil : _params_
+    end
+
+    def build_headers(params)
+      access_token = params[:access_token] || self.access_token
+      if access_token
+        {:authorization => "OAuth #{access_token.to_s}"}
+      else
+        nil
+      end
     end
 
     def handle_response
@@ -112,11 +114,8 @@ module FbGraph
         when Array
           _response_.map!(&:with_indifferent_access)
         when Hash
-          _response_.with_indifferent_access
-        end
-        if _response_[:error]
-          handle_httpclient_error(_response_)
-        else
+          _response_ = _response_.with_indifferent_access
+          handle_httpclient_error(_response_) if _response_[:error]
           _response_
         end
       end

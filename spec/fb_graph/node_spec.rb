@@ -1,51 +1,56 @@
 require 'spec_helper'
 
-describe FbGraph::Node, '.new' do
+describe FbGraph::Node do
 
-  it 'should setup endpoint' do
-    FbGraph::Node.new('matake').endpoint.should == File.join(FbGraph::ROOT_URL, 'matake')
+  describe '.new' do
+    it 'should setup endpoint' do
+      FbGraph::Node.new('matake').endpoint.should == File.join(FbGraph::ROOT_URL, 'matake')
+    end
+
+    it 'should support access_token option' do
+      FbGraph::Node.new('matake', :access_token => 'access_token').access_token.should == 'access_token'
+    end
   end
 
-  it 'should support access_token option' do
-    FbGraph::Node.new('matake', :access_token => 'access_token').access_token.should == 'access_token'
+  describe '#build_params' do
+    it 'should make all values to JSON or String' do
+      client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
+      node = FbGraph::Node.new('identifier')
+      params = node.send :build_params, {:hash => {:a => :b}, :array => [:a, :b], :integer => 123}
+      params[:hash].should == '{"a":"b"}'
+      params[:array].should == '["a","b"]'
+      params[:integer].should == '123'
+    end
   end
 
-end
+  describe '#build_headers' do
+    it 'should support Rack::OAuth2::AccessToken as self.access_token' do
+      client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
+      node = FbGraph::Node.new('identifier', :access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token'))
+      headers = node.send :build_headers, {}
+      headers[:authorization].should == 'OAuth token'
+    end
 
-describe FbGraph::Node, '#stringfy_params' do
-  it 'should make all values to JSON' do
-    client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
-    node = FbGraph::Node.new('identifier')
-    params = node.send :stringfy_params, {:hash => {:a => :b}, :array => [:a, :b]}
-    params[:hash].should == '{"a":"b"}'
-    params[:array].should == '["a","b"]'
+    it 'should support OAuth2::AccessToken as options[:access_token]' do
+      client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
+      node = FbGraph::Node.new('identifier')
+      headers = node.send :build_headers, {:access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token')}
+      headers[:authorization].should == 'OAuth token'
+    end
   end
 
-  it 'should support Rack::OAuth2::AccessToken as self.access_token' do
-    client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
-    node = FbGraph::Node.new('identifier', :access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token'))
-    params = node.send :stringfy_params, {}
-    params[:access_token].should == 'token'
-  end
-
-  it 'should support OAuth2::AccessToken as options[:access_token]' do
-    client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
-    node = FbGraph::Node.new('identifier')
-    params = node.send :stringfy_params, {:access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token')}
-    params[:access_token].should == 'token'
-  end
 end
 
 describe FbGraph::Node, '#handle_response' do
   it 'should handle null/false response' do
     node = FbGraph::Node.new('identifier')
     null_response = node.send :handle_response do
-      RestClient::Response.create 'null', nil, nil
+      HTTP::Message.new_response 'null'
     end
     null_response.should be_nil
     lambda do
       node.send :handle_response do
-        RestClient::Response.create 'false', nil, nil
+        HTTP::Message.new_response 'false'
       end
     end.should raise_error(
       FbGraph::NotFound,

@@ -14,10 +14,7 @@ describe FbGraph::Connections::Messages, '#messages' do
   end
 
   it 'should return threads as FbGraph::Message' do
-    mock_graph :get, '12345/messages', 'thread/messages/private', :params => {
-      :access_token => 'access_token',
-      :no_cache => 'true'
-    } do
+    mock_graph :get, '12345/messages', 'thread/messages/private', :params => {:no_cache => 'true'}, :access_token => 'access_token' do
       messages = FbGraph::Thread.new(12345, :access_token => 'access_token').messages(:no_cache => true)
       messages.each do |message|
         message.should be_instance_of(FbGraph::Message)

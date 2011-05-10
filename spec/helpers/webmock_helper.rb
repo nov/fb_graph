@@ -21,17 +21,20 @@ module WebMockHelper
     }
   end
 
-  def mock_fql(query, file_path, options = {})
-    params = {
+  def mock_fql(query, response_file, options = {})
+    options.merge!(:params => {
       :query => query,
       :format => :json
-    }
-    params[:access_token] = options[:access_token] if options[:access_token]
-    stub_request(:get, FbGraph::Query::ENDPOINT).with(:query => params).to_return(
-      :body => File.read(File.join(File.dirname(__FILE__), '../mock_json', "#{file_path}.json"))
+    })
+    stub_request(:get, FbGraph::Query::ENDPOINT).with(
+      request_for(:get, options)
+    ).to_return(
+      response_for(response_file)
     )
     res = yield
-    a_request(:get, FbGraph::Query::ENDPOINT).with(:query => params).should have_been_made.once
+    a_request(:get, FbGraph::Query::ENDPOINT).with(
+      request_for(:get, options)
+    ).should have_been_made.once
     res
   end
 
@@ -51,8 +54,10 @@ module WebMockHelper
         request[:query] = options[:params]
       end
     end
-    if options[:headers]
-      request[:headers] = options[:headers]
+    if access_token = options[:access_token]
+      request[:headers] = {
+        'Authorization' => "OAuth #{access_token}"
+      }
     end
     request
   end

@@ -10,16 +10,6 @@ describe FbGraph::Query do
       query.query.should == raw_query
       query.access_token.should == 'access_token'
     end
-
-    it 'should setup proper endpoint' do
-      endpoint = query.send :build_endpoint
-      params = {
-        :query => raw_query,
-        :format => :json,
-        :access_token => 'access_token'
-      }
-      endpoint.should == "#{FbGraph::Query::ENDPOINT}?#{params.to_query}"
-    end
   end
 
   describe '.fetch' do

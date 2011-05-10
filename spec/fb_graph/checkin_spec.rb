@@ -29,9 +29,8 @@ describe FbGraph::Checkin, '.search' do
 
   context 'when access_token is given' do
     it 'should return checkins as FbGraph::Checkin' do
-      mock_graph :get, 'search', 'checkins/search_private', :params => {
-        :type => 'checkin',
-        :access_token => 'access_token'
+      mock_graph :get, 'search', 'checkins/search_private', :access_token => 'access_token', :params => {
+        :type => 'checkin'
       } do
         checkins = FbGraph::Checkin.search(:access_token => 'access_token')
         checkins.each do |checkin|

@@ -2,9 +2,7 @@ require 'spec_helper'
 
 describe FbGraph::Connections::Maybe, '#maybe' do
   it 'should return maybe users as FbGraph::User' do
-    mock_graph :get, 'smartday/maybe', 'events/maybe/smartday_private', :params => {
-      :access_token => 'access_token'
-    } do
+    mock_graph :get, 'smartday/maybe', 'events/maybe/smartday_private', :access_token => 'access_token' do
       users = FbGraph::Event.new('smartday', :access_token => 'access_token').maybe
       users.each do |user|
         user.should be_instance_of(FbGraph::User)

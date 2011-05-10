@@ -15,9 +15,7 @@ describe FbGraph::Connections::Insights, '#insights' do
 
     context 'when access_token is given' do
       it 'should return insights as FbGraph::Insight' do
-        mock_graph :get, 'FbGraph/insights', 'pages/insights/FbGraph_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'FbGraph/insights', 'pages/insights/FbGraph_private', :access_token => 'access_token' do
           insights = FbGraph::Page.new('FbGraph').insights(:access_token => 'access_token')
           insights.class.should == FbGraph::Connection
           insights.first.should == FbGraph::Insight.new(
@@ -40,9 +38,7 @@ describe FbGraph::Connections::Insights, '#insights' do
 
     context 'when metrics is given' do
       it 'should treat metrics as connection scope' do
-        mock_graph :get, 'FbGraph/insights/page_like_adds', 'pages/insights/page_like_adds/FbGraph_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'FbGraph/insights/page_like_adds', 'pages/insights/page_like_adds/FbGraph_private', :access_token => 'access_token' do
           insights = FbGraph::Page.new('FbGraph').insights(:access_token => 'access_token', :metrics => :page_like_adds)
           insights.options.should == {
             :connection_scope => 'page_like_adds',
@@ -69,9 +65,7 @@ describe FbGraph::Connections::Insights, '#insights' do
       end
 
       it 'should support period also' do
-        mock_graph :get, 'FbGraph/insights/page_like_adds/day', 'pages/insights/page_like_adds/day/FbGraph_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'FbGraph/insights/page_like_adds/day', 'pages/insights/page_like_adds/day/FbGraph_private', :access_token => 'access_token' do
           insights = FbGraph::Page.new('FbGraph').insights(:access_token => 'access_token', :metrics => :page_like_adds, :period => :day)
           insights.options.should == {
             :connection_scope => 'page_like_adds/day',

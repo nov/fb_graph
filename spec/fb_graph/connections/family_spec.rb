@@ -14,9 +14,7 @@ describe FbGraph::Connections::Family, '#family' do
 
     context 'when access_token is given' do
       it 'should return family members as FbGraph::User' do
-        mock_graph :get, 'me/family', 'users/family/me_public', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'me/family', 'users/family/me_public', :access_token => 'access_token' do
           users = FbGraph::User.new('me', :access_token => 'access_token').family
           users.first.should == FbGraph::User.new(
             '720112389',

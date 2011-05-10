@@ -96,7 +96,7 @@ end
 
 describe FbGraph::Connections::Comments, '#unlike!' do
   it 'should DELETE /:object_id/likes' do
-    mock_graph :delete, '12345/likes', 'true', :params => {:access_token => 'valid'} do
+    mock_graph :delete, '12345/likes', 'true', :access_token => 'valid' do
       FbGraph::Post.new('12345', :access_token => 'valid').unlike!
     end
   end

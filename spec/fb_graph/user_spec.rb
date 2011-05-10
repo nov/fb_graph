@@ -46,9 +46,7 @@ describe FbGraph::User, '.fetch' do
 
     context 'when access_token given' do
       it 'should get current user profile' do
-        mock_graph :get, 'me', 'users/me_private', :headers => {
-          :authorization => 'OAuth access_token'
-        } do
+        mock_graph :get, 'me', 'users/me_private', :access_token => 'access_token' do
           user = FbGraph::User.me('access_token').fetch
           user.interested_in.should       == ['female']
           user.meeting_for.should         == ['Friendship', 'Networking']
@@ -81,9 +79,7 @@ describe FbGraph::User, '.fetch' do
 
   context 'when access_token given' do
     it 'should get public + private profile' do
-      mock_graph :get, 'arjun', 'users/arjun_private', :headers => {
-        :authorization => 'OAuth access_token'
-      } do
+      mock_graph :get, 'arjun', 'users/arjun_private', :access_token => 'access_token' do
         user = FbGraph::User.fetch('arjun', :access_token => 'access_token')
 
         # public
