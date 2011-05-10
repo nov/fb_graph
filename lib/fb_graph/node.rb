@@ -37,33 +37,25 @@ module FbGraph
 
     def get(params = {})
       handle_response do
-        HTTPClient.new.get *build_request(params)
+        HTTPClient.new.get build_endpoint(params), build_params(params)
       end
     end
 
     def post(params = {})
       handle_response do
-        HTTPClient.new.post *build_request(params)
+        HTTPClient.new.post build_endpoint(params), build_params(params)
       end
     end
 
     def delete(params = {})
-      _endpoint_, _params_, _headers_ = build_request(params)
+      _endpoint_, _params_ = build_endpoint(params), build_params(params)
       _endpoint_ = [_endpoint_, _params_.try(:to_query)].compact.join('?')
       handle_response do
-        HTTPClient.new.delete(_endpoint_, _headers_)
+        HTTPClient.new.delete _endpoint_
       end
     end
 
     private
-
-    def build_request(params)
-      [
-        build_endpoint(params),
-        build_params(params),
-        build_headers(params)
-      ]
-    end
 
     def build_endpoint(params = {})
       File.join([self.endpoint, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s))
@@ -71,8 +63,9 @@ module FbGraph
 
     def build_params(params)
       _params_ = params.dup
+      _params_[:oauth_token] = (_params_.delete(:access_token) || self.access_token).to_s
       _params_.delete_if do |k, v|
-        v.blank? || k == :access_token
+        v.blank?
       end
       _params_.each do |key, value|
         if value.present? && ![Symbol, String, Numeric, IO].any? { |klass| value.is_a? klass }
@@ -82,15 +75,6 @@ module FbGraph
         end
       end
       _params_.blank? ? nil : _params_
-    end
-
-    def build_headers(params)
-      access_token = params[:access_token] || self.access_token
-      if access_token
-        {:authorization => "OAuth #{access_token.to_s}"}
-      else
-        nil
-      end
     end
 
     def handle_response

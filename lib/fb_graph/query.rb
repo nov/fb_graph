@@ -11,19 +11,16 @@ module FbGraph
 
     def fetch(access_token = nil)
       handle_response do
-        HTTPClient.new.get(
-          ENDPOINT,
-          build_params,
-          build_headers(:access_token => self.access_token || access_token)
-        )
+        HTTPClient.new.get ENDPOINT, :query => build_params(access_token)
       end
     end
 
     private
 
-    def build_params
-      params = super(
+    def build_params(access_token)
+      super(
         :query => self.query,
+        :access_token => access_token || self.access_token,
         :format => :json
       )
     end

@@ -46,6 +46,10 @@ module WebMockHelper
 
   def request_for(method, options = {})
     request = {}
+    if options[:access_token]
+      options[:params] ||= {}
+      options[:params][:oauth_token] = options[:access_token].to_s
+    end
     if options[:params]
       case method
       when :post, :put
@@ -53,11 +57,6 @@ module WebMockHelper
       else
         request[:query] = options[:params]
       end
-    end
-    if access_token = options[:access_token]
-      request[:headers] = {
-        'Authorization' => "OAuth #{access_token}"
-      }
     end
     request
   end

@@ -21,21 +21,19 @@ describe FbGraph::Node do
       params[:array].should == '["a","b"]'
       params[:integer].should == '123'
     end
-  end
 
-  describe '#build_headers' do
     it 'should support Rack::OAuth2::AccessToken as self.access_token' do
       client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
       node = FbGraph::Node.new('identifier', :access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token'))
-      headers = node.send :build_headers, {}
-      headers[:authorization].should == 'OAuth token'
+      params = node.send :build_params, {}
+      params[:oauth_token].should == 'token'
     end
 
     it 'should support OAuth2::AccessToken as options[:access_token]' do
       client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
       node = FbGraph::Node.new('identifier')
-      headers = node.send :build_headers, {:access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token')}
-      headers[:authorization].should == 'OAuth token'
+      params = node.send :build_params, {:access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token')}
+      params[:oauth_token].should == 'token'
     end
   end
 
