@@ -24,7 +24,7 @@ describe FbGraph::Connection do
     end
     mock_graph :get, 'me/home', 'users/home/me_private_previous', :access_token => 'access_token', :params => {
       :limit => '25',
-      :since => '2010-04-27T13:06:14+0000'
+      :since => '123456789'
     } do
       previous_posts = posts.previous
       previous_posts.first.created_time.should == Time.parse('2010-04-27T13:23:08+0000')
@@ -32,7 +32,7 @@ describe FbGraph::Connection do
     end
     mock_graph :get, 'me/home', 'users/home/me_private_next', :access_token => 'access_token', :params => {
       :limit => '25',
-      :until => '2010-04-27T11:07:48+0000'
+      :until => '123456789'
     } do
       next_posts = posts.next
       next_posts.first.created_time.should == Time.parse('2010-04-27T11:06:29+0000')
