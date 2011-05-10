@@ -36,54 +36,59 @@ module FbGraph
     protected
 
     def get(params = {})
-      _params_ = stringfy_params(params)
-      _endpoint_ = build_endpoint(_params_.merge!(:method => :get))
+      _headers_  = build_headers(params)
+      _params_   = stringfy_params(params)
+      _endpoint_ = build_endpoint(params)
       handle_response do
-        RestClient.get(_endpoint_)
+        HTTPClient.new.get(_endpoint_, _params_, _headers_)
       end
     end
 
     def post(params = {})
-      _params_ = stringfy_params(params)
-      _endpoint_ = build_endpoint(_params_.merge!(:method => :post))
+      _headers_  = build_headers(params)
+      _params_   = stringfy_params(params)
+      _endpoint_ = build_endpoint(params)
       handle_response do
-        RestClient.post(_endpoint_, _params_)
+        HTTPClient.new.post(_endpoint_, _params_, _headers_)
       end
     end
 
     def delete(params = {})
-      _params_ = stringfy_params(params)
-      _endpoint_ = build_endpoint(_params_.merge!(:method => :delete))
+      _headers_  = build_headers(params)
+      _endpoint_ = build_endpoint(params)
       handle_response do
-        RestClient.delete(_endpoint_)
+        HTTPClient.new.delete(_endpoint_, _headers_)
       end
     end
 
     private
 
     def build_endpoint(params = {})
-      _endpoint_ = File.join([self.endpoint, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s))
-      params.delete_if do |k, v|
-        v.blank?
+      File.join([self.endpoint, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s))
+    end
+
+    def build_headers(params)
+      access_token = params[:access_token] || self.access_token
+      if access_token
+        {:authorization => "OAuth #{access_token.to_s}"}
+      else
+        nil
       end
-      if [:get, :delete].include?(params.delete(:method)) && params.present?
-        _endpoint_ << "?#{params.to_query}"
-      end
-      _endpoint_
     end
 
     def stringfy_params(params)
       _params_ = params.dup
-      _params_[:access_token] ||= self.access_token
-      if _params_[:access_token].is_a?(Rack::OAuth2::AccessToken::Legacy)
-        _params_[:access_token] = _params_[:access_token].access_token
+      _params_.delete_if do |k, v|
+        v.blank? || k == :access_token
       end
       _params_.each do |key, value|
         if value.present? && ![Symbol, String, Numeric, IO].any? { |klass| value.is_a? klass }
           _params_[key] = value.to_json
+        else
+          _params_[key] = value.to_s
         end
       end
-      _params_
+      _params_.blank? ? nil : _params_
     end
 
     def handle_response
@@ -103,27 +108,29 @@ module FbGraph
         nil
       else
         _response_ = JSON.parse(response.body)
-        case _response_
+        _response_ = case _response_
         when Array
           _response_.map!(&:with_indifferent_access)
         when Hash
           _response_.with_indifferent_access
         end
-      end
-    rescue RestClient::Exception => e
-      handle_restclient_error(e)
-    end
-
-    def handle_restclient_error(e)
-      _response_ = JSON.parse(e.http_body).with_indifferent_access
-      case _response_[:error][:type]
-      when /OAuth/
-        raise Unauthorized.new(e.message, e.http_body)
-      else
-        raise BadRequest.new(e.message, e.http_body)
+        if _response_[:error]
+          handle_httpclient_error(_response_)
+        else
+          _response_
+        end
       end
     rescue JSON::ParserError
-      raise Exception.new(e.http_code, e.message, e.http_body)
+      raise Exception.new(response.status, 'Unparsable Error Response')
+    end
+
+    def handle_httpclient_error(response)
+      case response[:error][:type]
+      when /OAuth/
+        raise Unauthorized.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+      else
+        raise BadRequest.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+      end
     end
   end
 end
