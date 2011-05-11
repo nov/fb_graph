@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fb_graph (1.7.3)
+    fb_graph (1.7.4)
       rack-oauth2 (>= 0.6.5)
 
 GEM
@@ -16,7 +16,7 @@ GEM
     json (1.5.1)
     mime-types (1.16)
     rack (1.2.2)
-    rack-oauth2 (0.6.6)
+    rack-oauth2 (0.6.9)
       activesupport (>= 2.3)
       attr_required (>= 0.0.3)
       i18n
