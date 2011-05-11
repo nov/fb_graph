@@ -70,7 +70,7 @@ module FbGraph
       _params_.each do |key, value|
         if value.present? && ![Symbol, String, Numeric, IO].any? { |klass| value.is_a? klass }
           _params_[key] = value.to_json
-        else
+        elsif [Symbol, Numeric].any? { |klass| value.is_a? klass }
           _params_[key] = value.to_s
         end
       end
