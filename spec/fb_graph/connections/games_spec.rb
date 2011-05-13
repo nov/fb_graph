@@ -2,9 +2,7 @@ require 'spec_helper'
 
 describe FbGraph::Connections::Activities, '#activities' do
   it 'should return games as FbGraph::Page' do
-    mock_graph :get, 'matake/games', 'users/games/matake_private', :params => {
-      :access_token => 'access_token'
-    } do
+    mock_graph :get, 'matake/games', 'users/games/matake_private', :access_token => 'access_token' do
       games = FbGraph::User.new('matake', :access_token => 'access_token').games
       games.class.should == FbGraph::Connection
       games.first.should == FbGraph::Page.new(

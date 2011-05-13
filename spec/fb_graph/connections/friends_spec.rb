@@ -14,9 +14,7 @@ describe FbGraph::Connections::Friends, '#friends' do
 
     context 'when identifier is not me' do
       it 'should raise FbGraph::Unauthorized' do
-        mock_graph :get, 'arjun/friends', 'users/friends/arjun_private', :params => {
-          :access_token => 'access_token'
-        }, :status => [401, 'Unauthorized'] do
+        mock_graph :get, 'arjun/friends', 'users/friends/arjun_private', :access_token => 'access_token', :status => [401, 'Unauthorized'] do
           lambda do
             FbGraph::User.new('arjun', :access_token => 'access_token').friends
           end.should raise_exception(FbGraph::Unauthorized)
@@ -36,9 +34,7 @@ describe FbGraph::Connections::Friends, '#friends' do
 
     context 'when identifier is me and access_token is given' do
       it 'should return friends as FbGraph::User' do
-        mock_graph :get, 'me/friends', 'users/friends/me_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'me/friends', 'users/friends/me_private', :access_token => 'access_token' do
           users = FbGraph::User.new('me', :access_token => 'access_token').friends
           users.first.should == FbGraph::User.new(
             '6401',

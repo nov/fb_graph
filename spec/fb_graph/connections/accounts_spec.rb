@@ -14,9 +14,7 @@ describe FbGraph::Connections::Accounts, '#accounts' do
 
     context 'when access_token is given' do
       it 'should return accounts as FbGraph::Page' do
-        mock_graph :get, 'matake/accounts', 'users/accounts/matake_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'matake/accounts', 'users/accounts/matake_private', :access_token => 'access_token' do
           accounts = FbGraph::User.new('matake', :access_token => 'access_token').accounts
           accounts.class.should == FbGraph::Connection
           accounts.first.should == FbGraph::Page.new(
@@ -33,9 +31,7 @@ describe FbGraph::Connections::Accounts, '#accounts' do
 
       context 'when manage_pages permission given' do
         it 'should has special access_token behalf of the page' do
-          mock_graph :get, 'matake/accounts', 'users/accounts/matake_private_with_manage_pages_permission', :params => {
-            :access_token => 'access_token_for_user'
-          } do
+          mock_graph :get, 'matake/accounts', 'users/accounts/matake_private_with_manage_pages_permission', :access_token => 'access_token_for_user' do
             accounts = FbGraph::User.new('matake', :access_token => 'access_token_for_user').accounts
             accounts.first.should == FbGraph::Page.new(
               '140478125968442',

@@ -3,9 +3,7 @@ require 'spec_helper'
 describe FbGraph::Connections::Links, '#links' do
   context 'when included by FbGraph::User' do
     it 'should return notes as FbGraph::Link' do
-      mock_graph :get, 'matake/links', 'users/links/matake_private', :params => {
-        :access_token => 'access_token'
-      } do
+      mock_graph :get, 'matake/links', 'users/links/matake_private', :access_token => 'access_token' do
         links = FbGraph::User.new('matake', :access_token => 'access_token').links
         links.each do |link|
           link.should be_instance_of(FbGraph::Link)

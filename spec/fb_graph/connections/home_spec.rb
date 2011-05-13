@@ -15,9 +15,7 @@ describe FbGraph::Connections::Home, '#home' do
 
     context 'when identifier is not me' do
       it 'should raise FbGraph::Exception' do
-        mock_graph :get, 'arjun/home', 'users/home/arjun_private', :params => {
-          :access_token => 'access_token'
-        }, :status => [400, 'BadRequest'] do
+        mock_graph :get, 'arjun/home', 'users/home/arjun_private', :access_token => 'access_token', :status => [400, 'BadRequest'] do
           lambda do
             FbGraph::User.new('arjun', :access_token => 'access_token').home
           end.should raise_exception(FbGraph::Exception)
@@ -37,9 +35,7 @@ describe FbGraph::Connections::Home, '#home' do
 
     context 'when identifier is me and access_token is given' do
       it 'should return public posts in the user\'s news feed as FbGraph::Post' do
-        mock_graph :get, 'me/home', 'users/home/me_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'me/home', 'users/home/me_private', :access_token => 'access_token' do
           posts = FbGraph::User.new('me', :access_token => 'access_token').home
           posts.first.should == FbGraph::Post.new(
             '634033380_112599768777073',

@@ -3,9 +3,7 @@ require 'spec_helper'
 describe FbGraph::Connections::Photos, '#photos' do
   context 'when included by FbGraph::Album' do
     it 'should return photos as FbGraph::Photo' do
-      mock_graph :get, '12345/photos', 'albums/photos/matake_private', :params => {
-        :access_token => 'access_token'
-      } do
+      mock_graph :get, '12345/photos', 'albums/photos/matake_private', :access_token => 'access_token' do
         photos = FbGraph::Album.new('12345', :access_token => 'access_token').photos
         photos.each do |photo|
           photo.should be_instance_of(FbGraph::Photo)

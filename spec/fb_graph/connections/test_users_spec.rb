@@ -15,9 +15,7 @@ describe FbGraph::Connections::TestUsers, '#test_users' do
 
   context 'when access_token is given' do
     it 'should return test_users as FbGraph::TestUser' do
-      mock_graph :get, 'client_id/accounts/test-users', 'applications/test_users/private', :params => {
-        :access_token => 'access_token'
-      } do
+      mock_graph :get, 'client_id/accounts/test-users', 'applications/test_users/private', :access_token => 'access_token' do
         @app.access_token = 'access_token'
         test_users = @app.test_users
         test_users.each do |test_user|

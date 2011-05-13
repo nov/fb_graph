@@ -33,8 +33,8 @@ end
 
 describe FbGraph::AppRequest, '#destroy' do
   it 'should request DELETE /:request_id' do
-    lambda do
+    mock_graph :delete, '12345', 'true', :access_token => 'access_token' do
       FbGraph::AppRequest.new('12345', :access_token => 'access_token').destroy
-    end.should request_to '12345?access_token=access_token', :delete
+    end
   end
 end

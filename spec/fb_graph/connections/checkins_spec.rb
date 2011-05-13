@@ -14,9 +14,7 @@ describe FbGraph::Connections::Checkins, '#checkins' do
 
     context 'when access_token is given' do
       it 'should return checkins as FbGraph::Checkin' do
-        mock_graph :get, 'mattt/checkins', 'users/checkins/mattt_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'mattt/checkins', 'users/checkins/mattt_private', :access_token => 'access_token' do
           checkins = FbGraph::User.new('mattt', :access_token => 'access_token').checkins
           checkins.first.should == FbGraph::Checkin.new(
             '696876187499',
@@ -67,9 +65,7 @@ describe FbGraph::Connections::Checkins, '#checkins' do
 
     context 'when access_token is given' do
       it 'should return checkins as FbGraph::Checkin' do
-        mock_graph :get, 'gowalla/checkins', 'pages/checkins/gowalla_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'gowalla/checkins', 'pages/checkins/gowalla_private', :access_token => 'access_token' do
           checkins = FbGraph::Page.new('gowalla', :access_token => 'access_token').checkins
           checkins.first.should == FbGraph::Checkin.new(
             '696876187499',

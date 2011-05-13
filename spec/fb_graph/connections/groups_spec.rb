@@ -14,9 +14,7 @@ describe FbGraph::Connections::Groups, '#groups' do
 
     context 'when access_token is given' do
       it 'should return groups as FbGraph::Group' do
-        mock_graph :get, 'matake/groups', 'users/groups/matake_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'matake/groups', 'users/groups/matake_private', :access_token => 'access_token' do
           groups = FbGraph::User.new('matake', :access_token => 'access_token').groups
           groups.first.should == FbGraph::Group.new(
             '115286585902',

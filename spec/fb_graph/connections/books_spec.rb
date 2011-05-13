@@ -14,9 +14,7 @@ describe FbGraph::Connections::Books, '#books' do
 
     context 'when access_token is given' do
       it 'should return books as FbGraph::Page' do
-        mock_graph :get, 'matake/books', 'users/books/matake_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'matake/books', 'users/books/matake_private', :access_token => 'access_token' do
           books = FbGraph::User.new('matake', :access_token => 'access_token').books
           books.first.should == FbGraph::Page.new(
             '102253616477130',

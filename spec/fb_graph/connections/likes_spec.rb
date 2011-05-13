@@ -15,9 +15,7 @@ describe FbGraph::Connections::Likes, '#likes' do
 
     context 'when access_token is given' do
       it 'should return liked pages as FbGraph::Page' do
-        mock_graph :get, 'arjun/likes', 'users/likes/arjun_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'arjun/likes', 'users/likes/arjun_private', :access_token => 'access_token' do
           likes = FbGraph::User.new('arjun', :access_token => 'access_token').likes
           likes.first.should == FbGraph::Page.new(
             '378209722137',
@@ -36,9 +34,7 @@ describe FbGraph::Connections::Likes, '#likes' do
   context 'when included by FbGraph::Status' do
     context 'when cached collection exists' do
       before do
-        mock_graph :get, 'with_likes', 'statuses/with_likes', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'with_likes', 'statuses/with_likes', :access_token => 'access_token' do
           @status = FbGraph::Status.new('with_likes').fetch(:access_token => 'access_token')
         end
       end
@@ -59,10 +55,10 @@ describe FbGraph::Connections::Likes, '#likes' do
         it 'should access to Graph API' do
           lambda do
             @status.likes(:no_cache => true) # :no_cache has no meaning, just putting some value as options
-          end.should request_to('115838235152172/likes?access_token=access_token&no_cache=true')
+          end.should request_to('115838235152172/likes?no_cache=true')
           lambda do
             @status.likes(:limit => 10)
-          end.should request_to('115838235152172/likes?access_token=access_token&limit=10')
+          end.should request_to('115838235152172/likes?limit=10')
         end
 
         context 'when next/previous are obviously blank' do

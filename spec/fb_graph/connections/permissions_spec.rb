@@ -2,9 +2,7 @@ require 'spec_helper'
 
 describe FbGraph::Connections::Permissions, '#permissions' do
   let :permissions do
-    mock_graph :get, 'me/permissions', 'users/permissions/me_private', :params => {
-      :access_token => 'access_token'
-    } do
+    mock_graph :get, 'me/permissions', 'users/permissions/me_private', :access_token => 'access_token' do
       FbGraph::User.me('access_token').permissions
     end
   end

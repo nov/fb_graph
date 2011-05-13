@@ -14,8 +14,7 @@ describe FbGraph::Connections::FormerParticipants, '#former_participants' do
   end
 
   it 'should return former_participants as FbGraph::User' do
-    mock_graph :get, '12345/former_participants', 'thread/former_participants/private', :params => {
-      :access_token => 'access_token',
+    mock_graph :get, '12345/former_participants', 'thread/former_participants/private', :access_token => 'access_token', :params => {
       :no_cache => 'true'
     } do
       former_participants = FbGraph::Thread.new(12345, :access_token => 'access_token').former_participants(:no_cache => true)

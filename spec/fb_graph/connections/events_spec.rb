@@ -14,9 +14,7 @@ describe FbGraph::Connections::Events, '#events' do
 
     context 'when access_token is given' do
       it 'should return events as FbGraph::Event' do
-        mock_graph :get, 'matake/events', 'users/events/matake_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'matake/events', 'users/events/matake_private', :access_token => 'access_token' do
           events = FbGraph::User.new('matake', :access_token => 'access_token').events
           events.first.should == FbGraph::Event.new(
             '116600818359630',

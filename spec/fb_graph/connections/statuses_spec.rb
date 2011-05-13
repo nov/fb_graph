@@ -15,9 +15,7 @@ describe FbGraph::Connections::Statuses, '#statuses' do
 
     context 'when access_token is given' do
       it 'should return statuses as FbGraph::Status' do
-        mock_graph :get, 'arjun/statuses', 'users/statuses/arjun_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'arjun/statuses', 'users/statuses/arjun_private', :access_token => 'access_token' do
           statuses = FbGraph::User.new('arjun', :access_token => 'access_token').statuses
           statuses.first.should == FbGraph::Status.new(
             '113559395341627',
@@ -50,9 +48,7 @@ describe FbGraph::Connections::Statuses, '#statuses' do
 
     context 'when access_token is given' do
       it 'should return statuses as FbGraph::Status' do
-        mock_graph :get, 'platform/statuses', 'pages/statuses/platform_private', :params => {
-          :access_token => 'access_token'
-        } do
+        mock_graph :get, 'platform/statuses', 'pages/statuses/platform_private', :access_token => 'access_token' do
           statuses = FbGraph::Page.new('platform', :access_token => 'access_token').statuses
           statuses.first.should == FbGraph::Status.new(
             '111081598927600',

@@ -1,3 +1,4 @@
+require 'httpclient'
 require 'rack/oauth2'
 
 module FbGraph

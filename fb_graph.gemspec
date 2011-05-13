@@ -12,7 +12,8 @@ Gem::Specification.new do |s|
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.add_runtime_dependency "rack-oauth2", ">= 0.6.5"
+  s.add_runtime_dependency "httpclient", ">= 2.2.0.2"
+  s.add_runtime_dependency "rack-oauth2", ">= 0.6.9"
   s.add_development_dependency "rake", ">= 0.8"
   s.add_development_dependency "rcov", ">= 0.9"
   s.add_development_dependency "rspec", ">= 2"
