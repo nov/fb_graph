@@ -4,7 +4,7 @@ module FbGraph
       def movies(options = {})
         movies = self.connection(:movies, options)
         movies.map! do |movie|
-          Page.new(movie.delete(:id), movie.merge(
+          Page.new(movie[:id], movie.merge(
             :access_token => options[:access_token] || self.access_token
           ))
         end

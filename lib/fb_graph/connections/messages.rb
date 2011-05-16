@@ -8,7 +8,7 @@ module FbGraph
           self.connection(:messages, options)
         end
         messages.map! do |message|
-          Message.new(message.delete(:id), message.merge(
+          Message.new(message[:id], message.merge(
             :access_token => options[:access_token] || self.access_token
           ))
         end

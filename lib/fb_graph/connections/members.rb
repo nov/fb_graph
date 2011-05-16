@@ -4,7 +4,7 @@ module FbGraph
       def members(options = {})
         members = self.connection(:members, options)
         members.map! do |member|
-          User.new(member.delete(:id), member.merge(
+          User.new(member[:id], member.merge(
             :access_token => options[:access_token] || self.access_token
           ))
         end

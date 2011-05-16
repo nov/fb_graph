@@ -4,7 +4,7 @@ module FbGraph
       def activities(options = {})
         activities = self.connection(:activities, options)
         activities.map! do |activity|
-          Page.new(activity.delete(:id), activity.merge(
+          Page.new(activity[:id], activity.merge(
             :access_token => options[:access_token] || self.access_token
           ))
         end

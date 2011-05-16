@@ -7,7 +7,7 @@ module FbGraph
         orders = self.connection(:payments, options)
         orders.map! do |order|
           orders[:access_token] ||= options[:access_token] || self.access_token
-          Order.new(order.delete(:id), order)
+          Order.new(order[:id], order)
         end
       end
     end

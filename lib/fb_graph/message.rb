@@ -11,12 +11,12 @@ module FbGraph
       @subject = attributes[:subject]
       @message = attributes[:message]
       if (from = attributes[:from])
-        @from = User.new(from.delete(:id), from)
+        @from = User.new(from[:id], from)
       end
       @to = []
       if attributes[:to]
         Collection.new(attributes[:to]).each do |to|
-          @to << User.new(to.delete(:id), to)
+          @to << User.new(to[:id], to)
         end
       end
       @tags = []

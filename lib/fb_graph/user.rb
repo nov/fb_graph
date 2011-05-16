@@ -61,33 +61,33 @@ module FbGraph
       @email = attributes[:email]
       @website = attributes[:website]
       if (hometown = attributes[:hometown])
-        @hometown = Page.new(hometown.delete(:id), hometown)
+        @hometown = Page.new(hometown[:id], hometown)
       end
       if (location = attributes[:location])
-        @location = Page.new(location.delete(:id), location)
+        @location = Page.new(location[:id], location)
       end
       @sports = []
       if (sports = attributes[:sports])
         sports.each do |sport|
-          @sports << Page.new(sport.delete(:id), sport)
+          @sports << Page.new(sport[:id], sport)
         end
       end
       @favorite_teams = []
       if attributes[:favorite_teams]
         attributes[:favorite_teams].each do |favorite_team|
-          @favorite_teams << Page.new(favorite_team.delete(:id), favorite_team)
+          @favorite_teams << Page.new(favorite_team[:id], favorite_team)
         end
       end
       @favorite_athletes = []
       if attributes[:favorite_athletes]
         attributes[:favorite_athletes].each do |favorite_athlete|
-          @favorite_athletes << Page.new(favorite_athlete.delete(:id), favorite_athlete)
+          @favorite_athletes << Page.new(favorite_athlete[:id], favorite_athlete)
         end
       end
       @inspirational_people = []
       if attributes[:inspirational_people]
         attributes[:inspirational_people].each do |inspirational_person|
-          @inspirational_people << Page.new(inspirational_person.delete(:id), inspirational_person)
+          @inspirational_people << Page.new(inspirational_person[:id], inspirational_person)
         end
       end
       @bio                 = attributes[:bio]
@@ -101,7 +101,7 @@ module FbGraph
       @political           = attributes[:political]
       @verified            = attributes[:verified]
       if (significant_other = attributes[:significant_other])
-        @significant_other = User.new(significant_other.delete(:id), significant_other)
+        @significant_other = User.new(significant_other[:id], significant_other)
       end
       @timezone            = attributes[:timezone]
       @locale              = attributes[:locale]
@@ -109,7 +109,7 @@ module FbGraph
       @languages = []
       if attributes[:languages]
         attributes[:languages].each do |language|
-          @languages << Page.new(language.delete(:id), language)
+          @languages << Page.new(language[:id], language)
         end
       end
       if attributes[:updated_time]

@@ -7,7 +7,7 @@ module FbGraph
       @with = []
       if attributes[:with]
         attributes[:with].each do |user|
-          @with << User.new(user.delete(:id), user)
+          @with << User.new(user[:id], user)
         end
       end
       if attributes[:start_date]

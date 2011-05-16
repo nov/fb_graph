@@ -4,7 +4,7 @@ module FbGraph
       def notes(options = {})
         notes = self.connection(:notes, options)
         notes.map! do |note|
-          Note.new(note.delete(:id), note.merge(
+          Note.new(note[:id], note.merge(
             :access_token => options[:access_token] || self.access_token
           ))
         end
@@ -12,7 +12,7 @@ module FbGraph
 
       def note!(options = {})
         note = post(options.merge(:connection => :notes))
-        Note.new(note.delete(:id), options.merge(note).merge(
+        Note.new(note[:id], options.merge(note).merge(
           :access_token => options[:access_token] || self.access_token
         ))
       end

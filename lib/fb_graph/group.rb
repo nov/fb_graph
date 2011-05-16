@@ -10,7 +10,7 @@ module FbGraph
     def initialize(identifier, attributes = {})
       super
       if (owner = attributes[:owner])
-        @owner = User.new(owner.delete(:id), owner)
+        @owner = User.new(owner[:id], owner)
       end
       @name         = attributes[:name]
       @description  = attributes[:description]

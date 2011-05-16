@@ -6,13 +6,13 @@ module FbGraph
     attr_accessor :user, :name, :x, :y, :created_time
 
     def initialize(attributes = {})
-      @x = attributes.delete(:x)
-      @y = attributes.delete(:y)
-      if (created_time = attributes.delete(:created_time))
-        @created_time = Time.parse(created_time).utc
+      @x = attributes[:x]
+      @y = attributes[:y]
+      if attributes[:created_time]
+        @created_time = Time.parse(attributes[:created_time]).utc
       end
-      if (identifier = attributes.delete(:id)).present?
-        @user = User.new(identifier, attributes)
+      if attributes[:id].present?
+        @user = User.new(attributes[:id], attributes)
       end
       @name = attributes[:name]
     end

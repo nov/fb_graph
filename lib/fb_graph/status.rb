@@ -9,13 +9,13 @@ module FbGraph
       super
       if (from = attributes[:from])
         @from = if from[:category]
-          Page.new(from.delete(:id), from)
+          Page.new(from[:id], from)
         else
-          User.new(from.delete(:id), from)
+          User.new(from[:id], from)
         end
       end
       @message = attributes[:message]
-      if (updated_time = attributes.delete(:updated_time))
+      if (updated_time = attributes[:updated_time])
         @updated_time = Time.parse(updated_time).utc
       end
 

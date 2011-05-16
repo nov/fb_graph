@@ -4,7 +4,7 @@ module FbGraph
       def events(options = {})
         events = self.connection(:events, options)
         events.map! do |event|
-          Event.new(event.delete(:id), event.merge(
+          Event.new(event[:id], event.merge(
             :access_token => options[:access_token] || self.access_token
           ))
         end
@@ -12,7 +12,7 @@ module FbGraph
 
       def event!(options = {})
         event = post(options.merge(:connection => :events))
-        Event.new(event.delete(:id), options.merge(event).merge(
+        Event.new(event[:id], options.merge(event).merge(
           :access_token => options[:access_token] || self.access_token
         ))
       end

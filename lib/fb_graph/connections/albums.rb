@@ -4,7 +4,7 @@ module FbGraph
       def albums(options = {})
         albums = self.connection(:albums, options)
         albums.map! do |album|
-          Album.new(album.delete(:id), album.merge(
+          Album.new(album[:id], album.merge(
             :access_token => options[:access_token] || self.access_token
           ))
         end
@@ -12,7 +12,7 @@ module FbGraph
 
       def album!(options = {})
         album = post(options.merge(:connection => :albums))
-        Album.new(album.delete(:id), options.merge(album).merge(
+        Album.new(album[:id], options.merge(album).merge(
           :access_token => options[:access_token] || self.access_token
         ))
       end

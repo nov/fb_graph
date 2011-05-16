@@ -5,13 +5,13 @@ module FbGraph
     def initialize(identifier, attributes = {})
       super
       if application = attributes[:application]
-        @application = Application.new(app.delete(:id), app)
+        @application = Application.new(app[:id], app)
       end
       if from = attributes[:from]
-        @from = User.new(from.delete(:id), from)
+        @from = User.new(from[:id], from)
       end
       if to = attributes[:to]
-        @to = User.new(to.delete(:id), to)
+        @to = User.new(to[:id], to)
       end
       @status = attributes[:status]
       @country = attributes[:country]

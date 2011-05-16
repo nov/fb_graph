@@ -4,7 +4,7 @@ module FbGraph
       def videos(options = {})
         videos = self.connection(:videos, options)
         videos.map! do |video|
-          Video.new(video.delete(:id), video.merge(
+          Video.new(video[:id], video.merge(
             :access_token => options[:access_token] || self.access_token
           ))
         end

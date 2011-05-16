@@ -4,7 +4,7 @@ module FbGraph
       def threads(options = {})
         threads = self.connection(:threads, options)
         threads.map! do |thread|
-          Thread.new(thread.delete(:id), thread.merge(
+          Thread.new(thread[:id], thread.merge(
             :access_token => options[:access_token] || self.access_token
           ))
         end

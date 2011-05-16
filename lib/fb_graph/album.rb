@@ -11,9 +11,9 @@ module FbGraph
       super
       @from = if (from = attributes[:from])
         if from[:category]
-          Page.new(from.delete(:id), from)
+          Page.new(from[:id], from)
         else
-          User.new(from.delete(:id), from)
+          User.new(from[:id], from)
         end
       end
       @name = attributes[:name]

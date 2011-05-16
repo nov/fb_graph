@@ -4,7 +4,7 @@ module FbGraph
       def games(options = {})
         games = self.connection(:games, options)
         games.map! do |game|
-          Page.new(game.delete(:id), game.merge(
+          Page.new(game[:id], game.merge(
             :access_token => options[:access_token] || self.access_token
           ))
         end

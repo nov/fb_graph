@@ -7,12 +7,12 @@ module FbGraph
     def initialize(identifier, attributes = {})
       super
       if (from = attributes[:from])
-        @from = User.new(from.delete(:id), from)
+        @from = User.new(from[:id], from)
       end
       @tags = []
       if (tags = attributes[:tags])
         Collection.new(tags).each do |user|
-          @tags << User.new(user.delete(:id), user)
+          @tags << User.new(user[:id], user)
         end
       end
       if (place = attributes[:place])
@@ -22,14 +22,14 @@ module FbGraph
         when String, Integer
           Place.new(place)
         when Hash
-          Place.new(place.delete(:id), place)
+          Place.new(place[:id], place)
         end
       end
       @message = attributes[:message]
       if (application = attributes[:application])
-        @application = Application.new(application.delete(:id), application)
+        @application = Application.new(application[:id], application)
       end
-      if (created_time = attributes.delete(:created_time))
+      if (created_time = attributes[:created_time])
         @created_time = Time.parse(created_time).utc
       end
     end

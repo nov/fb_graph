@@ -10,25 +10,25 @@ module FbGraph
       super
       if (from = attributes[:from])
         @from = if from[:category]
-          Page.new(from.delete(:id), from)
+          Page.new(from[:id], from)
         else
-          User.new(from.delete(:id), from)
+          User.new(from[:id], from)
         end
       end
       @to = []
       if attributes[:to]
         Collection.new(attributes[:to]).each do |to|
           @to << if to[:category]
-            Page.new(to.delete(:id), to)
+            Page.new(to[:id], to)
           elsif to[:start_time]
-            Event.new(to.delete(:id), to)
+            Event.new(to[:id], to)
           elsif to[:version]
-            Group.new(to.delete(:id), to)
+            Group.new(to[:id], to)
           else
             if attributes[:context] == Application
-              Application.new(to.delete(:id), to)
+              Application.new(to[:id], to)
             else
-              User.new(to.delete(:id), to)
+              User.new(to[:id], to)
             end
           end
         end

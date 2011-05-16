@@ -8,14 +8,13 @@ module FbGraph
           self.connection(:likes, options)
         end
         likes.map! do |like|
-          identifier = like.delete(:id)
           like.merge!(
             :access_token => options[:access_token] || self.access_token
           )
           if like[:category]
-            Page.new(identifier, like)
+            Page.new(like[:id], like)
           else
-            User.new(identifier, like)
+            User.new(like[:id], like)
           end
         end
       end

@@ -4,7 +4,7 @@ module FbGraph
       def television(options = {})
         television = self.connection(:television, options)
         television.map! do |_television_|
-          Page.new(_television_.delete(:id), _television_.merge(
+          Page.new(_television_[:id], _television_.merge(
             :access_token => options[:access_token] || self.access_token
           ))
         end

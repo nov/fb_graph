@@ -4,7 +4,7 @@ module FbGraph
       def music(options = {})
         music = self.connection(:music, options)
         music.map! do |_music_|
-          Page.new(_music_.delete(:id), _music_.merge(
+          Page.new(_music_[:id], _music_.merge(
             :access_token => options[:access_token] || self.access_token
           ))
         end

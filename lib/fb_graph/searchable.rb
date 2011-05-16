@@ -13,7 +13,7 @@ module FbGraph
       type = self.to_s.underscore.split('/').last
       Searchable.search(query, options.merge(:type => type, :class => self)) do |collection|
         collection.map! do |obj|
-          self.new(obj.delete(:id), obj.merge(
+          self.new(obj[:id], obj.merge(
             :access_token => options[:access_token]
           ))
         end
