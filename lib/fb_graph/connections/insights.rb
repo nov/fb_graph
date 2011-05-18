@@ -16,7 +16,7 @@ module FbGraph
         if metrics = options.delete(:metrics)
           File.join([metrics, options.delete(:period)].compact.collect(&:to_s))
         else
-          nil
+          options[:connection_scope]
         end
       end
     end
