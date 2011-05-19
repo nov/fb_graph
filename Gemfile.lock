@@ -9,7 +9,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     activesupport (3.0.7)
-    addressable (2.2.5)
+    addressable (2.2.6)
     attr_required (0.0.3)
     crack (0.1.8)
     diff-lcs (1.1.2)
@@ -18,7 +18,7 @@ GEM
     json (1.5.1)
     mime-types (1.16)
     rack (1.2.2)
-    rack-oauth2 (0.6.9)
+    rack-oauth2 (0.7.0)
       activesupport (>= 2.3)
       attr_required (>= 0.0.3)
       i18n
@@ -31,16 +31,16 @@ GEM
       mime-types (>= 1.16)
     restclient_with_cert (0.0.7)
       rest-client (>= 1.6)
-    rspec (2.5.0)
-      rspec-core (~> 2.5.0)
-      rspec-expectations (~> 2.5.0)
-      rspec-mocks (~> 2.5.0)
-    rspec-core (2.5.2)
-    rspec-expectations (2.5.0)
+    rspec (2.6.0)
+      rspec-core (~> 2.6.0)
+      rspec-expectations (~> 2.6.0)
+      rspec-mocks (~> 2.6.0)
+    rspec-core (2.6.1)
+    rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
-    rspec-mocks (2.5.0)
-    webmock (1.6.2)
-      addressable (>= 2.2.2)
+    rspec-mocks (2.6.0)
+    webmock (1.6.4)
+      addressable (> 2.2.5, ~> 2.2)
       crack (>= 0.1.7)
 
 PLATFORMS
