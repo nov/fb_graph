@@ -11,8 +11,15 @@ module FbGraph
       end
       @tags = []
       if (tags = attributes[:tags])
-        Collection.new(tags).each do |user|
-          @tags << User.new(user[:id], user)
+        case tags
+        when Hash
+          Collection.new(tags).each do |user|
+            @tags << User.new(user[:id], user)
+          end
+        when String, Array
+          Array(tags).each do |user_id|
+            @tags << User.new(user_id)
+          end
         end
       end
       if (place = attributes[:place])

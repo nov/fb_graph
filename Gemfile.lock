@@ -3,7 +3,7 @@ PATH
   specs:
     fb_graph (1.8.1)
       httpclient (>= 2.2.0.2)
-      rack-oauth2 (>= 0.6.9)
+      rack-oauth2 (>= 0.8.0)
 
 GEM
   remote: http://rubygems.org/
@@ -16,29 +16,24 @@ GEM
     httpclient (2.2.0.2)
     i18n (0.5.0)
     json (1.5.1)
-    mime-types (1.16)
     rack (1.2.2)
-    rack-oauth2 (0.7.0)
+    rack-oauth2 (0.8.0)
       activesupport (>= 2.3)
       attr_required (>= 0.0.3)
+      httpclient (>= 2.2.0.2)
       i18n
       json (>= 1.4.3)
       rack (>= 1.1)
-      restclient_with_cert
     rake (0.8.7)
     rcov (0.9.9)
-    rest-client (1.6.1)
-      mime-types (>= 1.16)
-    restclient_with_cert (0.0.7)
-      rest-client (>= 1.6)
-    rspec (2.6.0)
-      rspec-core (~> 2.6.0)
-      rspec-expectations (~> 2.6.0)
-      rspec-mocks (~> 2.6.0)
-    rspec-core (2.6.1)
-    rspec-expectations (2.6.0)
+    rspec (2.5.0)
+      rspec-core (~> 2.5.0)
+      rspec-expectations (~> 2.5.0)
+      rspec-mocks (~> 2.5.0)
+    rspec-core (2.5.2)
+    rspec-expectations (2.5.0)
       diff-lcs (~> 1.1.2)
-    rspec-mocks (2.6.0)
+    rspec-mocks (2.5.0)
     webmock (1.6.4)
       addressable (> 2.2.5, ~> 2.2)
       crack (>= 0.1.7)
@@ -48,7 +43,7 @@ PLATFORMS
 
 DEPENDENCIES
   fb_graph!
-  rake (>= 0.8)
+  rake (< 0.9, >= 0.8)
   rcov (>= 0.9)
-  rspec (>= 2)
+  rspec (< 2.6, >= 2)
   webmock (>= 1.6.2)

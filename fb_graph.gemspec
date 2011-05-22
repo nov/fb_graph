@@ -13,9 +13,9 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.add_runtime_dependency "httpclient", ">= 2.2.0.2"
-  s.add_runtime_dependency "rack-oauth2", ">= 0.6.9"
-  s.add_development_dependency "rake", ">= 0.8"
+  s.add_runtime_dependency "rack-oauth2", ">= 0.8.0"
+  s.add_development_dependency "rake", ">= 0.8", "< 0.9"
   s.add_development_dependency "rcov", ">= 0.9"
-  s.add_development_dependency "rspec", ">= 2"
+  s.add_development_dependency "rspec", ">= 2", "< 2.6"
   s.add_development_dependency "webmock", ">= 1.6.2"
 end
