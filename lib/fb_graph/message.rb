@@ -3,6 +3,7 @@ module FbGraph
     # TODO:
     # include Connections::Attachments
     # include Connections::Shares
+    # include Connections::Tags
 
     attr_accessor :subject, :message, :from, :to, :tags, :created_time
 

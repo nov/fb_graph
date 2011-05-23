@@ -1,7 +1,7 @@
 module FbGraph
   module Connections
-    module Threads
-      def threads(options = {})
+    module Inbox
+      def inbox(options = {})
         threads = self.connection(:threads, options)
         threads.map! do |thread|
           Thread.new(thread[:id], thread.merge(

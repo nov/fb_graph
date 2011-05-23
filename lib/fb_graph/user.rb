@@ -14,6 +14,7 @@ module FbGraph
     include Connections::Games
     include Connections::Groups
     include Connections::Home
+    include Connections::Inbox
     include Connections::Interests
     include Connections::Likes
     include Connections::Links
@@ -28,7 +29,6 @@ module FbGraph
     include Connections::Statuses
     include Connections::Tagged
     include Connections::Television
-    include Connections::Threads
     include Connections::Videos
     extend Searchable
 
