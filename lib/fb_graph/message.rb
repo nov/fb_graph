@@ -3,7 +3,7 @@ module FbGraph
     # TODO:
     # include Connections::Attachments
     # include Connections::Shares
-    # include Connections::Tags
+    include Connections::Tags
 
     attr_accessor :subject, :message, :from, :to, :tags, :created_time
 
@@ -29,6 +29,9 @@ module FbGraph
       if attributes[:created_time]
         @created_time = Time.parse(attributes[:created_time]).utc
       end
+
+      # cached connection
+      @_tags_ = Collection.new(attributes[:tags])
     end
   end
 end
