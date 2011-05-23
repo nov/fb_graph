@@ -10,7 +10,7 @@ module FbGraph
 
     def initialize(identifier, attributes = {})
       super
-      @subject = attributes[:subject] # NOTE: Probably obsolete
+      @subject = attributes[:subject] # NOTE: New Facebook Message platform will make this field blank.
       @snippet = attributes[:snippet]
       @message_count = attributes[:message_count]
       @unread_count = attributes[:unread_count].to_i
