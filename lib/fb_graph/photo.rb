@@ -2,8 +2,11 @@ module FbGraph
   class Photo < Node
     include Connections::Comments
     include Connections::Likes
+    include Connections::Picture
+    include Connections::Tags
+    include Connections::Tags::Taggable
 
-    attr_accessor :from, :tags, :name, :picture, :icon, :source, :height, :width, :link, :created_time, :updated_time
+    attr_accessor :from, :name, :icon, :source, :height, :width, :images, :link, :created_time, :updated_time, :position
 
     def initialize(identifier, attributes = {})
       super
@@ -14,26 +17,23 @@ module FbGraph
           User.new(from[:id], from)
         end
       end
-      @tags = []
-      if attributes[:tags]
-        Collection.new(attributes[:tags]).each do |tag|
-          @tags << if tag.is_a?(Tag)
-            tag
-          else
-            Tag.new(tag)
-          end
-        end
-      end
       # NOTE:
       # for some reason, facebook uses different parameter names.
       # "name" in GET & "message" in POST
-      @name    = attributes[:name] || attributes[:message]
-      @picture = attributes[:picture]
-      @icon    = attributes[:icon]
-      @source  = attributes[:source]
-      @height  = attributes[:height]
-      @width   = attributes[:width]
-      @link    = attributes[:link]
+      @name     = attributes[:name] || attributes[:message]
+      @icon     = attributes[:icon]
+      @source   = attributes[:source]
+      @height   = attributes[:height]
+      @width    = attributes[:width]
+      @link     = attributes[:link]
+      @position = attributes[:position]
+      @images = []
+      if attributes[:images]
+        attributes[:images].each do |image|
+          @images << Image.new(image)
+        end
+      end
+      end
       if attributes[:created_time]
         @created_time = Time.parse(attributes[:created_time]).utc
       end
@@ -42,6 +42,7 @@ module FbGraph
       end
 
       # cached connection
+      @_tags_ = Collection.new(attributes[:tags])
       @_comments_ = Collection.new(attributes[:comments])
     end
   end

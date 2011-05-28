@@ -12,6 +12,12 @@ module FbGraph
           Tag.new(tag)
         end
       end
+
+      module Taggable
+        def tag!(options = {})
+          post(options.merge(:connection => :tags))
+        end
+      end
     end
   end
 end
