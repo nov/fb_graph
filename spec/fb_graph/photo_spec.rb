@@ -38,7 +38,7 @@ describe FbGraph::Photo, '.new' do
       :y => 27.7778,
       :created_time => '2010-01-10T15:37:40+0000'
     )]
-    photo.picture.should      == 'http://www.facebook.com/matake/picture/album_size'
+    photo.picture.should      == 'https://graph.facebook.com/12345/picture'
     photo.icon.should         == 'http://static.ak.fbcdn.net/rsrc.php/z2E5Y/hash/8as8iqdm.gif'
     photo.source.should       == 'http://www.facebook.com/matake/picture/original_size'
     photo.height.should       == 100

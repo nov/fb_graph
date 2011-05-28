@@ -3,6 +3,7 @@ module FbGraph
     module Tags
       def tags(options = {})
         tags = if @_tags_ && options.blank?
+          return @_tags_ if @_tags_.first.is_a?(Tag)
           self.connection(:tags, options.merge(:cached_collection => @_tags_))
         else
           self.connection(:tags, options)

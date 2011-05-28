@@ -33,7 +33,6 @@ module FbGraph
           @images << Image.new(image)
         end
       end
-      end
       if attributes[:created_time]
         @created_time = Time.parse(attributes[:created_time]).utc
       end
