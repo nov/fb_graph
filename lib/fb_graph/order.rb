@@ -4,7 +4,7 @@ module FbGraph
 
     def initialize(identifier, attributes = {})
       super
-      if application = attributes[:application]
+      if app = attributes[:application]
         @application = Application.new(app[:id], app)
       end
       if from = attributes[:from]
