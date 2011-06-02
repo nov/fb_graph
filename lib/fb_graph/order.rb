@@ -27,8 +27,13 @@ module FbGraph
       update options.merge(:status => :settled)
     end
 
-    def refunded!(message, options = {})
-      update options.merge(:status => :refunded, :message => message)
+    def refunded!(options = {})
+      defaults = {
+        :status => :refunded,
+        :message => "Refunded", # message is currently required by facebook in a refund
+        :refund_funding_source => true
+      }
+      update defaults.merge(options)
     end
 
     def canceled!(options = {})
