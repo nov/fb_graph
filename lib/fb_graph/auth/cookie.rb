@@ -6,7 +6,7 @@ module FbGraph
     # If you want access token, use FbGraph::Auth.new(APP_ID, APP_SECRET, :cookie => {..}) instead
     class Cookie
       def self.parse(client, cookie)
-        fb_cookie_string = if cookie.is_a?(Hash)
+        fb_cookie_string = if cookie.respond_to?(:[])
           cookie["fbs_#{client.identifier}"]
         else
           cookie
