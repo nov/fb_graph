@@ -4,7 +4,7 @@ module FbGraph
 
     def initialize(identifier, attributes = {})
       super
-      if application = attributes[:application]
+      if app = attributes[:application]
         @application = Application.new(app[:id], app)
       end
       if from = attributes[:from]
@@ -28,7 +28,12 @@ module FbGraph
     end
 
     def refunded!(options = {})
-      update options.merge(:status => :refunded, :refund_funding_source => true)
+      defaults = {
+        :status => :refunded,
+        :message => "Refunded", # message is currently required by facebook in a refund
+        :refund_funding_source => true
+      }
+      update defaults.merge(options)
     end
 
     def canceled!(options = {})
