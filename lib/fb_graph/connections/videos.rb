@@ -9,6 +9,13 @@ module FbGraph
           ))
         end
       end
+
+      def video!(options = {})
+        video = post(options.merge(:connection => :videos))
+        Video.new(video[:id], options.merge(video).merge(
+          :access_token => options[:access_token] || self.access_token
+        ))
+      end
     end
   end
 end

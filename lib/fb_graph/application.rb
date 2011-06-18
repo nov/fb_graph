@@ -33,5 +33,11 @@ module FbGraph
       self.access_token = auth.client.access_token!
     end
 
+    def access_token_with_auto_fetch
+      access_token_without_auto_fetch ||
+      self.secret && get_access_token
+    end
+    alias_method_chain :access_token, :auto_fetch
+
   end
 end

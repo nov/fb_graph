@@ -7,7 +7,7 @@ module FbGraph
       #   app.subscriptions
       #   => Array of FbGraph::Subscriptions
       def subscriptions(options = {})
-        options[:access_token] ||= self.access_token || get_access_token(options[:secret])
+        options[:access_token] ||= self.access_token
         subscriptions = self.connection(:subscriptions, options)
         subscriptions.map! do |subscription|
           Subscription.new(subscription.merge(:access_token => options[:access_token]))
@@ -29,7 +29,7 @@ module FbGraph
       #   )
       #   => Array of FbGraph::Subscriptions
       def subscribe!(options = {})
-        options[:access_token] ||= self.access_token || get_access_token(options[:secret])
+        options[:access_token] ||= self.access_token
         post(options.merge(:connection => :subscriptions))
       end
 
@@ -45,7 +45,7 @@ module FbGraph
       #   )
       #   => Array of FbGraph::Subscriptions
       def unsubscribe!(options = {})
-        options[:access_token] ||= self.access_token || get_access_token(options[:secret])
+        options[:access_token] ||= self.access_token
         destroy(options.merge(:connection => :subscriptions))
       end
     end
