@@ -1,14 +1,14 @@
 PATH
   remote: .
   specs:
-    fb_graph (1.8.5)
+    fb_graph (1.8.6)
       httpclient (>= 2.2.0.2)
       rack-oauth2 (>= 0.8.0)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    activesupport (3.0.8)
+    activesupport (3.0.9)
     addressable (2.2.6)
     attr_required (0.0.3)
     crack (0.1.8)
