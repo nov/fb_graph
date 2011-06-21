@@ -20,12 +20,13 @@ module FbGraph
         domains << fake_domain
       end
       results = Node.new(nil).send(:get, :domains => domains.join(','))
-      results.map do |identifier, attributes|
+      results = results.map do |identifier, attributes|
         if @using_fake && attributes[:name] == fake_domain
           next
         end
         new(identifier, attributes)
-      end.compact
+      end
+      results.compact
     end
   end
 end

@@ -44,4 +44,17 @@ describe FbGraph::Connections::Accounts, '#accounts' do
       end
     end
   end
+
+  context 'when included by FbGraph::Application' do
+    it 'should return an array of TestUser' do
+      mock_graph :get, 'app/accounts', 'applications/accounts/private', :access_token => 'access_token_for_app' do
+        accounts = FbGraph::Application.new('app', :access_token => 'access_token_for_app').accounts
+        accounts.first.should == FbGraph::TestUser.new(
+          '100002527044219',
+          :access_token => '117950878254050|2.AQA7fQ_BuZqxAiHc.3600.1308646800.0-100002527044219|T1wRNmvnx5j5nw-2x00gZgdBjbo',
+          :login_url => 'https://www.facebook.com/platform/test_account_login.php?user_id=100002527044219&n=SOlkQGg6Icr5BeI'
+        )
+      end
+    end
+  end
 end
