@@ -8,12 +8,23 @@ describe FbGraph::Auth::Cookie, '.parse' do
     }
   end
 
-  it 'should parse fbs_APP_ID cookie' do
-    cookie = FbGraph::Auth::Cookie.parse(@client, @cookie)
-    cookie[:access_token].should == 't'
-    cookie[:expires].should      == 0
-    cookie[:secret].should       == 's'
-    cookie[:session_key].should  == 'k'
-    cookie[:uid].should          == '12345'
+  shared_examples_for :parsable_cookie do
+    it 'should be parsable' do
+      cookie[:access_token].should == 't'
+      cookie[:expires].should      == 0
+      cookie[:secret].should       == 's'
+      cookie[:session_key].should  == 'k'
+      cookie[:uid].should          == '12345'
+    end
+  end
+
+  context 'when whole cookie is given' do
+    let(:cookie) { FbGraph::Auth::Cookie.parse(@client, @cookie) }
+    it_behaves_like :parsable_cookie
+  end
+
+  context 'when actual cookie string is given' do
+    let(:cookie) { FbGraph::Auth::Cookie.parse(@client, @cookie['fbs_client_id']) }
+    it_behaves_like :parsable_cookie
   end
 end

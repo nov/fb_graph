@@ -6,10 +6,11 @@ module FbGraph
     # If you want access token, use FbGraph::Auth.new(APP_ID, APP_SECRET, :cookie => {..}) instead
     class Cookie
       def self.parse(client, cookie)
-        fb_cookie_string = if cookie.respond_to?(:[])
-          cookie["fbs_#{client.identifier}"]
-        else
+        fb_cookie_string = case cookie
+        when String
           cookie
+        else
+          cookie["fbs_#{client.identifier}"]
         end
 
         raise VerificationFailed.new(401, 'Facebook cookie not found') if fb_cookie_string.blank?

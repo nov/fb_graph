@@ -15,6 +15,7 @@ describe FbGraph::Album do
         :location => 'Tokyo, Japan',
         :link => 'http://www.facebook.com/album/12345',
         :count => 10,
+        :cover_photo => '10150146072661729',
         :type => 'normal',
         :created_time => '2009-12-29T15:24:50+0000',
         :updated_time => '2010-01-02T15:37:41+0000',
@@ -37,6 +38,7 @@ describe FbGraph::Album do
       album.description.should    == 'an album for fb_graph test'
       album.location.should       == 'Tokyo, Japan'
       album.link.should           == 'http://www.facebook.com/album/12345'
+      album.cover_photo.should    == FbGraph::Photo.new('10150146072661729')
       album.count.should          == 10
       album.type.should           == 'normal'
       album.created_time.should   == Time.parse('2009-12-29T15:24:50+0000')
