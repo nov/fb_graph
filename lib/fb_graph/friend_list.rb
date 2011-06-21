@@ -2,12 +2,11 @@ module FbGraph
   class FriendList < Node
     include Connections::Members
 
-    attr_accessor :name, :type
+    attr_accessor :name
 
     def initialize(identifier, attributes = {})
       super
       @name = attributes[:name]
-      @type = attributes[:type]
     end
   end
 end
