@@ -5,7 +5,7 @@ module FbGraph
     # include Connections::Shares
     include Connections::Tags
 
-    attr_accessor :subject, :message, :from, :to, :tags, :created_time
+    attr_accessor :subject, :message, :from, :to, :created_time
 
     def initialize(identifier, attributes = {})
       super
@@ -18,12 +18,6 @@ module FbGraph
       if attributes[:to]
         Collection.new(attributes[:to]).each do |to|
           @to << User.new(to[:id], to)
-        end
-      end
-      @tags = []
-      if attributes[:tags]
-        Collection.new(attributes[:tags]).each do |tag|
-          @tags << Tag.new(tag)
         end
       end
       if attributes[:created_time]

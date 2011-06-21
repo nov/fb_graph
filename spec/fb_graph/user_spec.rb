@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe FbGraph::User, '.new' do
   it 'should setup all supported attributes' do
-    # TODO: add more attributes
     attributes = {
       :id => '12345',
       :address => {
