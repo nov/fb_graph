@@ -1,5 +1,7 @@
 module FbGraph
   class Domain < Node
+    include Connections::Insights
+
     attr_accessor :name
 
     def initialize(identifier, attributes = {})

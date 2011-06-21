@@ -1,7 +1,5 @@
 module FbGraph
   class Insight < Node
-    include Comparison
-
     attr_accessor :name, :period, :values, :description
 
     def initialize(identifier, attributes = {})
