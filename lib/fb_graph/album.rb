@@ -5,7 +5,7 @@ module FbGraph
     include Connections::Likes
     include Connections::Picture
 
-    attr_accessor :from, :name, :description, :location, :link, :privacy, :count, :created_time, :updated_time, :type
+    attr_accessor :from, :name, :description, :location, :link, :cover_photo, :privacy, :count, :type, :created_time, :updated_time
 
     def initialize(identifier, attributes = {})
       super
@@ -20,15 +20,16 @@ module FbGraph
       # NOTE:
       # for some reason, facebook uses different parameter names.
       # "description" in GET & "message" in POST
-      # TODO:
-      # check whether this issue is solved or not
       @description = attributes[:description] || attributes[:message]
       @location    = attributes[:location]
       @link        = attributes[:link]
       @privacy     = attributes[:privacy]
       @count       = attributes[:count]
       @type        = attributes[:type]
-      
+
+      @cover_photo = if attributes[:cover_photo]
+        Photo.new(attributes[:cover_photo])
+      end
       @created_time = if attributes[:created_time]
         Time.parse(attributes[:created_time]).utc
       end

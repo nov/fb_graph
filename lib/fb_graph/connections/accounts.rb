@@ -5,7 +5,12 @@ module FbGraph
         accounts = self.connection(:accounts, options)
         accounts.map! do |account|
           account[:access_token] ||= options[:access_token] || self.access_token
-          Page.new(account[:id], account)
+          case self
+          when User
+            Page.new(account[:id], account)
+          when Application
+            TestUser.new(account[:id], account)
+          end
         end
       end
     end
