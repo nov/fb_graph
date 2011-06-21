@@ -3,7 +3,7 @@ module FbGraph
     include Connections::Comments
     include Connections::Likes
 
-    attr_accessor :from, :link, :name, :caption, :description, :icon, :picture, :message, :created_time
+    attr_accessor :from, :link, :name, :description, :icon, :picture, :message, :created_time
 
     def initialize(identifier, attributes = {})
       super
@@ -16,7 +16,6 @@ module FbGraph
       end
       @name        = attributes[:name]
       @link        = attributes[:link]
-      @caption     = attributes[:caption]
       @description = attributes[:description]
       @icon        = attributes[:icon]
       @picture     = attributes[:picture] # NOTE: this is external image, so isn't connection.
