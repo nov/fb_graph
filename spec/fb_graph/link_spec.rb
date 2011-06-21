@@ -11,7 +11,6 @@ describe FbGraph::Link, '.new' do
       },
       :link => 'http://www.facebook.com/link/12345',
       :name => 'name',
-      :caption => 'caption',
       :description => 'description',
       :icon => 'http://static.ak.fbcdn.net/rsrc.php/zB010/hash/9yvl71tw.gif',
       :picture => 'http://i.ytimg.com/vi/JA068qeB0oM/2.jpg',
@@ -23,7 +22,6 @@ describe FbGraph::Link, '.new' do
     link.from.should         == FbGraph::User.new('23456', :name => 'nov matake')
     link.link.should         == 'http://www.facebook.com/link/12345'
     link.name.should         == 'name'
-    link.caption.should      == 'caption'
     link.description.should  == 'description'
     link.icon.should         == 'http://static.ak.fbcdn.net/rsrc.php/zB010/hash/9yvl71tw.gif'
     link.picture.should      == 'http://i.ytimg.com/vi/JA068qeB0oM/2.jpg'
