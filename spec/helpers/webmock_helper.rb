@@ -48,7 +48,7 @@ module WebMockHelper
     request = {}
     if options[:access_token]
       options[:params] ||= {}
-      options[:params][:oauth_token] = options[:access_token].to_s
+      options[:params][:access_token] = options[:access_token].to_s
     end
     if options[:params]
       case method

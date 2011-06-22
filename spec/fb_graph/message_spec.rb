@@ -4,7 +4,6 @@ describe FbGraph::Message, '.new' do
   it 'should setup all supported attributes' do
     attributes = {
       :id => "12345",
-      :subject => "test",
       :created_time => "2011-02-04T15:11:05+0000",
       :tags => {
         :data => [{
@@ -33,7 +32,6 @@ describe FbGraph::Message, '.new' do
     }
     message = FbGraph::Message.new(attributes.delete(:id), attributes)
     message.identifier.should == '12345'
-    message.subject.should == 'test'
     message.message.should == 'test test'
     message.created_time.should == Time.parse('2011-02-04T15:11:05+0000')
     message.tags.should == [

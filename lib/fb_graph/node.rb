@@ -63,14 +63,14 @@ module FbGraph
 
     def build_params(params)
       _params_ = params.dup
-      _params_[:oauth_token] = (_params_.delete(:access_token) || self.access_token).to_s
+      _params_[:access_token] ||= self.access_token
       _params_.delete_if do |k, v|
         v.blank?
       end
       _params_.each do |key, value|
-        if value.present? && ![Symbol, String, Numeric, IO].any? { |klass| value.is_a? klass }
+        if value.present? && ![Symbol, String, Numeric, Rack::OAuth2::AccessToken::Legacy, IO].any? { |klass| value.is_a? klass }
           _params_[key] = value.to_json
-        elsif [Symbol, Numeric].any? { |klass| value.is_a? klass }
+        elsif [Symbol, Numeric, Rack::OAuth2::AccessToken::Legacy].any? { |klass| value.is_a? klass }
           _params_[key] = value.to_s
         end
       end

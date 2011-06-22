@@ -26,14 +26,14 @@ describe FbGraph::Node do
       client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
       node = FbGraph::Node.new('identifier', :access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token'))
       params = node.send :build_params, {}
-      params[:oauth_token].should == 'token'
+      params[:access_token].should == 'token'
     end
 
     it 'should support OAuth2::AccessToken as options[:access_token]' do
       client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
       node = FbGraph::Node.new('identifier')
       params = node.send :build_params, {:access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token')}
-      params[:oauth_token].should == 'token'
+      params[:access_token].should == 'token'
     end
   end
 

@@ -5,11 +5,10 @@ module FbGraph
     # include Connections::Shares
     include Connections::Tags
 
-    attr_accessor :subject, :message, :from, :to, :created_time
+    attr_accessor :message, :from, :to, :created_time
 
     def initialize(identifier, attributes = {})
       super
-      @subject = attributes[:subject]
       @message = attributes[:message]
       if (from = attributes[:from])
         @from = User.new(from[:id], from)
