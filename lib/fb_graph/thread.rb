@@ -6,11 +6,10 @@ module FbGraph
     include Connections::Senders
     include Connections::Tags
 
-    attr_accessor :subject, :snippet, :message_count, :unread_count, :updated_time
+    attr_accessor :snippet, :message_count, :unread_count, :updated_time
 
     def initialize(identifier, attributes = {})
       super
-      @subject = attributes[:subject] # NOTE: New Facebook Message platform will make this field blank.
       @snippet = attributes[:snippet]
       @message_count = attributes[:message_count]
       @unread_count = attributes[:unread_count].to_i

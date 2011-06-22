@@ -21,6 +21,7 @@ module FbGraph
     include Connections::Movies
     include Connections::Music
     include Connections::Notes
+    include Connections::Outbox
     include Connections::Payments
     include Connections::Permissions
     include Connections::Photos
@@ -29,6 +30,7 @@ module FbGraph
     include Connections::Statuses
     include Connections::Tagged
     include Connections::Television
+    include Connections::Threads
     include Connections::Videos
     extend Searchable
 
