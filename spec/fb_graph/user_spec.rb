@@ -48,7 +48,6 @@ describe FbGraph::User, '.fetch' do
         mock_graph :get, 'me', 'users/me_private', :access_token => 'access_token' do
           user = FbGraph::User.me('access_token').fetch
           user.interested_in.should       == ['female']
-          user.meeting_for.should         == ['Friendship', 'Networking']
           user.relationship_status.should == 'Married'
           user.website.should             == 'http://matake.jp'
           user.religion.should            be_nil
@@ -136,7 +135,6 @@ describe FbGraph::User, '.fetch' do
         user.website.should             == nil
         user.hometown.should            == FbGraph::Page.new(109533479072558, :name => 'Minnetonka, Minnesota')
         user.interested_in.should       == ['female']
-        user.meeting_for.should         == ['Friendship']
         user.relationship_status.should == 'In a Relationship'
         user.religion.should            == 'zorp'
         user.political.should           == 'Liberal'
