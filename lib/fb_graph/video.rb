@@ -2,8 +2,9 @@ module FbGraph
   class Video < Node
     include Connections::Comments
     include Connections::Likes
+    include Connections::Picture
 
-    attr_accessor :from, :message, :description, :length, :created_time, :updated_time
+    attr_accessor :from, :tags, :name, :description, :embed_html, :icon, :source, :created_time, :updated_time
 
     def initialize(identifier, attributes = {})
       super
@@ -14,9 +15,17 @@ module FbGraph
           User.new(from[:id], from)
         end
       end
-      @message     = attributes[:message]
+      @tags = []
+      if attributes[:tags]
+        Collection.new(attributes[:tags]).each do |tag|
+          @tags << Tag.new(tag)
+        end
+      end
+      @name        = attributes[:name]
       @description = attributes[:description]
-      @length      = attributes[:length]
+      @embed_html  = attributes[:embed_html]
+      @icon        = attributes[:icon]
+      @source      = attributes[:source]
       if attributes[:created_time]
         @created_time = Time.parse(attributes[:created_time]).utc
       end

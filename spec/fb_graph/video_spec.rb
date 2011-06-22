@@ -3,26 +3,20 @@ require 'spec_helper'
 describe FbGraph::Video, '.new' do
 
   it 'should setup all supported attributes' do
-    attributes = {
-      :id => '12345',
-      :from => {
-        :id => '23456',
-        :name => 'nov matake'
-      },
-      :message => 'check this out!',
-      :description => 'Smart.fm learning engine details',
-      :length => 3600,
-      :created_time => '2010-01-02T15:37:40+0000',
-      :updated_time => '2010-01-02T15:37:41+0000'
-    }
-    video = FbGraph::Video.new(attributes.delete(:id), attributes)
-    video.identifier.should   == '12345'
-    video.from.should         == FbGraph::User.new('23456', :name => 'nov matake')
-    video.message.should      == 'check this out!'
-    video.description.should  == 'Smart.fm learning engine details'
-    video.length.should       == 3600
-    video.created_time.should == Time.parse('2010-01-02T15:37:40+0000')
-    video.updated_time.should == Time.parse('2010-01-02T15:37:41+0000')
+    mock_graph :get, 'video', 'videos/private', :access_token => 'access_token' do
+      video = FbGraph::Video.new('video', :access_token => 'access_token').fetch
+      video.from.should be_a FbGraph::User
+      video.tags.should be_a Array
+      video.tags.each do |tag|
+        tag.should be_a FbGraph::Tag
+      end
+      [:name, :description, :embed_html, :icon, :source].each do |attribute|
+        video.send(attribute).should be_a String
+      end
+      [:created_time, :updated_time].each do |attribute|
+        video.send(attribute).should be_a Time
+      end
+    end
   end
 
   it 'should support page as from' do
