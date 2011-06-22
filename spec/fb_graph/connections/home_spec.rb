@@ -46,7 +46,6 @@ describe FbGraph::Connections::Home, '#home' do
             },
             :message => "こちらこそありがとうございました！僕はctrl+無変換ですｗRT @_eskm: @pandeiro245　こないだの日曜はありがとうございました！面白い内容でした。ちなみにfnrirってCapsLockで起動ですが、英数変換と同じボタンでどうしてます？起動を違うボタンに変更",
             :icon => 'http://photos-h.ak.fbcdn.net/photos-ak-sf2p/v43/23/2231777543/app_2_2231777543_2528.gif',
-            :attribution => 'Twitter',
             :created_time => '2010-04-27T13:06:14+0000',
             :updated_time => '2010-04-27T13:06:14+0000',
             :privacy => {

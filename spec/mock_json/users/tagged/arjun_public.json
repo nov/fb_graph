@@ -67,7 +67,6 @@
          },
          "message": "Facebook opengraph and new API terms of service are huge improvement, nice work.   Participate in defining and adopt a w3c RDF standard for these concepts and facebook will have a prominent place in #linkeddata history.",
          "icon": "http://graph.facebook.com/images/icons/mobile_app.gif",
-         "attribution": "Facebook for iPhone",
          "privacy": {
             "value": "EVERYONE"
          },

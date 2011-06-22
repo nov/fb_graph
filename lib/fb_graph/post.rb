@@ -4,7 +4,7 @@ module FbGraph
     include Connections::Likes
     extend Searchable
 
-    attr_accessor :from, :to, :message, :picture, :link, :name, :caption, :description, :source, :icon, :attribution, :actions, :type, :privacy, :targeting, :created_time, :updated_time
+    attr_accessor :from, :to, :message, :picture, :link, :name, :caption, :description, :source, :properties, :icon, :actions, :privacy, :type, :graph_object_id, :application, :targeting, :created_time, :updated_time
 
     def initialize(identifier, attributes = {})
       super
@@ -40,21 +40,30 @@ module FbGraph
       @caption     = attributes[:caption]
       @description = attributes[:description]
       @source      = attributes[:source]
-      @icon        = attributes[:icon]
-      @attribution = attributes[:attribution]
-      @actions     = []
+      @properties = []
+      if attributes[:properties]
+        attributes[:properties].each do |property|
+          @properties << Property.new(property)
+        end
+      end
+      @icon = attributes[:icon]
+      @actions = []
       if attributes[:actions]
         attributes[:actions].each do |action|
           @actions << Action.new(action)
         end
       end
-      @type        = attributes[:type]
       if attributes[:privacy]
         @privacy = if attributes[:privacy].is_a?(Privacy)
           attributes[:privacy]
         else
           Privacy.new(attributes[:privacy])
         end
+      end
+      @type = attributes[:type]
+      @graph_object_id = attributes[:object_id]
+      if attributes[:application]
+        @application = Application.new(attributes[:application][:id], attributes[:application])
       end
       if attributes[:targeting]
         @targeting = if attributes[:targeting].is_a?(Targeting)

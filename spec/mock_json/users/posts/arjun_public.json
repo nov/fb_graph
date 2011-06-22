@@ -26,7 +26,6 @@
          },
          "message": "taco bell pacifica.  crunch crunch.",
          "icon": "http://static.ak.fbcdn.net/rsrc.php/z35B8/hash/c0s37sii.gif",
-         "attribution": "iPhone\u7528Facebook",
          "privacy": {
             "value": "EVERYONE"
          },
@@ -168,7 +167,6 @@
          },
          "message": "http://www.facebook.com/photo.php?pid=60538827&l=79b44ffb74&id=7901103",
          "icon": "http://photos-h.ak.fbcdn.net/photos-ak-sf2p/v43/23/2231777543/app_2_2231777543_2528.gif",
-         "attribution": "Twitter",
          "privacy": {
             "value": "EVERYONE"
          },
@@ -218,7 +216,6 @@
          "source": "http://www.lala.com/external/flash/SingleSongWidget.swf?host=www.lala.com&autoPlay=true&partnerId=fbconnect&songLalaId=360569489076398369&fbAppId=24320081510&fbCanvasUrl=http://apps.facebook.com/lalamusic",
          "name": "&quot;Body Language (Se\u00f1or Coconut Remix)&quot; by M.A.N.D.Y. vs Booka Shade",
          "icon": "http://photos-g.ak.fbcdn.net/photos-ak-sf2p/v43/242/24320081510/app_2_24320081510_3016.gif",
-         "attribution": "Lala",
          "actions": [
             {
                "name": "Buy on Lala",
@@ -316,7 +313,6 @@
          "source": "http://www.lala.com/external/flash/SingleSongWidget.swf?host=www.lala.com&autoPlay=true&partnerId=fbconnect&songLalaId=4900197908571701730&fbAppId=24320081510&fbCanvasUrl=http://apps.facebook.com/lalamusic",
          "name": "&quot;Computer Complex&quot; by Luke Vibert",
          "icon": "http://photos-g.ak.fbcdn.net/photos-ak-sf2p/v43/242/24320081510/app_2_24320081510_3016.gif",
-         "attribution": "Lala",
          "actions": [
             {
                "name": "Buy on Lala",

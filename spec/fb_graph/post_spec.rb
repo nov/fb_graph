@@ -11,7 +11,7 @@ describe FbGraph::Post, '.new' do
       },
       :icon => "http://photos-d.ak.fbcdn.net/photos-ak-snc1/v27562/23/2231777543/app_2_2231777543_9553.gif",
       :type => "status",
-      :attribution => "Twitter",
+      :object_id => "12345",
       :actions => [{
         :name => "Comment",
         :link => "http://www.facebook.com/579612276/posts/10150089741782277"
@@ -22,6 +22,21 @@ describe FbGraph::Post, '.new' do
         :name => "@nov on Twitter",
         :link => "http://twitter.com/nov?utm_source=fb&utm_medium=fb&utm_campaign=nov&utm_content=19294280413614080"
       }],
+      :application => {
+        :name => "Twitter",
+        :id => "2231777543"
+      },
+      :properties => [
+        {
+           :name => "Source",
+           :text => "TechCrunch Japan",
+           :href => "http://jp.techcrunch.com/"
+        },
+        {
+           :name => "Published",
+           :text => "2011-06-22 05:11:18 GMT"
+        }
+      ],
       :privacy => {
         :value => "EVERYONE",
         :description => "Everyone"
@@ -38,7 +53,10 @@ describe FbGraph::Post, '.new' do
     post.from.should == FbGraph::User.new("579612276", :name => 'Nov Matake')
     post.icon.should == 'http://photos-d.ak.fbcdn.net/photos-ak-snc1/v27562/23/2231777543/app_2_2231777543_9553.gif'
     post.type.should == 'status'
-    post.attribution.should == 'Twitter'
+    post.graph_object_id.should == '12345'
+    post.properties.each do |property|
+      property.should be_a FbGraph::Property
+    end
     post.actions.should == [
       FbGraph::Action.new(
         :name => "Comment",
@@ -53,6 +71,10 @@ describe FbGraph::Post, '.new' do
         :link => "http://twitter.com/nov?utm_source=fb&utm_medium=fb&utm_campaign=nov&utm_content=19294280413614080"
       )
     ]
+    post.application.should == FbGraph::Application.new(
+      "2231777543",
+      :name => "Twitter"
+    )
     post.privacy.should == FbGraph::Privacy.new(
       :value => "EVERYONE",
       :description => "Everyone"

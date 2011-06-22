@@ -26,7 +26,6 @@
          },
          "message": "taco bell pacifica.  crunch crunch.",
          "icon": "http://static.ak.fbcdn.net/rsrc.php/z35B8/hash/c0s37sii.gif",
-         "attribution": "iPhone\u7528Facebook",
          "privacy": {
             "value": "EVERYONE"
          },
@@ -227,7 +226,6 @@
          },
          "message": "Facebook opengraph and new API terms of service are huge improvement, nice work.   Participate in defining and adopt a w3c RDF standard for these concepts and facebook will have a prominent place in #linkeddata history.",
          "icon": "http://graph.facebook.com/images/icons/mobile_app.gif",
-         "attribution": "Facebook for iPhone",
          "privacy": {
             "value": "EVERYONE"
          },
@@ -347,7 +345,6 @@
          },
          "message": "http://www.facebook.com/photo.php?pid=60538827&l=79b44ffb74&id=7901103",
          "icon": "http://photos-h.ak.fbcdn.net/photos-ak-sf2p/v43/23/2231777543/app_2_2231777543_2528.gif",
-         "attribution": "Twitter",
          "privacy": {
             "value": "EVERYONE"
          },
