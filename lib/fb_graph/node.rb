@@ -65,7 +65,9 @@ module FbGraph
       _params_ = params.dup
       _params_[:access_token] ||= self.access_token
       _params_.delete_if do |k, v|
-        v.blank?
+        v.blank? &&
+        # NOTE: allow "key=false" in params (ex. for test user creation, it supports "installed=false")
+        v != false
       end
       _params_.each do |key, value|
         if value.present? && ![Symbol, String, Numeric, Rack::OAuth2::AccessToken::Legacy, IO].any? { |klass| value.is_a? klass }
