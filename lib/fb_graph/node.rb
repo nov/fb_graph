@@ -70,10 +70,18 @@ module FbGraph
         v != false
       end
       _params_.each do |key, value|
-        if value.present? && ![Symbol, String, Numeric, Rack::OAuth2::AccessToken::Legacy, IO].any? { |klass| value.is_a? klass }
-          _params_[key] = value.to_json
-        elsif [Symbol, Numeric, Rack::OAuth2::AccessToken::Legacy].any? { |klass| value.is_a? klass }
-          _params_[key] = value.to_s
+        next if value.blank?
+        _params_[key] = case value
+        when Symbol, Numeric, Rack::OAuth2::AccessToken::Legacy
+          value.to_s
+        when String, IO
+          value
+        when defined?(ActionDispatch::Http::UploadedFile) && ActionDispatch::Http::UploadedFile
+          # NOTE: for Rails 3.0.6+
+          # ref) http://blog.livedoor.jp/idea_and_players/archives/5184702.html
+          value.tempfile
+        else
+          value.to_json
         end
       end
       _params_.blank? ? nil : _params_
