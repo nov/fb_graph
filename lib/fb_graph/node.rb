@@ -1,3 +1,5 @@
+require 'tempfile'
+
 module FbGraph
   class Node
     include Comparison
@@ -72,9 +74,9 @@ module FbGraph
       _params_.each do |key, value|
         next if value.blank?
         _params_[key] = case value
-        when Symbol, Numeric, Rack::OAuth2::AccessToken::Legacy
+        when String, Symbol, Numeric, Rack::OAuth2::AccessToken::Legacy
           value.to_s
-        when String, IO
+        when IO, Tempfile
           value
         when defined?(ActionDispatch::Http::UploadedFile) && ActionDispatch::Http::UploadedFile
           # NOTE: for Rails 3.0.6+

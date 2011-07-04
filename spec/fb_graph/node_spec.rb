@@ -14,6 +14,7 @@ describe FbGraph::Node do
 
   describe '#build_params' do
     let(:node) { node = FbGraph::Node.new('identifier') }
+    let(:tmpfile) { Tempfile.new('tmp') }
 
     it 'should make all values to JSON or String' do
       client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
@@ -23,26 +24,31 @@ describe FbGraph::Node do
       params[:integer].should == '123'
     end
 
-    it 'should support Rack::OAuth2::AccessToken as self.access_token' do
+    it 'should support Rack::OAuth2::AccessToken::Legacy as self.access_token' do
       client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
       node = FbGraph::Node.new('identifier', :access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token'))
       params = node.send :build_params, {}
       params[:access_token].should == 'token'
     end
 
-    it 'should support OAuth2::AccessToken as options[:access_token]' do
+    it 'should support Rack::OAuth2::AccessToken::Legacy as options[:access_token]' do
       client = Rack::OAuth2::Client.new(:identifier => 'client_id', :secret => 'client_secret')
       params = node.send :build_params, {:access_token => Rack::OAuth2::AccessToken::Legacy.new(:access_token => 'token')}
       params[:access_token].should == 'token'
     end
 
+    it 'should support Tempfile' do
+      params = node.send :build_params, :upload => tmpfile
+      params[:upload].should == tmpfile
+    end
+
     require 'action_dispatch/http/upload'
     it 'should support ActionDispatch::Http::UploadedFile' do
       upload = ActionDispatch::Http::UploadedFile.new(
-        :tempfile => Tempfile.new('tmp')
+        :tempfile => tmpfile
       )
       params = node.send :build_params, :upload => upload
-      params[:upload].should be_a Tempfile
+      params[:upload].should == tmpfile
     end
   end
 
