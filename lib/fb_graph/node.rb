@@ -74,7 +74,7 @@ module FbGraph
         _params_[key] = case value
         when Symbol, Numeric, Rack::OAuth2::AccessToken::Legacy
           value.to_s
-        when String, IO
+        when String, IO, Tempfile
           value
         when defined?(ActionDispatch::Http::UploadedFile) && ActionDispatch::Http::UploadedFile
           # NOTE: for Rails 3.0.6+
