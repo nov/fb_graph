@@ -11,6 +11,7 @@ module FbGraph
     include Connections::Photos
     include Connections::Picture
     include Connections::Posts
+    include Connections::Settings
     include Connections::Statuses
     include Connections::Tagged
     include Connections::Videos

@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "setting": "USERS_CAN_POST",
+      "value": true
+    },
+    {
+      "setting": "USERS_CAN_POST_PHOTOS",
+      "value": true
+    },
+    {
+      "setting": "USERS_CAN_TAG_PHOTOS",
+      "value": true
+    },
+    {
+      "setting": "USERS_CAN_POST_VIDEOS",
+      "value": true
+    }
+  ]
+}
