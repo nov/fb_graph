@@ -15,7 +15,8 @@ module FbGraph
     def fetch(options = {})
       options[:access_token] ||= self.access_token if self.access_token
       _fetched_ = get(options)
-      self.class.new(_fetched_[:id], _fetched_.merge(:access_token => options[:access_token]))
+      _fetched_[:access_token] ||= options[:access_token]
+      self.class.new(_fetched_[:id], _fetched_)
     end
 
     def self.fetch(identifier, options = {})

@@ -30,5 +30,16 @@ describe FbGraph::Page do
     its(:name)       { should == 'Facebook Platform' }
     its(:category)   { should == 'Technology' }
     its(:like_count) { should == 578214 }
+
+    context 'when access_token field fetched' do
+      subject do
+        mock_graph :get, 'my_page', 'pages/with_token', :access_token => 'user_token', :params => {
+          :fields => :access_token
+        } do
+          FbGraph::Page.fetch('my_page', :fields => :access_token, :access_token => 'user_token')
+        end
+      end
+      its(:access_token) { should == 'page_token' }
+    end
   end
 end
