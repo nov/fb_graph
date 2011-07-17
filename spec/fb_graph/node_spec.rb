@@ -39,7 +39,7 @@ describe FbGraph::Node do
 
     it 'should support Tempfile' do
       params = node.send :build_params, :upload => tmpfile
-      params[:upload].should == tmpfile
+      params[:upload].should be_equal tmpfile
     end
 
     require 'action_dispatch/http/upload'
@@ -48,7 +48,7 @@ describe FbGraph::Node do
         :tempfile => tmpfile
       )
       params = node.send :build_params, :upload => upload
-      params[:upload].should == tmpfile
+      params[:upload].should be_equal tmpfile
     end
   end
 

@@ -2,7 +2,7 @@ module FbGraph
   class Tab < Node
     attr_accessor :link, :application, :custom_name, :is_permanent, :position, :is_non_connection_landing_tab
 
-    def initialize(attributes = {})
+    def initialize(identifier, attributes = {})
       super
       @link = attributes[:link]
       @application = if attributes[:application]

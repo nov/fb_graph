@@ -13,6 +13,7 @@ module FbGraph
     include Connections::Posts
     include Connections::Settings
     include Connections::Statuses
+    include Connections::Tabs
     include Connections::Tagged
     include Connections::Videos
     extend Searchable
