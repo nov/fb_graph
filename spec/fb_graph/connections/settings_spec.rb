@@ -1,30 +1,6 @@
 require 'spec_helper'
 
 describe FbGraph::Connections::Settings do
-  context 'when all settings enabled' do
-    before do
-      mock_graph :get, 'all_enabled/settings', 'pages/settings/all_enabled', :access_token => 'page_token' do
-        @page = FbGraph::Page.new('all_enabled', :access_token => 'page_token')
-        @page.settings # cache settings
-      end
-    end
-
-    FbGraph::Connections::Settings::AVAILABLE_SETTINGS.each do |setting|
-      describe "##{setting}?" do
-        it { @page.send(:"#{setting}?").should be_true }
-      end
-    end
-
-    context 'when no_cache specified' do
-      FbGraph::Connections::Settings::AVAILABLE_SETTINGS.each do |setting|
-        describe "##{setting}?" do
-          it 'should request API' do
-            expect { @page.send(:"#{setting}?", :no_cache => true) }.should request_to 'all_enabled/settings'
-          end
-        end
-      end
-    end
-  end
 
   describe '#settings' do
     subject do
@@ -42,7 +18,45 @@ describe FbGraph::Connections::Settings do
     end
   end
 
-  describe '#setting!' do
-    
+  describe 'setting specific methods' do
+    let(:page) { FbGraph::Page.new('page_id', :access_token => 'page_token') }
+
+    before do
+      mock_graph :get, 'page_id/settings', 'pages/settings/all_enabled', :access_token => 'page_token' do
+        page.settings # cache settings
+      end
+    end
+
+    FbGraph::Connections::Settings::AVAILABLE_SETTINGS.each do |setting|
+      describe "##{setting}?" do
+        it { page.send(:"#{setting}?").should be_true }
+
+        context 'when no_cache specified' do
+          it 'should request API' do
+            expect { page.send(:"#{setting}?", :no_cache => true) }.should request_to 'page_id/settings'
+          end
+        end
+      end
+
+      describe "#{setting}!" do
+        it "should enable it" do
+          mock_graph :post, 'page_id/settings', 'true', :access_token => 'page_token', :params => {
+            :setting => setting.to_s.upcase, :value => 'true'
+          } do
+            page.send(:"#{setting}!").should be_true
+          end
+        end
+      end
+
+      describe "#{setting.to_s.sub('can', 'cannot')}!" do
+        it "should disable it" do
+          mock_graph :post, 'page_id/settings', 'true', :access_token => 'page_token', :params => {
+            :setting => setting.to_s.upcase, :value => 'false'
+          } do
+            page.send(:"#{setting.to_s.sub('can', 'cannot')}!").should be_true
+          end
+        end
+      end
+    end
   end
 end

@@ -14,25 +14,50 @@ module FbGraph
             def #{setting}?(options = {})
               settings(options).include? :#{setting}
             end
+
+            def #{setting}!(options = {})
+              enable! :#{setting}, options
+            end
+
+            def #{setting.to_s.sub('can', 'cannot')}!(options = {})
+              disable! :#{setting}, options
+            end
           SETTING
         end
       end
 
       def settings(options = {})
         @settings = nil if options[:no_cache]
-        @settings ||= self.connection(:settings, options).inject([]) do |settings, setting|
-          settings << setting[:setting].downcase.to_sym if setting[:value]
-          settings
+        @settings ||= self.connection(:settings, options).inject([]) do |_settings_, _setting_|
+          _settings_ << _setting_[:setting].downcase.to_sym if _setting_[:value]
+          _settings_
         end
       end
 
-      def setting!(options = {})
-        options.keys.each do |key|
-          if AVAILABLE_SETTINGS.include?(key.to_sym)
-            options[key.to_s.uppercase] = options.delete(key)
+      def enable!(setting, options = {})
+        __update_setting__ setting, true, options
+      end
+
+      def disable!(setting, options = {})
+        __update_setting__ setting, false, options
+      end
+
+      private
+
+      def __update_setting__(setting, value, options = {})
+        succeeded = post options.merge(
+          :setting => setting.to_s.upcase,
+          :value => value,
+          :connection => :settings
+        )
+        if succeeded
+          if value
+            @settings << setting.to_sym
+          else
+            @settings.delete_if { |key| key == setting.to_sym }
           end
         end
-        post _options_.merge(:connection => :settings)
+        succeeded
       end
     end
   end
