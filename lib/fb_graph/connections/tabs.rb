@@ -9,6 +9,10 @@ module FbGraph
           ))
         end
       end
+
+      def tab!(options = {})
+        post options.merge(:connection => :tabs)
+      end
     end
   end
 end

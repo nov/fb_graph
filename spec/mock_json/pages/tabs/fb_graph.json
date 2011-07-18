@@ -1,0 +1,17 @@
+{
+  "data": [{
+    "id": "117513961602338/tabs/wall",
+    "name": "Wall",
+    "link": "http://www.facebook.com/FbGraph?sk=wall",
+    "is_permanent": true,
+    "position": 0,
+    "is_non_connection_landing_tab": true
+  },
+  {
+    "id": "117513961602338/tabs/info",
+    "name": "Info",
+    "link": "http://www.facebook.com/FbGraph?sk=info",
+    "is_permanent": true,
+    "position": 1
+  }]
+}
