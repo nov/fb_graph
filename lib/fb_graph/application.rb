@@ -16,6 +16,8 @@ module FbGraph
     include Connections::Subscriptions
     include Connections::Tagged
     include Connections::TestUsers
+    # TODO
+    # include Connections::Translations
     include Connections::Videos
 
     attr_accessor :name, :description, :category, :link, :secret

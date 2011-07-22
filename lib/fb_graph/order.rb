@@ -50,7 +50,7 @@ module FbGraph
         :refund_reason => _attributes_.delete(:refund_reason),
         :params => _attributes_.to_json
       }
-      post params
+      super params
     end
   end
 end
