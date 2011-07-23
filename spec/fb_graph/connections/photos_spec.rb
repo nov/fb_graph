@@ -17,7 +17,7 @@ describe FbGraph::Connections::Photos, '#photo!' do
   it 'should return generated photo' do
     mock_graph :post, '12345/photos', 'albums/photos/post_with_valid_access_token' do
       photo = FbGraph::Album.new('12345', :access_token => 'valid').photo!(
-        :image => Tempfile.new('image_file'),
+        :source => Tempfile.new('image_file'),
         :message => 'Hello, where is photo?'
       )
       photo.identifier.should == 401111132276
@@ -29,7 +29,7 @@ describe FbGraph::Connections::Photos, '#photo!' do
   it 'should support Tag' do
     mock_graph :post, '12345/photos', 'albums/photos/post_with_valid_access_token' do
       photo = FbGraph::Album.new('12345', :access_token => 'valid').photo!(
-        :image => Tempfile.new('image_file'),
+        :source => Tempfile.new('image_file'),
         :message => 'Hello, where is photo?',
         :tags => [FbGraph::Tag.new(:id => 12345, :name => 'me', :x => 0, :y => 10)]
       )

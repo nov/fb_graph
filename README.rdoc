@@ -175,7 +175,7 @@ You can also play with a Rails sample app here. http://fbgraphsample.heroku.com/
   album = me.albums.first
   album.photo!(
     :access_token => ACCESS_TOKEN,
-    :image => File.new('/Users/nov/Desktop/nov.gif', 'rb'), # 'rb' is needed only on windows
+    :source => File.new('/Users/nov/Desktop/nov.gif', 'rb'), # 'rb' is needed only on windows
     :message => 'Hello, where is photo?'
   )
 
