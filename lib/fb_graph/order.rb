@@ -48,7 +48,7 @@ module FbGraph
         :message => _attributes_.delete(:message),
         :refund_funding_source => _attributes_.delete(:refund_funding_source),
         :refund_reason => _attributes_.delete(:refund_reason),
-        :params => _attributes_.to_json
+        :params => _attributes_
       }
       super params
     end

@@ -21,6 +21,9 @@ Almost all connections　for each object are also supported. ("attachments" and 
 
 You can also play with a Rails sample app here. http://fbgraphsample.heroku.com/
 
+See GitHub wiki for more examples.
+https://github.com/nov/fb_graph/wiki
+
 === GET
 
 ==== Basic Objects
