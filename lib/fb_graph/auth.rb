@@ -1,6 +1,6 @@
 module FbGraph
   class Auth
-    class VerificationFailed < Exception; end
+    class VerificationFailed < BadRequest; end
 
     attr_accessor :client, :access_token, :user, :data
 
@@ -10,7 +10,8 @@ module FbGraph
         :secret                 => client_secret,
         :host                   => URI.parse(ROOT_URL).host,
         :authorization_endpoint => '/oauth/authorize',
-        :token_endpoint         => '/oauth/access_token'
+        :token_endpoint         => '/oauth/access_token',
+        :redirect_uri           => options[:redirect_uri]
       )
       if options[:cookie]
         from_cookie options[:cookie]
@@ -21,6 +22,14 @@ module FbGraph
 
     def authorized?
       self.access_token.present?
+    end
+
+    def authorized!
+      raise VerificationFailed.new('No Authorization Code') unless code = data.try(:[], :code)
+      client.authorization_code = code
+      self.access_token = client.access_token!
+      self.user = User.new(data[:user_id], :access_token => access_token)
+      self
     end
 
     def authorize_uri(canvas_uri, options = {})
@@ -35,33 +44,13 @@ module FbGraph
     end
 
     def from_cookie(cookie)
-      data = Cookie.parse(self.client, cookie)
-      self.access_token = build_access_token(data)
-      self.user = User.new(data[:uid], :access_token => self.access_token)
-      self.data = data
+      self.data = Cookie.parse(client, cookie)
       self
     end
 
     def from_signed_request(signed_request)
-      data = SignedRequest.verify(self.client, signed_request)
-      if data[:oauth_token]
-        self.access_token = build_access_token(data)
-        self.user = User.new(data[:user_id], :access_token => self.access_token)
-      end
-      self.data = data
+      self.data = SignedRequest.verify(client, signed_request)
       self
-    end
-
-    private
-
-    def build_access_token(data)
-      expires_in = unless data[:expires].zero?
-        data[:expires] - Time.now.to_i
-      end
-      Rack::OAuth2::AccessToken::Legacy.new(
-        :access_token => data[:oauth_token] || data[:access_token],
-        :expires_in   => expires_in
-      )
     end
   end
 end
