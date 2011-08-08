@@ -39,7 +39,7 @@ https://github.com/nov/fb_graph/wiki
   user.identifier # => "matake"
   user.name # => nil
   user.link # => nil
-  user.fetch
+  user = user.fetch
   user.name # => "Nov Matake"
   user.description # => "http://www.facebook.com/matake"
 
