@@ -50,7 +50,21 @@ module FbGraph
 
     def from_signed_request(signed_request)
       self.data = SignedRequest.verify(client, signed_request)
+      if self.data[:oauth_token]
+        self.access_token = build_access_token(data)
+        self.user = User.new(data[:user_id], :access_token => self.access_token)
+      end
       self
+    end
+
+    def build_access_token(data)
+      expires_in = unless data[:expires].zero?
+        data[:expires] - Time.now.to_i
+      end
+      Rack::OAuth2::AccessToken::Legacy.new(
+        :access_token => data[:oauth_token] || data[:access_token],
+        :expires_in   => expires_in
+      )
     end
   end
 end
