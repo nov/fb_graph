@@ -20,9 +20,9 @@ module FbGraph
 
       private
 
-      def self.sign(key, data)
+      def self.sign(key, payload)
         klass = OpenSSL::Digest::SHA256.new
-        OpenSSL::HMAC.digest(klass, key, data)
+        OpenSSL::HMAC.digest(klass, key, payload)
       end
 
       def self.decode_json(json)

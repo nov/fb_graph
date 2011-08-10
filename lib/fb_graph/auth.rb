@@ -36,7 +36,7 @@ module FbGraph
 
     def from_cookie(cookie)
       self.data = Cookie.parse(client, cookie)
-      authorized! if data[:code]
+      get_access_token! data[:code]
       self
     end
 
@@ -51,9 +51,10 @@ module FbGraph
 
     private
 
-    def authorized!
-      raise VerificationFailed.new('No Authorization Code') unless data[:code]
-      client.authorization_code = data[:code]
+    def get_access_token!(code)
+      raise Unauthorized.new('No Authorization Code') unless code
+      client.redirect_uri = ''
+      client.authorization_code = code
       self.access_token = client.access_token!
       self.user = User.new(data[:user_id], :access_token => access_token)
       self
