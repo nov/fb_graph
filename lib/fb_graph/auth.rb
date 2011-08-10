@@ -10,8 +10,7 @@ module FbGraph
         :secret                 => client_secret,
         :host                   => URI.parse(ROOT_URL).host,
         :authorization_endpoint => '/oauth/authorize',
-        :token_endpoint         => '/oauth/access_token',
-        :redirect_uri           => options[:redirect_uri]
+        :token_endpoint         => '/oauth/access_token'
       )
       if options[:cookie]
         from_cookie options[:cookie]
@@ -22,14 +21,6 @@ module FbGraph
 
     def authorized?
       self.access_token.present?
-    end
-
-    def authorized!
-      raise VerificationFailed.new('No Authorization Code') unless code = data.try(:[], :code)
-      client.authorization_code = code
-      self.access_token = client.access_token!
-      self.user = User.new(data[:user_id], :access_token => access_token)
-      self
     end
 
     def authorize_uri(canvas_uri, options = {})
@@ -45,6 +36,7 @@ module FbGraph
 
     def from_cookie(cookie)
       self.data = Cookie.parse(client, cookie)
+      authorized! if data[:code]
       self
     end
 
@@ -54,6 +46,16 @@ module FbGraph
         self.access_token = build_access_token(data)
         self.user = User.new(data[:user_id], :access_token => self.access_token)
       end
+      self
+    end
+
+    private
+
+    def authorized!
+      raise VerificationFailed.new('No Authorization Code') unless data[:code]
+      client.authorization_code = data[:code]
+      self.access_token = client.access_token!
+      self.user = User.new(data[:user_id], :access_token => access_token)
       self
     end
 
