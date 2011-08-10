@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fb_graph (1.9.4)
+    fb_graph (1.9.5)
       httpclient (>= 2.2.0.2)
       rack-oauth2 (>= 0.8.0)
 

@@ -1,5 +1,6 @@
 require 'httpclient'
 require 'rack/oauth2'
+require 'patch/rack/oauth2/util'
 
 module FbGraph
   ROOT_URL = "https://graph.facebook.com"
