@@ -8,11 +8,10 @@ A full-stack Facebook Graph API wrapper in Ruby.
 
 == Resources
 
-* View RDoc on RDoc.info (http://rdoc.info/github/nov/fb_graph)
-* View Source on GitHub (http://github.com/nov/fb_graph)
-* Report Issues on GitHub (http://github.com/nov/fb_graph/issues)
-* Q&A on Google Groups (https://groups.google.com/group/fb_graph)
-* Facebook Page (http://www.facebook.com/pages/FbGraph/117513961602338)
+* View Source on GitHub (https://github.com/nov/fb_graph)
+* Report Issues on GitHub (https://github.com/nov/fb_graph/issues)
+* Subscribe Update Info (https://www.facebook.com/FbGraph)
+* Q&A on Google Groups (http://groups.google.com/group/fb_graph)
 
 == Examples
 
@@ -113,7 +112,7 @@ https://github.com/nov/fb_graph/wiki
   me.feed!(
     :message => 'Updating via FbGraph',
     :picture => 'https://graph.facebook.com/matake/picture',
-    :link => 'http://github.com/nov/fb_graph',
+    :link => 'https://github.com/nov/fb_graph',
     :name => 'FbGraph',
     :description => 'A Ruby wrapper for Facebook Graph API'
   )
@@ -142,7 +141,7 @@ https://github.com/nov/fb_graph/wiki
 
   me = FbGraph::User.me(ACCESS_TOKEN)
   link = me.link!(
-    :link => 'http://github.com/nov/fb_graph',
+    :link => 'https://github.com/nov/fb_graph',
     :message => 'A Ruby wrapper for Facebook Graph API.'
   )
 
@@ -202,7 +201,7 @@ https://github.com/nov/fb_graph/wiki
 
 Both Facebook JavaScript SDK and normal OAuth2 flow is supported.
 Below I show simple sample code.
-You can also see http://github.com/nov/fb_graph_sample for more details Rails3 sample application.
+You can also see https://github.com/nov/fb_graph_sample for more details Rails3 sample application.
 
 ==== JavaScript SDK
 
