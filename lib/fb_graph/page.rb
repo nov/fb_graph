@@ -1,6 +1,7 @@
 module FbGraph
   class Page < Node
     include Connections::Albums
+    include Connections::Blocked
     include Connections::Checkins
     include Connections::Events
     include Connections::Feed
