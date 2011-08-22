@@ -38,7 +38,18 @@ describe FbGraph::Connections::Blocked do
       mock_graph :post, 'FbGraph/blocked', 'pages/blocked/create', :access_token => 'access_token', :params => {
         :uid => '579612276'
       } do
-        blocked = page.block!(user)
+        blocked = page.block! user
+        blocked.each do |user|
+          user.should be_a FbGraph::User
+        end
+      end
+    end
+
+    it 'should support String as user identifier' do
+      mock_graph :post, 'FbGraph/blocked', 'pages/blocked/create', :access_token => 'access_token', :params => {
+        :uid => '579612276'
+      } do
+        blocked = page.block! '579612276'
         blocked.each do |user|
           user.should be_a FbGraph::User
         end
