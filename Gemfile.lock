@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fb_graph (2.0.0.alpha)
+    fb_graph (2.0.0.beta)
       httpclient (>= 2.2.0.2)
       rack-oauth2 (>= 0.8.0)
 
@@ -37,7 +37,6 @@ GEM
     jruby-openssl (0.7.4)
       bouncy-castle-java
     json (1.5.3)
-    json (1.5.3-java)
     rack (1.2.3)
     rack-mount (0.6.14)
       rack (>= 1.0.0)

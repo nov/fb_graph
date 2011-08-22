@@ -19,6 +19,11 @@ module FbGraph
         end
       end
 
+      def like?(page, options = {})
+        like = self.connection :likes, options.merge(:connection_scope => page.identifier)
+        like.present?
+      end
+
       # NOTE: likes! is defined in fb_graph/connections/comments.rb
     end
   end
