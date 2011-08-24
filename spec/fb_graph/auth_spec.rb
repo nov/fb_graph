@@ -10,8 +10,12 @@ describe FbGraph::Auth do
   its(:client) { should be_a(Rack::OAuth2::Client) }
   describe 'client' do
     subject { auth.client }
+    let :optional_attributes do
+      {:redirect_uri => 'https://client.example.com/callback'}
+    end
     its(:identifier) { should == 'client_id' }
     its(:secret) { should == 'client_secret' }
+    its(:redirect_uri) { should == 'https://client.example.com/callback' }
   end
 
   context 'when invalid cookie given' do

@@ -10,7 +10,8 @@ module FbGraph
         :secret                 => client_secret,
         :host                   => URI.parse(ROOT_URL).host,
         :authorization_endpoint => '/oauth/authorize',
-        :token_endpoint         => '/oauth/access_token'
+        :token_endpoint         => '/oauth/access_token',
+        :redirect_uri           => options[:redirect_uri]
       )
       if options[:cookie]
         from_cookie options[:cookie]
