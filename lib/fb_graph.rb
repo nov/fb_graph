@@ -87,8 +87,8 @@ require 'fb_graph/user'
 require 'fb_graph/test_user' # Load after FbGraph::User
 require 'fb_graph/video'
 
-require 'fb_graph/adaccount'
-require 'fb_graph/adcampaign'
+require 'fb_graph/ad_account'
+require 'fb_graph/ad_campaign'
 
 require 'fb_graph/klass'
 require 'fb_graph/project'
