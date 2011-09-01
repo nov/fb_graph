@@ -32,7 +32,7 @@ module FbGraph
         @end_time = case end_time
         when String
           Time.parse(end_time)
-        when Fixnum
+        when Integer
           Time.at(end_time)
         end
       end
