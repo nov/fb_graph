@@ -13,6 +13,7 @@ module FbGraph
       if to = attributes[:to]
         @to = User.new(to[:id], to)
       end
+      @amount = attributes[:amount]
       @status = attributes[:status]
       @country = attributes[:country]
       if attributes[:created_time]
@@ -23,22 +24,25 @@ module FbGraph
       end
     end
 
-    def settled!(options = {})
+    def settle!(options = {})
       update options.merge(:status => :settled)
     end
+    alias_method :settled!, :settle!
 
-    def refunded!(options = {})
+    def refund!(options = {})
       update options.merge(:status => :refunded)
     end
+    alias_method :refunded!, :refund!
 
-    def canceled!(options = {})
+    def cancel!(options = {})
       update options.merge(:status => :canceled)
     end
+    alias_method :canceled!, :cancel!
 
     def update(attributes = {})
       _attributes_ = attributes.dup
       params = {
-        :access_token => self.access_token,
+        :access_token => _attributes_.delete(:access_token) || self.access_token,
         :status => _attributes_.delete(:status),
         :message => _attributes_.delete(:message),
         :refund_funding_source => _attributes_.delete(:refund_funding_source),
