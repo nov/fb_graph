@@ -28,7 +28,7 @@ end
 
 describe FbGraph::AdCampaign, '.fetch' do
   it 'should get the ad campaign' do
-    mock_graph :get, '16003266501234', 'adcampaigns/test_ad_campaign', :access_token => 'access_token' do
+    mock_graph :get, '16003266501234', 'ad_campaigns/test_ad_campaign', :access_token => 'access_token' do
       ad_campaign = FbGraph::AdCampaign.fetch('16003266501234', :access_token => 'access_token')
 
       ad_campaign.identifier.should == "6003266501234"

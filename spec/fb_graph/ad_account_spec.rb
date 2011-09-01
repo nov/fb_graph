@@ -27,7 +27,7 @@ end
 
 describe FbGraph::AdAccount, '.fetch' do
   it 'should get the ad account' do
-    mock_graph :get, 'act_12345566', 'adaccounts/test_ad_account', :access_token => 'access_token' do
+    mock_graph :get, 'act_12345566', 'ad_accounts/test_ad_account', :access_token => 'access_token' do
       ad_account = FbGraph::AdAccount.fetch('act_12345566', :access_token => 'access_token')
 
       ad_account.identifier.should == "act_12345566"
