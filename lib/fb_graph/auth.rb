@@ -50,6 +50,19 @@ module FbGraph
       self
     end
 
+    def from_session_key(session_key)
+      response = HTTPClient.new.post "#{ROOT_URL}/oauth/exchange_sessions", {:client_id => @client.identifier, :client_secret => @client.secret, :sessions => session_key}
+      if response.body && self.data = JSON.parse(response.body)
+        if self.data[0]
+          self.access_token = build_access_token(self.data[0].with_indifferent_access)
+        else
+          # If the session key is unknown or there's an error, Facebook returns null
+          self.access_token = nil
+        end
+      end
+      self
+    end
+
     private
 
     def get_access_token!(code)
@@ -62,7 +75,7 @@ module FbGraph
     end
 
     def build_access_token(data)
-      expires_in = unless data[:expires].zero?
+      expires_in = unless data[:expires].nil? || data[:expires].zero?
         data[:expires] - Time.now.to_i
       end
       Rack::OAuth2::AccessToken::Legacy.new(

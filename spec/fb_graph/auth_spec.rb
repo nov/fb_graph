@@ -140,5 +140,29 @@ describe FbGraph::Auth do
       end
     end
   end
+
+  describe "#from_session_key" do
+    let(:session_key) { 'my_session_key'}
+
+    it "should exchange the session key for an oauth token" do
+      mock_graph :post, '/oauth/exchange_sessions', 'exchange_sessions_response' do
+        auth.access_token.should be_nil
+
+        auth.from_session_key(session_key)
+        auth.access_token.should be_a Rack::OAuth2::AccessToken::Legacy
+        auth.access_token.access_token.should == "my_oauth_token"
+      end
+    end
+
+
+    it "should handle null responses" do
+      mock_graph :post, '/oauth/exchange_sessions', 'exchange_sessions_null_response' do
+        auth.access_token.should be_nil
+
+        auth.from_session_key(session_key)
+        auth.access_token.should be_nil
+      end
+    end
+  end
 end
 
