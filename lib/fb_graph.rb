@@ -5,39 +5,29 @@ require 'patch/rack/oauth2/util'
 module FbGraph
   ROOT_URL = "https://graph.facebook.com"
 
-  class Exception < StandardError
-    attr_accessor :code, :type, :message
-    def initialize(code, message, body = '')
-      @code = code
-      if body.blank?
-        @message = message
-      else
-        response = JSON.parse(body).with_indifferent_access
-        @message = response[:error][:message]
-        @type = response[:error][:type]
-      end
-    end
+  def self.logger
+    @@logger
   end
-
-  class BadRequest < Exception
-    def initialize(message, body = '')
-      super 400, message, body
-    end
+  def self.logger=(logger)
+    @@logger = logger
   end
+  @@logger = Logger.new(STDERR)
+  @@logger.progname = 'Paypal::Express'
 
-  class Unauthorized < Exception
-    def initialize(message, body = '')
-      super 401, message, body
-    end
+  def self.debugging?
+    @@debugging
   end
-
-  class NotFound < Exception
-    def initialize(message, body = '')
-      super 404, message, body
-    end
+  def self.debug!
+    self.debugging = true
   end
-
+  def self.debugging=(boolean)
+    @@debugging = boolean
+  end
+  self.debugging = false
 end
+
+require 'fb_graph/exception'
+require 'fb_graph/debugger'
 
 require 'fb_graph/auth'
 require 'fb_graph/comparison'

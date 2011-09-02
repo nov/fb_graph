@@ -40,13 +40,13 @@ module FbGraph
 
     def get(params = {})
       handle_response do
-        HTTPClient.new.get build_endpoint(params), build_params(params)
+        http_client.get build_endpoint(params), build_params(params)
       end
     end
 
     def post(params = {})
       handle_response do
-        HTTPClient.new.post build_endpoint(params), build_params(params)
+        http_client.post build_endpoint(params), build_params(params)
       end
     end
 
@@ -54,8 +54,14 @@ module FbGraph
       _endpoint_, _params_ = build_endpoint(params), build_params(params)
       _endpoint_ = [_endpoint_, _params_.try(:to_query)].compact.join('?')
       handle_response do
-        HTTPClient.new.delete _endpoint_
+        http_client.delete _endpoint_
       end
+    end
+
+    def http_client
+      _http_client_ = HTTPClient.new
+      _http_client_.request_filter << Debugger::RequestFilter.new(self) if FbGraph.debugging?
+      _http_client_
     end
 
     private
