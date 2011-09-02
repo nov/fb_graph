@@ -11,17 +11,24 @@ module FbGraph
   def self.logger=(logger)
     @@logger = logger
   end
-  @@logger = Logger.new(STDERR)
-  @@logger.progname = 'Paypal::Express'
+  self.logger = Logger.new(STDOUT)
+  self.logger.progname = 'Paypal::Express'
 
   def self.debugging?
     @@debugging
   end
+  def self.debugging=(boolean)
+    @@debugging = boolean
+  end
   def self.debug!
     self.debugging = true
   end
-  def self.debugging=(boolean)
-    @@debugging = boolean
+  def self.debug(&block)
+    original = self.debugging?
+    self.debugging = true
+    yield
+  ensure
+    self.debugging = original
   end
   self.debugging = false
 end

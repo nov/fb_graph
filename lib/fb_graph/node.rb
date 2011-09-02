@@ -60,7 +60,7 @@ module FbGraph
 
     def http_client
       _http_client_ = HTTPClient.new
-      _http_client_.request_filter << Debugger::RequestFilter.new(self) if FbGraph.debugging?
+      _http_client_.request_filter << Debugger::RequestFilter.new if FbGraph.debugging?
       _http_client_
     end
 
