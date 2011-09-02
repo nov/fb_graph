@@ -203,6 +203,10 @@ Both Facebook JavaScript SDK and normal OAuth2 flow is supported.
 Below I show simple sample code.
 You can also see https://github.com/nov/fb_graph_sample for more details Rails3 sample application.
 
+In addition, if you are migrating an application that uses old-style session keys you can exchange
+the keys for access tokens.
+See more here: http://developers.facebook.com/docs/authentication/fb_sig/
+
 ==== JavaScript SDK
 
   fb_auth = FbGraph::Auth.new(YOUR_APP_ID, YOUR_APPLICATION_SECRET)
@@ -229,6 +233,14 @@ You can also see https://github.com/nov/fb_graph_sample for more details Rails3 
   client.authorization_code = params[:code]
   access_token = client.access_token!  # => Rack::OAuth2::AccessToken
   FbGraph::User.me(access_token).fetch # => FbGraph::User
+
+==== Session Key Exchange
+
+  # setup client
+  fb_auth = FbGraph::Auth.new(YOUR_APP_ID, YOUR_APPLICATION_SECRET)
+  fb_auth.from_session_key('my-old-session-key')
+  fb_auth.access_token # => Rack::OAuth2::AccessToken
+
 
 === Analytics
 

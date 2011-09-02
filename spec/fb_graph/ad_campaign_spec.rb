@@ -23,6 +23,23 @@ describe FbGraph::AdCampaign, '.new' do
     ad_campaign.campaign_status.should == 1
     ad_campaign.lifetime_budget.should == 100000
   end
+
+  it 'should handle integer, string, or iso8601 timestamps' do
+    t = Time.parse("2011-09-01T00:00:00Z")
+    attributes = {
+      :id => '6003266501234',
+      :campaign_id => 6003266501234,
+      :account_id => 12345566,
+      :name => "Test Ad Campaign",
+      :end_time => "2011-09-10T00:00:00Z",
+      :daily_budget => 20000,
+      :campaign_status => 1,
+      :lifetime_budget => 100000
+    }
+    FbGraph::AdCampaign.new(attributes[:id], attributes.merge(:start_time => t.to_i)).start_time.should == t
+    FbGraph::AdCampaign.new(attributes[:id], attributes.merge(:start_time => t.to_i.to_s)).start_time.should == t
+    FbGraph::AdCampaign.new(attributes[:id], attributes.merge(:start_time => t.iso8601)).start_time.should == t
+  end
 end
 
 
