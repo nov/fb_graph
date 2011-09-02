@@ -10,7 +10,11 @@ module FbGraph
       end
 
       %w(start_time end_time).each do |field|
-        send("#{field}=", Time.parse(attributes[field.to_sym]).utc) if attributes[field.to_sym]
+        if val = attributes[field.to_sym]
+          # Handles integer timestamps and ISO8601 strings
+          time = Time.parse(val) rescue Time.at(val.to_i)
+          send("#{field}=", time)
+        end
       end
     end
   end
