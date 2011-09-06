@@ -1,5 +1,7 @@
 module FbGraph
   class AdCampaign < Node
+    include Connections::AdGroups
+
     attr_accessor :campaign_id, :account_id, :name, :start_time, :end_time, :daily_budget, :campaign_status, :lifetime_budget
 
     def initialize(identifier, attributes = {})
