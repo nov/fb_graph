@@ -1,0 +1,23 @@
+{
+  "data":[
+    {
+      "id": 44556677,
+      "adgroup_id": 44556677,
+      "access_token": "access_token",
+      "ad_id": 44556677,
+      "campaign_id": 22334455,
+      "name": "Test Ad Group 1",
+      "adgroup_status": 1,
+      "bid_type": 1,
+      "max_bid": 150,
+      "adgroup_id": 44556677,
+      "end_time": "2011-09-01T00:00:00+0000",
+      "start_time": "2011-09-10T00:00:00+0000",
+      "updated_time": "2011-09-05T00:00:00+0000"
+    }
+  ],
+  "count": 1,
+  "limit": 500,
+  "offset": 0,
+  "include_deleted": null
+}
