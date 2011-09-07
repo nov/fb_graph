@@ -9,6 +9,7 @@ module FbGraph
     include Connections::Events
     include Connections::Feed
     include Connections::FriendLists
+    include Connections::FriendRequests
     include Connections::Friends
     include Connections::Family
     include Connections::Games
