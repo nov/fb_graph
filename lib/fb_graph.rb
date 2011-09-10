@@ -24,13 +24,16 @@ module FbGraph
     @@debugging = boolean
   end
   def self.debug!
+    Rack::OAuth2.debugging = true
     self.debugging = true
   end
   def self.debug(&block)
+    rack_oauth2_original = Rack::OAuth2.debugging?
     original = self.debugging?
-    self.debugging = true
+    debug!
     yield
   ensure
+    Rack::OAuth2.debugging = rack_oauth2_original
     self.debugging = original
   end
   self.debugging = false
