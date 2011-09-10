@@ -15,16 +15,21 @@ describe FbGraph do
   describe '.debug' do
     it 'should enable debugging within given block' do
       FbGraph.debug do
+        Rack::OAuth2.debugging?.should be_true
         FbGraph.debugging?.should be_true
       end
+      Rack::OAuth2.debugging?.should be_false
       FbGraph.debugging?.should be_false
     end
 
     it 'should not force disable debugging' do
+      Rack::OAuth2.debug!
       FbGraph.debug!
       FbGraph.debug do
+        Rack::OAuth2.debugging?.should be_true
         FbGraph.debugging?.should be_true
       end
+      Rack::OAuth2.debugging?.should be_true
       FbGraph.debugging?.should be_true
     end
   end
