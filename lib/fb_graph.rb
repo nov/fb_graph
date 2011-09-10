@@ -3,6 +3,9 @@ require 'rack/oauth2'
 require 'patch/rack/oauth2/util'
 
 module FbGraph
+  VERSION = ::File.read(
+    ::File.join(::File.dirname(__FILE__), '../VERSION')
+  )
   ROOT_URL = "https://graph.facebook.com"
 
   def self.logger
@@ -12,7 +15,7 @@ module FbGraph
     @@logger = logger
   end
   self.logger = Logger.new(STDOUT)
-  self.logger.progname = 'Paypal::Express'
+  self.logger.progname = 'FbGraph'
 
   def self.debugging?
     @@debugging
