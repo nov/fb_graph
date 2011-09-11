@@ -1,8 +1,7 @@
 {
   "start_time":null,
   "end_time":"2011-09-09T22:30:03+0000",
-  "data":[
-    {
+  "data":[{
     "id":"6002647798444/stats/0/1315607403",
     "impressions":232641,
     "clicks":534,
@@ -19,8 +18,7 @@
     "adgroup_id":6002647798444,
     "start_time":null,
     "end_time":"2011-09-09T22:30:03+0000"
-  },
-  {
+  }, {
     "id":"6002867067888/stats/0/1315607403",
     "impressions":0,
     "clicks":0,
@@ -37,8 +35,7 @@
     "adgroup_id":6002867067888,
     "start_time":null,
     "end_time":"2011-09-09T22:30:03+0000"
-  },
-  {
+  }, {
     "id":"6002935967666/stats/0/1315607403",
     "impressions":0,
     "clicks":0,
@@ -55,8 +52,7 @@
     "adgroup_id":6002935967666,
     "start_time":null,
     "end_time":"2011-09-09T22:30:03+0000"
-  }
-  ],
+  }],
   "count":3081,
   "limit":3,
   "offset":0,
