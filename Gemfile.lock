@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fb_graph (2.1.3)
+    fb_graph (2.1.4)
       httpclient (>= 2.2.0.2)
       rack-oauth2 (>= 0.9.4)
 
@@ -48,7 +48,7 @@ GEM
       rack (>= 0.4)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
-    rack-oauth2 (0.9.4)
+    rack-oauth2 (0.9.5)
       activesupport (>= 2.3)
       attr_required (>= 0.0.3)
       httpclient (>= 2.2.0.2)
