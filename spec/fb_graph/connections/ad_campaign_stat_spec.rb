@@ -5,7 +5,7 @@ describe FbGraph::Connections::AdCampaignStats, '#ad_campaign_stats' do
     context 'when access_token is given' do
       it 'should return ad_campaign_stats as FbGraph::AdCampaignStat' do
         mock_graph :get, 'act_11223344/adcampaignstats', 'ad_accounts/ad_campaign_stats/test_ad_campaign_stats', :access_token => 'access_token' do
-          ad_campaign_stats = FbGraph::AdAccount.new('act_11223344', :access_token => 'access_token').adcampaignstats
+          ad_campaign_stats = FbGraph::AdAccount.new('act_11223344', :access_token => 'access_token').ad_campaign_stats
 
           ad_campaign_stats.size.should == 2
           ad_campaign_stats.each { |ad_campaign_stat| ad_campaign_stat.should be_instance_of(FbGraph::AdCampaignStat) }

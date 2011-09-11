@@ -3,7 +3,7 @@ module FbGraph
     module AdCampaignStats
       # When retrieving stats at the AdAccount level we use the 'adcampaignstats' connection
       # This returns an Array of statistics
-      def adcampaignstats(options = {})
+      def ad_campaign_stats(options = {})
         ad_campaign_stats = self.connection(:adcampaignstats, options)
         ad_campaign_stats.map! do |ad_campaign_stat|
           AdCampaignStat.new(ad_campaign_stat[:id], ad_campaign_stat.merge(
