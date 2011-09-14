@@ -6,21 +6,34 @@ describe FbGraph::Connections::AdGroups, '#ad_groups' do
       it 'should return ad_groups as FbGraph::AdGroup' do
         mock_graph :get, '22334455/adgroups', 'ad_campaigns/ad_groups/22334455_ad_groups', :access_token => 'access_token' do
           ad_groups = FbGraph::AdCampaign.new('22334455', :access_token => 'access_token').ad_groups
+          ad_groups.size.should == 2
+          ad_groups.each { |ad_group| ad_group.should be_instance_of(FbGraph::AdGroup) }
           ad_groups.first.should == FbGraph::AdGroup.new(
-            44556677,
+            "6003570493888",
             :access_token => 'access_token',
-            :ad_id => 44556677,
+            :ad_id => 6003570493888,
             :campaign_id => 22334455,
-            :name => "Test Ad Group 1",
+            :name => "My Ad 1",
             :adgroup_status => 1,
             :bid_type => 1,
-            :max_bid => 150,
-            :adgroup_id => 44556677,
-            :end_time => Time.parse("2011-09-01T00:00:00+00:00"),
-            :start_time => Time.parse("2011-09-10T00:00:00+00:00"),
-            :updated_time => Time.parse("2011-09-05T00:00:00+00:00")
+            :max_bid => "120",
+            :adgroup_id => 6003570493888,
+            :end_time => nil,
+            :start_time => nil,
+            :updated_time => Time.parse("2011-08-17T20:41:39+0000"),
+            :bid_info => {"1" => "120"},
+            :creative_ids => [6003570493444],
+            :targeting => {
+              "age_min" => 18,
+              "age_max" => 65,
+              "countries" => ["US"],
+              "education_statuses" => [3],
+              "college_networks" => [
+                {"name" => "Emory", "id" => "16777243"},
+                {"name" => "Georgia Tech", "id" => "16777345"}
+              ]
+            }
           )
-          ad_groups.each { |ad_group| ad_group.should be_instance_of(FbGraph::AdGroup) }
         end
       end
     end
