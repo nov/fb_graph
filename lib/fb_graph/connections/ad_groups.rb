@@ -15,7 +15,9 @@ module FbGraph
       def ad_group!(options = {})
         ad_group = post(options.merge(:connection => :adgroups))
         AdGroup.new(ad_group[:id], options.merge(ad_group).merge(
-          :access_token => options[:access_token] || self.access_token
+          :access_token => options[:access_token] || self.access_token,
+          :ad_id => ad_group[:id].to_i,
+          :adgroup_id => ad_group[:id].to_i
         ))
       end
     end
