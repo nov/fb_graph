@@ -17,7 +17,7 @@ describe FbGraph::Connections::AdAccounts, '#ad_accounts' do
             :timezone_id => 1,
             :timezone_name => "America/Los_Angeles",
             :daily_spend_limit => 5000,
-            :users => [{"uid" => 10000294098888, "permissions" => [1,2,3,4,5,7], "role" => 1001}],
+            :users => [{"uid" => 10000294098888, :permissions => [1,2,3,4,5,7], :role => 1001}],
             :capabilities => [],
             :access_token => 'access_token'
           )
