@@ -13,6 +13,10 @@ module FbGraph
       %w(account_id name account_status daily_spend_limit users currency timezone_id timezone_name).each do |field|
         send("#{field}=", attributes[field.to_sym])
       end
+
+      if attributes[:users]
+        self.users = attributes[:users].collect { |u| FbGraph::AdUser.new(u["uid"], u) }
+      end
     end
   end
 end
