@@ -22,15 +22,15 @@ describe FbGraph::AdUser do
     context 'when admin user' do
       let(:role) { FbGraph::AdUser::ROLES[:admin] }
       its(:admin_access?) { should == true }
-      its(:general_access?) { should == true }
-      its(:reports_only_access?) { should == true }
+      its(:general_access?) { should == false }
+      its(:reports_only_access?) { should == false }
     end
 
     context 'when general user' do
       let(:role) { FbGraph::AdUser::ROLES[:general] }
       its(:admin_access?) { should == false }
       its(:general_access?) { should == true }
-      its(:reports_only_access?) { should == true }
+      its(:reports_only_access?) { should == false }
     end
 
     context 'when general user' do

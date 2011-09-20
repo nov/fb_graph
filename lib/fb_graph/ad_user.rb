@@ -17,7 +17,7 @@ module FbGraph
     }
     ROLES.each do |key, value|
       define_method "#{key}_access?" do
-        self.role <= value
+        self.role == value
       end
     end
 
