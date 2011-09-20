@@ -10,7 +10,7 @@ module FbGraph
     def initialize(identifier, attributes = {})
       super
 
-      %w(account_id name account_status daily_spend_limit currency timezone_id timezone_name).each do |field|
+      %w(account_id name account_status daily_spend_limit users currency timezone_id timezone_name).each do |field|
         send("#{field}=", attributes[field.to_sym])
       end
     end

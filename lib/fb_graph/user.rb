@@ -1,9 +1,10 @@
 module FbGraph
   class User < Node
     include Connections::Accounts
+    include Connections::AdAccounts
     include Connections::Activities
     include Connections::Albums
-		include Connections::AppRequests
+    include Connections::AppRequests
     include Connections::Books
     include Connections::Checkins
     include Connections::Events
