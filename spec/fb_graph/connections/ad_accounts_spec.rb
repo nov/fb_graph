@@ -26,4 +26,3 @@ describe FbGraph::Connections::AdAccounts, '#ad_accounts' do
     end
   end
 end
-  
