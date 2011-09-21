@@ -2,8 +2,9 @@ module FbGraph
   module Searchable
     def self.search(query, options = {})
       klass = options.delete(:class) || Searchable
+      query_param = klass.search_query_param
       collection = Collection.new(
-        Node.new(:search).send(:get, options.merge(:q => query))
+        Node.new(:search).send(:get, options.merge(query_param.to_sym => query))
       )
       yield collection if block_given?
       Searchable::Result.new(query, klass, options.merge(:collection => collection))
@@ -18,6 +19,12 @@ module FbGraph
           ))
         end
       end
+    end
+
+    # The majority of Graph API searches use 'q' but some, like AdKeywordSuggestion
+    # use an alternate search query param
+    def search_query_param
+      :q
     end
   end
 end
