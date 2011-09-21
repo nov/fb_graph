@@ -10,7 +10,7 @@ module FbGraph
     end
 
     def search(query, options = {})
-      type = self.to_s.underscore.split('/').last
+      type = self.to_s.underscore.split('/').last.gsub("_", "")
       Searchable.search(query, options.merge(:type => type, :class => self)) do |collection|
         collection.map! do |obj|
           self.new(obj[:id], obj.merge(
