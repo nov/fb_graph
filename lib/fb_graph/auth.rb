@@ -72,8 +72,6 @@ module FbGraph
       self.access_token = client.access_token!
       self.user = User.new(data[:user_id], :access_token => access_token)
       self
-    rescue Rack::OAuth2::Client::Error => e
-      raise Exception.new(e.status, e.message)
     end
 
     def build_access_token(data)
