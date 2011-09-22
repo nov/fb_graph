@@ -4,40 +4,42 @@ describe FbGraph::AdUser do
   subject { ad_user }
   let(:ad_user) { FbGraph::AdUser.new(attributes[:uid], attributes) }
   let(:role) { FbGraph::AdUser::ROLES[:admin] }
+  let(:permissions) { [1,3,4,7] }
   let :attributes do
     {
       :uid => '123456',
-      :permissions => [1,3,4,7],
+      :permissions => permissions,
       :role => role
     }
   end
 
   it 'should setup all supported attributes' do
     ad_user.identifier.should == "123456"
-    ad_user.permissions.should == [1,3,4,7]
-    ad_user.role.should == 1001
+    ad_user.permissions.should == permissions
+    ad_user.role.should == role
   end
 
-  describe 'roles' do
-    context 'when admin user' do
-      let(:role) { FbGraph::AdUser::ROLES[:admin] }
-      its(:admin_access?) { should == true }
-      its(:general_access?) { should == false }
-      its(:reports_only_access?) { should == false }
+  describe 'role' do
+    FbGraph::AdUser::ROLES.keys.each do |role|
+      context "when #{role} role given" do
+        let(:role) { FbGraph::AdUser::ROLES[role] }
+        its(:"#{role}_access?") { should be_true }
+        (FbGraph::AdUser::ROLES.keys - [role]).each do |no_access|
+          its(:"#{no_access}_access?") { should be_false }
+        end
+      end
     end
+  end
 
-    context 'when general user' do
-      let(:role) { FbGraph::AdUser::ROLES[:general] }
-      its(:admin_access?) { should == false }
-      its(:general_access?) { should == true }
-      its(:reports_only_access?) { should == false }
-    end
-
-    context 'when general user' do
-      let(:role) { FbGraph::AdUser::ROLES[:reports_only] }
-      its(:admin_access?) { should == false }
-      its(:general_access?) { should == false }
-      its(:reports_only_access?) { should == true }
+  describe 'permissions' do
+    FbGraph::AdUser::PERMISSIONS.keys.each do |permission|
+      context "when #{permission} permission given" do
+        let(:permissions) { [FbGraph::AdUser::PERMISSIONS[permission]] }
+        its(:"#{permission}_access?") { should be_true }
+        (FbGraph::AdUser::PERMISSIONS.keys - [permission]).each do |no_access|
+          its(:"#{no_access}_access?") { should be_false }
+        end
+      end
     end
   end
 
@@ -45,8 +47,8 @@ describe FbGraph::AdUser do
     let(:ad_user) do
       FbGraph::AdUser.new(
         "579612276",
-        :permissions => [1,3,4,7],
-        :role => 1001
+        :permissions => permissions,
+        :role => role
       )
     end
 
@@ -57,8 +59,8 @@ describe FbGraph::AdUser do
         fetched_user.identifier.should == "579612276"
         fetched_user.first_name = "Nov"
         fetched_user.last_name = "Matake"
-        fetched_user.permissions.should == [1,3,4,7]
-        fetched_user.role.should == 1001
+        fetched_user.permissions.should == permissions
+        fetched_user.role.should == role
       end
     end
   end
