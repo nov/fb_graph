@@ -1,0 +1,19 @@
+{
+  "data":[
+    {
+      "id":6002714885172,
+      "name":"Cooking",
+      "parent_category":"Activities"
+    },
+    {
+      "id":6002714885972,
+      "name":"Dancing",
+      "parent_category":"Activities"
+    },
+    {
+      "id":6002714885772,
+      "name":"DIYCrafts",
+      "parent_category":"Activities"
+    }
+  ]
+}
