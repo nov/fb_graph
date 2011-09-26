@@ -120,21 +120,12 @@ module FbGraph
           _response_.map!(&:with_indifferent_access)
         when Hash
           _response_ = _response_.with_indifferent_access
-          handle_httpclient_error(_response_) if _response_[:error]
+          Exception.handle_httpclient_error(_response_, response.headers) if _response_[:error]
           _response_
         end
       end
     rescue JSON::ParserError
       raise Exception.new(response.status, 'Unparsable Error Response')
-    end
-
-    def handle_httpclient_error(response)
-      case response[:error][:type]
-      when /OAuth/
-        raise Unauthorized.new("#{response[:error][:type]} :: #{response[:error][:message]}")
-      else
-        raise BadRequest.new("#{response[:error][:type]} :: #{response[:error][:message]}")
-      end
     end
   end
 end
