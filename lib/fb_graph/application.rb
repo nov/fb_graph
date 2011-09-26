@@ -20,15 +20,28 @@ module FbGraph
     # include Connections::Translations
     include Connections::Videos
 
-    attr_accessor :name, :description, :category, :link, :secret
+    @@attributes = [
+      :name,
+      :description,
+      :canvas_name,
+      :category,
+      :company,
+      :icon_url,
+      :subcategory,
+      :link,
+      :logo_url,
+      :daily_active_users,
+      :weekly_active_users,
+      :monthly_active_users,
+      :secret
+    ]
+    attr_accessor *@@attributes
 
     def initialize(client_id, attributes = {})
       super
-      @name         = attributes[:name]
-      @description  = attributes[:description]
-      @category     = attributes[:category]
-      @link         = attributes[:link]
-      @secret       = attributes[:secret]
+      @@attributes.each do |key|
+        self.send("#{key}=", attributes[key])
+      end
     end
 
     def get_access_token(secret = nil)
