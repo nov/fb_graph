@@ -22,6 +22,7 @@ module FbGraph
     include Connections::Links
     include Connections::Movies
     include Connections::Music
+    include Connections::MutualFriends
     include Connections::Notes
     include Connections::Outbox
     include Connections::Payments
