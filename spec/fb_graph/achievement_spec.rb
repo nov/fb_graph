@@ -36,7 +36,7 @@ describe FbGraph::Achievement do
   its(:images) { should == attributes[:image].collect { |h| h[:url] } }
   its(:points) { should == 50 }
   its(:display_order) { should == 0 }
-  its(:updated_time) { should == Time.parse(attributes[:updated_time]) }
+  its(:updated_time) { should == Time.parse(attributes[:updated_time]).utc }
   describe 'application' do
     subject { achievement.application }
     its(:name) { should == attributes[:application][:name] }

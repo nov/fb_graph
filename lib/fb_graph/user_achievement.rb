@@ -11,8 +11,8 @@ module FbGraph
       if from = attributes[:from]
         @from = User.new(from[:id], from)
       end
-      if attributes[:created_time]
-        @created_time = Time.parse(attributes[:created_time]).utc
+      if created_time = attributes[:created_time] || attributes[:publish_time]
+        @created_time = Time.parse(created_time).utc
       end
       if application = attributes[:application]
         application[:link] = application[:url] # for some reason, FB uses "url" only here..
@@ -29,7 +29,7 @@ module FbGraph
 
     def destroy(options = {})
       options[:access_token] ||= self.access_token
-      from.unachieve!(url, options)
+      from.unachieve!(achievement.url, options)
     end
   end
 end

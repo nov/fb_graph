@@ -101,9 +101,12 @@ require 'fb_graph/tab'
 require 'fb_graph/tag'
 require 'fb_graph/thread'
 require 'fb_graph/user'
-require 'fb_graph/ad_user'
-require 'fb_graph/test_user' # Load after FbGraph::User
+require 'fb_graph/user_achievement'
 require 'fb_graph/video'
+
+# Load after FbGraph::User
+require 'fb_graph/ad_user'
+require 'fb_graph/test_user'
 
 require 'fb_graph/klass'
 require 'fb_graph/project'
