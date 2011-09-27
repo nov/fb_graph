@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe FbGraph::Achievement do
-  subject { FbGraph::Achievement.new(attributes[:id], attributes) }
+  subject { achievement }
+  let(:achievement) { FbGraph::Achievement.new(attributes[:id], attributes) }
   let(:attributes) do
     {
       :id => "10150310611431721",
@@ -36,4 +37,9 @@ describe FbGraph::Achievement do
   its(:points) { should == 50 }
   its(:display_order) { should == 0 }
   its(:updated_time) { should == Time.parse(attributes[:updated_time]) }
+  describe 'application' do
+    subject { achievement.application }
+    its(:name) { should == attributes[:application][:name] }
+    its(:link) { should == attributes[:application][:url] }
+  end
 end
