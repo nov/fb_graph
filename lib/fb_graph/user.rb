@@ -34,6 +34,7 @@ module FbGraph
     include Connections::Tagged
     include Connections::Television
     include Connections::Threads
+    include Connections::UserAchievements
     include Connections::Videos
     extend Searchable
 
