@@ -41,7 +41,14 @@ module FbGraph
     def initialize(client_id, attributes = {})
       super
       @@attributes.each do |key|
-        self.send("#{key}=", attributes[key])
+        # NOTE:
+        # For some reason, Graph API returns daily_active_users, weekly_active_users, monthly_active_users as JSON string.
+        value = if [:daily_active_users, :weekly_active_users, :monthly_active_users].include?(key)
+          attributes[key].to_i
+        else
+          attributes[key]
+        end
+        self.send("#{key}=", value)
       end
     end
 

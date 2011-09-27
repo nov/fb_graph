@@ -11,7 +11,8 @@ describe FbGraph::Application do
         :description => 'Owsome Facebook Graph Wrapper',
         :category    => 'Programming',
         :link        => 'http://github.com/nov/fb_graph',
-        :secret      => 'sec sec'
+        :secret      => 'sec sec',
+        :daily_active_users => '10'
       }
       app = FbGraph::Application.new(attributes.delete(:id), attributes)
       app.identifier.should  == '12345'
@@ -20,6 +21,7 @@ describe FbGraph::Application do
       app.category.should    == 'Programming'
       app.link.should        == 'http://github.com/nov/fb_graph'
       app.secret.should      == 'sec sec'
+      app.daily_active_users.should == 10
     end
   end
 
