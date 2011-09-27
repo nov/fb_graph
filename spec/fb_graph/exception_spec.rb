@@ -45,3 +45,99 @@ describe FbGraph::NotFound do
     err.code.should == 404
   end
 end
+
+describe FbGraph::Exception, ".handle_httpclient_error" do
+  context "when WWW-Authenticate header is present" do
+    context "with an expired access token" do
+      let(:parsed_response) do
+        {
+          :error => {
+            :message => "Error validating access token: The session has been invalidated because the user has changed the password.",
+            :type => "OAuthException"
+          }
+        }
+      end
+      let(:headers) do
+        {
+          "WWW-Authenticate" => 'OAuth "Facebook Platform" "invalid_token" "Error validating access token: The session has been invalidated because the user has changed the password.'
+        }
+      end
+
+      it "should raise an InvalidSession exception" do
+        lambda {FbGraph::Exception.handle_httpclient_error(parsed_response, headers)}.should raise_exception(FbGraph::InvalidSession)
+      end
+    end
+
+    context "with an invalid access token" do
+      let(:parsed_response) do
+        {
+          :error => {
+            :message => 'Invalid OAuth access token.',
+            :type => "OAuthException"
+          }
+        }
+      end
+      let(:headers) do
+        {
+          "WWW-Authenticate" => 'OAuth "Facebook Platform" "invalid_token" "Invalid OAuth access token."'
+        }
+      end
+
+      it "should raise an InvalidToken exception" do
+        lambda {FbGraph::Exception.handle_httpclient_error(parsed_response, headers)}.should raise_exception(FbGraph::InvalidToken)
+      end
+    end
+
+    context "with an invalid request" do
+      let(:parsed_response) do
+        {
+          :error => {
+            :message => '(#100) Must include the \"campaign_id\" index',
+            :type => "OAuthException"
+          }
+        }
+      end
+      let(:headers) do
+        {
+          "WWW-Authenticate" =>'OAuth "Facebook Platform" "invalid_request" "(#100) Must include the \"campaign_id\" index"'
+        }
+      end
+
+      it "should raise an InvalidRequest exception" do
+        lambda {FbGraph::Exception.handle_httpclient_error(parsed_response, headers)}.should raise_exception(FbGraph::InvalidRequest)
+      end
+    end
+  end
+
+  context "without the WWW-Authenticate header" do
+    context "with an OAuthException" do
+      let(:parsed_response) do
+        {
+          :error => {
+            :message => 'Some kind of OAuthException',
+            :type => "OAuthException"
+          }
+        }
+      end
+
+      it "should raise an Unauthorized exception" do
+        lambda {FbGraph::Exception.handle_httpclient_error(parsed_response, {})}.should raise_exception(FbGraph::Unauthorized)
+      end
+    end
+
+    context "with an Exception" do
+      let(:parsed_response) do
+        {
+          :error => {
+            :message => 'Some kind of Exception',
+            :type => "Exception"
+          }
+        }
+      end
+
+      it "should raise a BadRequst exception" do
+        lambda {FbGraph::Exception.handle_httpclient_error(parsed_response, {})}.should raise_exception(FbGraph::BadRequest)
+      end
+    end
+  end
+end
