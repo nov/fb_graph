@@ -61,6 +61,7 @@ require 'fb_graph/venue'
 require 'fb_graph/work'
 
 require 'fb_graph/node'
+require 'fb_graph/achievement'
 require 'fb_graph/ad_account'
 require 'fb_graph/ad_campaign'
 require 'fb_graph/ad_campaign_stat'

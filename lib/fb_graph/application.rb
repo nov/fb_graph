@@ -1,6 +1,7 @@
 module FbGraph
   class Application < Node
     include Connections::Accounts
+    include Connections::Achievements
     include Connections::Albums
     include Connections::Events
     include Connections::Feed
