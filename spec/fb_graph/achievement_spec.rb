@@ -42,4 +42,18 @@ describe FbGraph::Achievement do
     its(:name) { should == attributes[:application][:name] }
     its(:link) { should == attributes[:application][:url] }
   end
+
+  describe '#destroy' do
+    it 'should call DELETE /:app_id/achievements' do
+      expect { achievement.destroy }.should request_to('134145643294322/achievements', :delete)
+    end
+
+    it 'should delete achievement' do
+      mock_graph :delete, '134145643294322/achievements', 'true', :access_token => 'app_token', :params => {
+        :achievement => achievement.url
+      } do
+        achievement.destroy(:access_token => 'app_token').should be_true
+      end
+    end
+  end
 end

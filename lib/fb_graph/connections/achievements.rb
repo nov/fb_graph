@@ -8,6 +8,14 @@ module FbGraph
           Achievement.new(achievement[:id], achievement.merge(:access_token => options[:access_token]))
         end
       end
+
+      def achievement!(achievement_url, options = {})
+        post options.merge(:connection => :achievements, :achievement => achievement_url)
+      end
+
+      def unregister_achievement!(achievement_url, options = {})
+        delete options.merge(:connection => :achievements, :achievement => achievement_url)
+      end
     end
   end
 end
