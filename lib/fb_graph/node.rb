@@ -114,6 +114,11 @@ module FbGraph
       when 'null'
         nil
       else
+        # NOTE: User#app_request! returns ID as a JSON string not as a JSON object..
+        if response.body.gsub('"', '').to_i.to_s == response.body.gsub('"', '')
+          return response.body.gsub('"', '')
+        end
+
         _response_ = JSON.parse(response.body)
         _response_ = case _response_
         when Array
@@ -125,7 +130,7 @@ module FbGraph
         end
       end
     rescue JSON::ParserError
-      raise Exception.new(response.status, 'Unparsable Error Response')
+      raise Exception.new(response.status, "Unparsable Response: #{response.body}")
     end
   end
 end
