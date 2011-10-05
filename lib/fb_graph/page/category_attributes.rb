@@ -78,14 +78,14 @@ module FbGraph
           end
         end
         @@attributes[:date].each do |key|
-          if attributes[key]
-            value = if attributes[key] =~ /\d{2}\/\d{2}\/\d{4}/
-              Date.strptime(attributes[key], '%m/%d/%Y')
-            else
-              Date.parse(attributes[key]) rescue attributes[key]
+          date = if attributes[key]
+            begin
+              Date.parse attributes[key]
+            rescue
+              attributes[key]
             end
-            self.send :"#{key}=", value
           end
+          self.send :"#{key}=", date
         end
         @checkin_count = attributes[:checkins]
         @hours = {}
