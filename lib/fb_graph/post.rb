@@ -1,6 +1,7 @@
 module FbGraph
   class Post < Node
     include Connections::Comments
+    include Connections::Insights
     include Connections::Likes
     extend Searchable
 
