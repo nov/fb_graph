@@ -4,7 +4,7 @@ module FbGraph
     include Connections::Likes
     extend Searchable
 
-    attr_accessor :from, :to, :message, :picture, :link, :name, :caption, :description, :source, :properties, :icon, :actions, :privacy, :type, :graph_object_id, :application, :targeting, :created_time, :updated_time
+    attr_accessor :from, :to, :with_tags, :message, :picture, :link, :name, :caption, :description, :source, :properties, :icon, :actions, :privacy, :type, :graph_object_id, :application, :targeting, :created_time, :updated_time
 
     def initialize(identifier, attributes = {})
       super
@@ -31,6 +31,12 @@ module FbGraph
               User.new(to[:id], to)
             end
           end
+        end
+      end
+      @with_tags = []
+      if attributes[:with_tags]
+        Collection.new(attributes[:with_tags]).each do |tagged|
+          @with_tags << User.new(tagged[:id], tagged)
         end
       end
       @message     = attributes[:message]
