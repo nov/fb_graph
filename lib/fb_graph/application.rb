@@ -23,8 +23,8 @@ module FbGraph
 
     @@attributes = [
       :name,
+      :namespace,
       :description,
-      :canvas_name,
       :category,
       :company,
       :icon_url,
