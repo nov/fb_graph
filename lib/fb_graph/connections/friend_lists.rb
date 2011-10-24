@@ -12,7 +12,7 @@ module FbGraph
 
       def friend_list!(options = {})
         friend_list = post options.merge(:connection => :friendlists)
-        FriendList.new(friend_list[:id], options.merge(post).merge(
+        FriendList.new(friend_list[:id], options.merge(friend_list).merge(
           :access_token => options[:access_token] || self.access_token
         ))
       end
