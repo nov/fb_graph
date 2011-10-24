@@ -41,7 +41,6 @@ GEM
     jruby-openssl (0.7.4)
       bouncy-castle-java
     json (1.6.1)
-    json (1.6.1-java)
     multi_json (1.0.3)
     rack (1.3.4)
     rack-cache (1.0.3)
