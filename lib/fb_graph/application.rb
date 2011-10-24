@@ -20,6 +20,7 @@ module FbGraph
     # TODO
     # include Connections::Translations
     include Connections::Videos
+    include OpenGraph::ApplicationContext
 
     @@attributes = [
       :name,

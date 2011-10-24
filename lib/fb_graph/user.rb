@@ -36,6 +36,7 @@ module FbGraph
     include Connections::Threads
     include Connections::UserAchievements
     include Connections::Videos
+    include OpenGraph::UserContext
     extend Searchable
 
     attr_accessor :name, :first_name, :middle_name, :last_name, :gender, :locale, :languages, :link, :username, :third_party_id, :timezone, :updated_time, :verified, :about, :bio, :birthday, :education, :email, :hometown, :interested_in, :location, :political, :favorite_teams, :quotes, :relationship_status, :religion, :significant_other, :video_upload_limits, :website, :work
