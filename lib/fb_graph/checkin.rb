@@ -44,5 +44,14 @@ module FbGraph
     def self.search(options = {})
       super(nil, options)
     end
+    
+    def like!(options = {})
+      post(options)
+    end
+
+    def unlike!(options = {})
+      destroy(options)
+    end
+    
   end
 end
