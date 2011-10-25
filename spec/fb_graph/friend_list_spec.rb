@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe FbGraph::FriendList, '.new' do
+describe FbGraph::FriendList do
 
   it 'should setup all supported attributes' do
     attributes = {
@@ -12,4 +12,11 @@ describe FbGraph::FriendList, '.new' do
     video.name.should       == 'My List'
   end
 
+  describe 'destroy' do
+    it 'should return true' do
+      mock_graph :delete, 'list_id', 'true', :access_token => 'access_token' do
+        FbGraph::FriendList.new('list_id').destroy(:access_token => 'access_token').should be_true
+      end
+    end
+  end
 end
