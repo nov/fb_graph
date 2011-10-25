@@ -19,12 +19,13 @@ module FbGraph
         end
       end
 
-      def like?(page, options = {})
-        like = self.connection :likes, options.merge(:connection_scope => page.identifier)
-        like.present?
+      def like!(options = {})
+        post(options.merge(:connection => :likes))
       end
 
-      # NOTE: likes! is defined in fb_graph/connections/comments.rb
+      def unlike!(options = {})
+        destroy(options.merge(:connection => :likes))
+      end
     end
   end
 end

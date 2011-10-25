@@ -20,17 +20,6 @@ module FbGraph
           :access_token => options[:access_token] || self.access_token
         ))
       end
-
-      # NOTE:
-      # the context of getting likes is User, but the context of posting like is not user.
-      # posting like is always in same context with comment!
-      def like!(options = {})
-        post(options.merge(:connection => :likes))
-      end
-
-      def unlike!(options = {})
-        destroy(options.merge(:connection => :likes))
-      end
     end
   end
 end
