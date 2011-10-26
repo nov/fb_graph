@@ -1,18 +1,24 @@
 module FbGraph
   module OpenGraph
     class Action < Node
+      include Connections::Comments
+      include Connections::Likes
+
       attr_accessor :type, :application, :from, :objects, :start_time, :end_time, :publish_time
+      attr_accessor :raw_attributes
+
       def initialize(identifier, attributes = {})
         super
+        @raw_attributes = attributes
         @type = attributes[:type]
-        if (application = attributes[:application])
+        if application = attributes[:application]
           @application = Application.new(application[:id], application)
         end
-        if (from = attributes[:from])
+        if from = attributes[:from]
           @from = User.new(from[:id], from)
         end
+        @objects = {}
         if attributes[:data]
-          @objects = {}
           attributes[:data].each do |key, _attributes_|
             @objects[key] = Object.new _attributes_[:id], _attributes_
           end
