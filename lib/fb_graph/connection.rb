@@ -1,7 +1,7 @@
 module FbGraph
   class Connection < Collection
     attr_accessor :collection, :connection, :owner, :options
-    delegate :total_count, :to => :collection
+    delegate :total_count, :unread_count, :updated_time, :to => :collection
 
     def initialize(owner, connection, options = {})
       @owner = owner
