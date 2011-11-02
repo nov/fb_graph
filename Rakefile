@@ -4,9 +4,19 @@ Bundler::GemHelper.install_tasks
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
-RSpec::Core::RakeTask.new(:rcov) do |spec|
-  spec.rcov = true
-  spec.rcov_opts = ['-Ilib -Ispec --exclude spec,gems']
+if RUBY_VERSION >= '1.9'
+  require 'cover_me'
+  RSpec::Core::RakeTask.new(:cover) do
+    CoverMe.config do |c|
+      c.file_pattern = /(#{CoverMe.config.project.root}\/lib\/.+\.rb)/i
+    end
+    CoverMe.complete!
+  end
+else
+  RSpec::Core::RakeTask.new(:rcov) do |spec|
+    spec.rcov = true
+    spec.rcov_opts = ['-Ilib -Ispec --exclude spec,gems']
+  end
 end
 
 task :default => :spec
