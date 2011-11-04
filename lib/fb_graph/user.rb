@@ -18,7 +18,6 @@ module FbGraph
     include Connections::Home
     include Connections::Inbox
     include Connections::Interests
-    include Connections::Likes
     include Connections::Links
     include Connections::Movies
     include Connections::Music
@@ -35,6 +34,7 @@ module FbGraph
     include Connections::Television
     include Connections::Threads
     include Connections::UserAchievements
+    include Connections::UserLikes
     include Connections::Videos
     include OpenGraph::UserContext
     extend Searchable
