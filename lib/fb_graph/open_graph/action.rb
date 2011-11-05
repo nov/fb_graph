@@ -23,6 +23,7 @@ module FbGraph
             @objects[key] = Object.new _attributes_[:id], _attributes_
           end
         end
+        @objects = @objects.with_indifferent_access
         [:start_time, :end_time, :publish_time].each do |key|
           self.send "#{key}=", Time.parse(attributes[key]) if attributes[key]
         end
