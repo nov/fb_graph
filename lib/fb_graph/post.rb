@@ -5,7 +5,7 @@ module FbGraph
     include Connections::Likes
     extend Searchable
 
-    attr_accessor :from, :to, :with_tags, :message, :picture, :link, :name, :caption, :description, :source, :properties, :icon, :actions, :privacy, :type, :graph_object_id, :application, :targeting, :created_time, :updated_time
+    attr_accessor :from, :to, :with_tags, :message, :message_tags, :picture, :link, :name, :caption, :description, :source, :properties, :icon, :actions, :privacy, :type, :graph_object_id, :application, :targeting, :created_time, :updated_time, :story, :story_tags
 
     def initialize(identifier, attributes = {})
       super
@@ -40,7 +40,15 @@ module FbGraph
           @with_tags << User.new(tagged[:id], tagged)
         end
       end
-      @message     = attributes[:message]
+      @message = attributes[:message]
+      @message_tags = []
+      if message_tags = attributes[:message_tags]
+        message_tags.each do |index, message_tag|
+          message_tag.each do |_message_tag_|
+            @message_tags << TaggedObject.new(_message_tag_[:id], _message_tag_)
+          end
+        end
+      end
       @picture     = attributes[:picture]
       @link        = attributes[:link]
       @name        = attributes[:name]
@@ -84,6 +92,15 @@ module FbGraph
       end
       if attributes[:updated_time]
         @updated_time = Time.parse(attributes[:updated_time]).utc
+      end
+      @story = attributes[:story]
+      @story_tags = []
+      if story_tags = attributes[:story_tags]
+        story_tags.each do |index, story_tag|
+          story_tag.each do |_story_tag_|
+            @story_tags << TaggedObject.new(_story_tag_[:id], _story_tag_)
+          end
+        end
       end
 
       # cached connection
