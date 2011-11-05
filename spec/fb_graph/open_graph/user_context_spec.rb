@@ -18,6 +18,16 @@ describe FbGraph::OpenGraph::UserContext do
   end
 
   describe '#og_action!' do
-    it :TODO
+    it 'should return FbGraph::OpenGraph::Action' do
+      mock_graph :post, 'me/fbgraphsample:custom_action', 'open_graph/created', :access_token => 'access_token', :params => {
+        :custom_object => 'http://samples.ogp.me/264755040233381'
+      } do
+        action = me.og_action!(
+          app.og_action(:custom_action),
+          :custom_object => 'http://samples.ogp.me/264755040233381'
+        )
+        action.should be_instance_of FbGraph::OpenGraph::Action
+      end
+    end
   end
 end
