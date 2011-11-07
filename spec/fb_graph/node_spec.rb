@@ -68,6 +68,15 @@ describe FbGraph::Node do
         'Graph API returned false, so probably it means your requested object is not found.'
       )
     end
+
+    it 'should raise FbGraph::Exception for invalid JSON response' do
+      node = FbGraph::Node.new('identifier')
+      expect do
+        node.send :handle_response do
+          HTTP::Message.new_response 'invalid'
+        end
+      end.should raise_error FbGraph::Exception
+    end
   end
 
 end

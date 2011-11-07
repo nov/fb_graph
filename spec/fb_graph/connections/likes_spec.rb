@@ -3,6 +3,15 @@ require 'spec_helper'
 
 describe FbGraph::Connections::Likes do
   describe '#likes' do
+    context 'when liked by a Page' do
+      it 'should handle the liker as a Page' do
+        mock_graph :get, 'post_id', 'posts/liked_by_page', :access_token => 'access_token' do
+          post = FbGraph::Post.new('post_id').fetch(:access_token => 'access_token')
+          post.likes.first.should be_instance_of FbGraph::Page
+        end
+      end
+    end
+
     context 'when included by FbGraph::Status' do
       context 'when cached collection exists' do
         before do

@@ -184,6 +184,19 @@ describe FbGraph::Post, '#fetch' do
     end
   end
 
+  context 'when include "story"' do
+    it 'should include message and message_tags' do
+      mock_graph :get, 'post_id', 'posts/with_message', :access_token => 'access_token' do
+        post = FbGraph::Post.fetch('post_id', :access_token => 'access_token')
+        post.message.should == 'testing status message with tagged people. Jr Nov'
+        post.message_tags.should be_a Array
+        post.message_tags.each do |message_tag|
+          message_tag.should be_instance_of FbGraph::TaggedObject
+        end
+      end
+    end
+  end
+
 end
 
 describe FbGraph::Post, '#to' do

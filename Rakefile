@@ -10,7 +10,9 @@ if RUBY_VERSION >= '1.9'
     CoverMe.config do |c|
       c.file_pattern = /(#{CoverMe.config.project.root}\/lib\/.+\.rb)/i
     end
-    CoverMe.complete!
+    at_exit do
+      CoverMe.complete!
+    end
   end
 else
   RSpec::Core::RakeTask.new(:rcov) do |spec|
