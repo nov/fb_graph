@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe FbGraph::Query do
-  let(:raw_query) { 'SELECT uid FROM user WHERE uid = me()' }
+  let(:raw_query) { 'SELECT name FROM user WHERE uid = me()' }
 
   describe '.new' do
     let(:query) { FbGraph::Query.new(raw_query, 'access_token') }
@@ -16,17 +16,17 @@ describe FbGraph::Query do
     let(:query) { FbGraph::Query.new(raw_query) }
 
     context 'when no access token given' do
-      it 'should return blank Hash' do
+      it 'should return blank Array' do
         mock_fql raw_query, 'query/user/without_token' do
           response = query.fetch
-          response.should == {}
+          response.should == []
         end
       end
     end
 
     context 'when invalid access token given' do
       it 'should raise exception' do
-        mock_fql raw_query, 'query/user/with_invalid_token', :access_token => 'invalid' do
+        mock_fql raw_query, 'query/user/with_invalid_token', :access_token => 'invalid', :status => [400, 'Bad Request'] do
           lambda do
             query.fetch('invalid')
           end.should raise_error(FbGraph::Exception)
@@ -35,10 +35,37 @@ describe FbGraph::Query do
     end
 
     context 'when valid access token given' do
-      it 'should return an Array of Hash' do
+      it 'should return an Collection of Hash' do
         mock_fql raw_query, 'query/user/with_valid_token', :access_token => 'valid' do
           response = query.fetch('valid')
-          response.should == [{'uid' => 579612276}]
+          response.should be_instance_of FbGraph::Collection
+          response.should == [{'name' => 'Nov Matake'}]
+        end
+      end
+    end
+
+    context 'when multiquery given' do
+      let(:raw_query) do
+        {
+          :query1 => 'SELECT name FROM user WHERE uid = me()',
+          :query2 => 'SELECT name FROM user WHERE uid = me()'
+        }
+      end
+
+      it 'should return an Hash of Array of Hash' do
+        mock_fql raw_query.to_json, 'query/user/multi_query', :access_token => 'valid' do
+          response = query.fetch('valid')
+          response.should be_instance_of ActiveSupport::HashWithIndifferentAccess
+          response.each do |key, value|
+            value.should be_instance_of Array
+            value.each do |result|
+              result.should be_instance_of ActiveSupport::HashWithIndifferentAccess
+            end
+          end
+          response.should == {
+            "query1" => [{"name" => "Nov Matake"}],
+            "query2" => [{"name" => "Nov Matake"}]
+          }
         end
       end
     end

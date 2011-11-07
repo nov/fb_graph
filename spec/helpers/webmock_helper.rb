@@ -23,8 +23,7 @@ module WebMockHelper
 
   def mock_fql(query, response_file, options = {})
     options.merge!(:params => {
-      :query => query,
-      :format => :json
+      :q => query
     })
     stub_request(:get, FbGraph::Query.new(query).endpoint).with(
       request_for(:get, options)

@@ -1,0 +1,14 @@
+{
+    "data": [{
+        "name": "query1",
+        "fql_result_set": [{
+            "name": "Nov Matake"
+        }]
+    },
+    {
+        "name": "query2",
+        "fql_result_set": [{
+            "name": "Nov Matake"
+        }]
+    }]
+}
