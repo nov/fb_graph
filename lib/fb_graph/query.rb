@@ -1,17 +1,15 @@
 module FbGraph
   class Query < Node
-    ENDPOINT = 'https://api.facebook.com/method/fql.query'
-
-    attr_accessor :access_token, :query
+    attr_accessor :query
 
     def initialize(query, access_token = nil)
+      super 'fql', :access_token => access_token
       @query = query
-      @access_token = access_token
     end
 
     def fetch(access_token = nil)
       handle_response do
-        http_client.get ENDPOINT, :query => build_params(access_token)
+        http_client.get endpoint, :query => build_params(access_token)
       end
     end
 
