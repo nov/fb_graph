@@ -5,13 +5,13 @@ module FbGraph
 
     attr_accessor :value, :friends, :networks, :allow, :deny
 
-    def initialize(attriutes = {})
-      @value       = attriutes[:value]
-      @description = attriutes[:description]
-      @friends     = attriutes[:friends]
-      @networks    = attriutes[:networks]
-      @allow       = attriutes[:allow]
-      @deny        = attriutes[:deny]
+    def initialize(attributes = {})
+      @value       = attributes[:value]
+      @description = attributes[:description]
+      @friends     = attributes[:friends]
+      @networks    = attributes[:networks]
+      @allow       = attributes[:allow]
+      @deny        = attributes[:deny]
     end
 
     def to_hash(options = {})

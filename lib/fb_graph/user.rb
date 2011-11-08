@@ -29,6 +29,7 @@ module FbGraph
     include Connections::Permissions
     include Connections::Photos
     include Connections::Picture
+    include Connections::Pokes
     include Connections::Posts
     include Connections::Statuses
     include Connections::Tagged
