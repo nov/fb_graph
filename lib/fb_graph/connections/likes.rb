@@ -19,12 +19,14 @@ module FbGraph
         end
       end
 
-      def like!(options = {})
-        post(options.merge(:connection => :likes))
-      end
+      module Likable
+        def like!(options = {})
+          post(options.merge(:connection => :likes))
+        end
 
-      def unlike!(options = {})
-        destroy(options.merge(:connection => :likes))
+        def unlike!(options = {})
+          destroy(options.merge(:connection => :likes))
+        end
       end
     end
   end

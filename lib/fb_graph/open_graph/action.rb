@@ -3,6 +3,7 @@ module FbGraph
     class Action < Node
       include Connections::Comments
       include Connections::Likes
+      include Connections::Likes::Likable
 
       attr_accessor :type, :application, :from, :objects, :start_time, :end_time, :publish_time
       attr_accessor :raw_attributes

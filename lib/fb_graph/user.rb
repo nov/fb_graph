@@ -18,6 +18,7 @@ module FbGraph
     include Connections::Home
     include Connections::Inbox
     include Connections::Interests
+    include Connections::Likes
     include Connections::Links
     include Connections::Movies
     include Connections::Music

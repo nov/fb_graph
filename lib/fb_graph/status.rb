@@ -2,6 +2,7 @@ module FbGraph
   class Status < Node
     include Connections::Comments
     include Connections::Likes
+    include Connections::Likes::Likable
 
     attr_accessor :from, :message, :updated_time
 

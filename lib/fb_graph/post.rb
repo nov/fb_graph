@@ -3,6 +3,7 @@ module FbGraph
     include Connections::Comments
     include Connections::Insights
     include Connections::Likes
+    include Connections::Likes::Likable
     extend Searchable
 
     attr_accessor :from, :to, :with_tags, :message, :message_tags, :picture, :link, :name, :caption, :description, :source, :properties, :icon, :actions, :privacy, :type, :graph_object_id, :application, :targeting, :created_time, :updated_time, :story, :story_tags

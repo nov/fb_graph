@@ -2,6 +2,7 @@ module FbGraph
   class Note < Node
     include Connections::Comments
     include Connections::Likes
+    include Connections::Likes::Likable
 
     attr_accessor :from, :subject, :message, :created_time, :updated_time, :icon
 

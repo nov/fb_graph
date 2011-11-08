@@ -2,6 +2,7 @@ module FbGraph
   class Photo < Node
     include Connections::Comments
     include Connections::Likes
+    include Connections::Likes::Likable
     include Connections::Picture
     include Connections::Tags
     include Connections::Tags::Taggable

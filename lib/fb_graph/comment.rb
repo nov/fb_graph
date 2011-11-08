@@ -1,6 +1,7 @@
 module FbGraph
   class Comment < Node
     include Connections::Likes
+    include Connections::Likes::Likable
 
     attr_accessor :from, :message, :created_time, :like_count
 

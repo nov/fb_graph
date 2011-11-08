@@ -2,6 +2,7 @@ module FbGraph
   class Video < Node
     include Connections::Comments
     include Connections::Likes
+    include Connections::Likes::Likable
     include Connections::Picture
 
     attr_accessor :from, :tags, :name, :description, :embed_html, :icon, :source, :created_time, :updated_time

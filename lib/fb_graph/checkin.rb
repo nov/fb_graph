@@ -2,6 +2,7 @@ module FbGraph
   class Checkin < Node
     include Connections::Comments
     include Connections::Likes
+    include Connections::Likes::Likable
     extend Searchable
 
     attr_accessor :from, :tags, :place, :message, :application, :created_time

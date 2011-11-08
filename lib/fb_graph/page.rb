@@ -8,6 +8,7 @@ module FbGraph
     include Connections::Feed
     include Connections::Groups
     include Connections::Insights
+    include Connections::Likes
     include Connections::Links
     include Connections::Notes
     include Connections::Photos
