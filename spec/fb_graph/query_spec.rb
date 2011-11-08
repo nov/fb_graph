@@ -29,7 +29,7 @@ describe FbGraph::Query do
         mock_fql raw_query, 'query/user/with_invalid_token', :access_token => 'invalid', :status => [400, 'Bad Request'] do
           lambda do
             query.fetch('invalid')
-          end.should raise_error(FbGraph::Exception)
+          end.should raise_error FbGraph::Exception
         end
       end
     end

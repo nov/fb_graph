@@ -28,7 +28,7 @@ module WebMockHelper
     stub_request(:get, FbGraph::Query.new(query).endpoint).with(
       request_for(:get, options)
     ).to_return(
-      response_for(response_file)
+      response_for(response_file, options)
     )
     res = yield
     a_request(:get, FbGraph::Query.new(query).endpoint).with(

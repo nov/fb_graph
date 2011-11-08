@@ -114,19 +114,16 @@ module FbGraph
       when 'null'
         nil
       else
-        # NOTE: User#app_request! returns ID as a JSON string not as a JSON object..
         if response.body.gsub('"', '').to_i.to_s == response.body.gsub('"', '')
-          return response.body.gsub('"', '')
-        end
-
-        _response_ = JSON.parse(response.body)
-        _response_ = case _response_
-        when Array
-          _response_.map!(&:with_indifferent_access)
-        when Hash
-          _response_ = _response_.with_indifferent_access
-          Exception.handle_httpclient_error(_response_, response.headers) if _response_[:error]
-          _response_
+          # NOTE: User#app_request! returns ID as a JSON string not as a JSON object..
+          response.body.gsub('"', '')
+        else
+          _response_ = JSON.parse(response.body).with_indifferent_access
+          if (200...300).include?(response.status)
+            _response_
+          else
+            Exception.handle_httpclient_error(_response_, response.headers)
+          end
         end
       end
     rescue JSON::ParserError
