@@ -51,6 +51,7 @@ module FbGraph
           :connection => :settings
         )
         if succeeded
+          @settings ||= []
           if value
             @settings << setting.to_sym
           else
