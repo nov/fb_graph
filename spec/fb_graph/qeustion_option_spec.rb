@@ -22,7 +22,7 @@ describe FbGraph::QuestionOption do
       question.identifier.should        == '12345'
       question.from.should              == FbGraph::User.new('23456', :name => 'Mahmoud Khaled')
       question.name.should              == 'option 1'
-      question.votes.should             == 5
+      question.vote_count.should        == 5
       question.object.should            be_instance_of(FbGraph::Page)
       question.object.name.should       == "Ruby programming language"
       question.object.category.should   == "Interest"

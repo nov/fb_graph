@@ -1,7 +1,7 @@
 module FbGraph
   module Connections
     module Votes
-      def users_votes(options = {})
+      def votes(options = {})
         self.connection(:votes, options)
       end
     end
