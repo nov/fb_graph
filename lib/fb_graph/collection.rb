@@ -19,7 +19,7 @@ module FbGraph
       collection[:data].delete_if(&:nil?)
 
       result = replace(collection[:data])
-      if summary = collection[:summary]
+      if (summary = collection[:summary]).present?
         @total_count = summary[:total_count]
         @unread_count = summary[:unread_count]
         @updated_time = Time.parse(summary[:updated_time]) if summary[:updated_time]
