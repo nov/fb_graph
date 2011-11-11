@@ -31,6 +31,7 @@ module FbGraph
     include Connections::Picture
     include Connections::Pokes
     include Connections::Posts
+    include Connections::Questions
     include Connections::Statuses
     include Connections::Tagged
     include Connections::Television
