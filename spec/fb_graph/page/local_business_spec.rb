@@ -42,10 +42,14 @@ describe FbGraph::Page do
     its(:hours) { should be_instance_of Hash }
     its(:hours) do
       should == {
-        :mon => [
-          {:open  => Time.parse('Thu Jan 01 09:00:00 UTC 1970')},
-          {:close => Time.parse('Thu Jan 01 17:00:00 UTC 1970')}
-        ]
+        :mon => [{
+          :open  => Time.parse('1970-01-01 10:00:00 UTC'),
+          :close => Time.parse('1970-01-01 20:00:00 UTC')
+        }],
+        :tue=>[{
+          :open  => Time.parse('1970-01-01 10:00:00 UTC'),
+          :close => Time.parse('1970-01-01 20:00:00 UTC')
+        }]
       }
     end
 

@@ -90,12 +90,11 @@ module FbGraph
         @checkin_count = attributes[:checkins]
         @hours = {}
         if attributes[:hours]
-          utc_beginning_of_day = Time.now.utc.beginning_of_day
           attributes[:hours].each do |key, value|
             date, index, mode = key.split('_')
             index = index.to_i - 1
             date, mode = date.to_sym, mode.to_sym
-            time = value.since(utc_beginning_of_day)
+            time = Time.parse(value)
             time = Time.utc(1970, 1, 1, time.hour, time.min)
             @hours[date] ||= []
             @hours[date][index] ||= {}
