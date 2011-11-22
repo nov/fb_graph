@@ -23,9 +23,10 @@ module FbGraph
 
     # The majority of Graph API searches use 'q' but some, like AdKeywordSuggestion
     # use an alternate search query param
-    def search_query_param
+    def self.search_query_param
       :q
     end
+    delegate :search_query_param, :to => Searchable
   end
 end
 
