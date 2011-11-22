@@ -8,7 +8,7 @@ describe FbGraph::Page do
       :likes    => 578246,
       :name     => 'Facebook Platform',
       :username => 'platform',
-      :talking_about_count => 40945
+      :talking_about_count => 3232
     }
   end
   subject do
