@@ -105,8 +105,7 @@ module FbGraph
       end
 
       # cached connection
-      @_likes_ = Collection.new(attributes[:likes])
-      @_comments_ = Collection.new(attributes[:comments])
+      cache_collections attributes, :comments, :likes
     end
   end
 end

@@ -26,7 +26,7 @@ module FbGraph
       @icon = attributes[:icon]
 
       # cached connection
-      @_comments_ = Collection.new(attributes[:comments])
+      cache_collection attributes, :comments
     end
   end
 end

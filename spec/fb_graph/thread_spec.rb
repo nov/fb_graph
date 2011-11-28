@@ -83,34 +83,4 @@ describe FbGraph::Thread, '.new' do
       FbGraph::User.new('1575327134', :name => 'Nov Matake', :email => 'abc@facebook.com')
     ]
   end
-
-
-  describe FbGraph::Thread::BeforeTransition do
-    describe '#messages' do
-      it 'should use cached contents as default' do
-        lambda do
-          FbGraph::Thread::BeforeTransition.new(12345, :access_token => 'access_token').messages
-        end.should_not request_to '12345/comments?access_token=access_token'
-      end
-
-      it 'should not use cached contents when options are specified' do
-        lambda do
-          FbGraph::Thread::BeforeTransition.new(12345).messages(:no_cache => true)
-        end.should request_to '12345/comments?no_cache=true'
-      end
-
-      it 'should return threads as FbGraph::Message' do
-        mock_graph :get, '12345/comments', 'thread/messages/private', :params => {:no_cache => 'true'}, :access_token => 'access_token' do
-          messages = FbGraph::Thread::BeforeTransition.new(12345, :access_token => 'access_token').messages(:no_cache => true)
-          messages.each do |message|
-            message.should be_instance_of(FbGraph::Message)
-          end
-          lambda do
-            messages.next
-          end.should request_to '12345/comments'
-        end
-      end
-    end
-  end
-
 end

@@ -35,7 +35,7 @@ module FbGraph
       end
 
       # cached connection
-      @_comments_ = Collection.new(attributes[:comments])
+      cache_collections attributes, :comments
     end
   end
 end

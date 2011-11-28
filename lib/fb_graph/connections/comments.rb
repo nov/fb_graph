@@ -2,11 +2,7 @@ module FbGraph
   module Connections
     module Comments
       def comments(options = {})
-        comments = if @_comments_ && options.blank?
-          self.connection(:comments, options.merge(:cached_collection => @_comments_))
-        else
-          self.connection(:comments, options)
-        end
+        comments = self.connection(:comments, options)
         comments.map! do |comment|
           Comment.new(comment[:id], comment.merge(
             :access_token => options[:access_token] || self.access_token

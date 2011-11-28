@@ -39,7 +39,7 @@ module FbGraph
       end
 
       # cached connection
-      @_comments_ = Collection.new(attributes[:comments])
+      cache_collection attributes, :comments
     end
 
     def picture_with_access_token(size = nil)

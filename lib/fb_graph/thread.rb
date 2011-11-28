@@ -18,11 +18,7 @@ module FbGraph
       end
 
       # cached connection
-      @_messages_ = Collection.new(attributes[:messages])
-      @_participants_ = Collection.new(attributes[:participants])
-      @_former_participants_ = Collection.new(attributes[:former_articipants])
-      @_senders_ = Collection.new(attributes[:senders])
-      @_tags_ = Collection.new(attributes[:tags])
+      cache_collections attributes, :messages, :participants, :former_participants, :senders, :tags
     end
 
     # NOTE:
@@ -52,18 +48,16 @@ module FbGraph
         end
         @unread = attributes[:unread] == 1
         @unseen = attributes[:unseen] == 1
-        @_messages_ = Collection.new(attributes[:comments])
+
+        # cached connection
+        cache_collection attributes, :comments
       end
 
       # NOTE:
       #  This is a connection named "comments" but returns "messages" and different from normal "comments" connection.
       #  Therefore I put this connection here not under FbGraph::Connections.
       def messages(options = {})
-        messages = if @_messages_ && options.blank?
-          self.connection(:comments, options.merge(:cached_collection => @_messages_))
-        else
-          self.connection(:comments, options)
-        end
+        messages = self.connection(:comments, options)
         messages.map! do |message|
           Message.new(message[:id], message.merge(
             :access_token => options[:access_token] || self.access_token

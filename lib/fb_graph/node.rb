@@ -7,9 +7,10 @@ module FbGraph
     attr_accessor :identifier, :endpoint, :access_token
 
     def initialize(identifier, options = {})
-      @identifier   = identifier
-      @endpoint     = File.join(ROOT_URL, identifier.to_s)
-      @access_token = options[:access_token]
+      @identifier         = identifier
+      @endpoint           = File.join(ROOT_URL, identifier.to_s)
+      @access_token       = options[:access_token]
+      @cached_collections = {}
     end
 
     def fetch(options = {})
@@ -24,16 +25,21 @@ module FbGraph
     end
 
     def connection(connection, options = {})
-      collection = options[:cached_collection] || Collection.new(get(options.merge(:connection => connection)))
-      Connection.new(self, connection, options.merge(:collection => collection))
+      Connection.new(
+        self,
+        connection,
+        options.merge(
+          :collection => collection_for(connection, options)
+        )
+      )
     end
 
     def update(options = {})
-      post(options)
+      post options
     end
 
     def destroy(options = {})
-      delete(options)
+      delete options
     end
 
     protected
@@ -67,6 +73,25 @@ module FbGraph
     end
 
     private
+
+    def collection_for(connection, options = {})
+      collection = if @cached_collections.has_key?(connection) && options.blank?
+        @cached_collections[connection]
+      else
+        get options.merge(:connection => connection)
+      end
+      Collection.new collection
+    end
+
+    def cache_collections(attributes, *connections)
+      if (attributes.keys - [:access_token]).present?
+        connections.each do |connection|
+          attribute_key, connection = connection.to_a.flatten if connection.is_a?(Hash)
+          @cached_collections[connection] = attributes[attribute_key || connection]
+        end
+      end
+    end
+    alias_method :cache_collection, :cache_collections
 
     def build_endpoint(params = {})
       File.join([self.endpoint, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s))

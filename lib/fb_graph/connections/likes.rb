@@ -2,11 +2,7 @@ module FbGraph
   module Connections
     module Likes
       def likes(options = {})
-        likes = if @_likes_ && options.blank?
-          self.connection(:likes, options.merge(:cached_collection => @_likes_))
-        else
-          self.connection(:likes, options)
-        end
+        likes = self.connection(:likes, options)
         likes.map! do |like|
           like.merge!(
             :access_token => options[:access_token] || self.access_token

@@ -12,6 +12,38 @@ describe FbGraph::Connections::Likes do
       end
     end
 
+    context 'when included by FbGraph::Post' do
+      let(:post) { FbGraph::Post.new('post_id', :access_token => 'access_token', :likes => {}) }
+
+      describe 'cached likes' do
+        context 'when cached' do
+          it 'should use cache' do
+            lambda do
+              post.likes
+            end.should_not request_to 'post_id/likes?access_token=access_token'
+          end
+
+          context 'when options are specified' do
+            it 'should not use cache' do
+              lambda do
+                post.likes(:no_cache => true)
+              end.should request_to 'post_id/likes?access_token=access_token&no_cache=true'
+            end
+          end
+        end
+
+        context 'otherwise' do
+          let(:post) { FbGraph::Post.new(12345, :access_token => 'access_token') }
+
+          it 'should not use cache' do
+            lambda do
+              post.likes
+            end.should request_to '12345/likes?access_token=access_token'
+          end
+        end
+      end
+    end
+
     context 'when included by FbGraph::Status' do
       context 'when cached collection exists' do
         before do

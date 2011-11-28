@@ -42,8 +42,7 @@ module FbGraph
       end
 
       # cached connection
-      @_tags_ = Collection.new(attributes[:tags])
-      @_comments_ = Collection.new(attributes[:comments])
+      cache_collections attributes, :comments, :tags
     end
   end
 end

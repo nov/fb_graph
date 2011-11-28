@@ -17,10 +17,8 @@ module FbGraph
         Time.parse(attributes[:updated_time]).utc
       end
 
-      @_options_ = if attributes[:options]
-        # cached options
-       Collection.new(attributes[:options])
-      end
+      # cached connection
+      cache_collection attributes, :options => :question_options
     end
   end
 end

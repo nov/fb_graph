@@ -8,16 +8,32 @@ describe FbGraph::Connections::Comments, '#comments' do
       end
     end
 
-    it 'should use cached @_comments_ as default' do
-      lambda do
-        post.comments
-      end.should_not request_to "#{post.identifier}/comments"
-    end
+    describe 'cached comments' do
+      context 'when cached' do
+        it 'should use cache' do
+          lambda do
+            post.comments
+          end.should_not request_to "#{post.identifier}/comments"
+        end
 
-    it 'should ignore cached @_comments_ when options are given' do
-      lambda do
-        post.comments(:no_cache => true)
-      end.should request_to "#{post.identifier}/comments"
+        context 'when options are specified' do
+          it 'should not use cache' do
+            lambda do
+              post.comments(:no_cache => true)
+            end.should request_to "#{post.identifier}/comments?no_cache=true"
+          end
+        end
+      end
+
+      context 'otherwise' do
+        let(:post) { FbGraph::Post.new(12345, :access_token => 'access_token') }
+
+        it 'should not use cache' do
+          lambda do
+            post.comments
+          end.should request_to '12345/comments?access_token=access_token'
+        end
+      end
     end
   end
 end
@@ -45,10 +61,6 @@ describe FbGraph::Connections::Comments, '#comment!' do
     end
 
     context 'when valid access_token is given' do
-      before do
-        
-      end
-
       it 'should return generated comment' do
         mock_graph :post, '12345/comments', 'posts/comments/post_with_valid_access_token' do
           comment = FbGraph::Post.new('12345', :access_token => 'valid').comment!(:message => 'hello')
