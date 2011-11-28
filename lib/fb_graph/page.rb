@@ -22,11 +22,11 @@ module FbGraph
     include Connections::Videos
     extend Searchable
 
-    attr_accessor :name, :username, :category, :like_count
+    attr_accessor :name, :username, :category, :like_count, :talking_about_count
 
     def initialize(identifier, attributes = {})
       super
-      [:name, :username, :category].each do |key|
+      [:name, :username, :category, :talking_about_count].each do |key|
         self.send :"#{key}=", attributes[key]
       end
       @like_count = attributes[:likes] || attributes[:fan_count]
