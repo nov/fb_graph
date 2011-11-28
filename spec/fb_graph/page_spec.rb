@@ -21,7 +21,6 @@ describe FbGraph::Page do
   its(:name)                { should == attributes[:name]     }
   its(:username)            { should == attributes[:username] }
   its(:talking_about_count) { should == attributes[:talking_about_count] }
-  
 
   describe '.fetch' do
     subject do
