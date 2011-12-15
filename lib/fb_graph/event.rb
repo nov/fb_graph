@@ -7,6 +7,7 @@ module FbGraph
     include Connections::Attending
     include Connections::Declined
     include Connections::Picture
+    include Connections::Videos
     extend Searchable
 
     attr_accessor :owner, :name, :description, :start_time, :end_time, :location, :venue, :privacy, :updated_time
