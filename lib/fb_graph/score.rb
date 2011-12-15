@@ -1,6 +1,6 @@
 module FbGraph
   class Score < Node
-    attr_accessor :user, :score, :application, :type
+    attr_accessor :user, :score, :application
 
     def initialize(identifier, attributes = {})
       super
@@ -11,7 +11,6 @@ module FbGraph
         @application = Application.new(app[:id], app)
       end
       @score = attributes[:score]
-      @type = attributes[:type]
     end
   end
 end
