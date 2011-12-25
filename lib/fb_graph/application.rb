@@ -63,7 +63,11 @@ module FbGraph
       access_token_without_auto_fetch ||
       self.secret && get_access_token
     end
+
     alias_method_chain :access_token, :auto_fetch
 
+    def self.app(access_token)
+      new('app', :access_token => access_token)
+    end
   end
 end
