@@ -7,6 +7,18 @@ module FbGraph
       /invalid_request/ => "InvalidRequest"
     }
 
+    ERROR_EXCEPTION_MATCHERS = {
+      /Could\snot\ssave\screative/          => "CreativeNotSaved",
+      /QueryLockTimeoutException/           => "QueryLockTimeout",
+      /Could\snot\screate\stargeting\sspec/ => "TargetingSpecNotSaved",
+      /Could\snot\sfetch\sadgroups/         => "AdgroupFetchFailure",
+      /Failed\sto\sopen\sprocess/           => "OpenProcessFailure",
+      /Could\snot\scommit\stransaction/     => "TransactionCommitFailure",
+      /QueryErrorException/                 => "QueryError",
+      /QueryConnectionException/            => "QueryConnection",
+      /QueryDuplicateKeyException/          => "QueryDuplicateKey"
+    }
+
     def self.handle_httpclient_error(response, headers)
       return nil unless response[:error]
 
@@ -31,7 +43,15 @@ module FbGraph
       when /OAuth/
         raise Unauthorized.new("#{response[:error][:type]} :: #{response[:error][:message]}")
       else
-        raise BadRequest.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+        exception_class = nil
+        ERROR_EXCEPTION_MATCHERS.keys.each do |matcher|
+          exception_class = FbGraph::const_get(ERROR_EXCEPTION_MATCHERS[matcher]) if matcher =~ response[:error][:message]
+        end
+        if exception_class
+          raise exception_class.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+        else
+          raise BadRequest.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+        end
       end
     end
 
@@ -65,9 +85,33 @@ module FbGraph
     end
   end
 
+  class InternalServerError < Exception
+    def initialize(message, body = '')
+      super 500, message, body
+    end
+  end
+
   class InvalidToken < Unauthorized; end
 
   class InvalidSession < InvalidToken; end
 
   class InvalidRequest < BadRequest; end
+
+  class CreativeNotSaved < InternalServerError; end
+
+  class QueryLockTimeout < InternalServerError; end
+
+  class TargetingSpecNotSaved < InternalServerError; end
+
+  class AdgroupFetchFailure < InternalServerError; end
+
+  class OpenProcessFailure < InternalServerError; end
+
+  class TransactionCommitFailure < InternalServerError; end
+
+  class QueryError < InternalServerError; end
+
+  class QueryConnection < InternalServerError; end
+
+  class QueryDuplicateKey < InternalServerError; end
 end
