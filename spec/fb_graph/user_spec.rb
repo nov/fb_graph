@@ -9,11 +9,13 @@ describe FbGraph::User, '.new' do
         :state => "Kanagawa",
         :country => "Japan"
       },
-      :mobile_phone => '810000000000'
+      :mobile_phone => '810000000000',
+      :installed => true
     }
     user = FbGraph::User.new(attributes.delete(:id), attributes)
     user.address.should == FbGraph::Venue.new(attributes[:address])
     user.mobile_phone.should == '810000000000'
+    user.installed.should be_true
   end
 
   it 'should support year-hidden birthday' do

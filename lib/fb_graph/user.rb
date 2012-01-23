@@ -43,10 +43,10 @@ module FbGraph
     include OpenGraph::UserContext
     extend Searchable
 
-    attr_accessor :name, :first_name, :middle_name, :last_name, :gender, :locale, :languages, :link, :username, :third_party_id, :timezone, :updated_time, :verified, :about, :bio, :birthday, :education, :email, :hometown, :interested_in, :location, :political, :favorite_teams, :quotes, :relationship_status, :religion, :significant_other, :video_upload_limits, :website, :work
+    attr_accessor :name, :first_name, :middle_name, :last_name, :gender, :locale, :languages, :link, :username, :third_party_id, :timezone, :updated_time, :verified, :about, :bio, :birthday, :education, :email, :hometown, :interested_in, :location, :political, :favorite_teams, :quotes, :relationship, :relationship_status, :religion, :significant_other, :video_upload_limits, :website, :work
 
     # NOTE: below are non-documented
-    attr_accessor :sports,  :favorite_athletes, :inspirational_people, :address, :mobile_phone
+    attr_accessor :sports,  :favorite_athletes, :inspirational_people, :address, :mobile_phone, :installed
 
     def initialize(identifier, attributes = {})
       super
@@ -104,6 +104,8 @@ module FbGraph
       if (significant_other = attributes[:significant_other])
         @significant_other = User.new(significant_other[:id], significant_other)
       end
+      # If this user was build from the family connection, set the relationship type
+      @relationship = attributes[:relationship]
       # NOTE: couldn't find "video_upload_limits" in the response..
       #  @video_upload_limits = ??
       @website = attributes[:website]
@@ -137,6 +139,7 @@ module FbGraph
         @address = Venue.new(attributes[:address])
       end
       @mobile_phone = attributes[:mobile_phone]
+      @installed = attributes[:installed]
     end
 
     def self.me(access_token)
