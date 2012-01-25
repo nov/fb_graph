@@ -4,11 +4,11 @@ module FbGraph
       # When retrieving stats at the AdAccount level we use the 'adgroupstats' connection
       # This returns an Array of statistics
       def ad_group_stats(options = {})
-        ad_group_stats = self.connection(:adgroupstats, options)
+        ad_group_stats = self.connection :adgroupstats, options
         ad_group_stats.map! do |ad_group_stat|
-          AdGroupStat.new(ad_group_stat[:id], ad_group_stat.merge(
+          AdGroupStat.new ad_group_stat[:id], ad_group_stat.merge(
             :access_token => options[:access_token] || self.access_token
-          ))
+          )
         end
       end
 

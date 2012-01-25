@@ -21,7 +21,7 @@ module FbGraph
         blocked.delete_if do |user_id, succeeded|
           !succeeded
         end.keys.map! do |user_id|
-          User.new(user_id, :access_token => options[:access_token] || self.access_token)
+          User.new user_id, :access_token => (options[:access_token] || self.access_token)
         end
       end
 

@@ -2,11 +2,11 @@ module FbGraph
   module Connections
     module UserLikes
       def likes(options = {})
-        likes = self.connection(:likes, options)
+        likes = self.connection :likes, options
         likes.map! do |like|
-          Page.new(like[:id], like.merge!(
+          Page.new like[:id], like.merge!(
             :access_token => options[:access_token] || self.access_token
-          ))
+          )
         end
       end
 

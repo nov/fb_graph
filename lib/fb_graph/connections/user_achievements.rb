@@ -3,9 +3,9 @@ module FbGraph
     module UserAchievements
       def achievements(options = {})
         options[:access_token] ||= self.access_token
-        achievements = self.connection(:achievements, options)
+        achievements = self.connection :achievements, options
         achievements.map! do |achievement|
-          UserAchievement.new(achievement[:id], achievement.merge(:access_token => options[:access_token]))
+          UserAchievement.new achievement[:id], achievement.merge(:access_token => options[:access_token])
         end
       end
 
