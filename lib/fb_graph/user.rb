@@ -24,6 +24,7 @@ module FbGraph
     include Connections::Music
     include Connections::MutualFriends
     include Connections::Notes
+    include Connections::Notifications
     include Connections::Outbox
     include Connections::Payments
     include Connections::Permissions
