@@ -12,7 +12,8 @@ module FbGraph
 
       def question!(options = {})
         question = post options.merge(:connection => :questions)
-        Question.new question[:id], options.merge(question).merge(
+        Question.new question[:id], question.merge(
+          :question => options[:question],
           :access_token => options[:access_token] || self.access_token
         )
       end

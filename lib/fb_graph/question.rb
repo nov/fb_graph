@@ -18,7 +18,9 @@ module FbGraph
       end
 
       # cached connection
-      cache_collection attributes, :options => :question_options
+      if attributes[:options]
+        cache_collection attributes, :options
+      end
     end
   end
 end

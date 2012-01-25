@@ -1,11 +1,11 @@
 module FbGraph
   module Connections
     module QuestionOptions
-      def question_options(opts = {})
-        question_options = self.connection :question_options, opts
-        question_options.map! do |option|
-          QuestionOption.new option[:id], option.merge(
-            :access_token => opts[:access_token] || self.access_token
+      def question_options(options = {})
+        question_options = self.connection :options, options
+        question_options.map! do |question_option|
+          QuestionOption.new question_option[:id], question_option.merge(
+            :access_token => options[:access_token] || self.access_token
           )
         end
       end

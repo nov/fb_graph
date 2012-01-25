@@ -86,8 +86,7 @@ module FbGraph
     def cache_collections(attributes, *connections)
       if (attributes.keys - [:access_token]).present?
         connections.each do |connection|
-          attribute_key, connection = connection.to_a.flatten if connection.is_a?(Hash)
-          @cached_collections[connection] = attributes[attribute_key || connection]
+          @cached_collections[connection] = attributes[connection]
         end
       end
     end
