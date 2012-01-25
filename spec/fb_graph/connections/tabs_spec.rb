@@ -22,4 +22,26 @@ describe FbGraph::Connections::Tabs do
       end
     end
   end
+
+  describe '#tab?' do
+    context 'when installed' do
+      it 'shoud return true' do
+        mock_graph :get, 'FbGraph/tabs/wall', 'pages/tabs/wall', :access_token => 'page_token' do
+          page.tab?(
+            FbGraph::Application.new('wall')
+          ).should be_true
+        end
+      end
+    end
+
+    context 'otherwise' do
+      it 'shoud return false' do
+        mock_graph :get, 'FbGraph/tabs/app_id', 'pages/tabs/blank', :access_token => 'page_token' do
+          page.tab?(
+            FbGraph::Application.new('app_id')
+          ).should be_false
+        end
+      end
+    end
+  end
 end

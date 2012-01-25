@@ -13,6 +13,11 @@ module FbGraph
       def tab!(options = {})
         post options.merge(:connection => :tabs)
       end
+
+      def tab?(application, options = {})
+        tab = self.connection :tabs, options.merge(:connection_scope => application.identifier)
+        tab.present?
+      end
     end
   end
 end

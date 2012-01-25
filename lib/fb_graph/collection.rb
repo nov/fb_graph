@@ -18,7 +18,8 @@ module FbGraph
       # NOTE: Graph API returns {"data":{"to":[null]}} sometimes... :(
       collection[:data].delete_if(&:nil?)
 
-      result = replace(collection[:data])
+      replace collection[:data]
+
       if (summary = collection[:summary]).present?
         @total_count = summary[:total_count]
         @unread_count = summary[:unread_count]
