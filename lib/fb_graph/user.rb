@@ -35,6 +35,8 @@ module FbGraph
     include Connections::Questions
     include Connections::Scores
     include Connections::Statuses
+    include Connections::SubscribedTo
+    include Connections::Subscribers
     include Connections::Tagged
     include Connections::Television
     include Connections::Threads
