@@ -50,6 +50,15 @@ module FbGraph
       self
     end
 
+    def exchange_token!(access_token)
+      raise Unauthorized.new('No Access Token') unless access_token
+      client.fb_exchange_token = access_token
+      self.access_token = client.access_token!
+      self
+    rescue Rack::OAuth2::Client::Error => e
+      raise Exception.new(e.status, e.message)
+    end
+
     private
 
     def get_access_token!(code)

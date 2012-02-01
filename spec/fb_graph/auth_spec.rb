@@ -161,5 +161,16 @@ describe FbGraph::Auth do
       end
     end
   end
+
+  describe "#exchange_token!" do
+    it 'should get new token' do
+      mock_graph :post, '/oauth/access_token', 'token_with_expiry' do
+        auth.exchange_token! 'old_token'
+        puts auth.access_token
+        auth.access_token.access_token.should == 'new_token'
+        auth.access_token.expires_in.should == 3600
+      end
+    end
+  end
 end
 
