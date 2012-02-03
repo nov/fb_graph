@@ -94,7 +94,7 @@ module FbGraph
             date, index, mode = key.split('_')
             index = index.to_i - 1
             date, mode = date.to_sym, mode.to_sym
-            if value.type == Fixnum
+            if value.class == Fixnum
               time = Time.at(value)
             else
               time = Time.parse(value)
