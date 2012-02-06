@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe FbGraph::Exception do
+  it 'should properly set its message for inspect' do
+    err = FbGraph::Exception.new(400, 'This is the error message')
+    err.inspect.should == '#<FbGraph::Exception: This is the error message>'
+  end
+
   context 'when response body is given' do
     it 'should setup message and type from error' do
       err = FbGraph::Exception.new(400, 'This is the original message', {
