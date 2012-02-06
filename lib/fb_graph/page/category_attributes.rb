@@ -94,7 +94,11 @@ module FbGraph
             date, index, mode = key.split('_')
             index = index.to_i - 1
             date, mode = date.to_sym, mode.to_sym
-            time = Time.parse(value)
+            if value.class == Fixnum
+              time = Time.at(value)
+            else
+              time = Time.parse(value)
+            end
             time = Time.utc(1970, 1, 1, time.hour, time.min)
             @hours[date] ||= []
             @hours[date][index] ||= {}
