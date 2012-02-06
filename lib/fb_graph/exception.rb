@@ -64,6 +64,8 @@ module FbGraph
         @message = response[:error][:message]
         @type = response[:error][:type]
       end
+
+      super message
     end
   end
 
