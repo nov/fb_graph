@@ -65,11 +65,7 @@ module FbGraph
     end
 
     def http_client
-      _http_client_ = HTTPClient.new(
-        :agent_name => "FbGraph (#{VERSION})"
-      )
-      _http_client_.request_filter << Debugger::RequestFilter.new if FbGraph.debugging?
-      _http_client_
+      FbGraph.http_client
     end
 
     private

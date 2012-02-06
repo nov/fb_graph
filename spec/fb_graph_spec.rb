@@ -33,4 +33,19 @@ describe FbGraph do
       FbGraph.debugging?.should be_true
     end
   end
+
+  describe '.http_client' do
+    context 'with http_config' do
+      before do
+        FbGraph.http_config do |config|
+          config.ssl_config.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        end
+      end
+      it 'should configure Rack::OAuth2 and FbGraph http_client' do
+        [Rack::OAuth2, FbGraph].each do |klass|
+          klass.http_client.ssl_config.verify_mode.should == OpenSSL::SSL::VERIFY_NONE
+        end
+      end
+    end
+  end
 end
