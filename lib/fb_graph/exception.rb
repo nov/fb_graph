@@ -1,6 +1,6 @@
 module FbGraph
   class Exception < StandardError
-    attr_accessor :code, :type, :message
+    attr_accessor :code, :type
 
     ERROR_HEADER_MATCHERS = {
       /invalid_token/ => "InvalidToken",
@@ -57,14 +57,11 @@ module FbGraph
 
     def initialize(code, message, body = '')
       @code = code
-      if body.blank?
-        @message = message
-      else
+      if body.present?
         response = JSON.parse(body).with_indifferent_access
-        @message = response[:error][:message]
+        message = response[:error][:message]
         @type = response[:error][:type]
       end
-
       super message
     end
   end
