@@ -1,12 +1,12 @@
 module FbGraph
   class AdGroupStat < Node
     attr_accessor :start_time, :end_time, :adgroup_id, :impressions, :clicks, :spent, :social_impressions, :social_clicks, :social_spent,
-      :unique_impressions, :social_unique_impressions, :unique_clicks, :social_unique_clicks, :connections
+      :actions, :unique_impressions, :social_unique_impressions, :unique_clicks, :social_unique_clicks, :connections
 
     def initialize(identifier, attributes = {})
       super
 
-      %w(adgroup_id impressions clicks spent social_impressions social_clicks social_spent unique_impressions social_unique_impressions unique_clicks social_unique_clicks connections).each do |field|
+      %w(adgroup_id impressions clicks spent social_impressions social_clicks social_spent actions unique_impressions social_unique_impressions unique_clicks social_unique_clicks connections).each do |field|
         send("#{field}=", attributes[field.to_sym])
       end
 
