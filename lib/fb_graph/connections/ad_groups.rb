@@ -14,11 +14,20 @@ module FbGraph
       # cannot be created via the AdCampaign connection
       def ad_group!(options = {})
         ad_group = post options.merge(:connection => :adgroups)
-        AdGroup.new ad_group[:id], options.merge(ad_group).merge(
+
+        adgroup_id = ad_group[:id]
+
+        merged_attrs = options.merge(
           :access_token => options[:access_token] || self.access_token,
-          :ad_id => ad_group[:id].to_i,
-          :adgroup_id => ad_group[:id].to_i
+          :ad_id => adgroup_id.to_i,
+          :adgroup_id => adgroup_id.to_i
         )
+
+        if [1, "1", true].include?(options.symbolize_keys[:redownload])
+          merged_attrs.merge!(ad_group[:data]["adgroups"][adgroup_id].symbolize_keys)
+        end
+
+        AdGroup.new ad_group[:id], merged_attrs
       end
     end
   end

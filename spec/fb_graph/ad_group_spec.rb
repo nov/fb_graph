@@ -51,3 +51,42 @@ describe FbGraph::AdGroup, '.fetch' do
     end
   end
 end
+
+describe FbGraph::AdGroup, '.update' do
+  context "without the redownload parameter" do
+    it "should return true from facebook" do 
+      mock_graph :post, '6003590469668', 'true', :max_bid => 500  do
+        attributes = {
+          :id => '6003590469668',
+          :max_bid => 1000
+        }
+        ad_group = FbGraph::AdGroup.new(attributes.delete(:id), attributes)
+        ad_group.update(:max_bid => 500).should be_true
+
+      end
+    end
+  end
+
+  context "with the redownload parameter" do
+    it "should update the AdGroup with the new data from facebook" do
+      mock_graph :post, "6004165047777", 'ad_groups/test_ad_group_update_with_redownload', :max_bid => 500, :redownload => true do
+        attributes = {
+          :id => "6004165047777",
+          :adgroup_id => "6004165047777",
+          :adgroup_status => 1,
+          :max_bid => 1000
+        }
+
+        ad_group = FbGraph::AdGroup.new(attributes.delete(:id), attributes)
+        ad_group.adgroup_status.should == 1
+
+        ad_group.update(:max_bid => 500, :redownload => true)
+
+        ad_group.max_bid.should == "500"
+
+        # Our test assumes that adgroup_status has changed on Facebook's side and is passed back different
+        ad_group.adgroup_status.should == 4
+      end
+    end
+  end
+end
