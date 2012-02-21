@@ -14,8 +14,7 @@ module FbGraph
       response = super(options)
 
       if [1, "1", true].include?(options.symbolize_keys[:redownload])
-        # In-place replacement of values returned from the update
-        attributes = options.merge(response[:data]["adgroups"][identifier.to_s].symbolize_keys)
+        attributes = options.merge(response[:data][:adgroups][identifier].symbolize_keys)
         set_attrs(attributes)
       end
 
