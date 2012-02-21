@@ -59,3 +59,39 @@ describe FbGraph::AdCampaign, '.fetch' do
     end
   end
 end
+
+describe FbGraph::AdCampaign, '.update' do
+  context "without the redownload parameter" do
+    it "should return true from facebook" do 
+      mock_graph :post, '6003590469668', 'true', :name => "New Name" do
+        attributes = {
+          :id => '6003590469668',
+          :name => "Original Name"
+        }
+        ad_campaign = FbGraph::AdCampaign.new(attributes.delete(:id), attributes)
+        ad_campaign.update(:name => "New Name").should be_true
+
+      end
+    end
+  end
+
+  context "with the redownload parameter" do
+    it "should update the AdCampaign with the new data from facebook" do
+      mock_graph :post, "6004167532222", 'ad_campaigns/test_ad_campaign_update_with_redownload', :name => "New Name", :redownload => true do
+        attributes = {
+          :id => "6004167532222",
+          :campaign_status => 1,
+          :name => "New Name"
+        }
+
+        ad_campaign = FbGraph::AdCampaign.new(attributes.delete(:id), attributes)
+        ad_campaign.campaign_status.should == 1
+
+        ad_campaign.update(:name => "New Name", :redownload => true)
+        ad_campaign.name.should == "New Name"
+
+        ad_campaign.campaign_status.should == 2
+      end
+    end
+  end
+end
