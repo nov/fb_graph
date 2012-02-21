@@ -5,9 +5,15 @@ require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
 if RUBY_VERSION >= '1.9'
-  require 'cover_me'
-  CoverMe.config do |c|
-    c.file_pattern = /(#{CoverMe.config.project.root}\/lib\/.+\.rb)/i
+  namespace :cover_me do
+    desc "Generates and opens code coverage report."
+    task :report do
+      require 'cover_me'
+      CoverMe.complete!
+    end
+  end
+  task :spec do
+    Rake::Task['cover_me:report'].invoke
   end
 else
   RSpec::Core::RakeTask.new(:rcov) do |spec|
