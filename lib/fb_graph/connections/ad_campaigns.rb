@@ -12,9 +12,18 @@ module FbGraph
 
       def ad_campaign!(options = {})
         ad_campaign = post options.merge(:connection => :adcampaigns)
-        AdCampaign.new ad_campaign[:id], options.merge(ad_campaign).merge(
+
+        ad_campaign_id = ad_campaign[:id]
+
+        merged_attrs = options.merge(
           :access_token => options[:access_token] || self.access_token
         )
+
+        if [1, "1", true].include?(options.symbolize_keys[:redownload])
+          merged_attrs.merge!(ad_campaign[:data][:campaigns][ad_campaign_id].symbolize_keys)
+        end
+
+        AdCampaign.new ad_campaign_id, merged_attrs
       end
     end
   end
