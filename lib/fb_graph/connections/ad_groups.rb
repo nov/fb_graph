@@ -23,8 +23,8 @@ module FbGraph
           :adgroup_id => adgroup_id.to_i
         )
 
-        if [1, "1", true].include?(options.symbolize_keys[:redownload])
-          merged_attrs.merge!(ad_group[:data][:adgroups][adgroup_id].symbolize_keys)
+        if options[:redownload]
+          merged_attrs = merged_attrs.merge(ad_group[:data][:adgroups][adgroup_id]).with_indifferent_access
         end
 
         AdGroup.new ad_group[:id], merged_attrs

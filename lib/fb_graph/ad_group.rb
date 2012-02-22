@@ -13,8 +13,8 @@ module FbGraph
     def update(options)
       response = super(options)
 
-      if [1, "1", true].include?(options.symbolize_keys[:redownload])
-        attributes = options.merge(response[:data][:adgroups][identifier].symbolize_keys)
+      if options[:redownload]
+        attributes = options.merge(response[:data][:adgroups][identifier]).with_indifferent_access
         set_attrs(attributes)
       end
 

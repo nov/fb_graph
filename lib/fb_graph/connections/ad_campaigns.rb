@@ -19,8 +19,8 @@ module FbGraph
           :access_token => options[:access_token] || self.access_token
         )
 
-        if [1, "1", true].include?(options.symbolize_keys[:redownload])
-          merged_attrs.merge!(ad_campaign[:data][:campaigns][ad_campaign_id].symbolize_keys)
+        if options[:redownload]
+          merged_attrs = merged_attrs.merge(ad_campaign[:data][:campaigns][ad_campaign_id]).with_indifferent_access
         end
 
         AdCampaign.new ad_campaign_id, merged_attrs
