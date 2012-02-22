@@ -94,7 +94,13 @@ module FbGraph
             date, index, mode = key.split('_')
             index = index.to_i - 1
             date, mode = date.to_sym, mode.to_sym
-            time = Time.parse(value)
+            if value.class == Fixnum
+              # The Unix "time" returned is a weird approximation of the string value.
+              # Example: "20:00" might be represented as 446400, which is 1970-01-05T20:00:00-08:00
+              time = Time.at(value).in_time_zone("Pacific Time (US & Canada)")
+            else
+              time = Time.parse(value)
+            end
             time = Time.utc(1970, 1, 1, time.hour, time.min)
             @hours[date] ||= []
             @hours[date][index] ||= {}
