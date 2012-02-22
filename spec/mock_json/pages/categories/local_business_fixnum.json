@@ -18,10 +18,10 @@
     "price_range": "$ (0-10)",
     "public_transit": "30 min from Kyoto St.",
     "hours": {
-        "mon_1_open": 54000,
-        "mon_1_close": 90000,
-        "tue_1_open": 54000,
-        "tue_1_close": 90000
+        "mon_1_open": 64800,
+        "mon_1_close": 100800,
+        "tue_1_open": 64800,
+        "tue_1_close": 100800
     },
     "attire": "Casual",
     "payment_options": {

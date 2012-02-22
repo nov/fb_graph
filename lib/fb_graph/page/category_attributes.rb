@@ -95,7 +95,9 @@ module FbGraph
             index = index.to_i - 1
             date, mode = date.to_sym, mode.to_sym
             if value.class == Fixnum
-              time = Time.at(value)
+              # The Unix "time" returned is a weird approximation of the string value.
+              # Example: "20:00" might be represented as 446400, which is 1970-01-05T20:00:00-08:00
+              time = Time.at(value).in_time_zone("Pacific Time (US & Canada)")
             else
               time = Time.parse(value)
             end
