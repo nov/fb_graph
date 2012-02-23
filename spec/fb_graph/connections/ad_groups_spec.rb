@@ -79,8 +79,7 @@ describe FbGraph::Connections::AdGroups, '#ad_group!' do
         ad_group.campaign_id.should == 11223344
         ad_group.name.should == "Test Ad 2"
         ad_group.bid_type.should == 1
-        # Not sure why...but Facebook returns max_bid as a String
-        ad_group.max_bid.should == "100"
+        ad_group.max_bid.should == 100
         ad_group.start_time.should == Time.parse("2012-02-20T00:00:00Z")
         ad_group.end_time.should == Time.parse("2012-02-23T00:00:00Z")
 

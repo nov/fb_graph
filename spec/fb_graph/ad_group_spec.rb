@@ -82,7 +82,7 @@ describe FbGraph::AdGroup, '.update' do
 
         ad_group.update(:max_bid => 500, :redownload => true)
 
-        ad_group.max_bid.should == "500"
+        ad_group.max_bid.should == 500
 
         # Our test assumes that adgroup_status has changed on Facebook's side and is passed back different
         ad_group.adgroup_status.should == 4
