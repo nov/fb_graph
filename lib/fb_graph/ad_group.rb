@@ -29,7 +29,7 @@ module FbGraph
       end
 
       # max_bid is string only when reloaded for some reason..
-      self.max_bid = max_bid.try(:to_s)
+      self.max_bid = max_bid.try(:to_i)
 
       %w(start_time end_time updated_time).each do |field|
         if val = attributes[field.to_sym]
