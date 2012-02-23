@@ -28,6 +28,9 @@ module FbGraph
         send("#{field}=", attributes[field.to_sym])
       end
 
+      # max_bid is string only when reloaded for some reason..
+      self.max_bid = max_bid.try(:to_s)
+
       %w(start_time end_time updated_time).each do |field|
         if val = attributes[field.to_sym]
           # Handles integer timestamps and ISO8601 strings
