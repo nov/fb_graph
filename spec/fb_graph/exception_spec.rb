@@ -91,6 +91,18 @@ describe FbGraph::Exception, ".handle_httpclient_error" do
       it "should raise an InvalidToken exception" do
         lambda {FbGraph::Exception.handle_httpclient_error(parsed_response, headers)}.should raise_exception(FbGraph::InvalidToken)
       end
+
+      context "with a variant capitalization of the header" do
+        let(:headers) do
+          {
+            "Www-Authenticate" => 'OAuth "Facebook Platform" "invalid_token" "Invalid OAuth access token."'
+          }
+        end
+
+        it "should raise an InvalidToken exception" do
+          lambda {FbGraph::Exception.handle_httpclient_error(parsed_response, headers)}.should raise_exception(FbGraph::InvalidToken)
+        end
+      end
     end
 
     context "with an invalid request" do

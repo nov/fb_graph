@@ -24,7 +24,9 @@ module FbGraph
 
       # Check the WWW-Authenticate header, since it seems to be more standardized than the response
       # body error information.
-      if www_authenticate = headers["WWW-Authenticate"]
+      # The complex lookup is needed to follow the HTTP spec - headers should be looked up
+      # without regard to case.
+      if www_authenticate = headers.select{ |name, value| name.upcase == "WWW-Authenticate".upcase }.values.first
         # Session expiration/invalidation is very common. Check for that first.
         if www_authenticate =~ /invalid_token/ && response[:error][:message] =~ /session has been invalidated/
           raise InvalidSession.new("#{response[:error][:type]} :: #{response[:error][:message]}")
