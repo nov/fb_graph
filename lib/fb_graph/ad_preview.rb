@@ -4,7 +4,7 @@ module FbGraph
 
     def initialize(attributes = {})
       super
-      self.preview_data = attributes[:data][0]
+      self.preview_data = Collection.new(attributes).first
     end
   end
 end
