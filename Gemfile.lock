@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fb_graph (2.4.1)
+    fb_graph (2.4.3)
       httpclient (>= 2.2.0.2)
       rack-oauth2 (>= 0.14.0)
       tzinfo
@@ -9,9 +9,9 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    actionpack (3.2.1)
-      activemodel (= 3.2.1)
-      activesupport (= 3.2.1)
+    actionpack (3.2.2)
+      activemodel (= 3.2.2)
+      activesupport (= 3.2.2)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.1)
@@ -19,10 +19,10 @@ GEM
       rack-cache (~> 1.1)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.2)
-    activemodel (3.2.1)
-      activesupport (= 3.2.1)
+    activemodel (3.2.2)
+      activesupport (= 3.2.2)
       builder (~> 3.0.0)
-    activesupport (3.2.1)
+    activesupport (3.2.2)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.2.7)
@@ -46,7 +46,7 @@ GEM
     rack (1.4.1)
     rack-cache (1.1)
       rack (>= 0.4)
-    rack-oauth2 (0.14.2)
+    rack-oauth2 (0.14.4)
       activesupport (>= 2.3)
       attr_required (>= 0.0.5)
       httpclient (>= 2.2.0.2)
