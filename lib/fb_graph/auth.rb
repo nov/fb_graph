@@ -53,7 +53,7 @@ module FbGraph
     def exchange_token!(access_token)
       raise Unauthorized.new('No Access Token') unless access_token
       client.fb_exchange_token = access_token
-      self.access_token = client.access_token!
+      self.access_token = client.access_token! :client_auth_body
       self
     rescue Rack::OAuth2::Client::Error => e
       raise Exception.new(e.status, e.message)
@@ -65,7 +65,7 @@ module FbGraph
       raise Unauthorized.new('No Authorization Code') unless code
       client.redirect_uri = ''
       client.authorization_code = code
-      self.access_token = client.access_token!
+      self.access_token = client.access_token! :client_auth_body
       self.user = User.new(data[:user_id], :access_token => access_token)
       self
     rescue Rack::OAuth2::Client::Error => e

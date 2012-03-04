@@ -56,7 +56,7 @@ module FbGraph
     def get_access_token(secret = nil)
       self.secret ||= secret
       auth = Auth.new(self.identifier, self.secret)
-      self.access_token = auth.client.access_token!
+      self.access_token = auth.client.access_token! :client_auth_body
     end
 
     def access_token_with_auto_fetch
