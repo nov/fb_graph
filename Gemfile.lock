@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    fb_graph (2.4.3)
+    fb_graph (2.4.4)
       httpclient (>= 2.2.0.2)
-      rack-oauth2 (>= 0.14.0)
+      rack-oauth2 (>= 0.14.4)
       tzinfo
 
 GEM
