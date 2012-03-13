@@ -7,7 +7,7 @@ require 'patch/rack/oauth2/access_token'
 module FbGraph
   VERSION = ::File.read(
     ::File.join(::File.dirname(__FILE__), '../VERSION')
-  )
+  ).delete("\n\r")
   ROOT_URL = "https://graph.facebook.com"
 
   def self.logger

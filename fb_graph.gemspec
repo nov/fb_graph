@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "fb_graph"
-  s.version = File.read("VERSION")
+  s.version = File.read("VERSION").delete("\n\r")
   s.authors = ["nov matake"]
   s.description = %q{A full-stack Facebook Graph API wrapper in Ruby.}
   s.summary = %q{A full-stack Facebook Graph API wrapper in Ruby.}
