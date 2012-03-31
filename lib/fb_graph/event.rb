@@ -37,8 +37,12 @@ module FbGraph
           Time.at(end_time)
         end
       end
-      if attributes[:venue]
-        @venue = Venue.new(attributes[:venue])
+      if venue = attributes[:venue]
+        @venue = if venue[:id]
+          Page.new(venue)
+        else
+          Venue.new(venue)
+        end
       end
       if attributes[:updated_time]
         @updated_time = Time.parse(attributes[:updated_time]).utc
