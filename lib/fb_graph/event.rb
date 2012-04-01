@@ -39,7 +39,7 @@ module FbGraph
       end
       if venue = attributes[:venue]
         @venue = if venue[:id]
-          Page.new(venue)
+          Page.new(venue[:id], venue)
         else
           Venue.new(venue)
         end
