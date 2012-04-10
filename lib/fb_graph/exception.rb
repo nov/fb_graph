@@ -20,7 +20,13 @@ module FbGraph
     }
 
     def self.handle_httpclient_error(response, headers)
-      return nil unless response[:error]
+      return nil unless (response[:error] || response[:error_code] || response[:error_msg])
+
+      # Sometimes we see an error that does not have the "error" field, but instead has both "error_code" and "error_msg"
+      # example: {"error_code":1,"error_msg":"An unknown error occurred"}
+      if (response[:error_code] && response[:error_msg] && !response[:error])
+        raise InternalServerError.new("#{response[:error_code]} :: #{response[:error_msg]}")
+      end
 
       # Check the WWW-Authenticate header, since it seems to be more standardized than the response
       # body error information.
