@@ -231,7 +231,7 @@ See more here: http://developers.facebook.com/docs/authentication/fb_sig/
 
   # in callback
   client.authorization_code = params[:code]
-  access_token = client.access_token!  # => Rack::OAuth2::AccessToken
+  access_token = client.access_token! :client_auth_body # => Rack::OAuth2::AccessToken
   FbGraph::User.me(access_token).fetch # => FbGraph::User
 
 ==== Session Key Exchange
