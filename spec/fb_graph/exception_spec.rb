@@ -293,5 +293,18 @@ describe FbGraph::Exception, ".handle_httpclient_error" do
         end
       end
     end
+    context "with an Exception not containing the error field" do
+      let(:parsed_response) do
+        {
+          :error_code => 1,
+          :error_msg => "An unknown error occurred."
+        }
+      end
+
+      it "should raise an InternalServerError exception" do
+        lambda {FbGraph::Exception.handle_httpclient_error(parsed_response, {})}.should raise_exception(FbGraph::InternalServerError)
+      end
+
+    end
   end
 end
