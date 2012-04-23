@@ -19,57 +19,55 @@ module FbGraph
       /QueryDuplicateKeyException/          => "QueryDuplicateKey"
     }
 
-    class << self
-      def handle_httpclient_error(response, headers)
-        return nil unless response[:error]
+    def self.handle_httpclient_error(response, headers)
+      return nil unless response[:error]
 
-        # Check the WWW-Authenticate header, since it seems to be more standardized than the response
-        # body error information.
-        # The complex lookup is needed to follow the HTTP spec - headers should be looked up
-        # without regard to case.
-        www_authenticate = headers.select do |name, value|
-          name.upcase == "WWW-Authenticate".upcase
-        end.to_a.flatten.second
-        if www_authenticate
-          # Session expiration/invalidation is very common. Check for that first.
-          if www_authenticate =~ /invalid_token/ && response[:error][:message] =~ /session has been invalidated/
-            raise InvalidSession.new("#{response[:error][:type]} :: #{response[:error][:message]}")
-          end
-
-          ERROR_HEADER_MATCHERS.keys.each do |matcher|
-            if matcher =~ www_authenticate
-              exception_class = FbGraph::const_get(ERROR_HEADER_MATCHERS[matcher])
-              raise exception_class.new("#{response[:error][:type]} :: #{response[:error][:message]}")
-            end
-          end
+      # Check the WWW-Authenticate header, since it seems to be more standardized than the response
+      # body error information.
+      # The complex lookup is needed to follow the HTTP spec - headers should be looked up
+      # without regard to case.
+      www_authenticate = headers.select do |name, value|
+        name.upcase == "WWW-Authenticate".upcase
+      end.to_a.flatten.second
+      if www_authenticate
+        # Session expiration/invalidation is very common. Check for that first.
+        if www_authenticate =~ /invalid_token/ && response[:error][:message] =~ /session has been invalidated/
+          raise InvalidSession.new("#{response[:error][:type]} :: #{response[:error][:message]}")
         end
 
-        # If we can't match on WWW-Authenticate, use the type
-        case response[:error][:type]
-        when /OAuth/
-          raise Unauthorized.new("#{response[:error][:type]} :: #{response[:error][:message]}")
-        else
-          exception_class = nil
-          ERROR_EXCEPTION_MATCHERS.keys.each do |matcher|
-            exception_class = FbGraph::const_get(ERROR_EXCEPTION_MATCHERS[matcher]) if matcher =~ response[:error][:message]
-          end
-          if exception_class
+        ERROR_HEADER_MATCHERS.keys.each do |matcher|
+          if matcher =~ www_authenticate
+            exception_class = FbGraph::const_get(ERROR_HEADER_MATCHERS[matcher])
             raise exception_class.new("#{response[:error][:type]} :: #{response[:error][:message]}")
-          else
-            raise BadRequest.new("#{response[:error][:type]} :: #{response[:error][:message]}")
           end
         end
       end
 
-      def handle_rack_oauth2_error(e)
-        case e.status
-        when 400
-          raise BadRequest.new(e.message)
-        when 401
-          raise Unauthorized.new(e.message)
-        else
-          raise Exception.new(e.status, e.message)
+      # If we can't match on WWW-Authenticate, use the type
+      case response[:error][:type]
+      when /OAuth/
+        raise Unauthorized.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+      else
+        exception_class = nil
+        ERROR_EXCEPTION_MATCHERS.keys.each do |matcher|
+          exception_class = FbGraph::const_get(ERROR_EXCEPTION_MATCHERS[matcher]) if matcher =~ response[:error][:message]
         end
+        if exception_class
+          raise exception_class.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+        else
+          raise BadRequest.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+        end
+      end
+    end
+
+    def handle_rack_oauth2_error(error)
+      case e.status
+      when 400
+        raise BadRequest.new(e.message)
+      when 401
+        raise Unauthorized.new(e.message)
+      else
+        raise Exception.new(e.status, e.message)
       end
     end
 
