@@ -66,6 +66,18 @@ module FbGraph
       end
     end
 
+    def self.handle_rack_oauth2_error(e)
+      exception = case e.status
+      when 400
+        BadRequest.new(e.message)
+      when 401
+        Unauthorized.new(e.message)
+      else
+        Exception.new(e.status, e.message)
+      end
+      raise exception
+    end
+
     def initialize(code, message, body = '')
       @code = code
       if body.present?
