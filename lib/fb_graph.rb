@@ -53,6 +53,20 @@ module FbGraph
     Rack::OAuth2.http_config &block unless Rack::OAuth2.http_config
     @@http_config ||= block
   end
+
+  def self.batch(&block)
+    @batch_request = BatchRequest.new
+    yield
+    @batch_request.execute!
+  ensure
+    @batch_request = nil
+  end
+  def self.batch_request
+    @batch_request
+  end
+  def self.batch_mode?
+    !!@batch_request
+  end
 end
 
 require 'fb_graph/exception'
@@ -65,6 +79,7 @@ require 'fb_graph/collection'
 require 'fb_graph/connection'
 require 'fb_graph/connections'
 require 'fb_graph/searchable'
+require 'fb_graph/batch_request'
 
 require 'fb_graph/action'
 require 'fb_graph/education'

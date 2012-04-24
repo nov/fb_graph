@@ -45,22 +45,22 @@ module FbGraph
     protected
 
     def get(params = {})
-      handle_response do
-        http_client.get build_endpoint(params), build_params(params)
+      request do |client|
+        client.get build_endpoint(params), build_params(params)
       end
     end
 
     def post(params = {})
-      handle_response do
-        http_client.post build_endpoint(params), build_params(params)
+      request do |client|
+        client.post build_endpoint(params), build_params(params)
       end
     end
 
     def delete(params = {})
       _endpoint_, _params_ = build_endpoint(params), build_params(params)
       _endpoint_ = [_endpoint_, _params_.try(:to_query)].compact.join('?')
-      handle_response do
-        http_client.delete _endpoint_
+      request do |client|
+        client.delete _endpoint_
       end
     end
 
@@ -118,8 +118,17 @@ module FbGraph
       _params_.blank? ? nil : _params_
     end
 
-    def handle_response
-      response = yield
+    def request(&block)
+      if FbGraph.batch_mode?
+        yield FbGraph.batch_request
+      else
+        puts "SEQUENTIAL"
+        handle_response &block
+      end
+    end
+
+    def handle_response(response = nil)
+      response ||= yield http_client
       case response.body
       when 'true'
         true
