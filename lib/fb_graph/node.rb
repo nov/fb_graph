@@ -4,12 +4,13 @@ module FbGraph
   class Node
     include Comparison
 
-    attr_accessor :identifier, :endpoint, :access_token
+    attr_accessor :identifier, :endpoint, :access_token, :raw_attributes
 
-    def initialize(identifier, options = {})
+    def initialize(identifier, attributes = {})
       @identifier         = identifier
       @endpoint           = File.join(ROOT_URL, identifier.to_s)
-      @access_token       = options[:access_token]
+      @access_token       = attributes[:access_token]
+      @raw_attributes     = attributes
       @cached_collections = {}
     end
 

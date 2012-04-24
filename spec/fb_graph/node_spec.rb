@@ -10,6 +10,11 @@ describe FbGraph::Node do
     it 'should support access_token option' do
       FbGraph::Node.new('matake', :access_token => 'access_token').access_token.should == 'access_token'
     end
+
+    it 'should store raw attributes' do
+      attributes = {:key => :value}
+      FbGraph::Node.new(12345, attributes).raw_attributes.should == attributes
+    end
   end
 
   describe '#build_params' do
