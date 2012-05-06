@@ -9,6 +9,9 @@ module FbGraph
           )
         end
       end
+      def invited!(options = {})
+        post options.merge(:connection => :invited)
+      end
     end
   end
 end
