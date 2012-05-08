@@ -103,7 +103,7 @@ module FbGraph
       _params_.each do |key, value|
         next if value.blank?
         _params_[key] = case value
-        when String, Symbol, Numeric, Rack::OAuth2::AccessToken::Legacy
+        when String, Symbol, Numeric, Date, Time, Rack::OAuth2::AccessToken::Legacy
           value.to_s
         when IO, Tempfile
           value
