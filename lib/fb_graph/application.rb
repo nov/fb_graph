@@ -2,20 +2,13 @@ module FbGraph
   class Application < Node
     include Connections::Accounts
     include Connections::Achievements
-    include Connections::Albums
     include Connections::Events
-    include Connections::Feed
     include Connections::Insights
-    include Connections::Links
     include Connections::Notes
     include Connections::Payments
     include Connections::Photos
     include Connections::Picture
-    include Connections::Posts
-    include Connections::Reviews
-    include Connections::Statuses
     include Connections::Subscriptions
-    include Connections::Tagged
     include Connections::TestUsers
     # TODO
     # include Connections::Translations
