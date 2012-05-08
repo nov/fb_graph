@@ -2,16 +2,11 @@ module FbGraph
   class Application < Node
     include Connections::Accounts
     include Connections::Achievements
-    include Connections::Events
     include Connections::Insights
-    include Connections::Notes
     include Connections::Payments
-    include Connections::Photos
     include Connections::Picture
     include Connections::Subscriptions
     include Connections::TestUsers
-    # TODO
-    # include Connections::Translations
     include Connections::Videos
     include OpenGraph::ApplicationContext
 
