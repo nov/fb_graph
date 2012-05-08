@@ -211,26 +211,6 @@ describe FbGraph::Post, '#to' do
     it { should be_instance_of FbGraph::Event }
   end
 
-  context 'when include Application' do
-    context 'when fetched as Application#feed' do
-      let :post do
-        mock_graph :get, 'app/feed', 'applications/feed/public' do
-          FbGraph::Application.new('app').feed.first
-        end
-      end
-      it { should be_instance_of FbGraph::Application }
-    end
-
-    context 'otherwize' do # no way to detect this case..
-      let :post do
-        mock_graph :get, 'to_application', 'posts/to_application' do
-          FbGraph::Post.fetch('to_application')
-        end
-      end
-      it { should be_instance_of FbGraph::User }
-    end
-  end
-
   context 'when include Group' do
     let :post do
       mock_graph :get, 'to_group', 'posts/to_group', :access_token => 'access_token' do
