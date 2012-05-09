@@ -11,6 +11,7 @@ module FbGraph
     include Connections::Insights
     include Connections::Likes
     include Connections::Links
+    include Connections::Milestones
     include Connections::Notes
     include Connections::Photos
     include Connections::Picture
