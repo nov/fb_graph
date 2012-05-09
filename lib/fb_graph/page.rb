@@ -4,6 +4,7 @@ module FbGraph
     include Connections::Albums
     include Connections::Blocked
     include Connections::Checkins
+    include Connections::Conversations
     include Connections::Events
     include Connections::Feed
     include Connections::Groups

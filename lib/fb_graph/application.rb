@@ -69,13 +69,14 @@ module FbGraph
       @@attributes.each do |key|
         # NOTE:
         # For some reason, Graph API returns daily_active_users, weekly_active_users, monthly_active_users as JSON string.
-        value = if [:daily_active_users, :weekly_active_users, :monthly_active_users].include?(key)
+        value = case key
+        when :daily_active_users, :weekly_active_users, :monthly_active_users
           attributes[key].to_i
-        # Boolean fields may be returned as 1 for true or 0 for false
-        elsif [:auth_referral_enabled, :canvas_fluid_height, :canvas_fluid_width, :social_discovery]
-          if attributes[key] == 1
+        when :auth_referral_enabled, :canvas_fluid_height, :canvas_fluid_width, :social_discovery
+          case attributes[key]
+          when 1
             true
-          elsif attributes[key] == 0
+          when 0
             false
           else
             attributes[key]
