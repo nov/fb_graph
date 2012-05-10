@@ -5,6 +5,7 @@ module FbGraph
     include Connections::Insights
     include Connections::Payments
     include Connections::Picture
+    include Connections::Roles
     include Connections::Subscriptions
     include Connections::TestUsers
     include Connections::Videos
