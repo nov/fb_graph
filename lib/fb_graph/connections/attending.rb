@@ -17,9 +17,10 @@ module FbGraph
         member.present?
       end
 
-      def attending!(options = {})
+      def attend!(options = {})
         post options.merge(:connection => :attending)
       end
+      alias_method :attending!, :attend!
     end
   end
 end
