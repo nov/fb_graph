@@ -10,6 +10,13 @@ module FbGraph
         end
       end
 
+      def declined?(user, options = {})
+        member = self.connection(
+          :declined, options.merge(:connection_scope => user.identifier)
+        ).first
+        member.present?
+      end
+
       def declined!(options = {})
         post options.merge(:connection => :declined)
       end
