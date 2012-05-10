@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fb_graph (2.4.14)
+    fb_graph (2.4.15)
       httpclient (>= 2.2.0.2)
       rack-oauth2 (>= 0.14.4)
       tzinfo
