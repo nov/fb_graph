@@ -10,6 +10,13 @@ module FbGraph
         end
       end
 
+      def maybe?(user, options = {})
+        member = self.connection(
+          :maybe, options.merge(:connection_scope => user.identifier)
+        ).first
+        member.present?
+      end
+
       def maybe!(options = {})
         post options.merge(:connection => :maybe)
       end

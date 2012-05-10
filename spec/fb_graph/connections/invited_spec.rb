@@ -16,7 +16,8 @@ describe FbGraph::Connections::Invited do
     let(:event) { FbGraph::Event.new('smartday', :access_token => 'access_token') }
     it 'should invite a single user to an event' do
       mock_graph :post, 'smartday/invited', 'true', :access_token => 'access_token', :params => {
-        :users => "user_id" } do
+        :users => "user_id"
+      } do
           event.invite!(:users => "user_id").should be_true
       end
     end

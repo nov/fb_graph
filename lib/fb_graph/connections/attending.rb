@@ -10,6 +10,13 @@ module FbGraph
         end
       end
 
+      def attending?(user, options = {})
+        member = self.connection(
+          :attending, options.merge(:connection_scope => user.identifier)
+        ).first
+        member.present?
+      end
+
       def attending!(options = {})
         post options.merge(:connection => :attending)
       end
