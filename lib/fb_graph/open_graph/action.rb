@@ -21,7 +21,7 @@ module FbGraph
         @objects = {}
         if attributes[:data]
           attributes[:data].each do |key, _attributes_|
-            @objects[key] = Object.new _attributes_[:id], _attributes_
+            @objects[key] = Object.new _attributes_[:id], _attributes_ if _attributes_.is_a? Hash
           end
         end
         @objects = @objects.with_indifferent_access
