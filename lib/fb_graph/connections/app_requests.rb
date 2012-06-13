@@ -11,8 +11,8 @@ module FbGraph
       end
 
       def app_request!(options = {})
-        app_request_id = post options.merge(:connection => :apprequests)
-        AppRequest.new app_request_id, options.merge(
+        app_request = post options.merge(:connection => :apprequests)
+        AppRequest.new "#{app_request[:request]}_#{app_request[:to].first}", options.merge(
           :access_token => options[:access_token] || self.access_token
         )
       end
