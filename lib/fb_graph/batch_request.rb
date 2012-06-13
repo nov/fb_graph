@@ -1,11 +1,17 @@
 module FbGraph
-  class BatchRequest < Array
+  class BatchRequest
+    
+    attr_reader :active, :actions
+    def initialize(options = {})
+      @actions = []
+      @options = options
+      @active = true
+    end
     def execute!
-      p self
-      self.each do |task|
-        p task
+      @active = false
+      @actions.each_slice(50) do |action_group|
+        FbGraph::Node.new('', @options).update(:batch => action_group)
       end
-      puts "EXCECUTE BATCH TASK!!"
     end
 
     def get(endpoint, params = {})
@@ -23,11 +29,12 @@ module FbGraph
     private
 
     def register(method, endpoint, params = {})
-      self << {
+      @actions << {
         :method => method,
-        :endpoint => endpoint,
+        :relative_url => endpoint.relative_url,
         :params => params
       }
+      self
     end
   end
 end

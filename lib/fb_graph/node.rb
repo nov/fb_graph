@@ -90,7 +90,7 @@ module FbGraph
     alias_method :cache_collection, :cache_collections
 
     def build_endpoint(params = {})
-      File.join([self.endpoint, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s))
+      FbGraph::Endpoint.new([self.identifier, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s))
     end
 
     def build_params(params)
@@ -123,7 +123,6 @@ module FbGraph
       if FbGraph.batch_mode?
         yield FbGraph.batch_request
       else
-        puts "SEQUENTIAL"
         handle_response &block
       end
     end

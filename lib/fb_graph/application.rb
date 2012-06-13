@@ -89,6 +89,10 @@ module FbGraph
         self.send("#{key}=", value)
       end
     end
+    
+    def batch(options = {}, &block)
+      FbGraph.batch options.merge(:access_token => get_access_token), &block
+    end
 
     def get_access_token(secret = nil)
       self.secret ||= secret
