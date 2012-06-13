@@ -19,7 +19,9 @@ describe FbGraph::Connections::AppRequests do
       } do
         app_request = FbGraph::User.me('access_token').app_request! :message => 'Message', :data => 'Data'
         app_request.should be_instance_of FbGraph::AppRequest
-        app_request.identifier.should == "10150353183952277"
+        app_request.identifier.should == "158192394305537_579612276"
+        app_request.message.should == 'Message'
+        app_request.data.should == 'Data'
       end
     end
   end
