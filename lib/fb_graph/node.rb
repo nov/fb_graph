@@ -12,17 +12,20 @@ module FbGraph
       @access_token       = attributes[:access_token]
       @raw_attributes     = attributes
       @cached_collections = {}
+      @return_class       = attributes.delete(:class) || self.class
     end
 
-    def fetch(options = {})
+    def fetch(options = {}, &block)
       options[:access_token] ||= self.access_token if self.access_token
-      _fetched_ = get(options)
-      _fetched_[:access_token] ||= options[:access_token]
-      self.class.new(_fetched_[:id], _fetched_)
+      _fetched_ = get(options, &block)
+      unless FbGraph.batch_mode? 
+        _fetched_[:access_token] ||= options[:access_token]
+        self.class.new(_fetched_[:id], _fetched_)
+      end
     end
 
-    def self.fetch(identifier, options = {})
-      new(identifier).fetch(options)
+    def self.fetch(identifier, options = {}, &block)
+      new(identifier).fetch(options, &block)
     end
 
     def connection(connection, options = {})
@@ -35,33 +38,48 @@ module FbGraph
       )
     end
 
-    def update(options = {})
-      post options
+    def update(options = {}, &block)
+      post options, &block
     end
 
-    def destroy(options = {})
-      delete options
+    def destroy(options = {}, &block)
+      delete options, &block
     end
 
     protected
 
-    def get(params = {})
-      request do |client|
-        client.get build_endpoint(params), build_params(params)
+    def get(params = {}, &block)
+      return_class = params.delete(:class) || @return_class
+      if FbGraph.batch_mode?
+        FbGraph.batch_request.get build_endpoint(params), build_params(params), return_class, &block
+      else
+        handle_response do |client|
+          client.get build_endpoint(params), build_params(params)
+        end
       end
     end
 
-    def post(params = {})
-      request do |client|
-        client.post build_endpoint(params), build_params(params)
+    def post(params = {}, &block)
+      return_class = params.delete(:class) || @return_class
+      if FbGraph.batch_mode?
+        FbGraph.batch_request.post build_endpoint(params), build_params(params), return_class, &block
+      else
+        handle_response do |client|
+          client.post build_endpoint(params), build_params(params)
+        end
       end
     end
 
-    def delete(params = {})
+    def delete(params = {}, &block)
       _endpoint_, _params_ = build_endpoint(params), build_params(params)
       _endpoint_ = [_endpoint_, _params_.try(:to_query)].compact.join('?')
-      request do |client|
-        client.delete _endpoint_
+      return_class = params.delete(:class) || @return_class
+      if FbGraph.batch_mode?
+        FbGraph.batch_request.delete build_endpoint(params), return_class, &block
+      else
+        handle_response do |client|
+          client.delete _endpoint_
+        end
       end
     end
 
@@ -90,7 +108,7 @@ module FbGraph
     alias_method :cache_collection, :cache_collections
 
     def build_endpoint(params = {})
-      FbGraph::Endpoint.new([self.identifier, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s))
+      FbGraph::Endpoint.new([self.identifier, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s), params)
     end
 
     def build_params(params)
@@ -119,14 +137,6 @@ module FbGraph
       _params_.blank? ? nil : _params_
     end
 
-    def request(&block)
-      if FbGraph.batch_mode?
-        yield FbGraph.batch_request
-      else
-        handle_response &block
-      end
-    end
-
     def handle_response(response = nil)
       response ||= yield http_client
       case response.body
@@ -147,16 +157,37 @@ module FbGraph
           # NOTE: User#app_request! returns ID as a JSON string not as a JSON object..
           response.body.gsub('"', '')
         else
-          _response_ = JSON.parse(response.body).with_indifferent_access
-          if (200...300).include?(response.status)
-            _response_
+          _response_ = JSON.parse(response.body)
+          if _response_.kind_of? Array
+            responses = []
+            actions = FbGraph.batch_request.actions
+            _response_.each_with_index do |r, i|
+              body = JSON.parse(r['body'])
+              if (200...300).include?(r['code'])
+                r = (actions[i][:return_class] || FbGraph::Node).new(body['id'],body)
+                success = true
+              else
+                r = FbGraph::Exception.new(r['code'],body['error']['message'])
+                success = false
+              end
+              responses << r 
+              actions[i][:block].call(r, success) if actions[i][:block].present?
+            end
+            responses
           else
-            Exception.handle_httpclient_error(_response_, response.headers)
+            _response_ = _response_.with_indifferent_access
+            if (200...300).include?(response.status)
+              _response_
+            else
+              Exception.handle_httpclient_error(_response_, response.headers)
+            end
           end
         end
       end
     rescue JSON::ParserError
       raise Exception.new(response.status, "Unparsable Response: #{response.body}")
+    rescue Exception => msg
+      raise msg
     end
   end
 end
