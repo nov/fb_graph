@@ -80,6 +80,7 @@ require 'fb_graph/connection'
 require 'fb_graph/connections'
 require 'fb_graph/searchable'
 require 'fb_graph/batch_request'
+require 'fb_graph/batch_response'
 require 'fb_graph/endpoint'
 
 require 'fb_graph/action'
