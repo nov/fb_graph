@@ -72,10 +72,10 @@ module FbGraph
 
     def delete(params = {}, &block)
       _endpoint_, _params_ = build_endpoint(params), build_params(params)
-      _endpoint_ = [_endpoint_, _params_.try(:to_query)].compact.join('?')
+      _endpoint_.query_string=_params_.try(:to_query)
       return_class = params.delete(:class) || @return_class
       if FbGraph.batch_mode?
-        FbGraph.batch_request.delete build_endpoint(params), return_class, &block
+        FbGraph.batch_request.delete _endpoint_, return_class, &block
       else
         handle_response do |client|
           client.delete _endpoint_
