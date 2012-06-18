@@ -186,8 +186,6 @@ module FbGraph
       end
     rescue JSON::ParserError
       raise Exception.new(response.status, "Unparsable Response: #{response.body}")
-    rescue Exception => msg
-      raise msg
     end
   end
 end
