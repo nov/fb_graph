@@ -162,12 +162,12 @@ module FbGraph
             responses = []
             actions = FbGraph.batch_request.actions
             _response_.each_with_index do |r, i|
-              body = JSON.parse(r['body'])
+              body = JSON.parse(r['body']).with_indifferent_access
               if (200...300).include?(r['code'])
-                r = (actions[i][:return_class] || FbGraph::Node).new(body['id'],body)
+                r = (actions[i][:return_class] || FbGraph::Node).new(body[:id],body)
                 success = true
               else
-                r = FbGraph::Exception.new(r['code'],body['error']['message'])
+                r = FbGraph::Exception.new(r['code'],body[:error][:message])
                 success = false
               end
               responses << r 
