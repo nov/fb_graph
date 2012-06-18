@@ -62,7 +62,7 @@ module FbGraph
     @batch_request = nil
   end
   def self.batch_request
-    @batch_request
+    @batch_request || []
   end
   def self.batch_mode?
     @batch_request && @batch_request.active
