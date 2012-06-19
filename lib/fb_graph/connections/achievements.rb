@@ -1,20 +1,16 @@
 module FbGraph
   module Connections
     module Achievements
-      def achievements(options = {})
-        options[:access_token] ||= self.access_token
-        achievements = self.connection :achievements, options
-        achievements.map! do |achievement|
-          Achievement.new achievement[:id], achievement.merge(:access_token => options[:access_token])
-        end
+      def achievements(options = {}, &block)
+        self.map_connection :achievements, options, Achievement, &block
       end
 
-      def achievement!(achievement_url, options = {})
-        post options.merge(:connection => :achievements, :achievement => achievement_url)
+      def achievement!(achievement_url, options = {}, &block)
+        post options.merge(:connection => :achievements, :achievement => achievement_url), &block
       end
 
-      def unregister_achievement!(achievement_url, options = {})
-        delete options.merge(:connection => :achievements, :achievement => achievement_url)
+      def unregister_achievement!(achievement_url, options = {}, &block)
+        delete options.merge(:connection => :achievements, :achievement => achievement_url), &block
       end
     end
   end

@@ -12,7 +12,7 @@ module FbGraph
 
       def og_action!(action, options = {}, &block)
         options[:access_token] ||= self.access_token
-        action = post options.merge(:connection => action, :class => Action), &block
+        action = post options.merge(:connection => action, :_class => Action), &block
         return if action.is_a? FbGraph::BatchRequest
         Action.new action[:id], action
       end

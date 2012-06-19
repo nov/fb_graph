@@ -32,12 +32,14 @@ module FbGraph
     private
 
     def register(method, endpoint, params = {}, return_class=nil, &block)
+      handler_present = params.delete(:_handler_present?)
       @actions << {
         :method => method,
         :relative_url => endpoint.relative_url,
         :body => params.to_query,
         :return_class => return_class,
-        :block => block
+        :block => block, 
+        :handler_present? => handler_present
       }
       self
     end
