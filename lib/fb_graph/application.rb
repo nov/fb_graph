@@ -91,7 +91,6 @@ module FbGraph
     end
     
     def batch(options = {}, &block)
-      self.namespace = fetch.namespace
       FbGraph.batch options.merge(:access_token => get_access_token), &block
     end
 

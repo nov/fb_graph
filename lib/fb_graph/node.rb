@@ -17,8 +17,9 @@ module FbGraph
 
     def fetch(options = {}, &block)
       options[:access_token] ||= self.access_token if self.access_token
+      batch_mode = options[:batch_mode]
       _fetched_ = get(options, &block)
-      unless FbGraph.batch_mode? 
+      unless FbGraph.batch_mode? && batch_mode != false
         _fetched_[:access_token] ||= options[:access_token]
         self.class.new(_fetched_[:id], _fetched_)
       end
@@ -50,7 +51,7 @@ module FbGraph
 
     def get(params = {}, &block)
       return_class = params.delete(:class) || @return_class
-      if FbGraph.batch_mode?
+      if params.delete(:batch_mode) != false && FbGraph.batch_mode?
         FbGraph.batch_request.get build_endpoint(params), build_params(params), return_class, &block
       else
         handle_response do |client|
@@ -61,7 +62,7 @@ module FbGraph
 
     def post(params = {}, &block)
       return_class = params.delete(:class) || @return_class
-      if FbGraph.batch_mode?
+      if params.delete(:batch_mode) != false && FbGraph.batch_mode?
         FbGraph.batch_request.post build_endpoint(params), build_params(params), return_class, &block
       else
         handle_response do |client|
@@ -71,10 +72,11 @@ module FbGraph
     end
 
     def delete(params = {}, &block)
+      batch_mode = params.delete(:batch_mode) != false
       _endpoint_, _params_ = build_endpoint(params), build_params(params)
       _endpoint_.query_string=_params_.try(:to_query)
       return_class = params.delete(:class) || @return_class
-      if FbGraph.batch_mode?
+      if batch_mode && FbGraph.batch_mode?
         FbGraph.batch_request.delete _endpoint_, return_class, &block
       else
         handle_response do |client|
