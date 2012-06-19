@@ -92,7 +92,7 @@ module FbGraph
 
     def batch(options = {}, &block)
       self.namespace ||= fetch.namespace
-      FbGraph.batch options.merge(:access_token => get_access_token), &block
+      FbGraph.batch options.merge(:access_token => access_token), &block
     end
 
     def get_access_token(secret = nil)
