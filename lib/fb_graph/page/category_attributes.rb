@@ -71,6 +71,9 @@ module FbGraph
         @@attributes[:raw].each do |key|
           self.send :"#{key}=", attributes[key]
         end
+
+        self.link ||= "https://www.facebook.com/#{username || identifier}"
+
         @@attributes[:symbols].each do |key|
           self.send :"#{key}=", []
           if attributes[key]

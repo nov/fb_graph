@@ -54,18 +54,18 @@ module FbGraph
     @@http_config ||= block
   end
 
-  def self.batch(&block)
-    @batch_request = BatchRequest.new
+  def self.batch(options = {}, &block)
+    @batch_request = BatchRequest.new options 
     yield
     @batch_request.execute!
   ensure
     @batch_request = nil
   end
   def self.batch_request
-    @batch_request
+    @batch_request || []
   end
   def self.batch_mode?
-    !!@batch_request
+    @batch_request && @batch_request.active
   end
 end
 
@@ -80,12 +80,15 @@ require 'fb_graph/connection'
 require 'fb_graph/connections'
 require 'fb_graph/searchable'
 require 'fb_graph/batch_request'
+require 'fb_graph/batch_response'
+require 'fb_graph/endpoint'
 
 require 'fb_graph/action'
 require 'fb_graph/education'
 require 'fb_graph/location'
 require 'fb_graph/poke'
 require 'fb_graph/privacy'
+require 'fb_graph/role'
 require 'fb_graph/subscription'
 require 'fb_graph/targeting'
 require 'fb_graph/venue'
@@ -121,6 +124,7 @@ require 'fb_graph/image'
 require 'fb_graph/insight'
 require 'fb_graph/link'
 require 'fb_graph/message'
+require 'fb_graph/milestone'
 require 'fb_graph/note'
 require 'fb_graph/notification'
 require 'fb_graph/order'
@@ -131,7 +135,6 @@ require 'fb_graph/post'
 require 'fb_graph/property'
 require 'fb_graph/question'
 require 'fb_graph/question_option'
-require 'fb_graph/review'
 require 'fb_graph/score'
 require 'fb_graph/status'
 require 'fb_graph/tab'

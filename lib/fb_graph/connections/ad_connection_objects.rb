@@ -1,13 +1,8 @@
 module FbGraph
   module Connections
     module AdConnectionObjects
-      def connection_objects(options = {})
-        connection_objects = self.connection :connectionobjects, options
-        connection_objects.map! do |connection_object|
-          AdConnectionObject.new connection_object[:id], connection_object.merge(
-            :access_token => options[:access_token] || self.access_token
-          )
-        end
+      def connection_objects(options = {}, &block)
+        self.map_connection :connectionobjects, options, AdConnectionObject, &block
       end
     end
   end

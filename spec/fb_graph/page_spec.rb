@@ -22,6 +22,18 @@ describe FbGraph::Page do
   its(:username)            { should == attributes[:username] }
   its(:talking_about_count) { should == attributes[:talking_about_count] }
 
+  describe 'link' do
+    context 'when username exists' do
+      subject { FbGraph::Page.new(attributes[:id], attributes) }
+      its(:link) { should == "https://www.facebook.com/#{attributes[:username]}" }
+    end
+
+    context 'otherwise' do
+      subject { FbGraph::Page.new(attributes[:id]) }
+      its(:link) { should == "https://www.facebook.com/#{attributes[:id]}" }
+    end
+  end
+
   describe '.fetch' do
     subject do
       mock_graph :get, 'platform', 'pages/platform_public' do

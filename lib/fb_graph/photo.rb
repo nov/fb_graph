@@ -42,7 +42,7 @@ module FbGraph
       end
 
       # cached connection
-      cache_collections attributes, :comments, :tags
+      cache_collections attributes, :comments, :likes, :tags
     end
   end
 end
