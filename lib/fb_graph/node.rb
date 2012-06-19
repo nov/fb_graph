@@ -18,7 +18,7 @@ module FbGraph
     def fetch(options = {}, &block)
       options[:access_token] ||= self.access_token if self.access_token
       _fetched_ = get(options, &block)
-      unless FbGraph.batch_mode? 
+      unless FbGraph.batch_mode?
         _fetched_[:access_token] ||= options[:access_token]
         self.class.new(_fetched_[:id], _fetched_)
       end
@@ -108,7 +108,11 @@ module FbGraph
     alias_method :cache_collection, :cache_collections
 
     def build_endpoint(params = {})
-      FbGraph::Endpoint.new([self.identifier, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s), params)
+      FbGraph::Endpoint.new([
+        self.identifier,
+        params.delete(:connection),
+        params.delete(:connection_scope)
+      ].compact.collect(&:to_s), params)
     end
 
     def build_params(params)
@@ -170,7 +174,7 @@ module FbGraph
                 r = FbGraph::Exception.new(r['code'],body[:error][:message])
                 success = false
               end
-              responses << r 
+              responses << r
               actions[i][:block].call(r, success) if actions[i][:block].present?
             end
             responses

@@ -1,12 +1,13 @@
 module FbGraph
   class BatchRequest
-    
     attr_reader :active, :actions, :options
+
     def initialize(options = {})
       @actions = []
       @options = options
       @active = true
     end
+
     def execute!
       @active = false
       responses = []

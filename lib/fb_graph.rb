@@ -55,7 +55,7 @@ module FbGraph
   end
 
   def self.batch(options = {}, &block)
-    @batch_request = BatchRequest.new options 
+    @batch_request = BatchRequest.new options
     yield
     @batch_request.execute!
   ensure
