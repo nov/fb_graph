@@ -4,12 +4,14 @@ module FbGraph
     include Connections::Albums
     include Connections::Blocked
     include Connections::Checkins
+    include Connections::Conversations
     include Connections::Events
     include Connections::Feed
     include Connections::Groups
     include Connections::Insights
     include Connections::Likes
     include Connections::Links
+    include Connections::Milestones
     include Connections::Notes
     include Connections::Photos
     include Connections::Picture

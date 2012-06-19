@@ -10,6 +10,11 @@ describe FbGraph::Node do
     it 'should support access_token option' do
       FbGraph::Node.new('matake', :access_token => 'access_token').access_token.should == 'access_token'
     end
+
+    it 'should store raw attributes' do
+      attributes = {:key => :value}
+      FbGraph::Node.new(12345, attributes).raw_attributes.should == attributes
+    end
   end
 
   describe '#build_params' do
@@ -39,7 +44,9 @@ describe FbGraph::Node do
 
     it 'should support Tempfile' do
       params = node.send :build_params, :upload => tmpfile
-      params[:upload].should be_equal tmpfile
+      (tmpfile.equal? params[:upload]).should be_true
+      # NOTE: For some reason, below fails with RSpec 2.10.0
+      # params[:upload].should == tmpfile
     end
 
     require 'action_dispatch/http/upload'
@@ -48,7 +55,9 @@ describe FbGraph::Node do
         :tempfile => tmpfile
       )
       params = node.send :build_params, :upload => upload
-      params[:upload].should be_equal tmpfile
+      (params[:upload].equal? tmpfile).should be_true
+      # NOTE: For some reason, below fails with RSpec 2.10.0
+      # params[:upload].should be_equal tmpfile
     end
   end
 

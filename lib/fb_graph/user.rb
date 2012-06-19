@@ -49,7 +49,7 @@ module FbGraph
     attr_accessor :name, :first_name, :middle_name, :last_name, :gender, :locale, :languages, :link, :username, :third_party_id, :timezone, :updated_time, :verified, :about, :bio, :birthday, :education, :email, :hometown, :interested_in, :location, :political, :favorite_teams, :quotes, :relationship, :relationship_status, :religion, :significant_other, :video_upload_limits, :website, :work
 
     # NOTE: below are non-documented
-    attr_accessor :sports,  :favorite_athletes, :inspirational_people, :address, :mobile_phone, :installed
+    attr_accessor :sports,  :favorite_athletes, :inspirational_people, :address, :mobile_phone, :installed, :rsvp_status
 
     def initialize(identifier, attributes = {})
       super
@@ -143,6 +143,7 @@ module FbGraph
       end
       @mobile_phone = attributes[:mobile_phone]
       @installed = attributes[:installed]
+      @rsvp_status = attributes[:rsvp_status]
     end
 
     def self.me(access_token)

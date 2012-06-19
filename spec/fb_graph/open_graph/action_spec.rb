@@ -82,6 +82,7 @@ describe FbGraph::OpenGraph::Action do
             "name": "gem sample"
           },
           "data": {
+            "custom_field": "This is not a JSON object.",
             "custom_object": {
               "id": "10150362170052970",
               "url": "http:\/\/samples.ogp.me\/264755040233381",
@@ -105,6 +106,7 @@ describe FbGraph::OpenGraph::Action do
       subject.objects['custom_object'].should == subject.objects[:custom_object]
       subject.objects[:custom_object].should be_instance_of FbGraph::OpenGraph::Object
       subject.objects[:custom_object].type.should == 'fbgraphsample:custom_object'
+      subject.objects[:custom_field].should == 'This is not a JSON object.'
     end
   end
 end

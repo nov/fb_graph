@@ -13,6 +13,7 @@
             "name": "gem sample"
         },
         "data": {
+            "custom_field": "This is not a JSON object.",
             "custom_object": {
                 "id": "10150362170052970",
                 "url": "http:\/\/samples.ogp.me\/264755040233381",
