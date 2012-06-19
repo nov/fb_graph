@@ -54,18 +54,18 @@ module FbGraph
     @@http_config ||= block
   end
 
-  def self.batch(&block)
-    @batch_request = BatchRequest.new
+  def self.batch(options = {}, &block)
+    @batch_request = BatchRequest.new options 
     yield
     @batch_request.execute!
   ensure
     @batch_request = nil
   end
   def self.batch_request
-    @batch_request
+    @batch_request || []
   end
   def self.batch_mode?
-    !!@batch_request
+    @batch_request && @batch_request.active
   end
 end
 
@@ -80,6 +80,8 @@ require 'fb_graph/connection'
 require 'fb_graph/connections'
 require 'fb_graph/searchable'
 require 'fb_graph/batch_request'
+require 'fb_graph/batch_response'
+require 'fb_graph/endpoint'
 
 require 'fb_graph/action'
 require 'fb_graph/education'
