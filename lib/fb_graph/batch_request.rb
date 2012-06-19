@@ -18,21 +18,21 @@ module FbGraph
       FbGraph::BatchResponse.new responses
     end
 
-    def get(endpoint, params = {}, return_class=nil, &block)
+    def get(endpoint, params = {}, return_class = nil, &block)
       register :get, endpoint, params, return_class, &block
     end
 
-    def post(endpoint, params = {}, return_class=nil, &block)
+    def post(endpoint, params = {}, return_class = nil, &block)
       register :post, endpoint, params, return_class, &block
     end
 
-    def delete(endpoint, return_class=nil, &block)
+    def delete(endpoint, return_class = nil, &block)
       register :delete, endpoint, return_class, &block
     end
 
     private
 
-    def register(method, endpoint, params = {}, return_class=nil, &block)
+    def register(method, endpoint, params = {}, return_class = nil, &block)
       @actions << {
         :method => method,
         :relative_url => endpoint.relative_url,
