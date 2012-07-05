@@ -259,6 +259,32 @@ Not tested well yet.
 Sample is here.
 https://gist.github.com/752914
 
+== ETag support
+
+Facebook supports ETags to increase performance of request-response on Graph API. This support was added for working with large amounts of requests. More information from FB can be found here: 
+http://developers.facebook.com/docs/reference/ads-api/etags-reference/
+
+An example of using an ETags.
+  
+  # Request an object like normal
+  fb_camp = FbGraph::AdCampaign.new('1234567', 
+  {:access_token => 'access_token_12345'}).fetch 
+  
+  # Take note of etag
+  fb_camp_etag = fb_camp.etag
+
+  #Request an object with etag next time to check for updates
+  fb_camp = FbGraph::AdCampaign.new('1234567', 
+  {:access_token => 'access_token_12345' ,:if_none_match => fb_camp_etag }).fetch 
+  
+  if fb_camp.status_code = 304
+    #use application object, no update from FB
+  else
+    #use fb_graph/FB response
+    # store fb_camp.etag for if_none_match on next request
+  end 
+
+
 === More Examples?
 
 See GitHub wiki for more examples.
