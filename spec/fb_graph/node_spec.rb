@@ -69,7 +69,7 @@ describe FbGraph::Node do
       params = node.send :build_params, :upload => upload
       (params[:upload].equal? tmpfile).should be_true
       # NOTE: For some reason, below fails with RSpec 2.10.0
-      # params[:upload].should be_equal tmpfile
+      # params[:upload].should == tmpfile
     end
   end
 
