@@ -265,24 +265,16 @@ Facebook supports ETags to increase performance of request-response on Graph API
 http://developers.facebook.com/docs/reference/ads-api/etags-reference/
 
 An example of using an ETags.
-  
-  # Request an object like normal
-  fb_camp = FbGraph::AdCampaign.new('1234567', 
-  {:access_token => 'access_token_12345'}).fetch 
-  
-  # Take note of etag
-  fb_camp_etag = fb_camp.etag
 
-  #Request an object with etag next time to check for updates
-  fb_camp = FbGraph::AdCampaign.new('1234567', 
-  {:access_token => 'access_token_12345' ,:if_none_match => fb_camp_etag }).fetch 
+  # Request an object like normal
+  fb_user = FbGraph::User.new('1234567', :name => 'Nov Matake').fetch 
   
-  if fb_camp.status_code = 304
-    #use application object, no update from FB
-  else
-    #use fb_graph/FB response
-    # store fb_camp.etag for if_none_match on next request
-  end 
+  # If you receives Etag header, fb_graph add it to the fetched object
+  fb_user.etag # => "a1b2c3..."
+  
+  # If FbGraph object has etag attributes, fb_graph put 'If-None-Match' header when calling Graph API
+  # If the object is not modified yet (= fb_graph receives 304 HTTP status code), fb_graph won't update any attributes of the object.
+  FbGraph::User.new('1234567').fetch(:etag => 'a1b2c3...')
 
 
 === More Examples?

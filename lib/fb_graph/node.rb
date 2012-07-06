@@ -3,28 +3,26 @@ require 'tempfile'
 module FbGraph
   class Node
     include Comparison
-    
-    attr_accessor :identifier, :endpoint, :access_token, :raw_attributes, :etag, :status_code, :if_none_match
-    
+
+    attr_accessor :identifier, :endpoint, :access_token, :raw_attributes, :etag
+
     def initialize(identifier, attributes = {})
       @identifier         = identifier
       @endpoint           = File.join(ROOT_URL, identifier.to_s)
       @access_token       = attributes[:access_token]
-      @if_none_match      = attributes[:if_none_match]
       @etag               = attributes[:etag]
-      @status_code        = attributes[:status_code]
       @raw_attributes     = attributes
       @cached_collections = {}
     end
 
     def fetch(options = {})
       options[:access_token] ||= self.access_token if self.access_token
-      options[:if_none_match] ||= self.if_none_match if self.if_none_match
-      _fetched_ = get(options)
+      headers = if (self.etag ||= options.delete(:etag))
+        @fetching_single_object = true
+        {'If-None-Match' => "\"#{etag}\""}
+      end
+      _fetched_ = get(options, headers)
       _fetched_[:access_token] ||= options[:access_token]
-      _fetched_[:if_none_match] = self.if_none_match
-      _fetched_[:etag] = self.etag
-      _fetched_[:status_code] = self.status_code
       self.class.new(_fetched_[:id], _fetched_)
     end
 
@@ -50,19 +48,11 @@ module FbGraph
       delete options
     end
 
-    def not_modified?
-      self.status_code == 304
-    end
-
     protected
 
-    def get(params = {})
+    def get(params = {}, headers = {})
       handle_response do
-        if if_none_match = params.delete(:if_none_match)
-          http_client.get build_endpoint(params), build_params(params), {'If-None-Match' => "\"#{if_none_match}\""}
-        else
-          http_client.get build_endpoint(params), build_params(params)
-        end
+        http_client.get build_endpoint(params), build_params(params), headers
       end
     end
 
@@ -112,9 +102,9 @@ module FbGraph
       _params_ = params.dup
       _params_[:access_token] ||= self.access_token
       _params_.delete_if do |k, v|
-      v.blank? &&
-      # NOTE: allow "key=false" in params (ex. for test user creation, it supports "installed=false")
-      v != false
+        v.blank? &&
+        # NOTE: allow "key=false" in params (ex. for test user creation, it supports "installed=false")
+        v != false
       end
       _params_.each do |key, value|
         next if value.blank?
@@ -153,20 +143,19 @@ module FbGraph
         if response.body.gsub('"', '').to_i.to_s == response.body.gsub('"', '')
           # NOTE: User#app_request! returns ID as a JSON string not as a JSON object..
           response.body.gsub('"', '')
+        elsif response.status == 304
+          raw_attributes.merge(:id => identifier, :etag => etag)
         else
-          if response.status == 304
-            self.status_code = response.status
-            self.etag = nil
-            {}
-          else
-            _response_ = JSON.parse(response.body).with_indifferent_access
-            if (200...300).include?(response.status)
-              self.etag = response.headers['ETag'].gsub('"','') if response.headers['ETag']
-              self.status_code = response.status
-              _response_
-            else
-              Exception.handle_httpclient_error(_response_, response.headers)
+          _response_ = JSON.parse(response.body).with_indifferent_access
+          if (200...300).include?(response.status)
+            if @fetching_single_object
+              _response_.merge!(
+                :etag => (response.headers['ETag'] || response.headers['Etag']).try(:gsub, '"','')
+              )
             end
+            _response_
+          else
+            Exception.handle_httpclient_error(_response_, response.headers)
           end
         end
       end

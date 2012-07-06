@@ -57,6 +57,9 @@ module WebMockHelper
         request[:query] = options[:params]
       end
     end
+    if options[:request_headers]
+      request[:headers] = options[:request_headers]
+    end
     request
   end
 
@@ -65,6 +68,9 @@ module WebMockHelper
     response[:body] = File.new(File.join(File.dirname(__FILE__), '../mock_json', "#{response_file}.json"))
     if options[:status]
       response[:status] = options[:status]
+    end
+    if options[:response_headers]
+      response[:headers] = options[:response_headers]
     end
     response
   end
