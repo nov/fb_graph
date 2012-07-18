@@ -11,12 +11,24 @@ describe FbGraph::Node do
       FbGraph::Node.new('matake', :access_token => 'access_token').access_token.should == 'access_token'
     end
 
+    it 'should support if_none_match option' do
+      FbGraph::Node.new('matake', :if_none_match => 'if_none_match').if_none_match.should == 'if_none_match'
+    end
+
+    it 'should support etag option' do
+      FbGraph::Node.new('matake', :etag=> 'etag').etag.should == 'etag'
+    end
+    
+    it 'should support status_code option' do
+      FbGraph::Node.new('matake', :status_code=> 'status_code').status_code.should == 'status_code'
+    end
+
     it 'should store raw attributes' do
       attributes = {:key => :value}
       FbGraph::Node.new(12345, attributes).raw_attributes.should == attributes
     end
   end
-
+  
   describe '#build_params' do
     let(:node) { node = FbGraph::Node.new('identifier') }
     let(:tmpfile) { Tempfile.new('tmp') }
@@ -61,7 +73,32 @@ describe FbGraph::Node do
     end
   end
 
+ describe '#get' do
+  it "should pass If-Not-Match header if provided" do
+    stub_request(:get, "https://graph.facebook.com/identifier?access_token=12345")\
+      .with(:headers => {'If-None-Match'=>'"54321foo"'}).to_return(:status => 304, :body => "", :headers => {})
+      node = FbGraph::Node.fetch('identifier', :access_token => '12345', :if_none_match => '54321foo')
+  end
+
+  it "should not pass If-Not-Match header if not provided" do
+    stub_request(:get, "https://graph.facebook.com/identifier?access_token=12345")\
+      .with(:headers => {}).to_return(:status => 200, :body => '{"data": []}', :headers => {})
+      node = FbGraph::Node.fetch('identifier', :access_token => '12345')
+  end
+ end
+
   describe '#handle_response' do
+
+   let(:not_modified_response) {
+      mock(HTTP::Message, :status => 304, :body => '')
+    }
+   let(:modified_response) {
+        mock(HTTP::Message, :body =>  "{\"key1\":\"12345\"}",
+                            :status => 200,
+                            :headers => {'ETag' => '5431foobar'}
+        )
+   }     
+
     it 'should handle null/false response' do
       node = FbGraph::Node.new('identifier')
       null_response = node.send :handle_response do
@@ -85,6 +122,25 @@ describe FbGraph::Node do
           HTTP::Message.new_response 'invalid'
         end
       end.to raise_error FbGraph::Exception
+    end
+    
+    it 'should set ETag and HTTP Status for reponses with 2xx status' do
+      node = FbGraph::Node.new('identifier')
+      node.send :handle_response do
+        modified_response
+      end
+      node.etag.should == '5431foobar'
+      node.status_code.should == 200
+      node.not_modified?.should == false
+    end
+
+    it 'should set status_code when status is 304' do
+      node = FbGraph::Node.new('identifier')
+      node.send :handle_response do
+        not_modified_response
+      end
+      node.status_code.should == 304
+      node.not_modified?.should == true
     end
   end
 
