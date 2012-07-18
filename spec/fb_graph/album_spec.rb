@@ -78,7 +78,7 @@ describe FbGraph::Album do
 
     context 'otherwise' do
       it do
-        expect { album.picture }.should raise_error(FbGraph::Unauthorized)
+        expect { album.picture }.to raise_error(FbGraph::Unauthorized)
       end
     end
   end

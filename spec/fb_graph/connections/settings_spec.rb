@@ -33,7 +33,7 @@ describe FbGraph::Connections::Settings do
 
         context 'when no_cache specified' do
           it 'should request API' do
-            expect { page.send(:"#{setting}?", :no_cache => true) }.should request_to 'page_id/settings'
+            expect { page.send(:"#{setting}?", :no_cache => true) }.to request_to 'page_id/settings'
           end
         end
       end

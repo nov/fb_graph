@@ -6,7 +6,7 @@ module FbGraph
     include Connections::Likes::Likable
     extend Searchable
 
-    attr_accessor :from, :to, :with_tags, :message, :message_tags, :picture, :link, :name, :caption, :description, :source, :properties, :icon, :actions, :privacy, :type, :graph_object_id, :application, :targeting, :created_time, :updated_time, :story, :story_tags
+    attr_accessor :from, :to, :with_tags, :message, :message_tags, :picture, :link, :name, :caption, :description, :source, :properties, :icon, :actions, :privacy, :type, :graph_object_id, :application, :targeting, :created_time, :updated_time, :story, :story_tags, :place
 
     def initialize(identifier, attributes = {})
       super
@@ -43,7 +43,7 @@ module FbGraph
       end
       @message = attributes[:message]
       @message_tags = []
-      if message_tags = attributes[:message_tags]
+      if (message_tags = attributes[:message_tags])
         message_tags.each do |index, message_tag|
           message_tag.each do |_message_tag_|
             @message_tags << TaggedObject.new(_message_tag_[:id], _message_tag_)
@@ -101,6 +101,16 @@ module FbGraph
           story_tag.each do |_story_tag_|
             @story_tags << TaggedObject.new(_story_tag_[:id], _story_tag_)
           end
+        end
+      end
+      if (place = attributes[:place])
+        @place = case place
+        when Place
+          place
+        when String, Integer
+          Place.new(place)
+        when Hash
+          Place.new(place[:id], place)
         end
       end
 

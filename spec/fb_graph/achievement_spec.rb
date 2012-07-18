@@ -45,7 +45,7 @@ describe FbGraph::Achievement do
 
   describe '#destroy' do
     it 'should call DELETE /:app_id/achievements' do
-      expect { achievement.destroy }.should request_to('134145643294322/achievements', :delete)
+      expect { achievement.destroy }.to request_to('134145643294322/achievements', :delete)
     end
 
     it 'should delete achievement' do

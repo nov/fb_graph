@@ -24,9 +24,7 @@ describe FbGraph::Connections::Questions do
           :options => ['Yes', 'Yes!', 'Yes!!']
         )
         question.should be_instance_of(FbGraph::Question)
-        expect do
-          question.question_options
-        end.should request_to "#{question.identifier}/options"
+        expect { question.question_options }.to request_to "#{question.identifier}/options"
       end
     end
   end

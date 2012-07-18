@@ -84,7 +84,7 @@ describe FbGraph::Node do
         node.send :handle_response do
           HTTP::Message.new_response 'invalid'
         end
-      end.should raise_error FbGraph::Exception
+      end.to raise_error FbGraph::Exception
     end
   end
 

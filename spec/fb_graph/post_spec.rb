@@ -197,6 +197,21 @@ describe FbGraph::Post, '#fetch' do
     end
   end
 
+  context 'when include "place"' do
+    it 'should include place as Venue' do
+      mock_graph :get, 'post_id', 'posts/with_place', :access_token => 'access_token' do
+        post = FbGraph::Post.fetch('post_id', :access_token => 'access_token')
+        place = post.place
+        place.should be_instance_of FbGraph::Place
+        place.identifier.should == '100563866688613'
+        place.name.should == 'Kawasaki-shi, Kanagawa, Japan'
+        location = place.location
+        location.should be_instance_of FbGraph::Venue
+        location.latitude.should == 35.5167
+        location.longitude.should == 139.7
+      end
+    end
+  end
 end
 
 describe FbGraph::Post, '#to' do

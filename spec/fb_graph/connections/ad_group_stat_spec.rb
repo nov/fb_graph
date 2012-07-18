@@ -44,9 +44,7 @@ describe FbGraph::Connections::AdGroupStats, '#ad_group_stats' do
         it 'should use adcampaignstats as connection name' do
           mock_graph :get, 'act_11223344/adgroupstats', 'ad_accounts/ad_group_stats/test_ad_group_stats', :access_token => 'access_token' do
             ad_group_stats = FbGraph::AdAccount.new('act_11223344', :access_token => 'access_token').ad_group_stats
-            expect do
-              ad_group_stats.next
-            end.should request_to 'act_11223344/adgroupstats'
+            expect { ad_group_stats.next }.to request_to 'act_11223344/adgroupstats'
           end
         end
       end

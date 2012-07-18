@@ -36,7 +36,7 @@ describe FbGraph::Order do
 
   describe '#settle!' do
     it do
-      expect { order.settle! }.should request_to order.identifier, :post
+      expect { order.settle! }.to request_to order.identifier, :post
     end
 
     it 'I have never succeeded this call yet'
@@ -44,7 +44,7 @@ describe FbGraph::Order do
 
   describe '#refund!' do
     it do
-      expect { order.refund! }.should request_to order.identifier, :post
+      expect { order.refund! }.to request_to order.identifier, :post
     end
 
     it 'should return true' do
@@ -58,7 +58,7 @@ describe FbGraph::Order do
 
   describe '#cancel!' do
     it do
-      expect { order.cancel! }.should request_to order.identifier, :post
+      expect { order.cancel! }.to request_to order.identifier, :post
     end
 
     it 'I have never succeeded this call yet'

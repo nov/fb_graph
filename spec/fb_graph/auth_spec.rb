@@ -23,9 +23,7 @@ describe FbGraph::Auth do
       {:cookie => 'invalid'}
     end
     it 'should raise FbGraph::VerificationFailed' do
-      expect do
-        auth
-      end.should raise_exception(FbGraph::Auth::VerificationFailed)
+      expect { auth }.to raise_exception(FbGraph::Auth::VerificationFailed)
     end
   end
 
@@ -35,9 +33,7 @@ describe FbGraph::Auth do
     end
 
     it 'should raise FbGraph::VerificationFailed' do
-      expect do
-        auth
-      end.should raise_exception(FbGraph::Auth::VerificationFailed)
+      expect { auth }.to raise_exception(FbGraph::Auth::VerificationFailed)
     end
   end
 
@@ -73,9 +69,7 @@ describe FbGraph::Auth do
     end
 
     it 'should exchange code with access token' do
-      expect do
-        auth.from_cookie(cookie)
-      end.should request_to '/oauth/access_token', :post
+      expect { auth.from_cookie(cookie) }.to request_to '/oauth/access_token', :post
     end
 
     it 'should setup user and access_token' do
