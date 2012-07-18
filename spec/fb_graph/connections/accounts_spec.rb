@@ -14,7 +14,7 @@ describe FbGraph::Connections::Accounts do
       end
 
       context 'when access_token is given' do
-        it 'should return accounts as FbGraph::Page' do
+        it 'should return accounts as FbGraph::Page or FbGraph::Application' do
           mock_graph :get, 'matake/accounts', 'users/accounts/matake_private', :access_token => 'access_token' do
             accounts = FbGraph::User.new('matake', :access_token => 'access_token').accounts
             accounts.class.should == FbGraph::Connection
@@ -22,10 +22,26 @@ describe FbGraph::Connections::Accounts do
               '140478125968442',
               :access_token => 'access_token',
               :name => 'OAuth.jp',
-              :category => 'Technology'
+              :category => 'Community organization',
+              :perms => [
+                "ADMINISTER",
+                "EDIT_PROFILE",
+                "CREATE_CONTENT",
+                "MODERATE_CONTENT",
+                "CREATE_ADS",
+                "BASIC_ADMIN"
+              ]
             )
-            accounts.each do |account|
+            accounts.last.should == FbGraph::Application.new(
+              '159306934123399',
+              :access_token => 'access_token',
+              :name => 'Rack::OAuth2 Sample'
+            )
+            accounts[0, 9].each do |account|
               account.should be_instance_of(FbGraph::Page)
+            end
+            accounts[9, 4].each do |account|
+              account.should be_instance_of(FbGraph::Application)
             end
           end
         end

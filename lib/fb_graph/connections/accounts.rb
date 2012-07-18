@@ -7,7 +7,12 @@ module FbGraph
           account[:access_token] ||= options[:access_token] || self.access_token
           case self
           when User
-            Page.new account[:id], account
+            if account[:category] == 'Application'
+              account.delete(:category)
+              Application.new account[:id], account
+            else
+              Page.new account[:id], account
+            end
           when Application
             TestUser.new account[:id], account
           end
