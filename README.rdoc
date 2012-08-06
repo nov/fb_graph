@@ -150,8 +150,8 @@ https://github.com/nov/fb_graph/wiki
   me = FbGraph::User.me(ACCESS_TOKEN)
   event = me.event!(
     :name => 'FbGraph test event',
-    :start_time => 1.week.from_now.to_i,
-    :end_time => 2.week.from_now.to_i
+    :start_time => 1.week.from_now,
+    :end_time => 2.week.from_now
   )
   bool = event.attending!(
     :access_token => ACCESS_TOKEN
