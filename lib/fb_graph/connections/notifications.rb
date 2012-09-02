@@ -9,6 +9,10 @@ module FbGraph
           )
         end
       end
+
+      def notification!(options = {})
+        post options.merge(:connection => :notifications)
+      end
     end
   end
 end

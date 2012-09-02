@@ -2,6 +2,7 @@ module FbGraph
   class Application < Node
     include Connections::Accounts
     include Connections::Achievements
+    include Connections::AppNotifications
     include Connections::Banned
     include Connections::Insights
     include Connections::Payments

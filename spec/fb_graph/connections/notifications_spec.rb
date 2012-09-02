@@ -13,4 +13,18 @@ describe FbGraph::Connections::Notifications do
       end
     end
   end
+
+  describe '#notification!' do
+    it 'should return success json' do
+      mock_graph :post, 'matake/notifications', 'success', :params => {
+        :template => 'hello'
+      }, :access_token => 'app_access_token' do
+        response = FbGraph::User.new('matake').notification!(
+          :access_token => 'app_access_token',
+          :template => 'hello'
+        )
+        response.should == {'success' => true}
+      end
+    end
+  end
 end
