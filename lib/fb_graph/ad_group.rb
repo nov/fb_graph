@@ -1,5 +1,7 @@
 module FbGraph
   class AdGroup < Node
+    include Connections::AdCreatives
+
     attr_accessor :ad_id, :campaign_id, :name, :adgroup_status, :bid_type, :max_bid, :targeting, :creative, :creative_ids, :adgroup_id,
       :end_time, :start_time, :updated_time, :bid_info, :disapprove_reason_descriptions
 
@@ -19,6 +21,10 @@ module FbGraph
       end
 
       response
+    end
+
+    def creatives(fetch = true)
+      creative_ids.map { |creative_id| fetch ? AdCreative.fetch(creative_id) : AdCreative.new(creative_id) }
     end
 
     protected
