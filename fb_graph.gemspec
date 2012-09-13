@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
     s.add_development_dependency "cover_me", ">= 1.2.0"
   else
     s.add_development_dependency "rcov", ">= 0.9"
+    s.add_runtime_dependency "json"
   end
   s.add_development_dependency "rspec", ">= 2"
   s.add_development_dependency "webmock", ">= 1.6.2"
