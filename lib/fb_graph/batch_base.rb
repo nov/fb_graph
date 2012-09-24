@@ -4,6 +4,7 @@ module FbGraph
     attr_accessor :retries, :skip_missing_id_check, :timeout
 
     DEFAULT_TIMEOUT = 240
+    RETRY_COUNT = 2
     
     # Initialize Accessors
     def initialize(access_token, options = {})
@@ -31,7 +32,7 @@ module FbGraph
     
     # When we receive an exception, retry
     def raise_timeout_exception_unless_maximum_retries(e)
-      raise Timeout::Error if retries < FbGraph.retry_count # Treat all exceptions as timeout exceptions until retries are exhausted
+      raise Timeout::Error if retries < RETRY_COUNT # Treat all exceptions as timeout exceptions until retries are exhausted
       raise e # Retries exhausted, reraise exception
     end
     
@@ -40,7 +41,7 @@ module FbGraph
       begin
         Timeout::timeout(self.timeout) { yield } 
       rescue Timeout::Error
-        raise if (self.retries += 1) > FbGraph.retry_count
+        raise if (self.retries += 1) > RETRY_COUNT
         sleep 10 # Wait for Facebook to recover.
         retry
       end
