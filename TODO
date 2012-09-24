@@ -1,4 +1,4 @@
-To Be Tested :
+Tested :
 --	. Add tests for FbGraph::AdImage
 --	. Add tests for FbGraph::Connections::AdImages
 --		. When included in FbGRaph::AdAccount
