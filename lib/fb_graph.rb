@@ -131,6 +131,9 @@ require 'fb_graph/video'
 require 'fb_graph/ad_image'
 require 'fb_graph/stream'
 require 'fb_graph/ad_group_conversion_stat'
+require 'fb_graph/batch_base'
+require 'fb_graph/batch_request'
+require 'fb_graph/batch_update'
 
 # Load after FbGraph::User
 require 'fb_graph/ad_user'
