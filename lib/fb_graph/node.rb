@@ -113,7 +113,6 @@ module FbGraph
           # ref) http://blog.livedoor.jp/idea_and_players/archives/5184702.html
           value.tempfile
         else
-          puts value.class
           value.to_json
         end
       end
