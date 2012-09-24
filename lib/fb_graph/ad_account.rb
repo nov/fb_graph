@@ -8,6 +8,9 @@ module FbGraph
     include Connections::ReachEstimates
     include Connections::AdConnectionObjects
     include Connections::AdPreviews
+    include Connections::AdImages
+    include Connections::AdCreatives
+    include Connections::AdGroupConversionStats
 
     attr_accessor :account_id, :name, :account_status, :daily_spend_limit, :users, :currency, :timezone_id, :timezone_name, :capabilities, :account_groups
 

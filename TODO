@@ -1,0 +1,26 @@
+To Be Tested :
+--	. Add tests for FbGraph::AdImage
+--	. Add tests for FbGraph::Connections::AdImages
+--		. When included in FbGRaph::AdAccount
+--	. Add tests for FbGraph::Connections::AdCreatives
+--		. When included in FbGRaph::AdAccount
+--		. for #ad_creative!
+--	. Add tests for FbGraph::Stream
+--	. Add tests for FbGraph::Connections::Streams
+--		. When included in FbGraph::Page
+--	. Add tests for FbGraph::AdGroupStat
+--	. Add tests for FbGraph::Connections::AdGroupStats 
+--		. When included in FbGraph::AdAccount
+--	. Add tests for FbGraph::AdGroupConversionStat
+--	. Add tests for FbGraph::Connections::AdGroupConversionStats
+--		. When included in FbGraph::AdAccount
+
+To Be Implemented( only if when required ) :
+	FbGraph::AdGroup#stats       using FbGraph::Connections::AdGroupStats
+	FbGraph::AdGroup#conversions using FbGraph::Connections::AdGroupConversionStats
+
+To Be Approved and Tested
+	. Add tests for FbGraph::BatchBase
+	. Add tests for FbGraph::BatchRequest
+	. Add tests for FbGraph::BatchUpdate
+

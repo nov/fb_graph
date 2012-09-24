@@ -22,6 +22,7 @@ module FbGraph
     include Connections::Tabs
     include Connections::Tagged
     include Connections::Videos
+    include Connections::Streams
     extend Searchable
 
     attr_accessor :name, :username, :category, :like_count, :talking_about_count, :perms

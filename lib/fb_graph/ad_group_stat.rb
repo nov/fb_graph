@@ -1,12 +1,15 @@
 module FbGraph
   class AdGroupStat < Node
-    attr_accessor :start_time, :end_time, :adgroup_id, :impressions, :clicks, :spent, :social_impressions, :social_clicks, :social_spent,
-      :actions, :unique_impressions, :social_unique_impressions, :unique_clicks, :social_unique_clicks, :connections
+    ATTRS = [:start_time, :end_time, :adgroup_id, :campaign_id, :impressions, :clicks, :spent, 
+      :social_impressions, :social_clicks, :social_spent, :actions, :unique_impressions,
+      :social_unique_impressions, :unique_clicks, :social_unique_clicks, :connections, :newsfeed_position]
+
+    attr_accessor *ATTRS
 
     def initialize(identifier, attributes = {})
       super
 
-      %w(adgroup_id impressions clicks spent social_impressions social_clicks social_spent actions unique_impressions social_unique_impressions unique_clicks social_unique_clicks connections).each do |field|
+      ATTRS.each do |field|
         send("#{field}=", attributes[field.to_sym])
       end
 
@@ -18,5 +21,14 @@ module FbGraph
         end
       end
     end
+
+    def update(options={})
+      raise "Not allowed to update an AdGroupStat"
+    end
+
+    def destroy(options={})
+      raise "Not allowed to delete an AdGroupStat"
+    end
+
   end
 end

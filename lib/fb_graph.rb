@@ -128,6 +128,9 @@ require 'fb_graph/thread'
 require 'fb_graph/user'
 require 'fb_graph/user_achievement'
 require 'fb_graph/video'
+require 'fb_graph/ad_image'
+require 'fb_graph/stream'
+require 'fb_graph/ad_group_conversion_stat'
 
 # Load after FbGraph::User
 require 'fb_graph/ad_user'

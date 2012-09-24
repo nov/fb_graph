@@ -1,0 +1,107 @@
+{
+    "start_time": null,
+    "end_time": "2012-09-25T04:00:00+0000", 
+    "limit": 100, 
+    "offset": 0, 
+    "aggregate_days": 0, 
+    "by_impression_time": true, 
+    "count": 2105, 
+    "data": [
+        {
+            "adgroup_id": 6004070502180, 
+            "values": [
+                {
+                    "conversions": [
+                        {
+                            "action_type": "like", 
+                            "object_id": 410401442331394, 
+                            "post_click_1d": 1, 
+                            "post_click_28d": 1, 
+                            "post_click_7d": 1, 
+                            "post_imp_1d": 0, 
+                            "post_imp_28d": 0, 
+                            "post_imp_7d": 0
+                        }
+                    ], 
+                    "end_time": 1348545600, 
+                    "start_time": 18000
+                }
+            ]
+        }, 
+        {
+            "adgroup_id": 6004070804180, 
+            "values": [
+                {
+                    "conversions": [
+                        {
+                            "action_type": "like", 
+                            "object_id": 410401442331394, 
+                            "post_click_1d": 14, 
+                            "post_click_28d": 14, 
+                            "post_click_7d": 14, 
+                            "post_imp_1d": 1, 
+                            "post_imp_28d": 1, 
+                            "post_imp_7d": 1
+                        }, 
+                        {
+                            "action_type": "comment", 
+                            "object_id": 410401442331394, 
+                            "post_click_1d": 0, 
+                            "post_click_28d": 0, 
+                            "post_click_7d": 0, 
+                            "post_imp_1d": 0, 
+                            "post_imp_28d": 1, 
+                            "post_imp_7d": 0
+                        }
+                    ], 
+                    "end_time": 1348545600, 
+                    "start_time": 18000
+                }
+            ]
+        }, 
+        {
+            "adgroup_id": 6004070829980, 
+            "values": [
+                {
+                    "conversions": [
+                        {
+                            "action_type": "comment", 
+                            "object_id": 410401442331394, 
+                            "post_click_1d": 0, 
+                            "post_click_28d": 0, 
+                            "post_click_7d": 0, 
+                            "post_imp_1d": 0, 
+                            "post_imp_28d": 1, 
+                            "post_imp_7d": 0
+                        }, 
+                        {
+                            "action_type": "like", 
+                            "object_id": 410401442331394, 
+                            "post_click_1d": 0, 
+                            "post_click_28d": 0, 
+                            "post_click_7d": 0, 
+                            "post_imp_1d": 0, 
+                            "post_imp_28d": 1, 
+                            "post_imp_7d": 1
+                        }, 
+                        {
+                            "action_type": "link_click", 
+                            "object_id": 410401442331394, 
+                            "post_click_1d": 0, 
+                            "post_click_28d": 0, 
+                            "post_click_7d": 0, 
+                            "post_imp_1d": 0, 
+                            "post_imp_28d": 1, 
+                            "post_imp_7d": 1
+                        }
+                    ], 
+                    "end_time": 1348545600, 
+                    "start_time": 18000
+                }
+            ]
+        }
+    ], 
+    "paging": {
+        "next": "https://graph.facebook.com/act_100721460072974/adgroupconversions?access_token=AAAFRAPMNd0kBABOWC9mWSZCj0FzhtZCcRdc0sCaqA6vSBOMIgk6kUqBmSAU6eZBB4y2H1A2hRKkpvZAYIjzhVzZCHZCsNZAZC8cZAJSmYT0ybGQZDZD&offset=100"
+    } 
+}
