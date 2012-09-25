@@ -6,7 +6,7 @@ describe FbGraph::Connections::AdImages, '#ad_images' do
       it 'should return ad_images as FbGraph::AdImage' do
         mock_graph :get, 'act_22334455/adimages', 'ad_accounts/ad_images/22334455_ad_images', :access_token => 'valid' do
           ad_images = FbGraph::AdAccount.new('act_22334455', :access_token => 'valid').ad_images
-          ad_images.size.should == 2
+          ad_images.size.should == 1
           ad_images.each { |ad_image| ad_image.should be_instance_of(FbGraph::AdImage) }
           ad_images.first.should == FbGraph::AdImage.new(
             "0d500843a1d4699a0b41e99f4137a5c3",
