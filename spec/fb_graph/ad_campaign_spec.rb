@@ -11,7 +11,8 @@ describe FbGraph::AdCampaign, '.new' do
       :end_time => "2011-07-14T16:00:00+00:00",
       :daily_budget => 20000,
       :campaign_status => 1,
-      :lifetime_budget => 100000
+      :lifetime_budget => 100000,
+      :lifetime_imps => 1000
     }
     ad_campaign = FbGraph::AdCampaign.new(attributes.delete(:id), attributes)
     ad_campaign.identifier.should == "6003266501234"
@@ -22,6 +23,7 @@ describe FbGraph::AdCampaign, '.new' do
     ad_campaign.daily_budget.should == 20000
     ad_campaign.campaign_status.should == 1
     ad_campaign.lifetime_budget.should == 100000
+    ad_campaign.lifetime_imps.should == 1000
   end
 
   it 'should handle integer, string, or iso8601 timestamps' do
