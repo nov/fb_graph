@@ -15,7 +15,7 @@ describe FbGraph::ReachEstimate, '.new' do
           :cpm_max => 14
         }
       ],
-        :imp_estimates => []
+      :imp_estimates => []
     }
   }
 
