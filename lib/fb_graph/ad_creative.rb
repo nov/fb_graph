@@ -21,7 +21,8 @@ module FbGraph
       :url_tags,
       :related_fan_page,
       :auto_update,
-      :action_spec
+      :action_spec,
+      :query_templates
     ]
 
     attr_accessor *ATTRS 
