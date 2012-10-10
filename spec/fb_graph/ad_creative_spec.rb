@@ -23,7 +23,8 @@ describe FbGraph::AdCreative, '.new' do
       :url_tags => "url=tags",
       :related_fan_page => 5799040003,
       :auto_update => 1,
-      :action_spec => '{"action.type":["flightsim:fly"], "application":[174829001234]}'
+      :action_spec => '{"action.type":["flightsim:fly"], "application":[174829001234]}',
+      :query_templates => ["6"]
     }
     ad_creative = FbGraph::AdCreative.new(attributes.delete(:id), attributes)
     ad_creative.identifier.should == "6003590469668"
@@ -45,6 +46,7 @@ describe FbGraph::AdCreative, '.new' do
     ad_creative.related_fan_page.should == 5799040003
     ad_creative.auto_update.should == 1
     ad_creative.action_spec.should == '{"action.type":["flightsim:fly"], "application":[174829001234]}'
+    ad_creative.query_templates.should == ["6"] 
   end
 end
 
