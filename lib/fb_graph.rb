@@ -137,3 +137,5 @@ require 'fb_graph/klass'
 require 'fb_graph/project'
 
 require 'fb_graph/query'
+
+require 'patch/rack/oauth2/access_token/introspectable'

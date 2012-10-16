@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe FbGraph::AdKeywordValid, '.search' do
   it 'should perform a search' do
     mock_graph :get, 'search', 'ad_keyword_valids/tige_search', :params => {:keyword_list => 'tige', :type => 'adkeywordvalid'} do

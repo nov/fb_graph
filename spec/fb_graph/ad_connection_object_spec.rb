@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe FbGraph::AdConnectionObject, '.new' do
   it 'should setup all supported attributes' do
     attributes = {

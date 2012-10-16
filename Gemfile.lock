@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fb_graph (2.4.20)
+    fb_graph (2.5.3)
       httpclient (>= 2.2.0.2)
       json
       rack-oauth2 (>= 0.14.4)
@@ -39,7 +39,7 @@ GEM
     erubis (2.7.0)
     hashie (1.2.0)
     hike (1.2.1)
-    httpclient (2.2.7)
+    httpclient (2.3.0.1)
     i18n (0.6.1)
     journey (1.0.4)
     json (1.7.5)
@@ -47,7 +47,7 @@ GEM
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-oauth2 (0.14.9)
+    rack-oauth2 (1.0.0)
       activesupport (>= 2.3)
       attr_required (>= 0.0.5)
       httpclient (>= 2.2.0.2)

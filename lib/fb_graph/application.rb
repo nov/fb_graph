@@ -103,5 +103,16 @@ module FbGraph
     end
     alias_method_chain :access_token, :auto_fetch
 
+    def debug_token(input_token)
+      _input_token_ = case input_token
+      when Rack::OAuth2::AccessToken::Legacy
+        input_token
+      else
+        Rack::OAuth2::AccessToken::Legacy.new(
+          :access_token => input_token
+        )
+      end
+      _input_token_.introspect access_token
+    end
   end
 end

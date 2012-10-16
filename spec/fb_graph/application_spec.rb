@@ -195,4 +195,57 @@ describe FbGraph::Application do
       end
     end
   end
+
+  describe '#debug_token' do
+    before { app.access_token = 'app_token' }
+    let(:application) { FbGraph::Application.new(210798282372757, :name => 'gem sample') }
+    let(:user)        { FbGraph::User.new(579612276) }
+    let(:scopes)      { ['email'] }
+
+    shared_examples_for :token_debugger do
+      context 'when valid' do
+        it 'should return introspection result without error' do
+          mock_graph :get, 'debug_token', 'token_introspection/valid', :access_token => 'app_token', :params => {
+            :input_token => 'input_token'
+          } do
+            result = app.debug_token input_token
+            result.should be_instance_of Rack::OAuth2::AccessToken::Introspectable::Result
+            result.application.should == application
+            result.user.should == user
+            result.scopes.should == scopes
+            result.expires_at.should == Time.at(1350363600)
+            result.is_valid.should be_true
+            result.error.should be_nil
+          end
+        end
+      end
+
+      context 'when invalid' do
+        it 'should return introspection result with error' do
+          mock_graph :get, 'debug_token', 'token_introspection/invalid', :access_token => 'app_token', :params => {
+            :input_token => 'input_token'
+          } do
+            result = app.debug_token input_token
+            result.should be_instance_of Rack::OAuth2::AccessToken::Introspectable::Result
+            result.application.should == application
+            result.user.should == user
+            result.scopes.should == scopes
+            result.expires_at.should == Time.at(1350356400)
+            result.is_valid.should be_false
+            result.error.should be_a Hash
+          end
+        end
+      end
+    end
+
+    context 'when input_token is String' do
+      let(:input_token) { 'input_token' }
+      it_behaves_like :token_debugger
+    end
+
+    context 'when input_token is Rack::OAuth2::AccessToken::Legacy instance' do
+      let(:input_token) { Rack::OAuth2::AccessToken::Legacy.new :access_token => 'input_token' }
+      it_behaves_like :token_debugger
+    end
+  end
 end
