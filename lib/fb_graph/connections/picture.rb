@@ -15,9 +15,21 @@ module FbGraph
           params[:width]  = size_or_width  unless size_or_width.nil?
           params[:height] = height         unless height.nil?
         end
-        params = params.empty? ? '' : "?#{URI.encode_www_form(params)}"
+        params = params.empty? ? '' : "?#{encode_www_form params}"
 
+        # TODO: it's better to use URI.join here
         "#{self.endpoint}/picture#{params}"
+      end
+
+      private
+
+      # URI.encode_www_form is Ruby >= 1.9 specific function
+      def encode_www_form(params)
+        if URI.respond_to? 'encode_www_form'
+          URI.encode_www_form params
+        else
+          params.map {|k,v| "#{CGI.escape k.to_s}=#{CGI.escape v.to_s}"}.join('&')
+        end
       end
     end
   end
