@@ -65,25 +65,23 @@ describe FbGraph::Album do
 
   describe '#picture' do
     let(:album) { FbGraph::Album.new('12345') }
-    subject { album }
+    subject { album.picture }
 
     context 'when access token is given' do
       before { album.access_token = 'access_token' }
-      its(:picture) { should == File.join(FbGraph::ROOT_URL, '12345/picture?access_token=access_token') }
+      it { should == File.join(FbGraph::ROOT_URL, '12345/picture?access_token=access_token') }
       it 'should support size' do
         album.picture(:small).should == File.join(FbGraph::ROOT_URL, '12345/picture?type=small&access_token=access_token')
       end
     end
 
     context 'when no access token' do
-      it do
-        expect { album.picture }.to raise_error(FbGraph::Unauthorized)
-      end
+      it { should == File.join(FbGraph::ROOT_URL, '12345/picture') }
     end
 
     context 'when no redirect' do
       before { album.access_token = 'access_token' }
-      it do
+      it 'should return FbGraph::Picture' do
         mock_graph :get, '12345/picture', 'albums/picture/success', :access_token => 'access_token', :params => {
           :redirect => 'false'
         } do

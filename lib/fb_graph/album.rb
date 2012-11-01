@@ -43,13 +43,14 @@ module FbGraph
     end
 
     def picture_with_access_token(options_or_size = {})
-      raise Unauthorized.new('Album picture connection requires an access token') unless self.access_token
       response = picture_without_access_token options_or_size
       if response.is_a?(FbGraph::Picture)
         response
       else
         _endpoint_ = URI.parse response
-        _endpoint_.query = [_endpoint_.query, {:access_token => self.access_token.to_s}.to_query].compact.join('&')
+        if self.access_token
+          _endpoint_.query = [_endpoint_.query, {:access_token => self.access_token.to_s}.to_query].compact.join('&')
+        end
         _endpoint_.to_s
       end
     end
