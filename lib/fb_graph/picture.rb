@@ -2,11 +2,13 @@ module FbGraph
   class Picture
     include Comparison
 
-    attr_accessor :is_silhouette, :url
+    @@attributes = [:is_silhouette, :url, :height, :width]
+    attr_accessor *@@attributes
 
     def initialize(attributes = {})
-      @is_silhouette = attributes[:is_silhouette]
-      @url = attributes[:url]
+      @@attributes.each do |key|
+        self.send :"#{key}=", attributes[key]
+      end
     end
   end
 end
