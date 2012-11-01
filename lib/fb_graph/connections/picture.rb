@@ -7,28 +7,25 @@ module FbGraph
       #    match to the size you specified, if only one parameter
       #    is set, then facebook will return square image
       # See: https://developers.facebook.com/docs/reference/api/user/
-      def picture(size_or_width = nil, height = nil)        
-        params = {}
-        if size_or_width.kind_of? String or size_or_width.kind_of? Symbol
-          params[:type]   = size_or_width
-        elsif size_or_width.kind_of? Fixnum or not height.nil?
-          params[:width]  = size_or_width  unless size_or_width.nil?
-          params[:height] = height         unless height.nil?
-        end
-        params = params.empty? ? '' : "?#{encode_www_form params}"
-
-        # TODO: it's better to use URI.join here
-        "#{self.endpoint}/picture#{params}"
-      end
-
-      private
-
-      # URI.encode_www_form is Ruby >= 1.9 specific function
-      def encode_www_form(params)
-        if URI.respond_to? 'encode_www_form'
-          URI.encode_www_form params
+      def picture(options_or_size = {})
+        options = if options_or_size.is_a?(String) || options_or_size.is_a?(Symbol)
+          {:type => options_or_size}
         else
-          params.map {|k,v| "#{CGI.escape k.to_s}=#{CGI.escape v.to_s}"}.join('&')
+          options_or_size
+        end
+        _endpoint_ = ["#{self.endpoint}/picture", options.to_query].delete_if(&:blank?).join('?')
+
+        if options[:redirect] == false
+          response = get options.merge(
+            :connection => :picture,
+
+            # NOTE: can be removed when addressable 2.3.3+ released with this fix
+            # https://github.com/sporkmonger/addressable/commit/421a88fed1d2f14426f15158f3712ab563581327
+            :redirect => 'false'
+          )
+          FbGraph::Picture.new response[:data]
+        else
+          _endpoint_
         end
       end
     end

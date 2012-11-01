@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe FbGraph::Album do
-
   describe '.new' do
     it 'should setup all supported attributes' do
       attributes = {
@@ -76,11 +75,21 @@ describe FbGraph::Album do
       end
     end
 
-    context 'otherwise' do
+    context 'when no access token' do
       it do
         expect { album.picture }.to raise_error(FbGraph::Unauthorized)
       end
     end
-  end
 
+    context 'when no redirect' do
+      before { album.access_token = 'access_token' }
+      it do
+        mock_graph :get, '12345/picture', 'albums/picture/success', :access_token => 'access_token', :params => {
+          :redirect => 'false'
+        } do
+          album.picture(:redirect => false).should be_instance_of FbGraph::Picture
+        end
+      end
+    end
+  end
 end
