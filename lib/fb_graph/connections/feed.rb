@@ -5,7 +5,6 @@ module FbGraph
         posts = self.connection :feed, options
         posts.map! do |post|
           Post.new post[:id], post.merge(
-            :context => self.class,
             :access_token => options[:access_token] || self.access_token
           )
         end
