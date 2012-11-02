@@ -9,12 +9,37 @@ module FbGraph
     include Connections::AdConnectionObjects
     include Connections::AdPreviews
 
-    attr_accessor :account_id, :name, :account_status, :daily_spend_limit, :users, :currency, :timezone_id, :timezone_name, :capabilities, :account_groups
+    ATTRS = [
+      :account_id,
+      :name,
+      :account_status,
+      :daily_spend_limit,
+      :users,
+      :currency,
+      :timezone_id,
+      :timezone_name,
+      :capabilities,
+      :account_groups,
+      :is_personal,
+      :business_name,
+      :business_street,
+      :business_street2,
+      :business_city,
+      :business_state,
+      :business_zip,
+      :business_country_code,
+      :vat_status,
+      :agency_client_declaration,
+      :spend_cap,
+      :amount_spent
+    ]
+
+    attr_accessor *ATTRS
 
     def initialize(identifier, attributes = {})
       super
 
-      %w(account_id name account_status daily_spend_limit users currency timezone_id timezone_name).each do |field|
+      ATTRS.each do |field|
         send("#{field}=", attributes[field.to_sym])
       end
 
