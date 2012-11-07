@@ -3,7 +3,7 @@ require 'spec_helper'
 describe FbGraph::Connections::PromotablePosts do
   describe '#promotable_posts' do
     it 'should return promotable posts the user created as FbGraph::Post' do
-      mock_graph :get, 'FbGraph/promotable_posts', 'pages/promotable_posts/sample', access_token: 'access_token' do
+      mock_graph :get, 'FbGraph/promotable_posts', 'pages/promotable_posts/sample', :access_token => 'access_token' do
         posts = FbGraph::Page.new('FbGraph', :access_token => 'access_token').promotable_posts
         posts.class.should == FbGraph::Connection
         posts.count.should == 4
