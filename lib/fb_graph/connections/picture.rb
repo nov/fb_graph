@@ -28,6 +28,12 @@ module FbGraph
           _endpoint_
         end
       end
+
+      module Updatable
+        def picture!(options = {})
+          post options.merge(:connection => :picture)
+        end
+      end
     end
   end
 end
