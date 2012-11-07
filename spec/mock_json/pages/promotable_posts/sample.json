@@ -1,0 +1,168 @@
+{
+  "data": [
+    {
+      "id": "117513961602338_485053824848348", 
+      "from": {
+        "name": "FbGraph", 
+        "category": "Software", 
+        "id": "117513961602338"
+      }, 
+      "message": "Sample Scheduled Promotable Posts", 
+      "actions": [
+        {
+          "name": "Comment", 
+          "link": "https://www.facebook.com/117513961602338/posts/485053824848348"
+        }, 
+        {
+          "name": "Like", 
+          "link": "https://www.facebook.com/117513961602338/posts/485053824848348"
+        }
+      ], 
+      "privacy": {
+        "description": "Public", 
+        "value": "EVERYONE"
+      }, 
+      "type": "status", 
+      "created_time": "2012-11-09T15:00:00+0000", 
+      "updated_time": "2012-11-09T15:00:00+0000", 
+      "comments": {
+        "count": 0
+      }, 
+      "is_published": false, 
+      "scheduled_publish_time": 1352473200
+    }, 
+    {
+      "id": "117513961602338_485050244848706", 
+      "from": {
+        "name": "FbGraph", 
+        "category": "Software", 
+        "id": "117513961602338"
+      }, 
+      "message": "Sample Promotable Posts", 
+      "actions": [
+        {
+          "name": "Comment", 
+          "link": "https://www.facebook.com/117513961602338/posts/485050244848706"
+        }, 
+        {
+          "name": "Like", 
+          "link": "https://www.facebook.com/117513961602338/posts/485050244848706"
+        }
+      ], 
+      "privacy": {
+        "description": "Public", 
+        "value": "EVERYONE"
+      }, 
+      "type": "status", 
+      "status_type": "mobile_status_update", 
+      "created_time": "2012-11-07T02:04:16+0000", 
+      "updated_time": "2012-11-07T02:04:16+0000", 
+      "comments": {
+        "count": 0
+      }, 
+      "is_published": true
+    }, 
+    {
+      "id": "117513961602338_274085326039445", 
+      "from": {
+        "name": "FbGraph", 
+        "category": "Software", 
+        "id": "117513961602338"
+      }, 
+      "message": "I have no idea how to support this.\nArel for fb_graph??\nhttps://developers.facebook.com/docs/reference/api/field_expansion/", 
+      "link": "https://developers.facebook.com/docs/reference/api/field_expansion/", 
+      "name": "https://developers.facebook.com/docs/reference/api/field_expansion/", 
+      "caption": "developers.facebook.com", 
+      "icon": "https://s-static.ak.facebook.com/rsrc.php/v2/yD/r/aS8ecmYRys0.gif", 
+      "actions": [
+        {
+          "name": "Comment", 
+          "link": "https://www.facebook.com/117513961602338/posts/274085326039445"
+        }, 
+        {
+          "name": "Like", 
+          "link": "https://www.facebook.com/117513961602338/posts/274085326039445"
+        }
+      ], 
+      "privacy": {
+        "description": "Public", 
+        "value": "EVERYONE"
+      }, 
+      "type": "link", 
+      "status_type": "shared_story", 
+      "created_time": "2012-09-02T17:42:08+0000", 
+      "updated_time": "2012-09-02T17:42:08+0000", 
+      "likes": {
+        "data": [
+          {
+            "name": "Benny Lin", 
+            "id": "1684542911"
+          }
+        ], 
+        "count": 1
+      }, 
+      "comments": {
+        "count": 0
+      }, 
+      "is_published": true
+    }, 
+    {
+      "id": "117513961602338_270322719752153", 
+      "from": {
+        "name": "FbGraph", 
+        "category": "Software", 
+        "id": "117513961602338"
+      }, 
+      "message": "You can send App Notifications using fb_graph v2.4.20.\nhttps://github.com/nov/fb_graph/wiki/notifications", 
+      "picture": "https://fbexternal-a.akamaihd.net/safe_image.php?d=AQAQcwCcAz2hGLi8&w=90&h=90&url=https%3A%2F%2Fa248.e.akamai.net%2Fassets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png%3F1345673561", 
+      "link": "https://github.com/nov/fb_graph/wiki/notifications", 
+      "name": "fb_graph", 
+      "caption": "github.com", 
+      "description": "A full-stack Facebook Graph API wrapper in Ruby. Contribute to fb_graph development by creating an account on GitHub.", 
+      "icon": "https://s-static.ak.facebook.com/rsrc.php/v2/yD/r/aS8ecmYRys0.gif", 
+      "actions": [
+        {
+          "name": "Comment", 
+          "link": "https://www.facebook.com/117513961602338/posts/270322719752153"
+        }, 
+        {
+          "name": "Like", 
+          "link": "https://www.facebook.com/117513961602338/posts/270322719752153"
+        }
+      ], 
+      "privacy": {
+        "description": "Public", 
+        "value": "EVERYONE"
+      }, 
+      "type": "link", 
+      "status_type": "shared_story", 
+      "created_time": "2012-09-02T17:33:59+0000", 
+      "updated_time": "2012-09-02T17:33:59+0000", 
+      "likes": {
+        "data": [
+          {
+            "name": "Benny Lin", 
+            "id": "1684542911"
+          }, 
+          {
+            "name": "Arun Kumar", 
+            "id": "100001286076940"
+          }, 
+          {
+            "name": "Ryan Felton", 
+            "id": "697922812"
+          }
+        ], 
+        "count": 3
+      }, 
+      "comments": {
+        "count": 0
+      }, 
+      "is_published": true
+    }
+  ], 
+  "paging": {
+    "previous": "https://graph.facebook.com/117513961602338/promotable_posts?limit=25&since=1352473200", 
+    "next": "https://graph.facebook.com/117513961602338/promotable_posts?limit=25&until=1346607238"
+  }
+}
