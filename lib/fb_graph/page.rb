@@ -26,15 +26,23 @@ module FbGraph
     include Connections::Videos
     extend Searchable
 
-    attr_accessor :name, :username, :category, :like_count, :talking_about_count, :perms
+    @@attributes = {
+      :raw => [:name, :username, :category, :link, :talking_about_count, :perms, :is_published, :can_post],
+      :custom => [:cover, :like_count]
+    }
+
+    attr_accessor *@@attributes.values.flatten
 
     def initialize(identifier, attributes = {})
       super
-      [:name, :username, :category, :talking_about_count].each do |key|
+      @@attributes[:raw].each do |key|
         self.send :"#{key}=", attributes[key]
       end
+      @link ||= "https://www.facebook.com/#{username || identifier}"
       @like_count = attributes[:likes] || attributes[:fan_count]
-      @perms = attributes[:perms]
+      @cover = if (cover = attributes[:cover])
+        Cover.new cover[:cover_id], cover
+      end
     end
   end
 end

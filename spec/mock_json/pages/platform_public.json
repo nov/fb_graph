@@ -1,14 +1,18 @@
 {
-   "id": "19292868552",
-   "name": "Facebook Platform",
-   "picture": "http://profile.ak.fbcdn.net/profile-ak-snc1/object3/1566/8/s19292868552_1660.jpg",
-   "link": "http://www.facebook.com/platform",
-   "category": "Technology",
-   "username": "platform",
-   "founded": "May 2007",
-   "company_overview": "Facebook Platform enables anyone to build social applications on Facebook and the web.",
-   "mission": "To make the web more open and social.",
-   "products": "Facebook Application Programming Interface (API)\nFacebook Query Language (FQL)\nFacebook Markup Language (FBML)\nFacebook JavaScript (FBJS)\nFacebook Connect\n",
-   "likes": 578214,
-   "talking_about_count": 40945
+  "name": "Facebook Developers", 
+  "is_published": true, 
+  "website": "http://developers.facebook.com", 
+  "username": "FacebookDevelopers", 
+  "company_overview": "Facebook Platform enables anyone to build social apps on Facebook, mobile, and the web.\n\n", 
+  "about": "Build and distribute amazing social apps on Facebook. https://developers.facebook.com/ ", 
+  "talking_about_count": 17811, 
+  "category": "Product/service", 
+  "id": "19292868552", 
+  "link": "https://www.facebook.com/FacebookDevelopers", 
+  "likes": 237499, 
+  "cover": {
+    "cover_id": "10151124971508553", 
+    "source": "https://fbcdn-sphotos-f-a.akamaihd.net/hphotos-ak-ash4/s720x720/418043_10151124971508553_1379621833_n.png", 
+    "offset_y": 0
+  }
 }

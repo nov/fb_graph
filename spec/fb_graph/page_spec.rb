@@ -41,10 +41,12 @@ describe FbGraph::Page do
       end
     end
     its(:identifier) { should == '19292868552' }
-    its(:name)       { should == 'Facebook Platform' }
-    its(:category)   { should == 'Technology' }
-    its(:like_count) { should == 578214 }
-    its(:talking_about_count) { should == 40945 }
+    its(:name)       { should == 'Facebook Developers' }
+    its(:category)   { should == 'Product/service' }
+    its(:like_count) { should == 237499 }
+    its(:talking_about_count) { should == 17811 }
+    its(:cover)      { should be_instance_of FbGraph::Cover }
+    its(:is_published) { should be_true }
 
     context 'when access_token field fetched' do
       subject do
