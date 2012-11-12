@@ -4,7 +4,7 @@ module FbGraph
   class Node
     include Comparison
 
-    attr_accessor :identifier, :endpoint, :access_token, :raw_attributes
+    attr_accessor :identifier, :endpoint, :access_token, :raw_attributes, :fields
 
     def initialize(identifier, attributes = {})
       @identifier         = identifier
