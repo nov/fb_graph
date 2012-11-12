@@ -10,14 +10,17 @@ module FbGraph
       @identifier         = identifier
       @endpoint           = File.join(ROOT_URL, identifier.to_s)
       @access_token       = attributes[:access_token]
+      @fields             = attributes[:fields]
       @raw_attributes     = attributes
       @cached_collections = {}
     end
 
     def fetch(options = {})
       options[:access_token] ||= self.access_token if self.access_token
+      options[:fields] ||= self.fields if self.fields
       _fetched_ = get options
       _fetched_[:access_token] ||= options[:access_token]
+      _fetched_[:fields] ||= options[:fields]
       self.class.new(_fetched_[:id], _fetched_)
     end
 
@@ -96,6 +99,7 @@ module FbGraph
     def build_params(params)
       _params_ = params.dup
       _params_[:access_token] ||= self.access_token
+      _params_[:fields] ||= self.fields
       _params_.delete_if do |k, v|
         v.blank? &&
         # NOTE: allow "key=false" in params (ex. for test user creation, it supports "installed=false")

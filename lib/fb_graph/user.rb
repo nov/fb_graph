@@ -146,8 +146,8 @@ module FbGraph
       @rsvp_status = attributes[:rsvp_status]
     end
 
-    def self.me(access_token)
-      new('me', :access_token => access_token)
+    def self.me(access_token, fields=nil)
+      new('me', :access_token => access_token, :fields => fields)
     end
 
   end
