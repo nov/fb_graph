@@ -73,6 +73,12 @@ https://github.com/nov/fb_graph/wiki
   me.home
   :
 
+By default, FbGraph will only return the default fields. In order to
+get a non-default field, you have to supply the connect with an options hash
+specifying the field. An example for events:
+
+  user.events({:fields => "owner,name,description,picture"}) # { and } optional
+
 ==== Search
 
   # all objects
