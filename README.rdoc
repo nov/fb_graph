@@ -79,6 +79,10 @@ specifying the field. An example for events:
 
   user.events({:fields => "owner,name,description,picture"}) # { and } optional
 
+An overview of which fields you can include in the graph API can be found at 
+https://developers.facebook.com/docs/reference/api/, which has a description 
+of the specific objects fields in the sidebar under "Objects".
+
 ==== Search
 
   # all objects
