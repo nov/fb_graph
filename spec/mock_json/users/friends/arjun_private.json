@@ -1,6 +1,0 @@
-{
-   "error": {
-      "type": "OAuthException",
-      "message": "(#604) Can't lookup all friends of 7901103; can only lookup for the logged in user (579612276) or for pairs of users"
-   }
-}
