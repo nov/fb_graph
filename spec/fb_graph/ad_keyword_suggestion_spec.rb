@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe FbGraph::AdKeywordSuggestion, '.search' do
   it 'should perform a search' do
     mock_graph :get, 'search', 'ad_keyword_suggestions/buffy_suggestions', :params => {:keyword_list => 'buffy+the+vampire+slayer', :type => 'adkeywordsuggestion'} do

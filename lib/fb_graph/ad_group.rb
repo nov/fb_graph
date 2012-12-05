@@ -1,9 +1,10 @@
 module FbGraph
   class AdGroup < Node
     include Connections::AdCreatives
+    include Connections::ReachEstimates
 
     attr_accessor :ad_id, :campaign_id, :name, :adgroup_status, :bid_type, :max_bid, :targeting, :creative, :creative_ids, :adgroup_id,
-      :end_time, :start_time, :updated_time, :bid_info, :disapprove_reason_descriptions
+      :end_time, :start_time, :updated_time, :bid_info, :disapprove_reason_descriptions, :view_tags
 
     def initialize(identifier, attributes = {})
       super
@@ -30,7 +31,7 @@ module FbGraph
     protected
 
     def set_attrs(attributes)
-      %w(ad_id campaign_id name adgroup_status bid_type max_bid targeting creative creative_ids adgroup_id bid_info disapprove_reason_descriptions).each do |field|
+      %w(ad_id campaign_id name adgroup_status bid_type max_bid targeting creative creative_ids adgroup_id bid_info disapprove_reason_descriptions view_tags).each do |field|
         send("#{field}=", attributes[field.to_sym])
       end
 

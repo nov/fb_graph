@@ -14,7 +14,8 @@ describe FbGraph::AdGroup, '.new' do
       :adgroup_id => 6003590469668,
       :end_time => "2011-09-10T00:00:00+00:00",
       :start_time => "2011-09-01T12:00:00-07:00",
-      :updated_time => "2011-09-04T16:00:00+00:00"
+      :updated_time => "2011-09-04T16:00:00+00:00",
+      :view_tags => ["http://example.com"]
     }
     ad_group = FbGraph::AdGroup.new(attributes.delete(:id), attributes)
     ad_group.identifier.should == "6003590469668"
@@ -28,6 +29,7 @@ describe FbGraph::AdGroup, '.new' do
     ad_group.end_time.should == Time.parse("2011-09-10T00:00:00+00:00")
     ad_group.start_time.should == Time.parse("2011-09-01T12:00:00-07:00")
     ad_group.updated_time.should == Time.parse("2011-09-04T16:00:00+00:00")
+    ad_group.view_tags.should == ["http://example.com"]
   end
 end
 
@@ -48,6 +50,7 @@ describe FbGraph::AdGroup, '.fetch' do
       ad_group.end_time.should == Time.parse("2011-09-10T00:00:00+00:00")
       ad_group.start_time.should == Time.parse("2011-09-01T12:00:00-07:00")
       ad_group.updated_time.should == Time.parse("2011-09-04T16:00:00+00:00")
+      ad_group.view_tags.should == ["http://example.com"]
     end
   end
 end

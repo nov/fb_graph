@@ -16,7 +16,7 @@ module FbGraph
 
     def fetch(options = {})
       options[:access_token] ||= self.access_token if self.access_token
-      _fetched_ = get(options)
+      _fetched_ = get options
       _fetched_[:access_token] ||= options[:access_token]
       self.class.new(_fetched_[:id], _fetched_)
     end
@@ -135,16 +135,11 @@ module FbGraph
       when 'null'
         nil
       else
-        if response.body.gsub('"', '').to_i.to_s == response.body.gsub('"', '')
-          # NOTE: User#app_request! returns ID as a JSON string not as a JSON object..
-          response.body.gsub('"', '')
+        _response_ = JSON.parse(response.body).with_indifferent_access
+        if (200...300).include?(response.status)
+          _response_
         else
-          _response_ = JSON.parse(response.body).with_indifferent_access
-          if (200...300).include?(response.status)
-            _response_
-          else
-            Exception.handle_httpclient_error(_response_, response.headers)
-          end
+          Exception.handle_httpclient_error(_response_, response.headers)
         end
       end
     rescue JSON::ParserError

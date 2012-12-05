@@ -6,6 +6,9 @@ module FbGraph
     def initialize(attributes = {})
       super
 
+      # everything in a data node when getting reach estimate through an AdGroup
+      attributes = attributes[:data] if attributes[:data]
+
       %w(users).each do |field|
         send("#{field}=", attributes[field.to_sym])
       end

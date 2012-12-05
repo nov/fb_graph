@@ -27,11 +27,7 @@ module FbGraph
           elsif to[:version]
             Group.new(to[:id], to)
           else
-            if attributes[:context] == Application
-              Application.new(to[:id], to)
-            else
-              User.new(to[:id], to)
-            end
+            User.new(to[:id], to)
           end
         end
       end

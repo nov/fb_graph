@@ -22,3 +22,4 @@ rdoc
 pkg
 
 ## PROJECT::SPECIFIC
+.rbenv-version

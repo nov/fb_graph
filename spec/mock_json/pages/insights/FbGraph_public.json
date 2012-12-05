@@ -1,6 +1,0 @@
-{
-   "error": {
-      "type": "OAuthException",
-      "message": "An access token is required to request this resource."
-   }
-}
