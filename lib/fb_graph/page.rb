@@ -24,6 +24,7 @@ module FbGraph
     include Connections::Tabs
     include Connections::Tagged
     include Connections::Videos
+    include Connections::Offers
     extend Searchable
 
     @@attributes = {
@@ -43,6 +44,12 @@ module FbGraph
       @cover = if (cover = attributes[:cover])
         Cover.new cover[:cover_id], cover
       end
+    end
+
+    protected
+
+    def page_access_token
+      get({:fields => "access_token"})["access_token"]
     end
   end
 end
