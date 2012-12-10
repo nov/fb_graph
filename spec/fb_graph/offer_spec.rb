@@ -1,25 +1,8 @@
 require 'spec_helper'
 
 describe FbGraph::Offer do
-  let :attributes do
-    {
-      :id => '12345',
-      :from => {
-        :id => '23456',
-        :name => 'page_name',
-        :category => 'page_cat'
-      },
-      :title => 'offer 1',
-      :created_time => '2011-10-14T21:00:00+0000',
-      :expiration_time => '2018-03-15T00:30:00+0000',
-      :terms => 'One offer per customer',
-      :image_url => 'http://example.org/image.png',
-      :coupon_type => 'online_only',
-      :claim_limit => 1000,
-      :redemption_link => 'http://example.org/redeem'
-    }
-  end
-  let(:offer) { FbGraph::Offer.new(attributes.delete(:id), attributes) }
+  let(:offer) { mock_graph(:get, '23456/offers', 'offers/private', :access_token => 'access_token') { offer = page.offers[0] }}
+  let(:page) { FbGraph::Page.new('23456', {:name => 'page_name', :category => 'page_cat', :access_token => 'access_token'}) }
 
   describe '.new' do
     it 'should setup all supported attributes' do
