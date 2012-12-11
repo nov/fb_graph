@@ -5,7 +5,7 @@ describe FbGraph::OpenGraph::Object do
     FbGraph::OpenGraph::Object.new attributes[:id], attributes
   end
   let :attributes do
-    JSON.parse(json).with_indifferent_access
+    MultiJson::load(json).with_indifferent_access
   end
 
   context 'with play action' do

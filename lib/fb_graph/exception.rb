@@ -81,7 +81,7 @@ module FbGraph
     def initialize(code, message, body = '')
       @code = code
       if body.present?
-        response = JSON.parse(body).with_indifferent_access
+        response = MultiJson::load(body).with_indifferent_access
         message = response[:error][:message]
         @type = response[:error][:type]
       end
