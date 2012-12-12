@@ -135,14 +135,14 @@ module FbGraph
       when 'null'
         nil
       else
-        _response_ = JSON.parse(response.body).with_indifferent_access
+        _response_ = MultiJson::load(response.body).with_indifferent_access
         if (200...300).include?(response.status)
           _response_
         else
           Exception.handle_httpclient_error(_response_, response.headers)
         end
       end
-    rescue JSON::ParserError
+    rescue MultiJson::DecodeError
       raise Exception.new(response.status, "Unparsable Response: #{response.body}")
     end
   end
