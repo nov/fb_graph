@@ -47,7 +47,7 @@ end
 
 describe FbGraph::AdGroup, '.fetch' do
   it 'should get the ad group stat with id' do
-    mock_graph :get, "6005443999375/stats/0/1348256188", 'ad_group_stats/fetch', :access_token => 'valid' do
+    mock_graph :get, "6005443999375/stats/0/1348256188", File.join(MOCK_JSON_DIR, 'ad_group_stats/fetch.json'), :access_token => 'valid' do
       stat = FbGraph::AdGroupStat.fetch("6005443999375/stats/0/1348256188", :access_token => 'valid')
 
       stat.identifier.should == "6005443999375/stats/0/1348256188"

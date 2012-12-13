@@ -32,7 +32,8 @@ describe FbGraph::Connections::AdAccounts, '#ad_creatives' do
   context 'when included by FbGraph::AdAccount' do
     context 'when access_token is given' do
       it 'should return ad_creatives as FbGraph::AdCreative' do
-        mock_graph :get, 'act_22334455/adcreatives', 'ad_accounts/ad_creatives/22334455_ad_creatives', :access_token => 'valid' do
+        puts "HERE #{MOCK_JSON_DIR}"
+        mock_graph :get, 'act_22334455/adcreatives', File.join(MOCK_JSON_DIR, 'ad_accounts/ad_creatives/22334455_ad_creatives.json'), :access_token => 'valid' do
           ad_creatives = FbGraph::AdAccount.new('act_22334455', :access_token => 'valid').ad_creatives
           ad_creatives.size.should == 5 
           ad_creatives.each do |ad_creative|
@@ -48,7 +49,7 @@ describe FbGraph::Connections::AdAccounts, 'ad_creative!' do
   context 'when included by FbGraph::AdAccount' do
     context 'when access_token is given' do
       it 'should return ad_creatives as FbGraph::AdCreative' do
-        mock_graph :post, 'act_22334455/adcreatives', 'ad_creatives/created' do
+        mock_graph :post, 'act_22334455/adcreatives', File.join(MOCK_JSON_DIR, 'ad_creatives/created.json') do
           ad_creative = FbGraph::AdAccount.new('act_22334455', :access_token => 'valid').ad_creative! ( {
             :type => 1,
             :title => "foo",

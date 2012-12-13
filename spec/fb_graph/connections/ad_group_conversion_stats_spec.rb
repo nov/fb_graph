@@ -4,7 +4,7 @@ describe FbGraph::Connections::AdGroupConversionStats, '#ad_group_conversion_sta
   context 'when included by FbGraph::AdAccount' do
     context 'when access_token is given' do
       it 'should return ad_group_conversions as FbGraph::AdGroupConversionStat' do
-        mock_graph :get, 'act_11223344/adgroupconversions', 'ad_accounts/ad_group_conversion_stats/adgroupconversions', :access_token => 'valid' do
+        mock_graph :get, 'act_11223344/adgroupconversions', File.join(MOCK_JSON_DIR, 'ad_accounts/ad_group_conversion_stats/adgroupconversions.json'), :access_token => 'valid' do
           ad_group_conversions = FbGraph::AdAccount.new('act_11223344', :access_token => 'valid').ad_group_conversions
 
           ad_group_conversions.size.should == 3
