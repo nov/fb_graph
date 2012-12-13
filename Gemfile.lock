@@ -37,9 +37,8 @@ GEM
     crack (0.3.1)
     diff-lcs (1.1.3)
     erubis (2.7.0)
-    fb_graph-mock (0.0.0)
+    fb_graph-mock (0.0.3)
       fb_graph
-      json
       rspec
       webmock
     hashie (1.2.0)
@@ -89,7 +88,7 @@ DEPENDENCIES
   actionpack (>= 3.0.6)
   cover_me (>= 1.2.0)
   fb_graph!
-  fb_graph-mock
+  fb_graph-mock (>= 0.0.3)
   jruby-openssl (>= 0.7)
   rake (>= 0.8)
   rspec (>= 2)
