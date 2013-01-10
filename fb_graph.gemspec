@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "httpclient", ">= 2.2.0.2"
   s.add_runtime_dependency "rack-oauth2", ">= 0.14.4"
   s.add_runtime_dependency "tzinfo"
-  s.add_runtime_dependency "multi_json"
+  s.add_runtime_dependency "multi_json", ">= 1.3"
   s.add_development_dependency "rake", ">= 0.8"
   if RUBY_VERSION >= '1.9'
     s.add_development_dependency "cover_me", ">= 1.2.0"
