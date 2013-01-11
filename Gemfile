@@ -5,7 +5,7 @@ platforms :jruby do
 end
 
 group :test do
-	gem 'oj'
+  gem 'oj'
 end
 
 gemspec

@@ -2,6 +2,9 @@
 
 A full-stack Facebook Graph API wrapper in Ruby.
 
+{<img src="https://secure.travis-ci.org/nov/fb_graph.png" />}[http://travis-ci.org/nov/fb_graph]
+{<img src="http://www.pledgie.com/campaigns/19043.png?skin_name=chrome" />}[http://www.pledgie.com/campaigns/19043]
+
 == Installation
 
   gem install fb_graph
@@ -58,7 +61,7 @@ https://github.com/nov/fb_graph/wiki
   user.tagged
   user.family
   :
-  
+
   # Private connections requires "access_token"
   FbGraph::User.new('matake').friends # => raise FbGraph::Unauthorized
   user = FbGraph::User.fetch('matake', :access_token => ACCESS_TOKEN)
@@ -67,7 +70,7 @@ https://github.com/nov/fb_graph/wiki
   user.friends
   user.likes
   :
-  
+
   # "home" connection is only available for "me"
   me = User.new('me', :access_token => ACCESS_TOKEN)
   me.home
@@ -79,8 +82,8 @@ specifying the field. An example for events:
 
   user.events({:fields => "owner,name,description,picture"}) # { and } optional
 
-An overview of which fields you can include in the graph API can be found at 
-https://developers.facebook.com/docs/reference/api/, which has a description 
+An overview of which fields you can include in the graph API can be found at
+https://developers.facebook.com/docs/reference/api/, which has a description
 of the specific objects fields in the sidebar under "Objects".
 
 ==== Search
@@ -275,7 +278,7 @@ See GitHub wiki for more examples.
 https://github.com/nov/fb_graph/wiki
 
 == Note on Patches/Pull Requests
- 
+
 * Fork the project.
 * Make your feature addition or bug fix.
 * Add tests for it. This is important so I don't break it in a
