@@ -8,21 +8,25 @@ describe FbGraph::Debugger::RequestFilter do
 
   describe '#filter_request' do
     it 'should log request' do
-      FbGraph.logger.should_receive(:info).with(
-        "======= [FbGraph] API REQUEST STARTED =======\n" +
+      [
+        "======= [FbGraph] API REQUEST STARTED =======",
         request.dump
-      )
+      ].each do |output|
+        FbGraph.logger.should_receive(:info).with output
+      end
       request_filter.filter_request(request)
     end
   end
 
   describe '#filter_response' do
     it 'should log response' do
-      FbGraph.logger.should_receive(:info).with(
-        "--------------------------------------------------\n" +
-        response.dump +
-        "\n======= [FbGraph] API REQUEST FINISHED ======="
-      )
+      [
+        "--------------------------------------------------",
+        response.dump,
+        "======= [FbGraph] API REQUEST FINISHED ======="
+      ].each do |output|
+        FbGraph.logger.should_receive(:info).with output
+      end
       request_filter.filter_response(request, response)
     end
   end
