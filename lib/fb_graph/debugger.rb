@@ -5,7 +5,7 @@ module FbGraph
       # request:: HTTP::Message
       def filter_request(request)
         started = "======= [FbGraph] API REQUEST STARTED ======="
-        FbGraph.logger.info [started, request.dump].join("\n")
+        log started, request.dump
       end
 
       # Callback called in HTTPClient (after received a response)
@@ -13,7 +13,15 @@ module FbGraph
       # response:: HTTP::Message
       def filter_response(request, response)
         finished = "======= [FbGraph] API REQUEST FINISHED ======="
-        FbGraph.logger.info ['-' * 50, response.dump, finished].join("\n")
+        log '-' * 50, response.dump, finished
+      end
+
+      private
+
+      def log(*outputs)
+        outputs.each do |output|
+          FbGraph.logger.info output
+        end
       end
     end
   end
