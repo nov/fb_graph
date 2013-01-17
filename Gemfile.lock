@@ -88,7 +88,7 @@ DEPENDENCIES
   actionpack (>= 3.0.6)
   cover_me (>= 1.2.0)
   fb_graph!
-  fb_graph-mock
+  fb_graph-mock (>= 0.0.3)
   jruby-openssl (>= 0.7)
   oj
   rake (>= 0.8)

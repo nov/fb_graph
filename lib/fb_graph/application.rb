@@ -11,6 +11,7 @@ module FbGraph
     include Connections::Subscriptions
     include Connections::TestUsers
     include Connections::Videos
+    include Connections::Streams
     include OpenGraph::ApplicationContext
 
     @@attributes = [

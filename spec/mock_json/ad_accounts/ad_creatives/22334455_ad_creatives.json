@@ -1,0 +1,96 @@
+{
+  "data": [
+    {
+      "view_tag": "", 
+      "alt_view_tags": [
+      ], 
+      "creative_id": "6004240658664", 
+      "type": 1, 
+      "title": "Test Title", 
+      "body": "Test Body 154", 
+      "image_hash": "f89e65da40ce32fb0e097f1f0cc96c9a", 
+      "link_url": "http://example.com", 
+      "name": "Test Name 965", 
+      "run_status": 3, 
+      "preview_url": "https://www.facebook.com/ads/api/creative_preview.php?cid=6004240658664", 
+      "count_current_adgroups": 0, 
+      "id": "6004240658664", 
+      "image_url": "https://fbcdn-creative-a.akamaihd.net/ads-ak-snc7/v41818/flyers/67/56/13315662071571173748_1_f319d970.jpg"
+    },   
+    {
+      "view_tag": "", 
+      "alt_view_tags": [
+      ], 
+      "creative_id": "6004240721664", 
+      "type": 2, 
+      "title": "", 
+      "body": "Test Body 265", 
+      "image_hash": "f89e65da40ce32fb0e097f1f0cc96c9a", 
+      "link_url": "https://www.facebook.com/pages/Allen-Page-at-Kinetic-Social/229631577118807", 
+      "object_id": 229631577118807, 
+      "name": "Test Name 285-00", 
+      "run_status": 3, 
+      "preview_url": "https://www.facebook.com/ads/api/creative_preview.php?cid=6004240721664", 
+      "count_current_adgroups": 0, 
+      "id": "6004240721664", 
+      "image_url": "https://fbcdn-creative-a.akamaihd.net/ads-ak-snc7/v41818/flyers/67/56/13315662071571173748_1_f319d970.jpg"
+    }, 
+    {
+      "view_tag": "", 
+      "alt_view_tags": [
+      ], 
+      "creative_id": "6004240725864", 
+      "type": 4, 
+      "title": "", 
+      "body": "Test Body 248", 
+      "image_hash": "f89e65da40ce32fb0e097f1f0cc96c9a", 
+      "link_url": "https://www.facebook.com/apps/application.php?id=213445832076048", 
+      "object_id": 213445832076048, 
+      "name": "Test Name 985-02", 
+      "run_status": 3, 
+      "preview_url": "https://www.facebook.com/ads/api/creative_preview.php?cid=6004240725864", 
+      "count_current_adgroups": 0, 
+      "id": "6004240725864", 
+      "image_url": "https://fbcdn-creative-a.akamaihd.net/ads-ak-snc7/v41818/flyers/67/56/13315662071571173748_1_f319d970.jpg"
+    }, 
+    {
+      "object_id": "229631577118807", 
+      "type": 25, 
+      "action_spec": {
+        "action.type": "like", 
+        "page": [
+          229631577118807
+        ]
+      }, 
+      "follow_redirect": "1", 
+      "related_fan_page": 1, 
+      "cluster_id": 6004110565664, 
+      "name": "Sponsored story #6005658093464", 
+      "run_status": 1, 
+      "preview_url": "https://www.facebook.com/ads/api/creative_preview.php?cid=6005658093464", 
+      "count_current_adgroups": 3, 
+      "id": "6005658093464", 
+      "creative_id": "6005658093464"
+    }, 
+    {
+      "object_id": "229631577118807", 
+      "type": 27, 
+      "name": "Ad from a Page post #6005487024464", 
+      "story_id": 173815202752925, 
+      "auto_update": "false", 
+      "related_fan_page": 1, 
+      "action_t": "BgABAQcIAAZQMnKgCgAJAAAAAImt0MwKABAAANDZRJVYVw0AGgYKAAAADQEKAAAAAAAAAFAAuAAAnhWBaqmdALkAAAAAAAAAZAC6ACQQUaIoNxYCIwAAAAAAAAAIAMMAAABQIpXpSQG7AAAAAAAAAGoACgAAAACJrdDMAcoAAJ4VgWqpnQEeAAAAAFGPXrQAAQAAnhWBaqmdAbYAAAAAUDJyoAHkAACeFYFqqZ0NABsGCwAAAAFAAwAAAHtodHRwOi8veW91dHUuYmUvM2JNU1JYSzc4a1Ugb29vb28gWW91VHViZSAtIEJyb2FkY2FzdCBZb3Vyc2VsZi4gb29vb28gU2hhcmUgeW91ciB2aWRlb3Mgd2l0aCBmcmllbmRzLCBmYW1pbHksIGFuZCB0aGUgd29ybGQKABwAAJ4VgWqpnQA=", 
+      "run_status": 1, 
+      "preview_url": "https://www.facebook.com/ads/api/creative_preview.php?cid=6005487024464", 
+      "count_current_adgroups": 1, 
+      "id": "6005487024464", 
+      "creative_id": "6005487024464"
+    }
+  ], 
+  "limit": 500, 
+  "offset": 0, 
+  "count": 369, 
+  "paging": {
+    "next": "https://graph.facebook.com/act_22334455/adcreatives?offset=500"
+  }
+}

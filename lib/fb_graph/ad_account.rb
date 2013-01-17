@@ -8,6 +8,9 @@ module FbGraph
     include Connections::ReachEstimates
     include Connections::AdConnectionObjects
     include Connections::AdPreviews
+    include Connections::AdImages
+    include Connections::AdCreatives
+    include Connections::AdGroupConversionStats
 
     ATTRS = [
       :account_id,

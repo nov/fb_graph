@@ -4,15 +4,16 @@ module FbGraph
 
     def initialize(collection = nil)
       collection = case collection
-      when Array
-        {:data => collection, :count => collection.size}
-      when Hash
-        collection[:data] ||= []
-        collection
-      when nil
-        collection = {:data => [], :count => 0}
-      else
-        raise ArgumentError.new("Invalid collection")
+        when Array
+          {:data => collection, :count => collection.size}
+        when Hash
+          collection[:data] ||= []
+          collection[:data] = collection[:data].values if collection[:data].is_a?(Hash) # adimages has Hash, not an Array :(
+          collection
+        when nil
+          collection = {:data => [], :count => 0}
+        else
+          raise ArgumentError.new("Invalid collection")
       end
 
       # NOTE: Graph API returns {"data":{"to":[null]}} sometimes... :(
