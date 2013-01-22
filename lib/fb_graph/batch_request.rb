@@ -47,7 +47,7 @@ module FbGraph
         body_collection.each do |result|
           next if result == "false"
           o = ActiveSupport::JSON.decode(result).with_indifferent_access
-          objects << o if o[:error].blank? # If couldn't be found, then error object is returned do not include it          
+          o[:error].blank? ? objects << o : errors << o[:error][:message] # If couldn't be found, then error object is returned do not include it
         end
 
         # Did we miss any
