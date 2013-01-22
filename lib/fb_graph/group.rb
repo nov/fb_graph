@@ -5,6 +5,7 @@ module FbGraph
     include Connections::Members
     include Connections::Picture
     include Connections::Videos
+    include Connections::Streams
     extend Searchable
 
     attr_accessor :owner, :name, :email, :description, :link, :icon, :privacy, :version, :updated_time

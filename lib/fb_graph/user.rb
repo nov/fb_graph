@@ -43,6 +43,7 @@ module FbGraph
     include Connections::UserAchievements
     include Connections::UserLikes
     include Connections::Videos
+    include Connections::Streams
     include OpenGraph::UserContext
     extend Searchable
 

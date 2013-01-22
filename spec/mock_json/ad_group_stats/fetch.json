@@ -1,0 +1,22 @@
+{
+    "actions": {
+        "like": 1
+    }, 
+    "adgroup_id": 6005443999375, 
+    "campaign_id": 6005443998575, 
+    "clicks": 13, 
+    "connections": 1, 
+    "end_time": "2012-09-21T19:36:28+0000", 
+    "id": "6005443999375/stats/0/1348256188", 
+    "impressions": 33368, 
+    "newsfeed_position": null, 
+    "social_clicks": 5, 
+    "social_impressions": 10561, 
+    "social_spent": 339, 
+    "social_unique_clicks": 0, 
+    "social_unique_impressions": 0, 
+    "spent": 894, 
+    "start_time": null, 
+    "unique_clicks": 0, 
+    "unique_impressions": 0
+}
