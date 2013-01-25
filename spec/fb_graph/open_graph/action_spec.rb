@@ -5,7 +5,7 @@ describe FbGraph::OpenGraph::Action do
     FbGraph::OpenGraph::Action.new attributes[:id], attributes
   end
   let :attributes do
-    MultiJson::load(json).with_indifferent_access
+    MultiJson.load(json).with_indifferent_access
   end
   shared_examples_for :og_action_initialized do
     its(:from) do

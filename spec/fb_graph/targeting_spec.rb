@@ -25,7 +25,7 @@ describe FbGraph::Targeting, '.to_json' do
       :region  => 'Tokyo'
     }
     targeting = FbGraph::Targeting.new(attributes)
-    hash = MultiJson::load(targeting.to_json).with_indifferent_access
+    hash = MultiJson.load(targeting.to_json).with_indifferent_access
     hash[:country].should == attributes[:country]
     hash[:city].should    == attributes[:city]
     hash[:locale].should  == attributes[:locale]

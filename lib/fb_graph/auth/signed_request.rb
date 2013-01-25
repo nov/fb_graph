@@ -26,7 +26,7 @@ module FbGraph
       end
 
       def self.decode_json(json)
-        MultiJson::load(json).with_indifferent_access
+        MultiJson.load(json).with_indifferent_access
       rescue => e
         raise VerificationFailed.new('Invalid JSON')
       end
