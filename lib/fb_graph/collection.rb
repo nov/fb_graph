@@ -1,6 +1,6 @@
 module FbGraph
   class Collection < Array
-    attr_reader :previous, :next, :total_count
+    attr_reader :previous, :next, :total_count, :unread_count, :updated_time
 
     def initialize(collection = nil)
       collection = case collection
@@ -18,8 +18,15 @@ module FbGraph
       # NOTE: Graph API returns {"data":{"to":[null]}} sometimes... :(
       collection[:data].delete_if(&:nil?)
 
-      result = replace(collection[:data])
-      @total_count = collection[:count]
+      replace collection[:data]
+
+      if (summary = collection[:summary]).present?
+        @total_count = summary[:total_count]
+        @unread_count = summary[:unread_count]
+        @updated_time = Time.parse(summary[:updated_time]) if summary[:updated_time]
+      else
+        @total_count = collection[:count]
+      end
       @previous, @next = {}, {}
       if (paging = collection[:paging])
         if paging[:previous]

@@ -2,17 +2,19 @@
 
 A full-stack Facebook Graph API wrapper in Ruby.
 
+{<img src="https://secure.travis-ci.org/nov/fb_graph.png" />}[http://travis-ci.org/nov/fb_graph]
+{<img src="http://www.pledgie.com/campaigns/19043.png?skin_name=chrome" />}[http://www.pledgie.com/campaigns/19043]
+
 == Installation
 
   gem install fb_graph
 
 == Resources
 
-* View RDoc on RDoc.info (http://rdoc.info/github/nov/fb_graph)
-* View Source on GitHub (http://github.com/nov/fb_graph)
-* Report Issues on GitHub (http://github.com/nov/fb_graph/issues)
-* Q&A on Google Groups (https://groups.google.com/group/fb_graph)
-* Facebook Page (http://www.facebook.com/pages/FbGraph/117513961602338)
+* View Source on GitHub (https://github.com/nov/fb_graph)
+* Report Issues on GitHub (https://github.com/nov/fb_graph/issues)
+* Subscribe Update Info (https://www.facebook.com/FbGraph)
+* Q&A on Google Groups (http://groups.google.com/group/fb_graph)
 
 == Examples
 
@@ -20,6 +22,9 @@ Now FbGraph supports all objects listed here: http://developers.facebook.com/doc
 Almost all connections　for each object are also supported. ("attachments" and "shares" connections of message object are not supported yet)
 
 You can also play with a Rails sample app here. http://fbgraphsample.heroku.com/
+
+See GitHub wiki for more examples.
+https://github.com/nov/fb_graph/wiki
 
 === GET
 
@@ -36,7 +41,7 @@ You can also play with a Rails sample app here. http://fbgraphsample.heroku.com/
   user.identifier # => "matake"
   user.name # => nil
   user.link # => nil
-  user.fetch
+  user = user.fetch
   user.name # => "Nov Matake"
   user.description # => "http://www.facebook.com/matake"
 
@@ -56,7 +61,7 @@ You can also play with a Rails sample app here. http://fbgraphsample.heroku.com/
   user.tagged
   user.family
   :
-  
+
   # Private connections requires "access_token"
   FbGraph::User.new('matake').friends # => raise FbGraph::Unauthorized
   user = FbGraph::User.fetch('matake', :access_token => ACCESS_TOKEN)
@@ -65,11 +70,21 @@ You can also play with a Rails sample app here. http://fbgraphsample.heroku.com/
   user.friends
   user.likes
   :
-  
+
   # "home" connection is only available for "me"
   me = User.new('me', :access_token => ACCESS_TOKEN)
   me.home
   :
+
+By default, FbGraph will only return the default fields. In order to
+get a non-default field, you have to supply the connect with an options hash
+specifying the field. An example for events:
+
+  user.events({:fields => "owner,name,description,picture"}) # { and } optional
+
+An overview of which fields you can include in the graph API can be found at
+https://developers.facebook.com/docs/reference/api/, which has a description
+of the specific objects fields in the sidebar under "Objects".
 
 ==== Search
 
@@ -110,7 +125,7 @@ You can also play with a Rails sample app here. http://fbgraphsample.heroku.com/
   me.feed!(
     :message => 'Updating via FbGraph',
     :picture => 'https://graph.facebook.com/matake/picture',
-    :link => 'http://github.com/nov/fb_graph',
+    :link => 'https://github.com/nov/fb_graph',
     :name => 'FbGraph',
     :description => 'A Ruby wrapper for Facebook Graph API'
   )
@@ -139,7 +154,7 @@ You can also play with a Rails sample app here. http://fbgraphsample.heroku.com/
 
   me = FbGraph::User.me(ACCESS_TOKEN)
   link = me.link!(
-    :link => 'http://github.com/nov/fb_graph',
+    :link => 'https://github.com/nov/fb_graph',
     :message => 'A Ruby wrapper for Facebook Graph API.'
   )
 
@@ -148,8 +163,8 @@ You can also play with a Rails sample app here. http://fbgraphsample.heroku.com/
   me = FbGraph::User.me(ACCESS_TOKEN)
   event = me.event!(
     :name => 'FbGraph test event',
-    :start_time => 1.week.from_now.to_i,
-    :end_time => 2.week.from_now.to_i
+    :start_time => 1.week.from_now,
+    :end_time => 2.week.from_now
   )
   bool = event.attending!(
     :access_token => ACCESS_TOKEN
@@ -175,7 +190,7 @@ You can also play with a Rails sample app here. http://fbgraphsample.heroku.com/
   album = me.albums.first
   album.photo!(
     :access_token => ACCESS_TOKEN,
-    :image => File.new('/Users/nov/Desktop/nov.gif', 'rb'), # 'rb' is needed only on windows
+    :source => File.new('/Users/nov/Desktop/nov.gif', 'rb'), # 'rb' is needed only on windows
     :message => 'Hello, where is photo?'
   )
 
@@ -199,7 +214,11 @@ You can also play with a Rails sample app here. http://fbgraphsample.heroku.com/
 
 Both Facebook JavaScript SDK and normal OAuth2 flow is supported.
 Below I show simple sample code.
-You can also see http://github.com/nov/fb_graph_sample for more details Rails3 sample application.
+You can also see https://github.com/nov/fb_graph_sample for more details Rails3 sample application.
+
+In addition, if you are migrating an application that uses old-style session keys you can exchange
+the keys for access tokens.
+See more here: http://developers.facebook.com/docs/authentication/fb_sig/
 
 ==== JavaScript SDK
 
@@ -225,8 +244,16 @@ You can also see http://github.com/nov/fb_graph_sample for more details Rails3 s
 
   # in callback
   client.authorization_code = params[:code]
-  access_token = client.access_token!  # => Rack::OAuth2::AccessToken
+  access_token = client.access_token! :client_auth_body # => Rack::OAuth2::AccessToken
   FbGraph::User.me(access_token).fetch # => FbGraph::User
+
+==== Extend Access Token Lifetime
+
+  # setup client
+  fb_auth = FbGraph::Auth.new(YOUR_APP_ID, YOUR_APPLICATION_SECRET)
+  fb_auth.exchange_token! 'short-life-access-token'
+  fb_auth.access_token # => Rack::OAuth2::AccessToken
+
 
 === Analytics
 
@@ -245,8 +272,13 @@ Not tested well yet.
 Sample is here.
 https://gist.github.com/752914
 
+=== More Examples?
+
+See GitHub wiki for more examples.
+https://github.com/nov/fb_graph/wiki
+
 == Note on Patches/Pull Requests
- 
+
 * Fork the project.
 * Make your feature addition or bug fix.
 * Add tests for it. This is important so I don't break it in a

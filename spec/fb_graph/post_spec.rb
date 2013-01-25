@@ -9,6 +9,18 @@ describe FbGraph::Post, '.new' do
         :name => "Nov Matake",
         :id => "579612276"
       },
+      :to => {
+        :data => [{
+          :name => "Jr Nov",
+          :id => "1575327134"
+        }]
+      },
+      :with_tags => {
+        :data => [{
+          :name => "Jr Nov",
+          :id => "1575327134"
+        }]
+      },
       :icon => "http://photos-d.ak.fbcdn.net/photos-ak-snc1/v27562/23/2231777543/app_2_2231777543_9553.gif",
       :type => "status",
       :object_id => "12345",
@@ -51,6 +63,8 @@ describe FbGraph::Post, '.new' do
     post.identifier.should == '579612276_10150089741782277'
     post.message.should == 'hello'
     post.from.should == FbGraph::User.new("579612276", :name => 'Nov Matake')
+    post.to.first.should == FbGraph::User.new("1575327134", :name => 'Jr Nov')
+    post.with_tags.first.should == FbGraph::User.new("1575327134", :name => 'Jr Nov')
     post.icon.should == 'http://photos-d.ak.fbcdn.net/photos-ak-snc1/v27562/23/2231777543/app_2_2231777543_9553.gif'
     post.type.should == 'status'
     post.graph_object_id.should == '12345'
@@ -157,6 +171,47 @@ describe FbGraph::Post, '#fetch' do
     end
   end
 
+  context 'when include "story"' do
+    it 'should include story and story_tags' do
+      mock_graph :get, 'post_id', 'posts/with_story', :access_token => 'access_token' do
+        post = FbGraph::Post.fetch('post_id', :access_token => 'access_token')
+        post.story.should == 'Nov Matake likes Instagram JP.'
+        post.story_tags.should be_a Array
+        post.story_tags.each do |story_tag|
+          story_tag.should be_instance_of FbGraph::TaggedObject
+        end
+      end
+    end
+  end
+
+  context 'when include "story"' do
+    it 'should include message and message_tags' do
+      mock_graph :get, 'post_id', 'posts/with_message', :access_token => 'access_token' do
+        post = FbGraph::Post.fetch('post_id', :access_token => 'access_token')
+        post.message.should == 'testing status message with tagged people. Jr Nov'
+        post.message_tags.should be_a Array
+        post.message_tags.each do |message_tag|
+          message_tag.should be_instance_of FbGraph::TaggedObject
+        end
+      end
+    end
+  end
+
+  context 'when include "place"' do
+    it 'should include place as Venue' do
+      mock_graph :get, 'post_id', 'posts/with_place', :access_token => 'access_token' do
+        post = FbGraph::Post.fetch('post_id', :access_token => 'access_token')
+        place = post.place
+        place.should be_instance_of FbGraph::Place
+        place.identifier.should == '100563866688613'
+        place.name.should == 'Kawasaki-shi, Kanagawa, Japan'
+        location = place.location
+        location.should be_instance_of FbGraph::Venue
+        location.latitude.should == 35.5167
+        location.longitude.should == 139.7
+      end
+    end
+  end
 end
 
 describe FbGraph::Post, '#to' do
@@ -169,26 +224,6 @@ describe FbGraph::Post, '#to' do
       end
     end
     it { should be_instance_of FbGraph::Event }
-  end
-
-  context 'when include Application' do
-    context 'when fetched as Application#feed' do
-      let :post do
-        mock_graph :get, 'app/feed', 'applications/feed/public' do
-          FbGraph::Application.new('app').feed.first
-        end
-      end
-      it { should be_instance_of FbGraph::Application }
-    end
-
-    context 'otherwize' do # no way to detect this case..
-      let :post do
-        mock_graph :get, 'to_application', 'posts/to_application' do
-          FbGraph::Post.fetch('to_application')
-        end
-      end
-      it { should be_instance_of FbGraph::User }
-    end
   end
 
   context 'when include Group' do

@@ -3,6 +3,7 @@ module FbGraph
     include Connections::Photos
     include Connections::Comments
     include Connections::Likes
+    include Connections::Likes::Likable
     include Connections::Picture
 
     attr_accessor :from, :name, :description, :location, :link, :cover_photo, :privacy, :count, :type, :created_time, :updated_time
@@ -38,14 +39,20 @@ module FbGraph
       end
 
       # cached connection
-      @_comments_ = Collection.new(attributes[:comments])
+      cache_collection attributes, :comments
     end
 
-    def picture_with_access_token(size = nil)
-      raise Unauthorized.new('Album picture connection requires an access token') unless self.access_token
-      _endpoint_ = URI.parse picture_without_access_token(size)
-      _endpoint_.query = [_endpoint_.query, {:access_token => self.access_token.to_s}.to_query].compact.join('&')
-      _endpoint_.to_s
+    def picture_with_access_token(options_or_size = {})
+      response = picture_without_access_token options_or_size
+      if response.is_a?(FbGraph::Picture)
+        response
+      else
+        _endpoint_ = URI.parse response
+        if self.access_token
+          _endpoint_.query = [_endpoint_.query, {:access_token => self.access_token.to_s}.to_query].compact.join('&')
+        end
+        _endpoint_.to_s
+      end
     end
     alias_method_chain :picture, :access_token
   end

@@ -42,10 +42,14 @@ describe FbGraph::Page do
     its(:hours) { should be_instance_of Hash }
     its(:hours) do
       should == {
-        :mon => [
-          {:open  => Time.parse('Thu Jan 01 09:00:00 UTC 1970')},
-          {:close => Time.parse('Thu Jan 01 17:00:00 UTC 1970')}
-        ]
+        :mon => [{
+          :open  => Time.parse('1970-01-01 10:00:00 UTC'),
+          :close => Time.parse('1970-01-01 20:00:00 UTC')
+        }],
+        :tue=>[{
+          :open  => Time.parse('1970-01-01 10:00:00 UTC'),
+          :close => Time.parse('1970-01-01 20:00:00 UTC')
+        }]
       }
     end
 
@@ -56,6 +60,29 @@ describe FbGraph::Page do
         :country => 'Japan',
         :zip => '513001'
       )
+    end
+  end
+
+  context 'for local_business category with hours as Fixnums' do
+    let :page do
+      mock_graph :get, 'local_business', 'pages/categories/local_business_fixnum' do
+        FbGraph::Page.new('local_business').fetch
+      end
+    end
+    subject { page }
+
+    its(:hours) { should be_instance_of Hash }
+    its(:hours) do
+      should == {
+        :mon => [{
+          :open  => Time.parse('1970-01-01 10:00:00 UTC'),
+          :close => Time.parse('1970-01-01 20:00:00 UTC')
+        }],
+        :tue=>[{
+          :open  => Time.parse('1970-01-01 10:00:00 UTC'),
+          :close => Time.parse('1970-01-01 20:00:00 UTC')
+        }]
+      }
     end
   end
 end

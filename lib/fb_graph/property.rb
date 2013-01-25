@@ -4,10 +4,10 @@ module FbGraph
 
     attr_accessor :name, :text, :href
 
-    def initialize(attriutes = {})
-      @name = attriutes[:name]
-      @text = attriutes[:text]
-      @href = attriutes[:href]
+    def initialize(attributes = {})
+      @name = attributes[:name]
+      @text = attributes[:text]
+      @href = attributes[:href]
     end
   end
 end

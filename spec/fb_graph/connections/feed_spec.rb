@@ -95,5 +95,30 @@ describe FbGraph::Connections::Feed, '#feed!' do
         end
       end
     end
+
+    context 'when place is given as page_id' do
+      it 'should have Place' do
+        mock_graph :post, 'matake/feed', 'users/feed/post_with_valid_access_token', :access_token => 'access_token', :params => {
+          :message => 'hello',
+          :place => 'place_page_id'
+        } do
+          post = FbGraph::User.new('matake', :access_token => 'access_token').feed!(:message => 'hello', :place => 'place_page_id')
+          post.place.should == FbGraph::Page.new('place_page_id')
+        end
+      end
+    end
+
+    context 'when place is given as FbGraph::Place' do
+      it 'should have Place' do
+        mock_graph :post, 'matake/feed', 'users/feed/post_with_valid_access_token', :access_token => 'access_token', :params => {
+          :message => 'hello',
+          :place => 'place_page_id'
+        } do
+          place = FbGraph::Place.new('place_page_id')
+          post = FbGraph::User.new('matake', :access_token => 'access_token').feed!(:message => 'hello', :place => place)
+          post.place.should == place
+        end
+      end
+    end
   end
 end

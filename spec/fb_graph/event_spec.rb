@@ -58,4 +58,13 @@ describe FbGraph::Event do
       end.should request_to('12345', :post)
     end
   end
+
+  context 'when venue is a page' do
+    it 'should use FbGraph::Page instead of FbGraph::Venue' do
+      mock_graph :get, 'event_id', 'events/with_venue_as_page', :access_token => 'access_token' do
+        event = FbGraph::Event.fetch('event_id', :access_token => 'access_token')
+        event.venue.should be_instance_of FbGraph::Page
+      end
+    end
+  end
 end

@@ -1,8 +1,8 @@
 module FbGraph
   class Page
     module CategoryAttributes
-      @@attributes = {}
-      @@attributes[:raw] = [
+      @@category_attributes = {}
+      @@category_attributes[:raw] = [
         :affiliation,
         :artists_we_like,
         :attire,
@@ -11,7 +11,6 @@ module FbGraph
         :band_members,
         :bio,
         :booking_agent,
-        :can_post,
         :company_overview,
         :culinary_team,
         :current_location,
@@ -23,7 +22,6 @@ module FbGraph
         :hometown,
         :influences,
         :is_community_page,
-        :link,
         :location,
         :mission,
         :mpg,
@@ -43,24 +41,24 @@ module FbGraph
         :website,
         :written_by
       ]
-      @@attributes[:symbols] = [
+      @@category_attributes[:symbols] = [
         :parking,
         :payment_options,
         :restaurant_services,
         :restaurant_specialties
       ]
-      @@attributes[:date] = [
+      @@category_attributes[:date] = [
         :birthday,
         :built,
         :founded,
         :release_date
       ]
-      @@attributes[:others] = [
+      @@category_attributes[:others] = [
         :checkin_count,
         :hours,
         :location
       ]
-      attr_accessor *@@attributes.values.flatten
+      attr_accessor *@@category_attributes.values.flatten
 
       def self.included(klass)
         klass.alias_method_chain :initialize, :category_specific_attributes
@@ -68,34 +66,40 @@ module FbGraph
 
       def initialize_with_category_specific_attributes(identifier, attributes = {})
         initialize_without_category_specific_attributes identifier, attributes
-        @@attributes[:raw].each do |key|
+        @@category_attributes[:raw].each do |key|
           self.send :"#{key}=", attributes[key]
         end
-        @@attributes[:symbols].each do |key|
+
+        @@category_attributes[:symbols].each do |key|
           self.send :"#{key}=", []
           if attributes[key]
             self.send :"#{key}=", attributes[key].keys.collect(&:to_sym)
           end
         end
-        @@attributes[:date].each do |key|
-          if attributes[key]
-            value = if attributes[key] =~ /\d{2}\/\d{2}\/\d{4}/
-              Date.strptime(attributes[key], '%m/%d/%Y')
-            else
-              Date.parse(attributes[key]) rescue attributes[key]
+        @@category_attributes[:date].each do |key|
+          date = if attributes[key]
+            begin
+              Date.parse attributes[key]
+            rescue
+              attributes[key]
             end
-            self.send :"#{key}=", value
           end
+          self.send :"#{key}=", date
         end
         @checkin_count = attributes[:checkins]
         @hours = {}
         if attributes[:hours]
-          utc_beginning_of_day = Time.now.utc.beginning_of_day
           attributes[:hours].each do |key, value|
             date, index, mode = key.split('_')
             index = index.to_i - 1
             date, mode = date.to_sym, mode.to_sym
-            time = value.since(utc_beginning_of_day)
+            if value.class == Fixnum
+              # The Unix "time" returned is a weird approximation of the string value.
+              # Example: "20:00" might be represented as 446400, which is 1970-01-05T20:00:00-08:00
+              time = Time.at(value).in_time_zone("Pacific Time (US & Canada)")
+            else
+              time = Time.parse(value)
+            end
             time = Time.utc(1970, 1, 1, time.hour, time.min)
             @hours[date] ||= []
             @hours[date][index] ||= {}

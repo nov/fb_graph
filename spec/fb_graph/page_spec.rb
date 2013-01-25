@@ -7,18 +7,32 @@ describe FbGraph::Page do
       :category => 'Technology',
       :likes    => 578246,
       :name     => 'Facebook Platform',
-      :username => 'platform'
+      :username => 'platform',
+      :talking_about_count => 3232
     }
   end
   subject do
     FbGraph::Page.new(attributes[:id], attributes)
   end
 
-  its(:identifier) { should == attributes[:id]       }
-  its(:category)   { should == attributes[:category] }
-  its(:like_count) { should == attributes[:likes]    }
-  its(:name)       { should == attributes[:name]     }
-  its(:username)   { should == attributes[:username] }
+  its(:identifier)          { should == attributes[:id]       }
+  its(:category)            { should == attributes[:category] }
+  its(:like_count)          { should == attributes[:likes]    }
+  its(:name)                { should == attributes[:name]     }
+  its(:username)            { should == attributes[:username] }
+  its(:talking_about_count) { should == attributes[:talking_about_count] }
+
+  describe 'link' do
+    context 'when username exists' do
+      subject { FbGraph::Page.new(attributes[:id], attributes) }
+      its(:link) { should == "https://www.facebook.com/#{attributes[:username]}" }
+    end
+
+    context 'otherwise' do
+      subject { FbGraph::Page.new(attributes[:id]) }
+      its(:link) { should == "https://www.facebook.com/#{attributes[:id]}" }
+    end
+  end
 
   describe '.fetch' do
     subject do
@@ -27,8 +41,22 @@ describe FbGraph::Page do
       end
     end
     its(:identifier) { should == '19292868552' }
-    its(:name)       { should == 'Facebook Platform' }
-    its(:category)   { should == 'Technology' }
-    its(:like_count) { should == 578214 }
+    its(:name)       { should == 'Facebook Developers' }
+    its(:category)   { should == 'Product/service' }
+    its(:like_count) { should == 237499 }
+    its(:talking_about_count) { should == 17811 }
+    its(:cover)      { should be_instance_of FbGraph::Cover }
+    its(:is_published) { should be_true }
+
+    context 'when access_token field fetched' do
+      subject do
+        mock_graph :get, 'my_page', 'pages/with_token', :access_token => 'user_token', :params => {
+          :fields => :access_token
+        } do
+          FbGraph::Page.fetch('my_page', :fields => :access_token, :access_token => 'user_token')
+        end
+      end
+      its(:access_token) { should == 'page_token' }
+    end
   end
 end

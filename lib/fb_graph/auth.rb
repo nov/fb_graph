@@ -1,6 +1,6 @@
 module FbGraph
   class Auth
-    class VerificationFailed < Exception; end
+    class VerificationFailed < BadRequest; end
 
     attr_accessor :client, :access_token, :user, :data
 
@@ -10,7 +10,8 @@ module FbGraph
         :secret                 => client_secret,
         :host                   => URI.parse(ROOT_URL).host,
         :authorization_endpoint => '/oauth/authorize',
-        :token_endpoint         => '/oauth/access_token'
+        :token_endpoint         => '/oauth/access_token',
+        :redirect_uri           => options[:redirect_uri]
       )
       if options[:cookie]
         from_cookie options[:cookie]
@@ -26,7 +27,7 @@ module FbGraph
     def authorize_uri(canvas_uri, options = {})
       endpoint = URI.parse SignedRequest::OAUTH_DIALOG_ENDPOINT
       params = options.merge(
-        :client_id    => self.client.identifier,
+        :client_id    => client.identifier,
         :redirect_uri => canvas_uri
       )
       params[:scope] = Array(params[:scope]).join(',') if params[:scope].present?
@@ -35,27 +36,44 @@ module FbGraph
     end
 
     def from_cookie(cookie)
-      data = Cookie.parse(self.client, cookie)
-      self.access_token = build_access_token(data)
-      self.user = User.new(data[:uid], :access_token => self.access_token)
-      self.data = data
+      self.data = Cookie.parse(client, cookie)
+      get_access_token! data[:code]
       self
     end
 
     def from_signed_request(signed_request)
-      data = SignedRequest.verify(self.client, signed_request)
-      if data[:oauth_token]
+      self.data = SignedRequest.verify(client, signed_request)
+      if self.data[:oauth_token]
         self.access_token = build_access_token(data)
         self.user = User.new(data[:user_id], :access_token => self.access_token)
       end
-      self.data = data
       self
+    end
+
+    def exchange_token!(access_token)
+      raise Unauthorized.new('No Access Token') unless access_token
+      client.fb_exchange_token = access_token
+      self.access_token = client.access_token! :client_auth_body
+      self
+    rescue Rack::OAuth2::Client::Error => e
+      Exception.handle_rack_oauth2_error e
     end
 
     private
 
+    def get_access_token!(code)
+      raise Unauthorized.new('No Authorization Code') unless code
+      client.redirect_uri = ''
+      client.authorization_code = code
+      self.access_token = client.access_token! :client_auth_body
+      self.user = User.new(data[:user_id], :access_token => access_token)
+      self
+    rescue Rack::OAuth2::Client::Error => e
+      Exception.handle_rack_oauth2_error e
+    end
+
     def build_access_token(data)
-      expires_in = unless data[:expires].zero?
+      expires_in = unless data[:expires].nil? || data[:expires].zero?
         data[:expires] - Time.now.to_i
       end
       Rack::OAuth2::AccessToken::Legacy.new(

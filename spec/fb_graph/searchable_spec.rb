@@ -1,11 +1,23 @@
 require 'spec_helper'
 
 describe FbGraph::Searchable do
-  context 'when included by FbGraph::Page' do
-    it 'should with type=page' do
-      lambda do
-        FbGraph::Page.search('FbGraph')
-      end.should request_to('search?q=FbGraph&type=page')
+  describe '.search' do
+    context 'when included by FbGraph::Page' do
+      it 'should with type=page' do
+        lambda do
+          FbGraph::Searchable.search('FbGraph')
+        end.should request_to('search?q=FbGraph')
+      end
+    end
+  end
+
+  describe '#search' do
+    context 'when included by FbGraph::Page' do
+      it 'should with type=page' do
+        lambda do
+          FbGraph::Page.search('FbGraph')
+        end.should request_to('search?q=FbGraph&type=page')
+      end
     end
   end
 end

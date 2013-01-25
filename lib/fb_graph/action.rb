@@ -4,9 +4,9 @@ module FbGraph
 
     attr_accessor :name, :link
 
-    def initialize(attriutes = {})
-      @name = attriutes[:name]
-      @link = attriutes[:link]
+    def initialize(attributes = {})
+      @name = attributes[:name]
+      @link = attributes[:link]
     end
   end
 end

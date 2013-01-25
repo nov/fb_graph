@@ -2,6 +2,7 @@ module FbGraph
   class Link < Node
     include Connections::Comments
     include Connections::Likes
+    include Connections::Likes::Likable
 
     attr_accessor :from, :link, :name, :description, :icon, :picture, :message, :created_time
 
@@ -25,7 +26,7 @@ module FbGraph
       end
 
       # cached connection
-      @_comments_ = Collection.new(attributes[:comments])
+      cache_collection attributes, :comments
     end
   end
 end

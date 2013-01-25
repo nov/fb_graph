@@ -1,19 +1,24 @@
+require 'tempfile'
+
 module FbGraph
   class Node
     include Comparison
 
-    attr_accessor :identifier, :endpoint, :access_token
+    attr_accessor :identifier, :endpoint, :access_token, :raw_attributes
 
-    def initialize(identifier, options = {})
-      @identifier   = identifier
-      @endpoint     = File.join(ROOT_URL, identifier.to_s)
-      @access_token = options[:access_token]
+    def initialize(identifier, attributes = {})
+      @identifier         = identifier
+      @endpoint           = File.join(ROOT_URL, identifier.to_s)
+      @access_token       = attributes[:access_token]
+      @raw_attributes     = attributes
+      @cached_collections = {}
     end
 
     def fetch(options = {})
       options[:access_token] ||= self.access_token if self.access_token
-      _fetched_ = get(options)
-      self.class.new(_fetched_[:id], _fetched_.merge(:access_token => options[:access_token]))
+      _fetched_ = get options
+      _fetched_[:access_token] ||= options[:access_token]
+      self.class.new(_fetched_[:id], _fetched_)
     end
 
     def self.fetch(identifier, options = {})
@@ -21,29 +26,34 @@ module FbGraph
     end
 
     def connection(connection, options = {})
-      collection = options[:cached_collection] || Collection.new(get(options.merge(:connection => connection)))
-      Connection.new(self, connection, options.merge(:collection => collection))
+      Connection.new(
+        self,
+        connection,
+        options.merge(
+          :collection => collection_for(connection, options)
+        )
+      )
     end
 
     def update(options = {})
-      post(options)
+      post options
     end
 
     def destroy(options = {})
-      delete(options)
+      delete options
     end
 
     protected
 
     def get(params = {})
       handle_response do
-        HTTPClient.new.get build_endpoint(params), build_params(params)
+        http_client.get build_endpoint(params), build_params(params)
       end
     end
 
     def post(params = {})
       handle_response do
-        HTTPClient.new.post build_endpoint(params), build_params(params)
+        http_client.post build_endpoint(params), build_params(params)
       end
     end
 
@@ -51,11 +61,33 @@ module FbGraph
       _endpoint_, _params_ = build_endpoint(params), build_params(params)
       _endpoint_ = [_endpoint_, _params_.try(:to_query)].compact.join('?')
       handle_response do
-        HTTPClient.new.delete _endpoint_
+        http_client.delete _endpoint_
       end
     end
 
+    def http_client
+      FbGraph.http_client
+    end
+
     private
+
+    def collection_for(connection, options = {})
+      collection = if @cached_collections.has_key?(connection) && options.blank?
+        @cached_collections[connection]
+      else
+        get options.merge(:connection => connection)
+      end
+      Collection.new collection
+    end
+
+    def cache_collections(attributes, *connections)
+      if (attributes.keys - [:access_token]).present?
+        connections.each do |connection|
+          @cached_collections[connection] = attributes[connection]
+        end
+      end
+    end
+    alias_method :cache_collection, :cache_collections
 
     def build_endpoint(params = {})
       File.join([self.endpoint, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s))
@@ -72,9 +104,9 @@ module FbGraph
       _params_.each do |key, value|
         next if value.blank?
         _params_[key] = case value
-        when Symbol, Numeric, Rack::OAuth2::AccessToken::Legacy
+        when String, Symbol, Numeric, Date, Time, Rack::OAuth2::AccessToken::Legacy
           value.to_s
-        when String, IO, Tempfile
+        when IO, Tempfile
           value
         when defined?(ActionDispatch::Http::UploadedFile) && ActionDispatch::Http::UploadedFile
           # NOTE: for Rails 3.0.6+
@@ -103,27 +135,15 @@ module FbGraph
       when 'null'
         nil
       else
-        _response_ = JSON.parse(response.body)
-        _response_ = case _response_
-        when Array
-          _response_.map!(&:with_indifferent_access)
-        when Hash
-          _response_ = _response_.with_indifferent_access
-          handle_httpclient_error(_response_) if _response_[:error]
+        _response_ = MultiJson::load(response.body).with_indifferent_access
+        if (200...300).include?(response.status)
           _response_
+        else
+          Exception.handle_httpclient_error(_response_, response.headers)
         end
       end
-    rescue JSON::ParserError
-      raise Exception.new(response.status, 'Unparsable Error Response')
-    end
-
-    def handle_httpclient_error(response)
-      case response[:error][:type]
-      when /OAuth/
-        raise Unauthorized.new("#{response[:error][:type]} :: #{response[:error][:message]}")
-      else
-        raise BadRequest.new("#{response[:error][:type]} :: #{response[:error][:message]}")
-      end
+    rescue MultiJson::DecodeError
+      raise Exception.new(response.status, "Unparsable Response: #{response.body}")
     end
   end
 end

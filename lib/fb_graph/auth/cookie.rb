@@ -6,38 +6,14 @@ module FbGraph
     # If you want access token, use FbGraph::Auth.new(APP_ID, APP_SECRET, :cookie => {..}) instead
     class Cookie
       def self.parse(client, cookie)
-        fb_cookie_string = case cookie
+        signed_request = case cookie
         when String
           cookie
         else
-          cookie["fbs_#{client.identifier}"]
+          cookie["fbsr_#{client.identifier}"]
         end
-
-        raise VerificationFailed.new(401, 'Facebook cookie not found') if fb_cookie_string.blank?
-
-        fb_cookie_string.gsub!(/[\\"]/, '')
-        signature, fb_cookie = '', {}
-        fb_cookie_string.split('&').each do |kv|
-          k, v = kv.split('=')
-          if k == 'sig'
-            signature = v
-          else
-            v = v.to_i if k == 'expires'
-            fb_cookie[k] = v
-          end
-        end
-
-        signature_base_string = fb_cookie.to_a.sort do |a, b|
-          a[0] <=> b[0] || a[1] <=> b[1]
-        end.map do |(k, v)|
-          "#{k}=#{v}"
-        end.join
-
-        unless Digest::MD5.hexdigest("#{signature_base_string}#{client.secret}") == signature
-          raise VerificationFailed.new(401, 'Facebook cookie signature invalid')
-        end
-
-        fb_cookie.with_indifferent_access
+        raise VerificationFailed.new('Facebook cookie not found') if signed_request.blank?
+        SignedRequest.verify(client, signed_request)
       end
     end
   end

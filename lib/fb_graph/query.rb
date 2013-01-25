@@ -1,27 +1,29 @@
 module FbGraph
   class Query < Node
-    ENDPOINT = 'https://api.facebook.com/method/fql.query'
-
-    attr_accessor :access_token, :query
+    attr_accessor :query
 
     def initialize(query, access_token = nil)
+      super 'fql', :access_token => access_token
       @query = query
-      @access_token = access_token
     end
 
     def fetch(access_token = nil)
       handle_response do
-        HTTPClient.new.get ENDPOINT, :query => build_params(access_token)
+        http_client.get endpoint, :query => build_params(access_token)
       end
     end
 
     private
 
     def build_params(access_token)
+      _query_ = if query.is_a?(Hash)
+        query.to_json
+      else
+        query
+      end
       super(
-        :query => self.query,
-        :access_token => access_token || self.access_token,
-        :format => :json
+        :q => _query_,
+        :access_token => access_token || self.access_token
       )
     end
 
@@ -29,15 +31,15 @@ module FbGraph
       response = super do
         yield
       end
-      case response
-      when Hash
-        if response[:error_code]
-          raise Exception.new(response[:error_code], response[:error_msg])
-        else
-          response
-        end
+      collection = Collection.new response
+      if self.query.is_a?(Hash)
+        collection.inject({}) do |results, result|
+          results.merge(
+            result['name'] => result['fql_result_set']
+          )
+        end.with_indifferent_access
       else
-        response
+        collection
       end
     end
 

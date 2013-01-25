@@ -8,27 +8,27 @@ module FbGraph
 
       def self.verify(client, signed_request)
         signature, payload = signed_request.split('.')
-        raise VerificationFailed.new(401, 'No Signature') if signature.blank?
-        raise VerificationFailed.new(401, 'No Payload') if payload.blank?
+        raise VerificationFailed.new('No Signature') if signature.blank?
+        raise VerificationFailed.new('No Payload') if payload.blank?
         signature = base64_url_decode signature
         data = decode_json base64_url_decode(payload)
-        raise VerificationFailed.new(401, 'Unexpected Signature Algorithm') unless data[:algorithm] == 'HMAC-SHA256'
+        raise VerificationFailed.new('Unexpected Signature Algorithm') unless data[:algorithm] == 'HMAC-SHA256'
         _signature_ = sign(client.secret, payload)
-        raise VerificationFailed.new(401, 'Signature Invalid') unless signature == _signature_
+        raise VerificationFailed.new('Signature Invalid') unless signature == _signature_
         data
       end
 
       private
 
-      def self.sign(key, data)
+      def self.sign(key, payload)
         klass = OpenSSL::Digest::SHA256.new
-        OpenSSL::HMAC.digest(klass, key, data)
+        OpenSSL::HMAC.digest(klass, key, payload)
       end
 
       def self.decode_json(json)
-        JSON.parse(json).with_indifferent_access
+        MultiJson::load(json).with_indifferent_access
       rescue => e
-        raise VerificationFailed.new(400, 'Invalid JSON')
+        raise VerificationFailed.new('Invalid JSON')
       end
 
       def self.base64_url_decode(str)

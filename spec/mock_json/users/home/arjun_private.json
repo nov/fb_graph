@@ -1,6 +1,0 @@
-{
-   "error": {
-      "type": "Exception",
-      "message": "You can only access the \"home\" connection for the current user: "
-   }
-}

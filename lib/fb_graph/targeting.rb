@@ -4,11 +4,11 @@ module FbGraph
 
     attr_accessor :country, :city, :region, :locale
 
-    def initialize(attriutes = {})
-      @country = attriutes[:country]
-      @city    = attriutes[:city]
-      @region  = attriutes[:region]
-      @locale  = attriutes[:locale]
+    def initialize(attributes = {})
+      @country = attributes[:country]
+      @city    = attributes[:city]
+      @region  = attributes[:region]
+      @locale  = attributes[:locale]
     end
 
     def to_hash(options = {})

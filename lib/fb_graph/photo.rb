@@ -2,6 +2,7 @@ module FbGraph
   class Photo < Node
     include Connections::Comments
     include Connections::Likes
+    include Connections::Likes::Likable
     include Connections::Picture
     include Connections::Tags
     include Connections::Tags::Taggable
@@ -41,8 +42,7 @@ module FbGraph
       end
 
       # cached connection
-      @_tags_ = Collection.new(attributes[:tags])
-      @_comments_ = Collection.new(attributes[:comments])
+      cache_collections attributes, :comments, :likes, :tags
     end
   end
 end

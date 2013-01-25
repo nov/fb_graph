@@ -5,9 +5,9 @@ module FbGraph
 
     attr_accessor :latitude, :longitude
 
-    def initialize(attriutes = {})
-      @latitude  = attriutes[:latitude]
-      @longitude = attriutes[:longitude]
+    def initialize(attributes = {})
+      @latitude  = attributes[:latitude]
+      @longitude = attributes[:longitude]
     end
 
     def to_hash(options = {})

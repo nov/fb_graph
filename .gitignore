@@ -13,9 +13,13 @@ tmtags
 ## VIM
 *.swp
 
+## RVM
+.rvmrc
+
 ## PROJECT::GENERAL
-coverage
+coverage*
 rdoc
 pkg
 
 ## PROJECT::SPECIFIC
+.rbenv-version

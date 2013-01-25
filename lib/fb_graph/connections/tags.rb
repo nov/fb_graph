@@ -2,21 +2,20 @@ module FbGraph
   module Connections
     module Tags
       def tags(options = {})
-        tags = if @_tags_ && options.blank?
-          return @_tags_ if @_tags_.first.is_a?(Tag)
-          self.connection(:tags, options.merge(:cached_collection => @_tags_))
+        tags = self.connection :tags, options
+        if tags.first.is_a?(Tag)
+          tags
         else
-          self.connection(:tags, options)
-        end
-        tags.map! do |tag|
-          tag[:access_token] ||= options[:access_token] || self.access_token
-          Tag.new(tag)
+          tags.map! do |tag|
+            tag[:access_token] ||= options[:access_token] || self.access_token
+            Tag.new tag
+          end
         end
       end
 
       module Taggable
         def tag!(options = {})
-          post(options.merge(:connection => :tags))
+          post options.merge(:connection => :tags)
         end
       end
     end

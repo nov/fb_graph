@@ -24,7 +24,7 @@ module FbGraph
       end
 
       # cached connection
-      @_tags_ = Collection.new(attributes[:tags])
+      cache_collection attributes, :tags
     end
   end
 end

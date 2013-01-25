@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe FbGraph::Album do
-
   describe '.new' do
     it 'should setup all supported attributes' do
       attributes = {
@@ -66,21 +65,29 @@ describe FbGraph::Album do
 
   describe '#picture' do
     let(:album) { FbGraph::Album.new('12345') }
-    subject { album }
+    subject { album.picture }
 
     context 'when access token is given' do
       before { album.access_token = 'access_token' }
-      its(:picture) { should == File.join(FbGraph::ROOT_URL, '12345/picture?access_token=access_token') }
+      it { should == File.join(FbGraph::ROOT_URL, '12345/picture?access_token=access_token') }
       it 'should support size' do
         album.picture(:small).should == File.join(FbGraph::ROOT_URL, '12345/picture?type=small&access_token=access_token')
       end
     end
 
-    context 'otherwise' do
-      it do
-        expect { album.picture }.should raise_error(FbGraph::Unauthorized)
+    context 'when no access token' do
+      it { should == File.join(FbGraph::ROOT_URL, '12345/picture') }
+    end
+
+    context 'when no redirect' do
+      before { album.access_token = 'access_token' }
+      it 'should return FbGraph::Picture' do
+        mock_graph :get, '12345/picture', 'albums/picture/success', :access_token => 'access_token', :params => {
+          :redirect => 'false'
+        } do
+          album.picture(:redirect => false).should be_instance_of FbGraph::Picture
+        end
       end
     end
   end
-
 end

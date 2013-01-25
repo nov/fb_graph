@@ -7,6 +7,7 @@ module FbGraph
     include Connections::Attending
     include Connections::Declined
     include Connections::Picture
+    include Connections::Videos
     extend Searchable
 
     attr_accessor :owner, :name, :description, :start_time, :end_time, :location, :venue, :privacy, :updated_time
@@ -24,7 +25,7 @@ module FbGraph
         @start_time = case start_time
         when String
           Time.parse(start_time)
-        when Fixnum
+        when Integer
           Time.at(start_time)
         end
       end
@@ -32,12 +33,16 @@ module FbGraph
         @end_time = case end_time
         when String
           Time.parse(end_time)
-        when Fixnum
+        when Integer
           Time.at(end_time)
         end
       end
-      if attributes[:venue]
-        @venue = Venue.new(attributes[:venue])
+      if venue = attributes[:venue]
+        @venue = if venue[:id]
+          Page.new(venue[:id], venue)
+        else
+          Venue.new(venue)
+        end
       end
       if attributes[:updated_time]
         @updated_time = Time.parse(attributes[:updated_time]).utc
