@@ -67,6 +67,8 @@ require 'fb_graph/connections'
 require 'fb_graph/searchable'
 
 require 'fb_graph/action'
+require 'fb_graph/age_range'
+require 'fb_graph/device'
 require 'fb_graph/education'
 require 'fb_graph/location'
 require 'fb_graph/picture'

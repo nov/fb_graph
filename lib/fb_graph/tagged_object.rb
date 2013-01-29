@@ -1,10 +1,9 @@
 module FbGraph
   class TaggedObject < Node
-    attr_accessor :name, :offset, :length, :raw_attributes
+    attr_accessor :name, :offset, :length
 
     def initialize(identifier, attributes = {})
       super
-      @raw_attributes = attributes
       [:name, :offset, :length].each do |key|
         self.send("#{key}=", attributes[key])
       end
