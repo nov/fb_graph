@@ -45,7 +45,7 @@ describe FbGraph::User do
 
         # age_range
         me.age_range.should be_instance_of FbGraph::AgeRange
-        me.age_range.should == (21..FbGraph::AgeRange::DEFAULT_MAX_AGE)
+        me.age_range.should == Range.new(21, FbGraph::AgeRange::DEFAULT_MAX_AGE)
 
         # currency
         me.currency.should be_instance_of ActiveSupport::HashWithIndifferentAccess
