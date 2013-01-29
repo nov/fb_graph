@@ -15,6 +15,15 @@ describe FbGraph::Connections::Permissions do
         permission.should be_instance_of Symbol
       end
     end
+
+    context 'when blank' do
+      it 'should return blank array' do
+        mock_graph :get, 'me/permissions', 'users/permissions/blank', :access_token => 'access_token' do
+          permissions = FbGraph::User.me('access_token').permissions
+          permissions.should == []
+        end
+      end
+    end
   end
 
   describe '#revoke!' do
