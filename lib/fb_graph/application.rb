@@ -96,6 +96,7 @@ module FbGraph
       auth = Auth.new(self.identifier, self.secret)
       self.access_token = auth.client.access_token! :client_auth_body
     end
+    alias_method :app_access_token, :get_access_token
 
     def access_token_with_auto_fetch
       access_token_without_auto_fetch ||

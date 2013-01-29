@@ -116,7 +116,7 @@ module FbGraph
       @devices = []
       if attributes[:devices]
         attributes[:devices].each do |device|
-          @languages << Device.new(device)
+          @devices << Device.new(device)
         end
       end
       @security_settings = attributes[:security_settings]
@@ -149,6 +149,5 @@ module FbGraph
     def self.me(access_token)
       new('me', :access_token => access_token)
     end
-
   end
 end

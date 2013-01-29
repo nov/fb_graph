@@ -51,12 +51,31 @@ describe FbGraph::Page do
     context 'when access_token field fetched' do
       subject do
         mock_graph :get, 'my_page', 'pages/with_token', :access_token => 'user_token', :params => {
-          :fields => :access_token
+          :fields => 'access_token'
         } do
           FbGraph::Page.fetch('my_page', :fields => :access_token, :access_token => 'user_token')
         end
       end
       its(:access_token) { should == 'page_token' }
+    end
+  end
+
+  describe '#get_access_token' do
+    it 'should specify fields=access_token' do
+      expect do
+        FbGraph::Page.new('FbGraph').page_access_token
+      end.to request_to 'FbGraph?fields=access_token', :GET
+    end
+
+    it 'should return Rack::OAuth2::AccessToken::Legacy' do
+      mock_graph :get, 'page_id', 'pages/with_token', :access_token => 'user_token', :params => {
+        :fields => 'access_token'
+      } do
+        page = FbGraph::Page.new('page_id', :access_token => 'user_token')
+        page_token = page.get_access_token
+        page_token.should be_instance_of Rack::OAuth2::AccessToken::Legacy
+        page.access_token.should == page_token
+      end
     end
   end
 end

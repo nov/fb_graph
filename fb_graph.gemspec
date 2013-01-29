@@ -23,6 +23,6 @@ Gem::Specification.new do |s|
     s.add_development_dependency "rcov", ">= 0.9"
   end
   s.add_development_dependency "rspec", ">= 2"
-  s.add_development_dependency "fb_graph-mock"
+  s.add_development_dependency "fb_graph-mock", ">= 0.1.0"
   s.add_development_dependency "actionpack", ">= 3.0.6"
 end

@@ -46,11 +46,11 @@ module FbGraph
       end
     end
 
-    protected
-
-    def page_access_token
-      get({:fields => "access_token"})["access_token"]
+    def get_access_token(options = {})
+      access_token = get options.merge(:fields => "access_token")
+      self.access_token = Rack::OAuth2::AccessToken::Legacy.new access_token
     end
+    alias_method :page_access_token, :get_access_token
   end
 end
 
