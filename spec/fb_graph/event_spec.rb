@@ -23,7 +23,8 @@ describe FbGraph::Event do
         :longitude => '139.751'
       },
       :privacy => 'OPEN',
-      :updated_time => '2010-01-02T15:37:41+0000'
+      :updated_time => '2010-01-02T15:37:41+0000',
+      :ticket_uri => 'http://test.smart.fm/tickets',
     }
   end
   let(:event) { FbGraph::Event.new(attributes.delete(:id), attributes) }
@@ -48,6 +49,7 @@ describe FbGraph::Event do
       )
       event.privacy.should      == 'OPEN'
       event.updated_time.should == Time.parse('2010-01-02T15:37:41+0000')
+      event.ticket_uri.should   == 'http://test.smart.fm/tickets'
     end
   end
 
