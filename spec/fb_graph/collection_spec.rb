@@ -47,4 +47,14 @@ describe FbGraph::Collection, '.new' do
     end.should raise_error(ArgumentError, 'Invalid collection')
   end
 
+  it 'should handle paging params' do
+    mock_graph :get, 'post_id/comments', 'posts/comments/with_paging_params' do
+      comments = FbGraph::Post.new('post_id').comments
+      comments.should be_instance_of FbGraph::Connection
+      comments.should be_a FbGraph::Collection
+      comments.collection.next.should include :limit, :offset, :__after_id
+      comments.collection.previous.should include :limit, :offset, :__before_id
+    end
+  end
+
 end
