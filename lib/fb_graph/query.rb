@@ -7,9 +7,11 @@ module FbGraph
       @query = query
     end
 
-    def fetch(access_token = nil)
+    def fetch(access_token = nil, locale = nil)
       handle_response do
-        http_client.get endpoint, :query => build_params(access_token)
+        query = build_params(access_token)
+        query[:locale] = locale if locale
+        http_client.get endpoint, :query => query
       end
     end
 
