@@ -7,24 +7,22 @@ module FbGraph
       @query = query
     end
 
-    def fetch(access_token = nil)
+    def fetch(params = {})
       handle_response do
-        http_client.get endpoint, :query => build_params(access_token)
+        http_client.get endpoint, build_params(params)
       end
     end
 
     private
 
-    def build_params(access_token)
+    def build_params(params)
       _query_ = if query.is_a?(Hash)
         query.to_json
       else
         query
       end
-      super(
-        :q => _query_,
-        :access_token => access_token || self.access_token
-      )
+      params[:access_token] ||= self.access_token
+      super params.merge(:q => _query_)
     end
 
     def handle_response
