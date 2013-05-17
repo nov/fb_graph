@@ -45,7 +45,7 @@ module FbGraph
       params = {}
       query.split('&').each do |q|
         key, value = q.split('=')
-        if ['limit', 'offset', 'until', 'since', '__after_id', '__before_id'].include?(key)
+        unless ['access_token'].include?(key)
           params[key.to_sym] = URI.unescape(value)
         end
       end
