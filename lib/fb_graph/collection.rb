@@ -41,15 +41,16 @@ module FbGraph
     private
 
     def fetch_params(url)
-      query = URI.parse(URI.encode(url)).query
-      params = {}
-      query.split('&').each do |q|
-        key, value = q.split('=')
-        unless ['access_token'].include?(key)
-          params[key.to_sym] = URI.unescape(value)
+      query = URI.unescape(URI.parse(URI.encode(url)).query)
+      query_parts = CGI.parse(query)
+      {}.tap do |params|
+        query_parts.each do |key, values|
+          value = values.first
+          unless ['access_token'].include?(key)
+            params[key.to_sym] = value
+          end
         end
       end
-      params
     end
   end
 end
