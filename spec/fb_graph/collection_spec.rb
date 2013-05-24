@@ -57,4 +57,21 @@ describe FbGraph::Collection, '.new' do
     end
   end
 
+  it 'should handle paging params when array of ids is passed' do
+    params = {:campaign_ids => "[6001111111467]", :include_deleted => "true"}
+    mock_graph :get, '100111111111121/adgroups', 'ad_groups/test_ad_group_with_paging', :params => params do
+      ad_groups = FbGraph::AdAccount.new(100111111111121).ad_groups(params)
+      ad_groups.should be_instance_of FbGraph::Connection
+      ad_groups.should be_a FbGraph::Collection
+
+      ad_groups.collection.next.should include :offset, :campaign_ids
+      ad_groups.collection.next[:offset].should == "100"
+      eval(ad_groups.collection.next[:campaign_ids]).should == ["6001111111467"]
+
+      ad_groups.collection.previous.should include :offset, :campaign_ids
+      ad_groups.collection.previous[:offset].should == "0"
+      eval(ad_groups.collection.previous[:campaign_ids]).should == ["6001111111467"]
+    end
+  end
+
 end
