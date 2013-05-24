@@ -36,8 +36,8 @@ module FbGraph
           @next = fetch_params(paging[:next])
         end
         if paging[:cursors]
-          @cursors[:after] = paging[:cursors]["after"] if paging[:cursors]["after"]
-          @cursors[:before] = paging[:cursors]["before"] if paging[:cursors]["before"]
+          @cursors[:after] = paging[:cursors].try(:[], :after)
+          @cursors[:before] = paging[:cursors].try(:[], :before)
         end
       end
     end
