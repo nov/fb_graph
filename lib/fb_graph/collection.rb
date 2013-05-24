@@ -41,16 +41,14 @@ module FbGraph
     private
 
     def fetch_params(url)
-      query = URI.unescape(URI.parse(URI.encode(url)).query)
-      query_parts = CGI.parse(query)
-      {}.tap do |params|
-        query_parts.each do |key, values|
-          value = values.first
-          unless ['access_token'].include?(key)
-            params[key.to_sym] = value
-          end
-        end
+      query = Rack::Utils.parse_nested_query(
+        URI.unescape(URI.parse(URI.encode(url)).query)
+      )
+      params = {}
+      query.each do |key, value|
+        params[key.to_sym] = value unless key == 'access_token'
       end
+      params
     end
   end
 end

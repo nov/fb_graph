@@ -66,11 +66,11 @@ describe FbGraph::Collection, '.new' do
 
       ad_groups.collection.next.should include :offset, :campaign_ids
       ad_groups.collection.next[:offset].should == "100"
-      eval(ad_groups.collection.next[:campaign_ids]).should == ["6001111111467"]
+      ad_groups.collection.next[:campaign_ids].should == '["6001111111467"]'
 
       ad_groups.collection.previous.should include :offset, :campaign_ids
       ad_groups.collection.previous[:offset].should == "0"
-      eval(ad_groups.collection.previous[:campaign_ids]).should == ["6001111111467"]
+      ad_groups.collection.previous[:campaign_ids].should == '["6001111111467"]'
     end
   end
 

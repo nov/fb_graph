@@ -3,7 +3,6 @@ require 'rack/oauth2'
 require 'patch/rack/oauth2/util'
 require 'patch/rack/oauth2/client'
 require 'patch/rack/oauth2/access_token'
-require 'CGI'
 
 module FbGraph
   VERSION = ::File.read(
