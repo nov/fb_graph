@@ -50,7 +50,7 @@ module FbGraph
       )
       params = {}
       query.each do |key, value|
-        params[key.to_sym] = value unless key == 'access_token'
+        params[key.to_sym] = value
       end
       params
     end
