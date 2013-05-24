@@ -54,6 +54,7 @@ describe FbGraph::Collection, '.new' do
       comments.should be_a FbGraph::Collection
       comments.collection.next.should include :limit, :offset, :__after_id
       comments.collection.previous.should include :limit, :offset, :__before_id
+      comments.collection.cursors.should be_empty
     end
   end
 
@@ -74,4 +75,14 @@ describe FbGraph::Collection, '.new' do
     end
   end
 
+  it 'should handle cursor paging params' do
+    mock_graph :get, 'post_id/comments', 'posts/comments/with_cursor_paging_params' do
+      comments = FbGraph::Post.new('post_id').comments
+      comments.should be_instance_of FbGraph::Connection
+      comments.should be_a FbGraph::Collection
+      comments.collection.next.should include :limit, :after
+      comments.collection.previous.should include :limit, :before
+      comments.collection.cursors.should include :before, :after
+    end
+  end
 end

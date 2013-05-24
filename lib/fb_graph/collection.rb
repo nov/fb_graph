@@ -1,6 +1,6 @@
 module FbGraph
   class Collection < Array
-    attr_reader :previous, :next, :total_count, :unread_count, :updated_time
+    attr_reader :previous, :next, :total_count, :unread_count, :updated_time, :cursors
 
     def initialize(collection = nil)
       collection = case collection
@@ -27,13 +27,17 @@ module FbGraph
       else
         @total_count = collection[:count]
       end
-      @previous, @next = {}, {}
+      @previous, @next, @cursors = {}, {}, {}
       if (paging = collection[:paging])
         if paging[:previous]
           @previous = fetch_params(paging[:previous])
         end
         if paging[:next]
           @next = fetch_params(paging[:next])
+        end
+        if paging[:cursors]
+          @cursors[:after] = paging[:cursors]["after"] if paging[:cursors]["after"]
+          @cursors[:before] = paging[:cursors]["before"] if paging[:cursors]["before"]
         end
       end
     end
