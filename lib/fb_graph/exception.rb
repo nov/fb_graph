@@ -3,6 +3,7 @@ module FbGraph
     attr_accessor :code, :type
 
     ERROR_HEADER_MATCHERS = {
+      /not_found/ => "NotFound",
       /invalid_token/ => "InvalidToken",
       /invalid_request/ => "InvalidRequest"
     }
