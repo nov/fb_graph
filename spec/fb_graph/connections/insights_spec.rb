@@ -94,8 +94,8 @@ describe FbGraph::Connections::Insights do
         it 'should used for pagination' do
           mock_graph :get, 'FbGraph/insights/page_like_adds/day', 'pages/insights/page_like_adds/day/FbGraph_private', :access_token => 'access_token' do
             insights = FbGraph::Page.new('FbGraph').insights(:access_token => 'access_token', :metrics => :page_like_adds, :period => :day)
-            expect { insights.next }.to request_to 'FbGraph/insights/page_like_adds/day?access_token=access_token&since=1292065709&until=1292324909'
-            expect { insights.previous }.to request_to 'FbGraph/insights/page_like_adds/day?access_token=access_token&since=1291547309&until=1291806509'
+            expect { insights.next }.to request_to 'FbGraph/insights/page_like_adds/day?access_token=134145643294322%7C9b95ab3141be69aff9766c90-579612276%7C9UA_-V98QdZDfoX4MSS-DdwTFFk&since=1292065709&until=1292324909'
+            expect { insights.previous }.to request_to 'FbGraph/insights/page_like_adds/day?access_token=134145643294322%7C9b95ab3141be69aff9766c90-579612276%7C9UA_-V98QdZDfoX4MSS-DdwTFFk&since=1291547309&until=1291806509'
           end
         end
       end
