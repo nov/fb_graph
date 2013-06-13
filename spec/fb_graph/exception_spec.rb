@@ -7,16 +7,19 @@ describe FbGraph::Exception do
   end
 
   context 'when response body is given' do
-    it 'should setup message and type from error' do
+    it 'should setup type, error code, and subcode from error' do
       err = FbGraph::Exception.new(400, 'This is the original message', {
         :error => {
           :type => 'SomeError',
-          :message => 'This is the error message'
+          :message => 'This is the error message',
+          :code => 190,
+          :error_subcode => 460
         }
-      }.to_json)
+      })
       err.code.should == 400
       err.type.should == 'SomeError'
-      err.message.should == 'This is the error message'
+      err.error_code.should == 190
+      err.error_subcode.should == 460
     end
   end
 
