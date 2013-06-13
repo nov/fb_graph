@@ -1,6 +1,6 @@
 module FbGraph
   class Exception < StandardError
-    attr_accessor :code, :type
+    attr_accessor :code, :type, :error_code, :error_subcode
 
     ERROR_HEADER_MATCHERS = {
       /not_found/ => "NotFound",
@@ -26,7 +26,7 @@ module FbGraph
       # Sometimes we see an error that does not have the "error" field, but instead has both "error_code" and "error_msg"
       # example: {"error_code":1,"error_msg":"An unknown error occurred"}
       if (response[:error_code] && response[:error_msg] && !response[:error])
-        raise InternalServerError.new("#{response[:error_code]} :: #{response[:error_msg]}")
+        raise InternalServerError.new("#{response[:error_code]} :: #{response[:error_msg]}", response)
       end
 
       # Check the WWW-Authenticate header, since it seems to be more standardized than the response
@@ -39,13 +39,13 @@ module FbGraph
       if www_authenticate
         # Session expiration/invalidation is very common. Check for that first.
         if www_authenticate =~ /invalid_token/ && response[:error][:message] =~ /session has been invalidated/
-          raise InvalidSession.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+          raise InvalidSession.new("#{response[:error][:type]} :: #{response[:error][:message]}", response)
         end
 
         ERROR_HEADER_MATCHERS.keys.each do |matcher|
           if matcher =~ www_authenticate
             exception_class = FbGraph::const_get(ERROR_HEADER_MATCHERS[matcher])
-            raise exception_class.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+            raise exception_class.new("#{response[:error][:type]} :: #{response[:error][:message]}", response)
           end
         end
       end
@@ -53,16 +53,16 @@ module FbGraph
       # If we can't match on WWW-Authenticate, use the type
       case response[:error][:type]
       when /OAuth/
-        raise Unauthorized.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+        raise Unauthorized.new("#{response[:error][:type]} :: #{response[:error][:message]}", response)
       else
         exception_class = nil
         ERROR_EXCEPTION_MATCHERS.keys.each do |matcher|
           exception_class = FbGraph::const_get(ERROR_EXCEPTION_MATCHERS[matcher]) if matcher =~ response[:error][:message]
         end
         if exception_class
-          raise exception_class.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+          raise exception_class.new("#{response[:error][:type]} :: #{response[:error][:message]}", response)
         else
-          raise BadRequest.new("#{response[:error][:type]} :: #{response[:error][:message]}")
+          raise BadRequest.new("#{response[:error][:type]} :: #{response[:error][:message]}", response)
         end
       end
     end
@@ -81,10 +81,10 @@ module FbGraph
 
     def initialize(code, message, body = '')
       @code = code
-      if body.present?
-        response = MultiJson.load(body).with_indifferent_access
-        message = response[:error][:message]
-        @type = response[:error][:type]
+      if body.present? && body[:error]
+        @type = body[:error][:type]
+        @error_code = body[:error][:code]
+        @error_subcode = body[:error][:error_subcode]
       end
       super message
     end
