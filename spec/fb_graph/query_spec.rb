@@ -28,7 +28,7 @@ describe FbGraph::Query do
       it 'should raise exception' do
         mock_fql raw_query, 'query/user/with_invalid_token', :access_token => 'invalid', :status => [400, 'Bad Request'] do
           lambda do
-            query.fetch('invalid')
+            query.fetch(:access_token => 'invalid')
           end.should raise_error FbGraph::Exception
         end
       end
@@ -37,9 +37,19 @@ describe FbGraph::Query do
     context 'when valid access token given' do
       it 'should return an Collection of Hash' do
         mock_fql raw_query, 'query/user/with_valid_token', :access_token => 'valid' do
-          response = query.fetch('valid')
+          response = query.fetch(:access_token => 'valid')
           response.should be_instance_of FbGraph::Collection
           response.should == [{'name' => 'Nov Matake'}]
+        end
+      end
+    end
+
+    context 'with locale option' do
+      it 'should support it' do
+        mock_fql raw_query, 'query/user/with_valid_token', :access_token => 'valid', :params => {
+          :locale => 'ja'
+        } do
+          query.fetch(:access_token => 'valid', :locale => 'ja')
         end
       end
     end
@@ -54,7 +64,7 @@ describe FbGraph::Query do
 
       it 'should return an Hash of Array of Hash' do
         mock_fql raw_query.to_json, 'query/user/multi_query', :access_token => 'valid' do
-          response = query.fetch('valid')
+          response = query.fetch(:access_token => 'valid')
           response.should be_instance_of ActiveSupport::HashWithIndifferentAccess
           response.each do |key, value|
             value.should be_instance_of Array

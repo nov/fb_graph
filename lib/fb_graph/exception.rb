@@ -3,6 +3,7 @@ module FbGraph
     attr_accessor :code, :type
 
     ERROR_HEADER_MATCHERS = {
+      /not_found/ => "NotFound",
       /invalid_token/ => "InvalidToken",
       /invalid_request/ => "InvalidRequest"
     }
@@ -81,7 +82,7 @@ module FbGraph
     def initialize(code, message, body = '')
       @code = code
       if body.present?
-        response = MultiJson::load(body).with_indifferent_access
+        response = MultiJson.load(body).with_indifferent_access
         message = response[:error][:message]
         @type = response[:error][:type]
       end

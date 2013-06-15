@@ -1,6 +1,6 @@
 module FbGraph
   class Collection < Array
-    attr_reader :previous, :next, :total_count, :unread_count, :updated_time
+    attr_reader :previous, :next, :total_count, :unread_count, :updated_time, :cursors
 
     def initialize(collection = nil)
       collection = case collection
@@ -27,7 +27,7 @@ module FbGraph
       else
         @total_count = collection[:count]
       end
-      @previous, @next = {}, {}
+      @previous, @next, @cursors = {}, {}, {}
       if (paging = collection[:paging])
         if paging[:previous]
           @previous = fetch_params(paging[:previous])
@@ -35,19 +35,22 @@ module FbGraph
         if paging[:next]
           @next = fetch_params(paging[:next])
         end
+        if paging[:cursors]
+          @cursors[:after] = paging[:cursors].try(:[], :after)
+          @cursors[:before] = paging[:cursors].try(:[], :before)
+        end
       end
     end
 
     private
 
     def fetch_params(url)
-      query = URI.parse(URI.encode(url)).query
+      query = Rack::Utils.parse_nested_query(
+        URI.unescape(URI.parse(URI.encode(url)).query)
+      )
       params = {}
-      query.split('&').each do |q|
-        key, value = q.split('=')
-        if ['limit', 'offset', 'until', 'since'].include?(key)
-          params[key.to_sym] = URI.unescape(value)
-        end
+      query.each do |key, value|
+        params[key.to_sym] = value
       end
       params
     end

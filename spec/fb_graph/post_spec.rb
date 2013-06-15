@@ -211,6 +211,19 @@ describe FbGraph::Post, '#fetch' do
         location.longitude.should == 139.7
       end
     end
+
+    context 'when "location" in "place" is non-structured' do
+      it 'should ignore location' do
+        mock_graph :get, 'post_id', 'posts/with_place_with_non_structured_location', :access_token => 'access_token' do
+          post = FbGraph::Post.fetch('post_id', :access_token => 'access_token')
+          place = post.place
+          place.should be_instance_of FbGraph::Place
+          place.identifier.should == '100563866688613'
+          place.name.should == 'Kawasaki-shi, Kanagawa, Japan'
+          place.location.should be_nil
+        end
+      end
+    end
   end
 end
 

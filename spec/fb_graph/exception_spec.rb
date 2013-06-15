@@ -124,6 +124,26 @@ describe FbGraph::Exception, ".handle_httpclient_error" do
         lambda {FbGraph::Exception.handle_httpclient_error(parsed_response, headers)}.should raise_exception(FbGraph::InvalidRequest)
       end
     end
+
+    context "to an an alias that does not exist" do
+      let(:parsed_response) do
+        {
+          :error => {
+            :message => '(#803) Some of the aliases you requested do not exist: test',
+            :type => "OAuthException"
+          }
+        }
+      end
+      let(:headers) do
+        {
+          "WWW-Authenticate" =>'OAuth "Facebook Platform" "not_found" "(#803) Some of the aliases you requested do not exist: test"'
+        }
+      end
+
+      it "should raise a NotFound exception" do
+        lambda {FbGraph::Exception.handle_httpclient_error(parsed_response, headers)}.should raise_exception(FbGraph::NotFound)
+      end
+    end
   end
 
   context "without the WWW-Authenticate header" do

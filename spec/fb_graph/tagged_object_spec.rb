@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe FbGraph::TaggedObject do
   let :attributes do
-    MultiJson::load(json).with_indifferent_access
+    MultiJson.load(json).with_indifferent_access
   end
   let :json do
     <<-JSON

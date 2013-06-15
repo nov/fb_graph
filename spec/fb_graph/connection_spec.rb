@@ -22,7 +22,7 @@ describe FbGraph::Connection do
       posts.first.created_time.should == Time.parse('2010-04-27T13:06:14+0000')
       posts.last.created_time.should  == Time.parse('2010-04-27T11:07:48+0000')
     end
-    mock_graph :get, 'me/home', 'users/home/me_private_previous', :access_token => 'access_token', :params => {
+    mock_graph :get, 'me/home', 'users/home/me_private_previous', :access_token => '2227470867|2.WUnvvW0Q_ksjjVOCIEkEiQ__.3600.1272380400-579612276|Skfo-M8-vpId32OYv6xLZFlsToY.', :params => {
       :limit => '25',
       :since => '123456789'
     } do
@@ -30,11 +30,19 @@ describe FbGraph::Connection do
       previous_posts.first.created_time.should == Time.parse('2010-04-27T13:23:08+0000')
       previous_posts.last.created_time.should  == Time.parse('2010-04-27T13:10:56+0000')
     end
-    mock_graph :get, 'me/home', 'users/home/me_private_next', :access_token => 'access_token', :params => {
+    mock_graph :get, 'me/home', 'users/home/me_private_next', :access_token => '2227470867|2.WUnvvW0Q_ksjjVOCIEkEiQ__.3600.1272380400-579612276|Skfo-M8-vpId32OYv6xLZFlsToY.', :params => {
       :limit => '25',
       :until => '123456789'
     } do
       next_posts = posts.next
+      next_posts.first.created_time.should == Time.parse('2010-04-27T11:06:29+0000')
+      next_posts.last.created_time.should  == Time.parse('2010-04-27T09:44:28+0000')
+    end
+    mock_graph :get, 'me/home', 'users/home/me_private_next', :access_token => 'access_token', :params => {
+      :limit => '25',
+      :until => '123456789'
+    } do
+      next_posts = posts.next(:access_token => 'access_token')
       next_posts.first.created_time.should == Time.parse('2010-04-27T11:06:29+0000')
       next_posts.last.created_time.should  == Time.parse('2010-04-27T09:44:28+0000')
     end

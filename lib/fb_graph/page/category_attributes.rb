@@ -22,7 +22,6 @@ module FbGraph
         :hometown,
         :influences,
         :is_community_page,
-        :location,
         :mission,
         :mpg,
         :personal_info,
@@ -106,8 +105,11 @@ module FbGraph
             @hours[date][index][mode] = time
           end
         end
-        if attributes[:location]
-          @location = Venue.new(attributes[:location])
+        @location = case attributes[:location]
+        when Hash
+          Venue.new(attributes[:location])
+        when String
+          # ignore such non-structured data
         end
       end
     end

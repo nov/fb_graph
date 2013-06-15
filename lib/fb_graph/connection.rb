@@ -20,7 +20,14 @@ module FbGraph
             method.to_s.gsub('_', '') == self.connection.to_s
           end
         end
-        self.owner.send(connection_method, self.options.merge(_options_).merge(self.collection.next))
+        self.owner.send(
+          connection_method,
+          self.options.merge(
+            self.collection.next.merge(
+              _options_
+            )
+          )
+        )
       else
         self.class.new(self.owner, self.connection)
       end
