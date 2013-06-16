@@ -73,3 +73,35 @@ describe FbGraph::Connections::Comments, '#comment!' do
     end
   end
 end
+
+describe FbGraph::Comment, '#reply!' do
+  context 'when included by FbGraph::Post' do
+    context 'when no access_token given' do
+      it 'should raise FbGraph::Exception' do
+        mock_graph :post, '12345/comments', 'comments/comments/post_without_access_token', :status => [500, 'Internal Server Error'] do
+          lambda do
+            FbGraph::Post.new('12345').reply!(:message => 'hello')
+          end.should raise_exception(FbGraph::Exception)
+        end
+      end
+    end
+
+    context 'when invalid access_token is given' do
+      it 'should raise FbGraph::Exception' do
+        mock_graph :post, '12345/comments', 'comments/comments/post_with_invalid_access_token', :status => [500, 'Internal Server Error'] do
+          lambda do
+            FbGraph::Post.new('12345', :access_token => 'invalid').reply!(:message => 'hello')
+          end.should raise_exception(FbGraph::Exception)
+        end
+      end
+    end
+
+    context 'when valid access_token is given' do
+      it 'should return generated comment' do
+        mock_graph :post, '12345/comments', 'comments/comments/post_with_valid_access_token' do
+          FbGraph::Comment.new('12345', :access_token => 'valid').reply!(:message => 'hello').should eql("10151705618661509_29549300")
+        end
+      end
+    end
+  end
+end

@@ -16,6 +16,11 @@ module FbGraph
           :access_token => options[:access_token] || self.access_token
         )
       end
+
+      def reply!(options = {})
+        post options.merge(:connection => :comments)
+      end
+
     end
   end
 end
