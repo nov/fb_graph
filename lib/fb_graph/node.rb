@@ -135,7 +135,9 @@ module FbGraph
       when 'null'
         nil
       else
-        _response_ = MultiJson.load(response.body).with_indifferent_access
+        _response_ = MultiJson::load(response.body)
+        _response_ = _response_.with_indifferent_access if _response_.is_a? Hash
+        
         if (200...300).include?(response.status)
           _response_
         else
