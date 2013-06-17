@@ -62,6 +62,22 @@ describe FbGraph::Node do
   end
 
   describe '#handle_response' do
+    it 'should handle null/false response' do
+      node = FbGraph::Node.new('identifier')
+      null_response = node.send :handle_response do
+        HTTP::Message.new_response 'null'
+      end
+      null_response.should be_nil
+      lambda do
+        node.send :handle_response do
+          HTTP::Message.new_response 'false'
+        end
+      end.should raise_error(
+        FbGraph::NotFound,
+        'Graph API returned false, so probably it means your requested object is not found.'
+      )
+    end
+
     it 'should raise FbGraph::Exception for invalid JSON response' do
       node = FbGraph::Node.new('identifier')
       expect do
