@@ -99,7 +99,9 @@ describe FbGraph::Comment, '#reply!' do
     context 'when valid access_token is given' do
       it 'should return generated comment' do
         mock_graph :post, '12345/comments', 'comments/comments/post_with_valid_access_token' do
-          FbGraph::Comment.new('12345', :access_token => 'valid').reply!(:message => 'hello').should eql("10151705618661509_29549300")
+          reply = FbGraph::Comment.new('12345', :access_token => 'valid').reply!(:message => 'hello')
+          reply.should be_instance_of FbGraph::Comment
+          reply.identifier.should == '10151705618661509_29549300'
         end
       end
     end

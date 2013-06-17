@@ -136,8 +136,12 @@ module FbGraph
         nil
       else
         _response_ = MultiJson::load(response.body)
+
+        # NOTE:
+        #  Only for comment.reply!, which returns an identifier as String.
+        #  Once the API spec changed (I guess FB will do so), we can call "with_indifferent_access" for all response.
         _response_ = _response_.with_indifferent_access if _response_.is_a? Hash
-        
+
         if (200...300).include?(response.status)
           _response_
         else

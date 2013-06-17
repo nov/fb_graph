@@ -18,7 +18,7 @@ module FbGraph
       @message = attributes[:message]
       @like_count = attributes[:likes]
       @can_comment = attributes[:can_comment]
-      
+
       if attributes[:created_time]
         @created_time = Time.parse(attributes[:created_time]).utc
       end

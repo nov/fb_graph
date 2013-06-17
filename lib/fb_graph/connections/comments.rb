@@ -18,9 +18,11 @@ module FbGraph
       end
 
       def reply!(options = {})
-        post options.merge(:connection => :comments)
+        comment_id = post options.merge(:connection => :comments)
+        Comment.new comment_id, options.merge(
+          :access_token => options[:access_token] || self.access_token
+        )
       end
-
     end
   end
 end
