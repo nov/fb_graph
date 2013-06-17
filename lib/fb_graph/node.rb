@@ -121,32 +121,12 @@ module FbGraph
 
     def handle_response
       response = yield
-      case response.body
-      when 'true'
-        true
-      when 'false'
-        # NOTE: When the object is not found, Graph API returns
-        #  - error response (JSON) when the identifier contains alphabet (ex. graph.facebook.com/iamnotfound)
-        #  - false when the identifier is only integer + underbar (ex. graph.facebook.com/1234567890, graph.facebook.com/12345_67890)
-        # This is an undocumented behaviour, so facebook might chaange it without any announcement.
-        # I've posted this issue on their forum, so hopefully I'll get a document about Graph API error responses.
-        # ref) http://forum.developers.facebook.com/viewtopic.php?pid=228256#p228256
-        raise NotFound.new('Graph API returned false, so probably it means your requested object is not found.')
-      when 'null'
-        nil
+      _response_ = MultiJson.load response.body
+      _response_ = _response_.with_indifferent_access if _response_.is_a? Hash
+      if (200...300).include?(response.status)
+        _response_
       else
-        _response_ = MultiJson::load(response.body)
-
-        # NOTE:
-        #  Only for comment.reply!, which returns an identifier as String.
-        #  Once the API spec changed (I guess FB will do so), we can call "with_indifferent_access" for all response.
-        _response_ = _response_.with_indifferent_access if _response_.is_a? Hash
-
-        if (200...300).include?(response.status)
-          _response_
-        else
-          Exception.handle_httpclient_error(_response_, response.headers)
-        end
+        Exception.handle_httpclient_error(_response_, response.headers)
       end
     rescue MultiJson::DecodeError
       raise Exception.new(response.status, "Unparsable Response: #{response.body}")
