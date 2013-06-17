@@ -135,12 +135,17 @@ module FbGraph
       when 'null'
         nil
       else
-        _response_ = MultiJson::load(response.body)
-
-        # NOTE:
-        #  Only for comment.reply!, which returns an identifier as String.
-        #  Once the API spec changed (I guess FB will do so), we can call "with_indifferent_access" for all response.
-        _response_ = _response_.with_indifferent_access if _response_.is_a? Hash
+        _response_ = if response.body =~ /^"/
+          # NOTE:
+          #  Only for comment.reply!, which returns an identifier as String.
+          #  Once the API spec changed (I guess FB will do so), we can call "with_indifferent_access" for all response.
+          # NOTE:
+          #  When MultiJson.engine is JsonGem, parsing JSON String fails.
+          #  You should handle this case without MultiJson.
+          response.body.gsub('"', '')
+        else
+          MultiJson.load(response.body).with_indifferent_access
+        end
 
         if (200...300).include?(response.status)
           _response_
