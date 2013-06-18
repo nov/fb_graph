@@ -1,6 +1,7 @@
 module FbGraph
   class Exception < StandardError
-    attr_accessor :code, :type, :error_code, :error_subcode
+    attr_accessor :status, :type, :error_code, :error_subcode
+    alias_method :code, :status
 
     ERROR_HEADER_MATCHERS = {
       /not_found/ => "NotFound",
@@ -20,121 +21,123 @@ module FbGraph
       /QueryDuplicateKeyException/          => "QueryDuplicateKey"
     }
 
-    def self.handle_httpclient_error(response, headers)
-      return nil unless (response[:error] || response[:error_code] || response[:error_msg])
-
-      # Sometimes we see an error that does not have the "error" field, but instead has both "error_code" and "error_msg"
-      # example: {"error_code":1,"error_msg":"An unknown error occurred"}
-      if (response[:error_code] && response[:error_msg] && !response[:error])
-        raise InternalServerError.new("#{response[:error_code]} :: #{response[:error_msg]}", response)
-      end
-
-      # Check the WWW-Authenticate header, since it seems to be more standardized than the response
-      # body error information.
-      # The complex lookup is needed to follow the HTTP spec - headers should be looked up
-      # without regard to case.
-      www_authenticate = headers.select do |name, value|
-        name.upcase == "WWW-Authenticate".upcase
-      end.to_a.flatten.second
-      if www_authenticate
-        # Session expiration/invalidation is very common. Check for that first.
-        if www_authenticate =~ /invalid_token/ && response[:error][:message] =~ /session has been invalidated/
-          raise InvalidSession.new("#{response[:error][:type]} :: #{response[:error][:message]}", response)
-        end
-
-        ERROR_HEADER_MATCHERS.keys.each do |matcher|
-          if matcher =~ www_authenticate
-            exception_class = FbGraph::const_get(ERROR_HEADER_MATCHERS[matcher])
-            raise exception_class.new("#{response[:error][:type]} :: #{response[:error][:message]}", response)
+    class << self
+      def handle_structured_response(status, details, headers)
+        if (error = details[:error])
+          klass = klass_for_header(headers, error) || klass_for_structured_body(error)
+          message = [
+            error[:type]    || 'unknown error type',
+            error[:message] || 'unknown error message'
+          ].join(' :: ')
+          if klass
+            raise klass.new(message, details)
+          else
+            handle_response status, message, details
           end
-        end
-      end
-
-      # If we can't match on WWW-Authenticate, use the type
-      case response[:error][:type]
-      when /OAuth/
-        raise Unauthorized.new("#{response[:error][:type]} :: #{response[:error][:message]}", response)
-      else
-        exception_class = nil
-        ERROR_EXCEPTION_MATCHERS.keys.each do |matcher|
-          exception_class = FbGraph::const_get(ERROR_EXCEPTION_MATCHERS[matcher]) if matcher =~ response[:error][:message]
-        end
-        if exception_class
-          raise exception_class.new("#{response[:error][:type]} :: #{response[:error][:message]}", response)
         else
-          raise BadRequest.new("#{response[:error][:type]} :: #{response[:error][:message]}", response)
+          message = [
+            details[:error_code] || 'unknown error_code',
+            details[:error_msg]  || 'unknown error_msg'
+          ].compact.join(' :: ')
+          handle_response status, message, details
+        end
+      end
+
+      def handle_response(status, message, details = {})
+        klass = klass_for_status status
+        exception = if klass
+          klass.new message, details
+        else
+          Exception.new status, message, details
+        end
+        raise exception
+      end
+
+      def klass_for_status(status)
+        case status
+        when 400
+          BadRequest
+        when 401
+          Unauthorized
+        when 404
+          NotFound
+        when 500
+          InternalServerError
+        end
+      end
+
+      def klass_for_header(headers, error)
+        key, value = headers.detect do |name, value|
+          name.upcase == "WWW-Authenticate".upcase
+        end || return
+        if value =~ /invalid_token/ && error[:message] =~ /session has been invalidated/
+          InvalidSession
+        else
+          matched, klass_name = ERROR_HEADER_MATCHERS.detect do |matcher, klass_name|
+            matcher =~ value
+          end || return
+          FbGraph::const_get klass_name
+        end
+      end
+
+      def klass_for_structured_body(error)
+        case error[:type]
+        when /OAuth/
+          Unauthorized
+        else
+          matched, klass_name = ERROR_EXCEPTION_MATCHERS.detect do |matcher, klass_name|
+            matcher =~ error[:message]
+          end || return
+          FbGraph::const_get klass_name
         end
       end
     end
 
-    def self.handle_rack_oauth2_error(e)
-      exception = case e.status
-      when 400
-        BadRequest.new(e.message)
-      when 401
-        Unauthorized.new(e.message)
-      else
-        Exception.new(e.status, e.message)
-      end
-      raise exception
-    end
-
-    def initialize(code, message, body = '')
-      @code = code
-      if body.present? && body[:error]
-        @type = body[:error][:type]
-        @error_code = body[:error][:code]
-        @error_subcode = body[:error][:error_subcode]
+    def initialize(status, message, details = {})
+      @status = status
+      if (error = details.try(:[], :error))
+        @type          = error[:type]
+        @error_code    = error[:code]
+        @error_subcode = error[:error_subcode]
       end
       super message
     end
   end
 
   class BadRequest < Exception
-    def initialize(message, body = '')
-      super 400, message, body
+    def initialize(message, details = {})
+      super 400, message, details
     end
   end
 
   class Unauthorized < Exception
-    def initialize(message, body = '')
-      super 401, message, body
+    def initialize(message, details = {})
+      super 401, message, details
     end
   end
 
   class NotFound < Exception
-    def initialize(message, body = '')
-      super 404, message, body
+    def initialize(message, details = {})
+      super 404, message, details
     end
   end
 
   class InternalServerError < Exception
-    def initialize(message, body = '')
-      super 500, message, body
+    def initialize(message, details = {})
+      super 500, message, details
     end
   end
 
-  class InvalidToken < Unauthorized; end
-
-  class InvalidSession < InvalidToken; end
-
-  class InvalidRequest < BadRequest; end
-
-  class CreativeNotSaved < InternalServerError; end
-
-  class QueryLockTimeout < InternalServerError; end
-
-  class TargetingSpecNotSaved < InternalServerError; end
-
-  class AdgroupFetchFailure < InternalServerError; end
-
-  class OpenProcessFailure < InternalServerError; end
-
+  class InvalidToken             < Unauthorized; end
+  class InvalidSession           < InvalidToken; end
+  class InvalidRequest           < BadRequest;   end
+  class CreativeNotSaved         < InternalServerError; end
+  class QueryLockTimeout         < InternalServerError; end
+  class TargetingSpecNotSaved    < InternalServerError; end
+  class AdgroupFetchFailure      < InternalServerError; end
+  class OpenProcessFailure       < InternalServerError; end
   class TransactionCommitFailure < InternalServerError; end
-
-  class QueryError < InternalServerError; end
-
-  class QueryConnection < InternalServerError; end
-
-  class QueryDuplicateKey < InternalServerError; end
+  class QueryError               < InternalServerError; end
+  class QueryConnection          < InternalServerError; end
+  class QueryDuplicateKey        < InternalServerError; end
 end

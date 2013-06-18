@@ -150,7 +150,7 @@ module FbGraph
         if (200...300).include?(response.status)
           _response_
         else
-          Exception.handle_httpclient_error(_response_, response.headers)
+          Exception.handle_structured_response(response.status, _response_, response.headers)
         end
       end
     rescue MultiJson::DecodeError
