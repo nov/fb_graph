@@ -23,5 +23,10 @@ module FbGraph
         @created_time = Time.parse(attributes[:created_time]).utc
       end
     end
+
+    def can_comment?
+      !!can_comment
+    end
+    alias_method :commentable?, :can_comment
   end
 end

@@ -116,16 +116,6 @@ of the specific objects fields in the sidebar under "Objects".
   results.klass.search(results.query, results.collection.next)     # => same with results.next
   results.klass.search(results.query, results.collection.previous) # => same with results.previous
 
-
-==== Comments
-
-  # fetch comment replies
-  FbGraph::Comment.new("10151705618661509_29545180", :access_token => ACCESS_TOKEN).comments
-
-  # fetch if the comment accept replies
-  comment = FbGraph::Comment.fetch("10151705618661509_29545180", :access_token => ACCESS_TOKEN, :fields => "can_comment")
-  comment.can_comment
-
 === POST
 
 ==== Update status (wall post)
@@ -203,14 +193,6 @@ of the specific objects fields in the sidebar under "Objects".
     :message => 'Hello, where is photo?'
   )
 
-==== Reply a comment
-
-  comment = FbGraph::Comment.fetch("10151705618661509_29545180")
-  comment.reply!( 
-    :message => "Hello!",
-    :access_token => ACCESS_TOKEN
-  )
-
 === DELETE
 
 ==== Delete an object
@@ -226,13 +208,6 @@ of the specific objects fields in the sidebar under "Objects".
   comment.destroy(:access_token => ACCESS_TOKEN)
   post.unlike!(:access_token => ACCESS_TOKEN)
   post.destroy(:access_token => ACCESS_TOKEN)
-
-==== Delete a comment reply
-  
-  reply = comment.comment!( :access_token => ACCESS_TOKEN,
-    :message => "Hello!"
-  )
-  reply.destroy(:access_token => ACCESS_TOKEN)
 
 === Authentication
 
