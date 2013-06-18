@@ -7,20 +7,14 @@ module FbGraph
       def handle_structured_response(status, details, headers)
         if (error = details[:error])
           klass = klass_for_header(headers, error) || klass_for_structured_body(error)
-          message = [
-            error[:type]    || 'unknown error type',
-            error[:message] || 'unknown error message'
-          ].join(' :: ')
+          message = [error[:type], error[:message]].join(' :: ')
           if klass
             raise klass.new(message, details)
           else
             handle_response status, message, details
           end
         else
-          message = [
-            details[:error_code] || 'unknown error_code',
-            details[:error_msg]  || 'unknown error_msg'
-          ].compact.join(' :: ')
+          message = [details[:error_code], details[:error_msg]].compact.join(' :: ')
           handle_response status, message, details
         end
       end
