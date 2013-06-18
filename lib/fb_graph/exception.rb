@@ -3,24 +3,6 @@ module FbGraph
     attr_accessor :status, :type, :error_code, :error_subcode
     alias_method :code, :status
 
-    ERROR_HEADER_MATCHERS = {
-      /not_found/ => "NotFound",
-      /invalid_token/ => "InvalidToken",
-      /invalid_request/ => "InvalidRequest"
-    }
-
-    ERROR_EXCEPTION_MATCHERS = {
-      /Could\snot\ssave\screative/          => "CreativeNotSaved",
-      /QueryLockTimeoutException/           => "QueryLockTimeout",
-      /Could\snot\screate\stargeting\sspec/ => "TargetingSpecNotSaved",
-      /Could\snot\sfetch\sadgroups/         => "AdgroupFetchFailure",
-      /Failed\sto\sopen\sprocess/           => "OpenProcessFailure",
-      /Could\snot\scommit\stransaction/     => "TransactionCommitFailure",
-      /QueryErrorException/                 => "QueryError",
-      /QueryConnectionException/            => "QueryConnection",
-      /QueryDuplicateKeyException/          => "QueryDuplicateKey"
-    }
-
     class << self
       def handle_structured_response(status, details, headers)
         if (error = details[:error])
@@ -73,10 +55,10 @@ module FbGraph
         if value =~ /invalid_token/ && error[:message] =~ /session has been invalidated/
           InvalidSession
         else
-          matched, klass_name = ERROR_HEADER_MATCHERS.detect do |matcher, klass_name|
+          matched, klass = ERROR_HEADER_MATCHERS.detect do |matcher, klass_name|
             matcher =~ value
           end || return
-          FbGraph::const_get klass_name
+          klass
         end
       end
 
@@ -85,10 +67,10 @@ module FbGraph
         when /OAuth/
           Unauthorized
         else
-          matched, klass_name = ERROR_EXCEPTION_MATCHERS.detect do |matcher, klass_name|
+          matched, klass = ERROR_EXCEPTION_MATCHERS.detect do |matcher, klass_name|
             matcher =~ error[:message]
           end || return
-          FbGraph::const_get klass_name
+          klass
         end
       end
     end
@@ -140,4 +122,22 @@ module FbGraph
   class QueryError               < InternalServerError; end
   class QueryConnection          < InternalServerError; end
   class QueryDuplicateKey        < InternalServerError; end
+
+  ERROR_HEADER_MATCHERS = {
+    /not_found/       => NotFound,
+    /invalid_token/   => InvalidToken,
+    /invalid_request/ => InvalidRequest
+  }
+
+  ERROR_EXCEPTION_MATCHERS = {
+    /Could\snot\ssave\screative/          => CreativeNotSaved,
+    /QueryLockTimeoutException/           => QueryLockTimeout,
+    /Could\snot\screate\stargeting\sspec/ => TargetingSpecNotSaved,
+    /Could\snot\sfetch\sadgroups/         => AdgroupFetchFailure,
+    /Failed\sto\sopen\sprocess/           => OpenProcessFailure,
+    /Could\snot\scommit\stransaction/     => TransactionCommitFailure,
+    /QueryErrorException/                 => QueryError,
+    /QueryConnectionException/            => QueryConnection,
+    /QueryDuplicateKeyException/          => QueryDuplicateKey
+  }
 end
