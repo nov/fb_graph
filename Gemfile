@@ -6,6 +6,7 @@ end
 
 group :test do
   gem 'oj'
+  gem 'fb_graph-mock', :git => 'git@github.com:tmlee/fb_graph-mock.git', :branch => 'app_reviews_mock'
 end
 
 gemspec

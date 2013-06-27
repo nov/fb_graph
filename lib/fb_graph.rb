@@ -135,6 +135,7 @@ require 'fb_graph/user'
 require 'fb_graph/user_achievement'
 require 'fb_graph/video'
 require 'fb_graph/offer'
+require 'fb_graph/review'
 
 # Load after FbGraph::User
 require 'fb_graph/ad_user'
