@@ -1,14 +1,16 @@
 module FbGraph
   class Review < Node
-    include Connections::Reviews
-    
     attr_accessor :from, :to, :message, :rating, :created_time
 
     def initialize(identifier, attributes = {})
       super
-      
-      @from = attributes[:from]
-      @to = attributes[:to]
+
+      @from = if (from = attributes[:from])
+        User.new from[:id], from
+      end
+      @to = if (to = attributes[:to])
+        Application.new to[:id], to
+      end
       @message = attributes[:message]
       @rating = attributes[:rating]
 
@@ -16,6 +18,5 @@ module FbGraph
         @created_time = Time.parse(attributes[:created_time]).utc
       end
     end
-
   end
 end
