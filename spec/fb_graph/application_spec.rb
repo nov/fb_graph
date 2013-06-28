@@ -248,4 +248,14 @@ describe FbGraph::Application do
       it_behaves_like :token_debugger
     end
   end
+
+  describe '#reviews' do
+    it 'gets the reviews for this application' do
+      mock_graph :get, 'client_id/reviews', 'applications/reviews' do
+        app_reviews = app.reviews
+        app_reviews.count.should == 25
+        app_reviews.first.identifier.should == '10150351582136960'
+      end
+    end
+  end
 end
