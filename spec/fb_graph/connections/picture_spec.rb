@@ -24,7 +24,7 @@ describe FbGraph::Connections::Picture do
 
       it 'should support width and height options at the same time' do
         # Because we can't be sure of order of arguments and order by itself doesn't matter
-        FbGraph::User.new('matake').picture(:width => 13, :height => 37).should satisfy { |uri| 
+        FbGraph::User.new('matake').picture(:width => 13, :height => 37).should satisfy { |uri|
           [
             File.join(FbGraph::ROOT_URL, "matake/picture?width=13&height=37"),
             File.join(FbGraph::ROOT_URL, "matake/picture?height=37&width=13")
@@ -65,13 +65,13 @@ describe FbGraph::Connections::Picture do
       end
 
       it 'should support width and height options at the same time' do
-        FbGraph::Page.new('platform').picture(:width => 13, :height => 37).should satisfy { |uri| 
+        FbGraph::Page.new('platform').picture(:width => 13, :height => 37).should satisfy { |uri|
           [
             File.join(FbGraph::ROOT_URL, "platform/picture?width=13&height=37"),
             File.join(FbGraph::ROOT_URL, "platform/picture?height=37&width=13")
           ].include? uri
         }
-      end    
+      end
     end
   end
 end

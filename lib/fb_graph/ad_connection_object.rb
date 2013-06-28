@@ -9,7 +9,7 @@ module FbGraph
       :place => 6,
       :domain => 7
     }
-    
+
     SUPPORTED_PLATFORM_TYPES = {
       :web => 1,
       :canvas => 2,
@@ -18,14 +18,14 @@ module FbGraph
       :ipad => 5,
       :android => 6
     }
-    
+
     def initialize(identifier, attributes = {})
       super
 
       %w(name url type tabs picture).each do |field|
         send("#{field}=", attributes[field.to_sym])
       end
-      
+
       if self.type == TYPES[:application]
         %w(is_game og_actions og_namespace og_objects supported_platforms).each do |field|
           send("#{field}=", attributes[field.to_sym])

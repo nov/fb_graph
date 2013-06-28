@@ -1,7 +1,7 @@
 module FbGraph
   class Question < Node
     include Connections::QuestionOptions
-    
+
     attr_accessor :from, :question, :created_time, :updated_time
 
     def initialize(identifier, attributes = {})
