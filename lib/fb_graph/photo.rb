@@ -40,7 +40,7 @@ module FbGraph
         @updated_time = Time.parse(attributes[:updated_time]).utc
       end
       if attributes[:place]
-        @place = Location.new(attributes[:place][:location])
+        @place = Page.new(attributes[:place][:id], :name => attributes[:place][:name], :location => attributes[:place][:location])
       end
 
       # cached connection

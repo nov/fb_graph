@@ -73,8 +73,8 @@ describe FbGraph::Photo, '.new' do
       :width  => 720,
       :source => "https://fbcdn-sphotos-a.akamaihd.net/hphotos-ak-ash1/168119_10150146071831729_20531316728_7844072_5116892_n.jpg"
     )
-    photo.place.latitude.should == 45.5167
-    photo.place.longitude.should == 11.4667
+    photo.place.should == FbGraph::Page.new("113537565323646", :name => "Altavilla Vicentina", :location => { :street => "", :zip => "", :latitude => 45.5167, :longitude => 11.4667 })
+    photo.place.location.longitude.should == 11.4667
     photo.picture.should      == 'https://graph.facebook.com/12345/picture'
     photo.icon.should         == 'http://static.ak.fbcdn.net/rsrc.php/z2E5Y/hash/8as8iqdm.gif'
     photo.source.should       == 'http://www.facebook.com/matake/picture/original_size'
