@@ -7,7 +7,7 @@ module FbGraph
     include Connections::Tags
     include Connections::Tags::Taggable
 
-    attr_accessor :from, :name, :icon, :source, :height, :width, :images, :link, :created_time, :updated_time, :position
+    attr_accessor :from, :name, :icon, :source, :height, :width, :images, :link, :created_time, :updated_time, :place
 
     def initialize(identifier, attributes = {})
       super
@@ -27,7 +27,6 @@ module FbGraph
       @height   = attributes[:height]
       @width    = attributes[:width]
       @link     = attributes[:link]
-      @position = attributes[:position]
       @images = []
       if attributes[:images]
         attributes[:images].each do |image|
@@ -39,6 +38,9 @@ module FbGraph
       end
       if attributes[:updated_time]
         @updated_time = Time.parse(attributes[:updated_time]).utc
+      end
+      if attributes[:place]
+        @place = Page.new(attributes[:place][:id], :name => attributes[:place][:name], :location => attributes[:place][:location])
       end
 
       # cached connection
