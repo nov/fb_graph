@@ -41,5 +41,15 @@ describe FbGraph::TaggedObject do
         end
       end
     end
+
+    context 'when tagged object is an Application' do
+      it 'should return Application' do
+        mock_graph :get, 'object_id', 'applications/fbgraphsample' do
+          object = FbGraph::TaggedObject.new('object_id').fetch
+          object.should be_instance_of FbGraph::Application
+        end
+      end
+    end
+
   end
 end
