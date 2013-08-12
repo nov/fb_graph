@@ -11,7 +11,9 @@ module FbGraph
 
     def fetch_with_class_determination
       attributes = fetch_without_class_determination.raw_attributes
-      klass = if attributes[:category]
+      klass = if attributes[:namespace]
+        Application
+      elsif attributes[:category]
         Page
       else
         User

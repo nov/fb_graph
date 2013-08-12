@@ -10,10 +10,17 @@ describe FbGraph::Post, '.new' do
         :id => "579612276"
       },
       :to => {
-        :data => [{
-          :name => "Jr Nov",
-          :id => "1575327134"
-        }]
+        :data => [
+          {
+            :name => "Jr Nov",
+            :id => "1575327134"
+          },
+          {
+            :name => "ESPN",
+            :namespace => "espnapp",
+            :id => "116656161708917"
+          }
+        ]
       },
       :with_tags => {
         :data => [{
@@ -64,6 +71,7 @@ describe FbGraph::Post, '.new' do
     post.message.should == 'hello'
     post.from.should == FbGraph::User.new("579612276", :name => 'Nov Matake')
     post.to.first.should == FbGraph::User.new("1575327134", :name => 'Jr Nov')
+    post.to.last.should == FbGraph::Application.new("116656161708917", :name => 'ESPN', :namespace => "espnapp")
     post.with_tags.first.should == FbGraph::User.new("1575327134", :name => 'Jr Nov')
     post.icon.should == 'http://photos-d.ak.fbcdn.net/photos-ak-snc1/v27562/23/2231777543/app_2_2231777543_9553.gif'
     post.type.should == 'status'

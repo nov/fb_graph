@@ -26,6 +26,8 @@ module FbGraph
             Event.new(to[:id], to)
           elsif to[:version]
             Group.new(to[:id], to)
+          elsif to[:namespace]
+            Application.new(to[:id], to)
           else
             User.new(to[:id], to)
           end
