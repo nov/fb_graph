@@ -1,6 +1,7 @@
 module FbGraph
   class Group < Node
     include Connections::Docs
+    include Connections::Events
     include Connections::Feed
     include Connections::Members
     include Connections::Picture
