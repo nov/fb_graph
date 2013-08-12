@@ -13,7 +13,7 @@ if RUBY_VERSION >= '1.9'
     end
   end
   task :spec do
-    Rake::Task['cover_me:report'].invoke
+    Rake::Task['cover_me:report'].invoke unless ENV['TRAVIS_RUBY_VERSION']
   end
 else
   RSpec::Core::RakeTask.new(:rcov) do |spec|
