@@ -1,3 +1,7 @@
+if RUBY_VERSION >= '2.0'
+  require 'cgi'
+end
+
 module FbGraph
   module Connections
     module PhotoAlbum
