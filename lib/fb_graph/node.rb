@@ -139,14 +139,8 @@ module FbGraph
         if RUBY_VERSION >= '2.0'
           response_body.scrub!
         else
-          # this method uses known bug as 'Backport #6190'
-          # fixed in MRI 2.0, so we should use this way only in 1.9.x or older.
-          response_body = response_body.encode(
-            'UTF-8', 'UTF-8',
-            :invalid => :replace,
-            :undef => :replace,
-            :replace => '?'
-          )
+          response_body.encode!('UTF-16', 'UTF-8', :invalid => :replace, :replace => "\uFFFD")
+          response_body.encode!('UTF-8', 'UTF-16', :invalid => :replace, :replace => "\uFFFD")
         end
         _response_ = if response_body =~ /^"/
           # NOTE:
