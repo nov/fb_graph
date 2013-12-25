@@ -86,6 +86,13 @@ describe FbGraph::Node do
         end
       end.to raise_error FbGraph::Exception
     end
+
+    it 'should handle response with invalid string as UTF-8' do
+      node = FbGraph::Node.new('identifier')
+      node.send :handle_response do
+        HTTP::Message.new_response "{ \"name\": \"John\x80\" }".force_encoding('UTF-8')
+      end.should eq({ 'name' => "John\uFFFD" })
+    end
   end
 
 end
