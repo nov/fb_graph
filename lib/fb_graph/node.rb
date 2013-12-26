@@ -135,23 +135,16 @@ module FbGraph
       when 'null'
         nil
       else
-        response_body = response.body.dup
-        if RUBY_VERSION >= '2.0'
-          response_body.scrub!
-        else
-          response_body.encode!('UTF-16', 'UTF-8', :invalid => :replace, :replace => "\uFFFD")
-          response_body.encode!('UTF-8', 'UTF-16', :invalid => :replace, :replace => "\uFFFD")
-        end
-        _response_ = if response_body =~ /^"/
+        _response_ = if response.body =~ /^"/
           # NOTE:
           #  Only for comment.reply!, which returns an identifier as String.
           #  Once the API spec changed (I guess FB will do so), we can call "with_indifferent_access" for all response.
           # NOTE:
           #  When MultiJson.engine is JsonGem, parsing JSON String fails.
           #  You should handle this case without MultiJson.
-          response_body.gsub('"', '')
+          response.body.gsub('"', '')
         else
-          MultiJson.load(response_body).with_indifferent_access
+          MultiJson.load(response.body).with_indifferent_access
         end
 
         if (200...300).include?(response.status)
