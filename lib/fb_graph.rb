@@ -47,7 +47,8 @@ module FbGraph
     _http_client_ = HTTPClient.new(
       :agent_name => "FbGraph (#{VERSION})"
     )
-    _http_client_.request_filter << Debugger::RequestFilter.new if debugging?
+    _http_client_.request_filter << RequestFilters::Scrubber.new
+    _http_client_.request_filter << RequestFilters::Debugger.new if debugging?
     http_config.try(:call, _http_client_)
     _http_client_
   end
@@ -58,7 +59,7 @@ module FbGraph
 end
 
 require 'fb_graph/exception'
-require 'fb_graph/debugger'
+require 'fb_graph/request_filters'
 
 require 'fb_graph/auth'
 require 'fb_graph/comparison'
