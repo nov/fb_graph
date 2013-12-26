@@ -6,7 +6,7 @@ module FbGraph
       end
 
       def filter_response(request, response)
-        response_body = if response.body.respond_to?(:scrub!)
+        response_body = if response.body.respond_to?(:scrub)
                           response.body.scrub
                         else
                           scrub_invalid_bytes(response.body)
