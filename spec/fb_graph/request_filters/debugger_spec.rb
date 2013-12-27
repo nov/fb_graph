@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe FbGraph::Debugger::RequestFilter do
+describe FbGraph::RequestFilters::Debugger do
   let(:resource_endpoint) { 'https://graph.facebook.com/matake' }
   let(:request) { HTTP::Message.new_request(:get, URI.parse(resource_endpoint)) }
   let(:response) { HTTP::Message.new_response({:hello => 'world'}.to_json) }
-  let(:request_filter) { FbGraph::Debugger::RequestFilter.new }
+  let(:request_filter) { FbGraph::RequestFilters::Debugger.new }
 
   describe '#filter_request' do
     it 'should log request' do
