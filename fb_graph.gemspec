@@ -17,11 +17,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "tzinfo"
   s.add_runtime_dependency "multi_json", ">= 1.3"
   s.add_development_dependency "rake", ">= 0.8"
-  if RUBY_VERSION >= '1.9'
-    s.add_development_dependency "cover_me", ">= 1.2.0"
-  else
-    s.add_development_dependency "rcov", ">= 0.9"
-  end
+  s.add_development_dependency "simplecov"
   s.add_development_dependency "rspec", ">= 2"
   s.add_development_dependency "fb_graph-mock", ">= 1.0.1"
   s.add_development_dependency "actionpack", ">= 3.0.6"
