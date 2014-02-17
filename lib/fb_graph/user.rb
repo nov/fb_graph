@@ -53,7 +53,7 @@ module FbGraph
         :verified, :about, :bio, :email, :political, :quotes,
         :relationship_status, :relationship, :video_upload_limits,
         :website, :mobile_phone, :installed, :rsvp_status,
-        :security_settings, :currency, :religion
+        :security_settings, :currency, :religion, :is_eligible_promo
       ],
       :custom => [
         :languages, :like_count, :updated_time,
