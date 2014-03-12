@@ -144,7 +144,16 @@ module FbGraph
           #  You should handle this case without MultiJson.
           response.body.gsub('"', '')
         else
-          MultiJson.load(response.body).with_indifferent_access
+          hash_or_array = MultiJson.load(response.body)
+          case hash_or_array
+          when Hash
+            hash_or_array.with_indifferent_access
+          when Array
+            # NOTE:
+            #  I think this case is FB's bug though.
+            #  ref) https://github.com/nov/fb_graph/issues/350
+            hash_or_array.collect(&:with_indifferent_access)
+          end
         end
 
         if (200...300).include?(response.status)
