@@ -37,7 +37,7 @@ module FbGraph
           Time.at(end_time)
         end
       end
-      if venue = attributes[:venue]
+      if (venue = attributes[:venue]).present?
         @venue = if venue[:id]
           Page.new(venue[:id], venue)
         else
