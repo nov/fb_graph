@@ -143,6 +143,8 @@ module FbGraph
           #  When MultiJson.engine is JsonGem, parsing JSON String fails.
           #  You should handle this case without MultiJson.
           response.body.gsub('"', '')
+        elsif response.body.strip == "[]"
+          []
         else
           MultiJson.load(response.body).with_indifferent_access
         end
