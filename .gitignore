@@ -16,6 +16,9 @@ tmtags
 ## RVM
 .rvmrc
 
+## Bundler
+.bundle
+
 ## PROJECT::GENERAL
 coverage*
 rdoc
