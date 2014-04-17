@@ -91,7 +91,7 @@ module FbGraph
           @education << Education.new(education)
         end
       end
-      if (hometown = attributes[:hometown])
+      if (hometown = attributes[:hometown]) && hometown.is_a?(Hash)
         @hometown = Page.new(hometown[:id], hometown)
       end
       @interested_in = Array(attributes[:interested_in])

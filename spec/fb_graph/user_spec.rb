@@ -181,5 +181,15 @@ describe FbGraph::User do
         end
       end
     end
+
+
+    context 'with different private data' do
+      it 'should get different private profile' do
+        mock_graph :get, 'arjun', 'users/arjun_private2', :access_token => 'access_token' do
+          user = FbGraph::User.fetch('arjun', :access_token => 'access_token')
+          user.raw_attributes['hometown'].should            == 'Minnetonka'
+        end
+      end
+    end
   end
 end
