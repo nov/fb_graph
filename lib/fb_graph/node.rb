@@ -8,7 +8,7 @@ module FbGraph
 
     def initialize(identifier, attributes = {})
       @identifier         = identifier
-      @endpoint           = File.join(ROOT_URL, identifier.to_s)
+      @endpoint           = File.join(FbGraph.root_url, identifier.to_s)
       @access_token       = attributes[:access_token]
       @raw_attributes     = attributes
       @cached_collections = {}

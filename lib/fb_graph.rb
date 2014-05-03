@@ -9,7 +9,27 @@ module FbGraph
   VERSION = ::File.read(
     ::File.join(::File.dirname(__FILE__), '../VERSION')
   ).delete("\n\r")
-  ROOT_URL = "https://graph.facebook.com"
+  ROOT_URL = 'https://graph.facebook.com'
+
+  def self.v1!
+    @v2 = false
+  end
+  def self.v2!
+    @v2 = true
+  end
+  def self.v1?
+    !v2?
+  end
+  def self.v2?
+    !!@v2
+  end
+  def self.root_url
+    if self.v2?
+      File.join(ROOT_URL, 'v2.0')
+    else
+      ROOT_URL
+    end
+  end
 
   def self.logger
     @@logger

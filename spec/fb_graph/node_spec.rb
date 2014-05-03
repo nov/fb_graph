@@ -4,7 +4,7 @@ describe FbGraph::Node do
 
   describe '.new' do
     it 'should setup endpoint' do
-      FbGraph::Node.new('matake').endpoint.should == File.join(FbGraph::ROOT_URL, 'matake')
+      FbGraph::Node.new('matake').endpoint.should == File.join(FbGraph.root_url, 'matake')
     end
 
     it 'should support access_token option' do

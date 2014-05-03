@@ -8,7 +8,7 @@ module FbGraph
       @client = Rack::OAuth2::Client.new(
         :identifier             => client_id,
         :secret                 => client_secret,
-        :host                   => URI.parse(ROOT_URL).host,
+        :host                   => URI.parse(FbGraph.root_url).host,
         :authorization_endpoint => '/oauth/authorize',
         :token_endpoint         => '/oauth/access_token',
         :redirect_uri           => options[:redirect_uri]
