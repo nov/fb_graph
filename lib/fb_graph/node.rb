@@ -43,10 +43,6 @@ module FbGraph
       delete options
     end
 
-    def v2?
-      self.endpoint.include? 'v2.0'
-    end
-
     protected
 
     def get(params = {})
@@ -94,7 +90,11 @@ module FbGraph
     alias_method :cache_collection, :cache_collections
 
     def build_endpoint(params = {})
-      File.join([self.endpoint, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s))
+      _endpoint_ = URI.parse self.endpoint
+      if api_version = params.delete(:api_version)
+        _endpoint_.path = File.join('/', api_version, _endpoint_.path)
+      end
+      File.join([_endpoint_.to_s, params.delete(:connection), params.delete(:connection_scope)].compact.collect(&:to_s))
     end
 
     def build_params(params)

@@ -29,40 +29,46 @@ describe FbGraph::Connections::Permissions do
     end
 
     context 'v2 API' do
-      def mock_v2_graph(response)
-        stub_request(
-          :get,
-          File.join(FbGraph::ROOT_URL, 'v2.0', 'me', 'permissions')
-        ).with(
-          request_for(:get, { :params => { :access_token => 'access_token' } })
-        ).to_return(
-          { body: response }
-        )
-      end
+      context 'using global config' do
+        before(:each) do
+          FbGraph.v2!
+        end
 
-      before(:each) do
-        FbGraph.v2!
-      end
+        after(:each) do
+          FbGraph.v1!
+        end
 
-      after(:each) do
-        FbGraph.v1!
-      end
+        it 'should be an Array of Hash' do
+          mock_graph :get, 'v2.0/me/permissions', 'users/permissions/v2', :access_token => 'access_token' do
+            permissions = FbGraph::User.me('access_token').permissions
+            permissions.should be_instance_of Array
+            permissions.should_not be_blank
+            permissions.each do |permission|
+              permission.should be_instance_of Symbol
+            end
+          end
+        end
 
-      it 'should be an Array of Hash' do
-        mock_v2_graph("{\"data\":[{\"permission\":\"installed\",\"status\":\"granted\"},{\"permission\": \"public_profile\",\"status\": \"granted\"}]}")
-        permissions = FbGraph::User.me('access_token').permissions
-        permissions.should be_instance_of Array
-        permissions.should_not be_blank
-        permissions.each do |permission|
-          permission.should be_instance_of Symbol
+        context 'when blank' do
+          it 'should return blank array' do
+            mock_graph :get, 'v2.0/me/permissions', 'users/permissions/blank', :access_token => 'access_token' do
+              permissions = FbGraph::User.me('access_token').permissions
+              permissions.should == []
+            end
+          end
         end
       end
 
-      context 'when blank' do
-        it 'should return blank array' do
-          mock_v2_graph("{\"data\":[]}")
-          permissions = FbGraph::User.me('access_token').permissions
-          permissions.should == []
+      context 'using local config' do
+        it 'should be an Array of Hash' do
+          mock_graph :get, 'v2.0/me/permissions', 'users/permissions/v2', :access_token => 'access_token' do
+            permissions = FbGraph::User.me('access_token').permissions(:api_version => 'v2.0')
+            permissions.should be_instance_of Array
+            permissions.should_not be_blank
+            permissions.each do |permission|
+              permission.should be_instance_of Symbol
+            end
+          end
         end
       end
     end
