@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake", ">= 0.8"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "rspec", "< 2.99"
-  s.add_development_dependency "fb_graph-mock", ">= 1.0.2"
+  s.add_development_dependency "fb_graph-mock", ">= 1.0.3"
   s.add_development_dependency "actionpack", ">= 3.0.6"
 end
