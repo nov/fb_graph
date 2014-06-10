@@ -43,6 +43,10 @@ module FbGraph
       delete options
     end
 
+    def v2?
+      self.endpoint.include? 'v2.0'
+    end
+
     protected
 
     def get(params = {})
