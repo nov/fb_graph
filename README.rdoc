@@ -15,6 +15,13 @@ A full-stack Facebook Graph API wrapper in Ruby.
 * Subscribe Update Info (https://www.facebook.com/FbGraph)
 * Q&A on Google Groups (http://groups.google.com/group/fb_graph)
 
+== Graph API v2.0
+
+FbGraph is basically developed for v1.0, and could be buggy for v2.0.
+
+Along with adding v2 support to this gem, I also started to develop fb_graph2 as Graph API v2.0 client library.
+https://github.com/nov/fb_graph2
+
 == Examples
 
 Now FbGraph supports all objects listed here: http://developers.facebook.com/docs/reference/api/
