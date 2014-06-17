@@ -11,11 +11,11 @@ module FbGraph
       end
 
       def member!(user, options = {})
-        post options.merge(:connection => :members, :connection_scope => user.identifier)
+        post options.merge(:connection => :members, :member => user.identifier)
       end
 
       def unmember!(user, options = {})
-        delete options.merge(:connection => :members, :connection_scope => user.identifier)
+        delete options.merge(:connection => :members, :member => user.identifier)
       end
     end
   end
