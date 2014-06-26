@@ -2,7 +2,7 @@ module FbGraph
   class AdCampaign < Node
     include Connections::AdGroups
 
-    attr_accessor :campaign_id, :account_id, :name, :start_time, :end_time, :updated_time, :daily_budget, :daily_imps, :campaign_status, :lifetime_budget, :lifetime_imps
+    attr_accessor :campaign_group_id, :account_id, :name, :start_time, :end_time, :updated_time, :daily_budget, :daily_imps, :campaign_status, :lifetime_budget, :lifetime_imps
 
     def initialize(identifier, attributes = {})
       super
@@ -23,7 +23,7 @@ module FbGraph
     protected
 
     def set_attrs(attributes)
-      %w(campaign_id account_id name daily_budget daily_imps campaign_status lifetime_budget lifetime_imps).each do |field|
+      %w(campaign_group_id account_id name daily_budget daily_imps campaign_status lifetime_budget lifetime_imps).each do |field|
         send("#{field}=", attributes[field.to_sym])
       end
 

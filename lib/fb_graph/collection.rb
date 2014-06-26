@@ -8,6 +8,11 @@ module FbGraph
         {:data => collection, :count => collection.size}
       when Hash
         collection[:data] ||= []
+
+        # Fix for AdImage response data: field not being an array
+        if collection[:data].is_a? Hash
+          collection[:data] = collection[:data].values
+        end
         collection
       when nil
         collection = {:data => [], :count => 0}

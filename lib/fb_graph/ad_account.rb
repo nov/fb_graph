@@ -1,5 +1,6 @@
 module FbGraph
   class AdAccount < Node
+    include Connections::AdCampaignGroups
     include Connections::AdCampaigns
     include Connections::AdGroups
     include Connections::AdCampaignStats
@@ -8,6 +9,8 @@ module FbGraph
     include Connections::ReachEstimates
     include Connections::AdConnectionObjects
     include Connections::AdPreviews
+    include Connections::AdImages
+    include Connections::AdCreditLine
 
     ATTRS = [
       :account_id,
