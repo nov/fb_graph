@@ -40,7 +40,9 @@ describe FbGraph::Connections::Members do
 
     describe '#member!' do
       it 'should return true' do
-        mock_graph :post, 'list_id/members/member_id', 'true', :access_token => 'access_token' do
+        mock_graph :post, 'list_id/members', 'true', :access_token => 'access_token', :params => {
+          :member => 'member_id'
+        } do
           FbGraph::FriendList.new('list_id', :access_token => 'access_token').member!(member).should be_true
         end
       end
@@ -48,7 +50,9 @@ describe FbGraph::Connections::Members do
 
     describe '#unmember!' do
       it 'should return true' do
-        mock_graph :delete, 'list_id/members/member_id', 'true', :access_token => 'access_token' do
+        mock_graph :delete, 'list_id/members', 'true', :access_token => 'access_token', :params => {
+          :member => 'member_id'
+        } do
           FbGraph::FriendList.new('list_id', :access_token => 'access_token').unmember!(member).should be_true
         end
       end
