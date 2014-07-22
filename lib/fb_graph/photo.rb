@@ -39,7 +39,7 @@ module FbGraph
       if attributes[:updated_time]
         @updated_time = Time.parse(attributes[:updated_time]).utc
       end
-      if attributes[:place]
+      if attributes[:place].is_a? Hash
         @place = Page.new(attributes[:place][:id], :name => attributes[:place][:name], :location => attributes[:place][:location])
       end
 
