@@ -29,6 +29,15 @@ describe FbGraph::Post, '.new' do
         }]
       },
       :icon => "http://photos-d.ak.fbcdn.net/photos-ak-snc1/v27562/23/2231777543/app_2_2231777543_9553.gif",
+      :images => [{
+        :height => 688,
+        :source => "https://scontent-a.xx.fbcdn.net/hphotos-xpa1/v/t1.0-9/10561773_10152440606793600_1776025110345181258_n.jpg?oh=4906f82b8953e685cf8162317ab38d87&oe=54405E40",
+        :width  => 957
+      }, {
+        :height => 600,
+        :source => "https://scontent-a.xx.fbcdn.net/hphotos-xpa1/v/t1.0-9/p600x600/10561773_10152440606793600_1776025110345181258_n.jpg?oh=cbe12447649d45c852f8ebdec604905e&oe=54568A70",
+        :width  => 834
+      }],
       :type => "status",
       :object_id => "12345",
       :actions => [{
@@ -79,6 +88,18 @@ describe FbGraph::Post, '.new' do
     post.properties.each do |property|
       property.should be_a FbGraph::Property
     end
+    post.images.should == [
+      FbGraph::Image.new(
+        :height => 688,
+        :source => "https://scontent-a.xx.fbcdn.net/hphotos-xpa1/v/t1.0-9/10561773_10152440606793600_1776025110345181258_n.jpg?oh=4906f82b8953e685cf8162317ab38d87&oe=54405E40",
+        :width  => 957
+      ),
+      FbGraph::Image.new(
+        :height => 600,
+        :source => "https://scontent-a.xx.fbcdn.net/hphotos-xpa1/v/t1.0-9/p600x600/10561773_10152440606793600_1776025110345181258_n.jpg?oh=cbe12447649d45c852f8ebdec604905e&oe=54568A70",
+        :width  => 834
+      )
+    ]
     post.actions.should == [
       FbGraph::Action.new(
         :name => "Comment",
