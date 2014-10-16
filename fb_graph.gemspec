@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.files = `git ls-files`.split("\n")
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.add_runtime_dependency "httpclient", ">= 2.2.0.2"
+  s.add_runtime_dependency "httpclient", ">= 2.4"
   s.add_runtime_dependency "rack-oauth2", ">= 0.14.4"
   s.add_runtime_dependency "tzinfo"
   s.add_runtime_dependency "multi_json", ">= 1.3"
