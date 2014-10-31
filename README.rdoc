@@ -83,7 +83,7 @@ https://github.com/nov/fb_graph/wiki
   :
 
 By default, FbGraph will only return the default fields. In order to
-get a non-default field, you have to supply the connect with an options hash
+get a non-default field, you have to supply the connect with an optional hash
 specifying the field. An example for events:
 
   user.events({:fields => "owner,name,description,picture"}) # { and } optional
@@ -218,7 +218,7 @@ of the specific objects fields in the sidebar under "Objects".
 
 === Authentication
 
-Both Facebook JavaScript SDK and normal OAuth2 flow is supported.
+Both Facebook JavaScript SDK and normal OAuth2 flow are supported.
 Below I show simple sample code.
 You can also see https://github.com/nov/fb_graph_sample for more details Rails3 sample application.
 
