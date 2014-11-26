@@ -42,10 +42,8 @@ module FbGraph
       @message = attributes[:message]
       @message_tags = []
       if (message_tags = attributes[:message_tags])
-        message_tags.each do |index, message_tag|
-          message_tag.each do |_message_tag_|
-            @message_tags << TaggedObject.new(_message_tag_[:id], _message_tag_)
-          end
+        message_tags.each do |message_tag|
+          @message_tags << TaggedObject.new(message_tag[:id], message_tag)
         end
       end
       @picture     = attributes[:picture]
