@@ -62,7 +62,7 @@ describe FbGraph::Connections::Permissions do
       context 'using local config' do
         it 'should be an Array of Hash' do
           mock_graph :get, 'v2.2/me/permissions', 'users/permissions/v2', :access_token => 'access_token' do
-            permissions = FbGraph::User.me('access_token').permissions(:api_version => 'v2.0')
+            permissions = FbGraph::User.me('access_token').permissions(:api_version => 'v2.2')
             permissions.should be_instance_of Array
             permissions.should_not be_blank
             permissions.each do |permission|
