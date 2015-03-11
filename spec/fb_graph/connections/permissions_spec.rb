@@ -39,7 +39,7 @@ describe FbGraph::Connections::Permissions do
         end
 
         it 'should be an Array of Hash' do
-          mock_graph :get, 'v2.0/me/permissions', 'users/permissions/v2', :access_token => 'access_token' do
+          mock_graph :get, 'v2.2/me/permissions', 'users/permissions/v2', :access_token => 'access_token' do
             permissions = FbGraph::User.me('access_token').permissions
             permissions.should be_instance_of Array
             permissions.should_not be_blank
@@ -51,7 +51,7 @@ describe FbGraph::Connections::Permissions do
 
         context 'when blank' do
           it 'should return blank array' do
-            mock_graph :get, 'v2.0/me/permissions', 'users/permissions/blank', :access_token => 'access_token' do
+            mock_graph :get, 'v2.2/me/permissions', 'users/permissions/blank', :access_token => 'access_token' do
               permissions = FbGraph::User.me('access_token').permissions
               permissions.should == []
             end
@@ -61,7 +61,7 @@ describe FbGraph::Connections::Permissions do
 
       context 'using local config' do
         it 'should be an Array of Hash' do
-          mock_graph :get, 'v2.0/me/permissions', 'users/permissions/v2', :access_token => 'access_token' do
+          mock_graph :get, 'v2.2/me/permissions', 'users/permissions/v2', :access_token => 'access_token' do
             permissions = FbGraph::User.me('access_token').permissions(:api_version => 'v2.0')
             permissions.should be_instance_of Array
             permissions.should_not be_blank
