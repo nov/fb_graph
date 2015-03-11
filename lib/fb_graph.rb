@@ -25,7 +25,7 @@ module FbGraph
   end
   def self.root_url
     if self.v2?
-      File.join(ROOT_URL, 'v2.0')
+      File.join(ROOT_URL, 'v2.2')
     else
       ROOT_URL
     end
