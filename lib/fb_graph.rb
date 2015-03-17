@@ -23,8 +23,16 @@ module FbGraph
   def self.v2?
     !!@v2
   end
+  def self.api_version=(api_version)
+    @api_version = api_version
+  end
+  def self.api_version
+    @api_version
+  end
   def self.root_url
-    if self.v2?
+    if self.api_version
+      File.join(ROOT_URL, api_version)
+    elsif self.v2?
       File.join(ROOT_URL, 'v2.0')
     else
       ROOT_URL
