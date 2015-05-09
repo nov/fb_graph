@@ -1,5 +1,10 @@
 = FbGraph
 
+NOTE:
+This gem doesn't support FB Graph API v2.0+.
+Please use fb_graph2 gem instead.
+https://github.com/nov/fb_graph2
+
 A full-stack Facebook Graph API wrapper in Ruby.
 
 {<img src="https://secure.travis-ci.org/nov/fb_graph.png" />}[http://travis-ci.org/nov/fb_graph]
