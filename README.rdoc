@@ -1,13 +1,17 @@
 = FbGraph
 
-NOTE:
-This gem doesn't support FB Graph API v2.0+.
-Please use fb_graph2 gem instead.
-https://github.com/nov/fb_graph2
-
 A full-stack Facebook Graph API wrapper in Ruby.
 
 {<img src="https://secure.travis-ci.org/nov/fb_graph.png" />}[http://travis-ci.org/nov/fb_graph]
+
+== This gem is deprecated
+
+FbGraph is basically developed for Graph API v1.0, and could be buggy with v2.+.
+
+Since Graph API v1.0 is shut down on 2014/04/30, this gem is also deprecated.
+
+Please use fb_graph2 gem instead.
+https://github.com/nov/fb_graph2
 
 == Installation
 
@@ -19,13 +23,6 @@ A full-stack Facebook Graph API wrapper in Ruby.
 * Report Issues on GitHub (https://github.com/nov/fb_graph/issues)
 * Subscribe Update Info (https://www.facebook.com/FbGraph)
 * Q&A on Google Groups (http://groups.google.com/group/fb_graph)
-
-== Graph API v2.0
-
-FbGraph is basically developed for v1.0, and could be buggy for v2.0.
-
-Along with adding v2 support to this gem, I also started to develop fb_graph2 as Graph API v2.0 client library.
-https://github.com/nov/fb_graph2
 
 == Examples
 
