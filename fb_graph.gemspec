@@ -16,6 +16,9 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "rack-oauth2", ">= 0.14.4"
   s.add_runtime_dependency "tzinfo"
   s.add_runtime_dependency "multi_json", ">= 1.3"
+  if RUBY_VERSION >= '2.0' && RUBY_VERSION < '2.1'
+    s.add_runtime_dependency "string-scrub", ">= 0.0.2"
+  end
   s.add_development_dependency "rake", ">= 0.8"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "rspec", "< 2.99"

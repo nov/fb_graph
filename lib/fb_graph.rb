@@ -1,4 +1,5 @@
 require 'httpclient'
+require 'string/scrub' if RUBY_VERSION >= '2.0' && RUBY_VERSION < '2.1'
 require 'rack/oauth2'
 require 'patch/rack/oauth2/util'
 require 'patch/rack/oauth2/client'
