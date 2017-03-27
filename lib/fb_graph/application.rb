@@ -5,6 +5,7 @@ module FbGraph
     include Connections::AppNotifications
     include Connections::Banned
     include Connections::Insights
+    include Connections::AppInsights
     include Connections::Payments
     include Connections::Picture
     include Connections::Roles
