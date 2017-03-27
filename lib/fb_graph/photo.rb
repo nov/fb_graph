@@ -6,6 +6,7 @@ module FbGraph
     include Connections::Picture
     include Connections::Tags
     include Connections::Tags::Taggable
+    include Connections::PhotoAlbum
 
     attr_accessor :from, :name, :icon, :source, :height, :width, :images, :link, :created_time, :updated_time, :place
 
