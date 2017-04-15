@@ -297,4 +297,4 @@ https://github.com/nov/fb_graph/wiki
 
 == Copyright
 
-Copyright (c) 2010 nov matake. See LICENSE for details.
+Copyright (c) 2013 nov matake. See LICENSE for details.
